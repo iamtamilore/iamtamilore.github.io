@@ -256,3 +256,9 @@ ul.exp .when { color: var(--muted-2); font-size: 13.5px; }
 .endnav { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px; }
 
 @media print { .topbar, .resources, .endnav { display: none; } }
+
+/* ---------- reading time: tells someone what they are committing to ---------- */
+.readtime {
+  color: var(--muted-2); font-size: 13px; letter-spacing: .06em;
+  text-transform: uppercase; margin: -4px 0 18px;
+}

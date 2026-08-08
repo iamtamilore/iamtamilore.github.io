@@ -124,6 +124,12 @@ TEMPLATE = """<!DOCTYPE html>
 """
 
 
+def reading_time(path: Path) -> int:
+    """Minutes at 220 words per minute, the usual figure for technical prose."""
+    words = len(re.findall(r"[A-Za-z][A-Za-z'-]*", path.read_text(encoding="utf8")))
+    return max(1, round(words / 220))
+
+
 def md_to_html(path: Path) -> str:
     return subprocess.run(
         ["pandoc", str(path), "-f", "gfm", "-t", "html5"],
@@ -167,6 +173,9 @@ def main():
             print(f"  MISSING {p['src']}")
             continue
         body = transform(md_to_html(p["src"]), p["imgmap"])
+        # a stated reading time lowers the barrier to starting
+        mins = reading_time(p["src"])
+        body = body.replace("</h1>", f'</h1>\n<p class="readtime">{mins} min read</p>', 1)
         out_dir = ROOT / "p" / p["slug"]
         out_dir.mkdir(parents=True, exist_ok=True)
         # resource links sit directly under the intro, before the contents block
