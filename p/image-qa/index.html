@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Image QA Gate | Taiwo Alabi</title>
+<meta name="description" content="Catches the moment an AI-generated model stops being the same person. F1 0.90, zero false positives.">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%232E2C6E'/><text y='72' x='50' font-size='62' text-anchor='middle' fill='%23FF7A3D' font-family='sans-serif' font-weight='bold'>T</text></svg>">
+<meta property="og:title" content="Image QA Gate | Taiwo Alabi">
+<meta property="og:description" content="Catches the moment an AI-generated model stops being the same person. F1 0.90, zero false positives.">
+<meta property="og:image" content="https://iamtamilore.github.io/assets/img/image_qa.png">
+<meta property="og:url" content="https://iamtamilore.github.io/p/image-qa/">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/">&larr; Taiwo Alabi</a>
+<hr class="rule"><h1 id="automated-qa-gate-for-ai-generated-campaign-imagery">Automated
+QA Gate for AI-Generated Campaign Imagery</h1>
+<p><strong>Catching identity drift and colour drift in generated fashion
+photography, before a client sees it.</strong></p>
+<p>Taiwo Alabi · MSc Artificial Intelligence, National College of
+Ireland · July to August 2026</p>
+<hr />
+<h2 id="contents">Contents</h2>
+<ol type="1">
+<li><a href="#1-the-problem">The problem</a></li>
+<li><a href="#2-results">Results</a></li>
+<li><a href="#3-how-the-system-works">How the system works</a></li>
+<li><a href="#4-the-identity-check">The identity check</a></li>
+<li><a href="#5-the-colour-check">The colour check</a></li>
+<li><a href="#6-where-it-fails">Where it fails</a></li>
+<li><a href="#7-the-finding-i-did-not-expect">The finding I did not
+expect</a></li>
+<li><a href="#8-honest-limitations">Honest limitations</a></li>
+<li><a href="#9-reproduce-it">Reproduce it</a></li>
+</ol></div>
+<h2 id="1-the-problem">1. The problem</h2>
+<p>A fashion brand needs thirty photographs of one model in one outfit,
+shot from several angles. The images are generated rather than
+photographed, and they come back looking almost right.</p>
+<p>Then you look properly. In shot four the jaw is slightly different.
+By shot twenty it is a different woman wearing the same jacket. The
+lighting drifts the same way, warm in one frame and cold in the next, as
+though the shoot ran over three days instead of three minutes.</p>
+<p>No single image looks wrong. The <strong>set</strong> does not match,
+and a set that does not match cannot ship. Checking by eye works for
+thirty images. It does not work for three hundred a day, and it is
+exactly the kind of repetitive comparison a person gets worse at the
+longer they do it.</p>
+<p>Two distinct faults, so two distinct checks:</p>
+<ul>
+<li><strong>Identity drift.</strong> The generated person stops being
+the contracted subject.</li>
+<li><strong>Grade drift.</strong> The colour and lighting wander off the
+approved look.</li>
+</ul>
+<p>The obvious off-the-shelf fix failed first. The
+<code>face_recognition</code> library is built for real photographs, and
+its distance rule does not transfer to the smoothed skin texture of a
+generated face. That failure is what made this a project rather than a
+library call.</p>
+<hr />
+<h2 id="2-results">2. Results</h2>
+<p>Measured on a sealed set of 90 image pairs, never touched during
+training or tuning.</p>
+<div class="tablewrap"><table>
+<thead>
+<tr class="header">
+<th>Model</th>
+<th>Precision</th>
+<th>Recall</th>
+<th>F1</th>
+<th>ROC-AUC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Siamese (proposed)</strong></td>
+<td><strong>1.00</strong></td>
+<td>0.82</td>
+<td><strong>0.90</strong></td>
+<td>1.00</td>
+</tr>
+<tr class="even">
+<td>Pixel difference</td>
+<td>1.00</td>
+<td>0.42</td>
+<td>0.59</td>
+<td>n/a</td>
+</tr>
+<tr class="odd">
+<td>kNN over same embeddings</td>
+<td>0.39</td>
+<td>0.20</td>
+<td>0.26</td>
+<td>n/a</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>The number that matters is precision: 1.00.</strong> Every
+time the gate said "same person", it was right. It never once passed the
+wrong subject through to a client. Under the cost model for this problem
+that is the expensive error, and the system made none of it.</p>
+<p>kNN is the useful comparison. It reads the <strong>identical</strong>
+fingerprints as the proposed model and still scores worst of the three,
+because it weighs all 128 dimensions equally, so background tint votes
+as loudly as jaw shape. Same information, no learning, and the score
+collapses. That gap is the argument for the design.</p>
+<figure><a href="/assets/img/cm_siamese.jpg" target="_blank" rel="noopener"><img src="/assets/img/cm_siamese.jpg" alt="Confusion matrix" loading="lazy"></a><figcaption>Siamese
+confusion matrix. TN 45, FP 0, FN 8, TP 37. The empty false-positive
+cell is the commercially important result.</figcaption></figure>
+<figure><a href="/assets/img/roc_curves.jpg" target="_blank" rel="noopener"><img src="/assets/img/roc_curves.jpg" alt="ROC curves" loading="lazy"></a><figcaption>ROC curve on the
+held-out test set.</figcaption></figure>
+<hr />
+<h2 id="3-how-the-system-works">3. How the system works</h2>
+<figure><a href="/assets/img/architecture.jpg" target="_blank" rel="noopener"><img src="/assets/img/architecture.jpg" alt="Architecture" loading="lazy"></a><figcaption>Orange marks
+the only trainable parts, roughly 262k parameters, about 1% of the
+network. Everything else is frozen. An image enters the campaign only if
+both branches clear it.</figcaption></figure>
+<p>One image comes in. It is prepared once, then scored twice, and it
+passes only if <strong>both</strong> checks clear. The two faults are
+independent: an image can be exactly the right person in exactly the
+wrong light.</p>
+<p>The gate fails in the cheaper direction on purpose. A good image
+wrongly rejected costs one regeneration. A bad image wrongly accepted
+reaches the client.</p>
+<hr />
+<h2 id="4-the-identity-check">4. The identity check</h2>
+<p>You cannot ask a computer "is this the same woman". So each
+photograph becomes a list of numbers, a fingerprint, and the question
+becomes whether two fingerprints sit close together.</p>
+<p>Making good fingerprints needs a network that already knows how to
+look at pictures, and learning that takes about a million photographs. I
+have 106. So I borrow: <strong>ResNet50</strong>, pretrained on
+ImageNet, kept frozen. My 600 pairs cannot improve on a million images,
+and freezing keeps the remaining job small.</p>
+<p>A <strong>Siamese network</strong> is two identical copies of that
+frozen network side by side. Photo A down one arm, photo B down the
+other, through the same weights, so it is one ruler measuring both
+things. Subtract the two fingerprints, drop the minus signs, and a
+single trainable layer reads the 128 differences and returns a
+confidence between 0 and 1.</p>
+<p>That final layer is where the design earns its keep. It holds one
+weight per dimension, so it can learn that jaw shape matters and
+background tint does not. kNN cannot: it has nothing that learns.</p>
+<hr />
+<h2 id="5-the-colour-check">5. The colour check</h2>
+<p>The problem here is that <strong>no bad examples exist.</strong> The
+pipeline never saved its rejects, so supervised classification is not
+available.</p>
+<p>An autoencoder solves this by only ever seeing good work. It is
+handed an image, made to squash it down to almost nothing, then asked to
+redraw it from what survived. Each image carries 49,152 numbers and all
+of it has to pass through a gap <strong>64 numbers wide</strong>.
+Describing a painting in eight words, then having someone repaint it
+from those eight words, is the same exercise. Memorising is impossible,
+so only the general character of the image survives, which is exactly
+the colour and lighting I care about.</p>
+<p>Feed it an image with the wrong colours and the redraw comes out
+badly wrong. <strong>The size of that failure is the alarm.</strong> It
+detects bad images without ever having seen one.</p>
+<figure><a href="/assets/img/grade_drift_examples.jpg" target="_blank" rel="noopener"><img src="/assets/img/grade_drift_examples.jpg" alt="Grade drift probes" loading="lazy"></a><figcaption>Both subjects at the same camera angle, so the only variable across
+each row is the distortion. Red frames mark the probes the gate should
+reject.</figcaption></figure>
+<p>Good images reconstruct at 0.00374 mean squared error. Damaged ones
+at 0.00865, a factor of 2.3. Where the rejection line sits is a business
+decision, not a technical one:</p>
+<div class="tablewrap"><table>
+<thead>
+<tr class="header">
+<th>Threshold</th>
+<th>Catches</th>
+<th>False alarms</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>90th percentile</td>
+<td>62%</td>
+<td>10%</td>
+</tr>
+<tr class="even">
+<td>95th percentile</td>
+<td>26%</td>
+<td>5%</td>
+</tr>
+<tr class="odd">
+<td>99th percentile</td>
+<td>3%</td>
+<td>1%</td>
+</tr>
+</tbody>
+</table></div>
+<p>I report the whole curve rather than pick one, because the right
+answer changes per campaign. Worth stating plainly: 62% is not a solved
+problem. This is a filter that flags images for a human, not a gate that
+rejects them unattended.</p>
+<hr />
+<h2 id="6-where-it-fails">6. Where it fails</h2>
+<figure><a href="/assets/img/fn_siamese.jpg" target="_blank" rel="noopener"><img src="/assets/img/fn_siamese.jpg" alt="False negatives" loading="lazy"></a><figcaption>All eight
+misses. Every one is a profile or back shot.</figcaption></figure>
+<p>Every single error is the same error. All eight are same-subject
+pairs the model scored as different, and all eight are back or profile
+shots, the angles where least of the face is visible. The model was not
+confused about the face. It could not <strong>see</strong> the face.</p>
+<p>When all your errors share one shape, you know what to fix.</p>
+<hr />
+<h2 id="7-the-finding-i-did-not-expect">7. The finding I did not
+expect</h2>
+<p>The biggest single improvement came from a number nobody chose.</p>
+<p>The network outputs a score from 0 to 1, and anything above 0.5 was
+being called "same person". That 0.5 is just the sigmoid default. Tuned
+on the validation set only, never the test set, the right value is
+<strong>0.4821</strong>. That one change recovered <strong>all 8 misses
+and created no new false positives</strong>, lifting F1 from 0.90 to
+1.00.</p>
+<p>The best result in the project came from questioning a setting that
+was never a decision in the first place.</p>
+<hr />
+<h2 id="8-honest-limitations">8. Honest limitations</h2>
+<ul>
+<li><strong>The dataset is small.</strong> 106 images, two subjects, 90
+test pairs. Two subjects cannot tell me whether this generalises to a
+third, and that is the ceiling on every claim here.</li>
+<li><strong>The advantage is not statistically proven.</strong>
+McNemar's test against pixel difference returned p = 0.19, which does
+not clear the usual bar. The gap between 0.90 and 0.59 is large, but 90
+pairs is too little evidence to rule out chance. That is a shortage of
+data, not a null result, and I would rather report it than omit it.</li>
+<li><strong>The off-grade images are damaged by me on purpose.</strong>
+Real drift is likely subtler than a 60 degree hue shift, so 62% is
+probably optimistic.</li>
+</ul>
+<hr />
+<h2 id="9-reproduce-it">9. Reproduce it</h2>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements.txt</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> main.py <span class="at">--phase</span> eval</span></code></pre></div>
+<p>Runs in about a minute and regenerates every metric, confusion matrix
+and the ROC curve. Seeded with <code>seed=42</code>, so the numbers are
+identical on every run. Verified across four consecutive runs while
+writing this up.</p>
+<p>Per-image gate latency is 133 ms on CPU, roughly 450 images a minute,
+against a person managing a few hundred a day.</p>
+<p><strong>Stack:</strong> Python · TensorFlow/Keras · ResNet50 ·
+scikit-learn · NumPy · Matplotlib</p>
+
+<a class="back" href="/">&larr; All work</a>
+<footer>
+  <div>Taiwo Alabi &middot; <a href="mailto:alabitaiwo625@gmail.com">alabitaiwo625@gmail.com</a>
+   &middot; <a href="https://www.linkedin.com/in/tami-alabi/">LinkedIn</a>
+   &middot; <a href="https://github.com/iamtamilore">GitHub</a></div>
+</footer>
+</div>
+</body>
+</html>

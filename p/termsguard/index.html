@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TermsGuard AI | Taiwo Alabi</title>
+<meta name="description" content="Reads the small print and flags what is unfair to you, grounded in GDPR. 87% F1, live on the internet.">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%232E2C6E'/><text y='72' x='50' font-size='62' text-anchor='middle' fill='%23FF7A3D' font-family='sans-serif' font-weight='bold'>T</text></svg>">
+<meta property="og:title" content="TermsGuard AI | Taiwo Alabi">
+<meta property="og:description" content="Reads the small print and flags what is unfair to you, grounded in GDPR. 87% F1, live on the internet.">
+<meta property="og:image" content="https://iamtamilore.github.io/assets/img/termsguard.jpg">
+<meta property="og:url" content="https://iamtamilore.github.io/p/termsguard/">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/">&larr; Taiwo Alabi</a>
+<hr class="rule"><h1 id="termsguard-ai">TermsGuard AI</h1>
+<p><strong>Reads the small print and flags the parts that are unfair to
+you, in plain English.</strong></p>
+<p>Taiwo Alabi · MSc Artificial Intelligence, National College of
+Ireland</p>
+<p><strong>Live demo:</strong> <a
+href="https://newtazer-terms-guard-ai.hf.space">https://newtazer-terms-guard-ai.hf.space</a>
+<strong>Source:</strong> <a
+href="https://github.com/iamtamilore/terms-guard-ai">https://github.com/iamtamilore/terms-guard-ai</a></p>
+<hr />
+<h2 id="contents">Contents</h2>
+<ol type="1">
+<li><a href="#1-the-problem">The problem</a></li>
+<li><a href="#2-results">Results</a></li>
+<li><a href="#3-how-it-works">How it works</a></li>
+<li><a href="#4-what-it-compares-against">What it compares
+against</a></li>
+<li><a href="#5-why-similarity-alone-is-not-enough">Why similarity alone
+is not enough</a></li>
+<li><a href="#6-the-verification-layer">The verification layer</a></li>
+<li><a href="#7-saying-how-sure-it-is">Saying how sure it is</a></li>
+<li><a href="#8-honest-limitations">Honest limitations</a></li>
+<li><a href="#9-run-it">Run it</a></li>
+</ol></div>
+<h2 id="1-the-problem">1. The problem</h2>
+<p>Reading every privacy policy an average internet user meets would
+take roughly <strong>244 hours a year</strong>. Nobody does it. So
+people agree to data selling and tracking without knowing they have.</p>
+<p>The problem is not that the documents are secret. They are published,
+free, and legally binding. They are simply unreadable at the length and
+density they are written, and the one clause that matters is buried
+among forty that do not.</p>
+<hr />
+<h2 id="2-results">2. Results</h2>
+<div class="tablewrap"><table>
+<thead>
+<tr class="header">
+<th>Measure</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Unfair-clause detection</td>
+<td><strong>87% F1</strong></td>
+</tr>
+<tr class="even">
+<td>Invented content, after grounding</td>
+<td><strong>cut by 77%</strong></td>
+</tr>
+<tr class="odd">
+<td>End-to-end latency</td>
+<td><strong>28 seconds to under 10</strong></td>
+</tr>
+<tr class="even">
+<td>GDPR reference chunks indexed</td>
+<td>4,527</td>
+</tr>
+<tr class="odd">
+<td>Labelled reference clauses</td>
+<td>205</td>
+</tr>
+</tbody>
+</table></div>
+<p>The 77% figure is the one I care about most. A tool that tells you a
+clause is unfair, and is sometimes making it up, is worse than no tool,
+because it teaches you to distrust the warnings. Grounding each flag in
+a retrieved GDPR article is what makes the output checkable: every
+concern points at the legal text it came from.</p>
+<hr />
+<h2 id="3-how-it-works">3. How it works</h2>
+<figure><a href="/assets/img/tg_architecture.jpg" target="_blank" rel="noopener"><img src="/assets/img/tg_architecture.jpg" alt="Architecture" loading="lazy"></a><figcaption>Retrieval-augmented pipeline. Similarity proposes, rules and
+retrieval constrain, the LLM verifies.</figcaption></figure>
+<p>Text is split into individual clauses and de-duplicated. Each clause
+is embedded with <code>all-MiniLM-L6-v2</code> and compared by cosine
+similarity against labelled examples of fair and unfair clauses.
+Anything that looks unfair then has GDPR context retrieved for it from a
+FAISS index, and Claude Haiku verifies the flag before it is shown.</p>
+<hr />
+<h2 id="4-what-it-compares-against">4. What it compares against</h2>
+<p>The system carries <strong>205 hand-labelled reference
+clauses</strong>: 105 examples of fair terms and 100 examples of unfair
+ones. A new clause is judged by how close it sits to each set.</p>
+<p>Separately, a FAISS index holds <strong>4,527 chunks of GDPR
+text</strong>. When a clause is flagged, retrieval pulls the most
+relevant articles, so the explanation cites the regulation rather than
+the model's impression of it.</p>
+<p>That split matters. The labelled clauses decide <em>whether</em>
+something is a problem. The GDPR corpus supplies <em>why</em>, and it is
+the second half that makes a flag worth acting on.</p>
+<hr />
+<h2 id="5-why-similarity-alone-is-not-enough">5. Why similarity alone is
+not enough</h2>
+<p>This is the part I would defend hardest in an interview.</p>
+<p>Consider two sentences:</p>
+<blockquote>
+<p>"We sell your personal data to third parties." "We do
+<strong>not</strong> sell your personal data to third parties."</p>
+</blockquote>
+<p>To a sentence embedding these are nearly identical. They share almost
+every word, the same grammar, the same subject matter. Cosine similarity
+will place them side by side, and a purely semantic classifier will flag
+the second sentence as a violation when it is actually a
+reassurance.</p>
+<p>So the pipeline carries a layer of explicit rule guards on top of the
+similarity score:</p>
+<ul>
+<li><strong>Negation detection</strong>, for exactly the case
+above.</li>
+<li><strong>Protective-context detection</strong>, for clauses that
+describe a right being granted rather than removed.</li>
+<li><strong>A children's-data check</strong>, because clauses about
+minors carry obligations that generic similarity scoring does not weight
+correctly.</li>
+<li><strong>Keyword boosting</strong>, for terms whose presence changes
+the reading regardless of how the sentence embeds.</li>
+</ul>
+<p>None of these are clever. They exist because I ran the
+similarity-only version, read what it got wrong, and found the errors
+clustered around cases where meaning is inverted by a single word.</p>
+<hr />
+<h2 id="6-the-verification-layer">6. The verification layer</h2>
+<p>When an API key is configured, Claude Haiku re-reads each flagged
+clause and removes false positives before anything is shown to the
+user.</p>
+<p>The design decision worth noting is the <strong>fallback</strong>:
+with no key set, the tool runs in matching-only mode rather than
+failing. It degrades to a less precise version of itself instead of
+refusing to work, which means the demo is always live and the tool is
+not hostage to a paid dependency.</p>
+<hr />
+<h2 id="7-saying-how-sure-it-is">7. Saying how sure it is</h2>
+<p>Flags are tiered by confidence rather than presented as flat
+verdicts, with thresholds at 0.55 for high and 0.45 for medium.</p>
+<p>A document-level risk assessment then combines the proportion of
+clauses flagged with the average confidence across them, so a policy
+with two borderline flags is not reported the same way as one with
+fifteen strong ones.</p>
+<p>This is the same instinct that runs through my other projects: state
+uncertainty rather than hide it behind a single number.</p>
+<hr />
+<h2 id="8-honest-limitations">8. Honest limitations</h2>
+<ul>
+<li><strong>It is not legal advice</strong>, and the interface says so.
+It surfaces clauses worth reading properly; it does not tell you your
+rights.</li>
+<li><strong>Grounded in GDPR only.</strong> A policy written for another
+jurisdiction gets judged against the wrong regulation, and the tool does
+not currently detect that mismatch.</li>
+<li><strong>The 87% F1 is measured on my own labelled set.</strong> 205
+reference clauses is a working corpus, not a benchmark, and performance
+on unusual drafting styles is unmeasured.</li>
+<li><strong>This was a contributed project</strong>, not a solo build.
+My work was the retrieval pipeline, the grounding, the rule guards and
+the latency reduction.</li>
+</ul>
+<hr />
+<h2 id="9-run-it">9. Run it</h2>
+<p>Easiest is the live demo: <strong><a
+href="https://newtazer-terms-guard-ai.hf.space">https://newtazer-terms-guard-ai.hf.space</a></strong></p>
+<p>Locally:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements.txt</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> server.py        <span class="co"># http://127.0.0.1:7860</span></span></code></pre></div>
+<p>Optional, for the verification layer:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">ANTHROPIC_API_KEY</span><span class="op">=</span><span class="st">&quot;sk-ant-...&quot;</span></span></code></pre></div>
+<p><strong>Stack:</strong> Python · Flask · sentence-transformers
+(MiniLM) · FAISS · Anthropic API · Docker</p>
+
+<a class="back" href="/">&larr; All work</a>
+<footer>
+  <div>Taiwo Alabi &middot; <a href="mailto:alabitaiwo625@gmail.com">alabitaiwo625@gmail.com</a>
+   &middot; <a href="https://www.linkedin.com/in/tami-alabi/">LinkedIn</a>
+   &middot; <a href="https://github.com/iamtamilore">GitHub</a></div>
+</footer>
+</div>
+</body>
+</html>

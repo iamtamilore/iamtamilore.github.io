@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Care Agent | Taiwo Alabi</title>
+<meta name="description" content="Complaint routing at 95.2% accuracy, with a confidence gate that escalates rather than guesses.">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%232E2C6E'/><text y='72' x='50' font-size='62' text-anchor='middle' fill='%23FF7A3D' font-family='sans-serif' font-weight='bold'>T</text></svg>">
+<meta property="og:title" content="Care Agent | Taiwo Alabi">
+<meta property="og:description" content="Complaint routing at 95.2% accuracy, with a confidence gate that escalates rather than guesses.">
+<meta property="og:image" content="https://iamtamilore.github.io/assets/img/care_agent.jpg">
+<meta property="og:url" content="https://iamtamilore.github.io/p/care-agent/">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/">&larr; Taiwo Alabi</a>
+<hr class="rule"><h1 id="customer-care-process-automation">Customer Care Process
+Automation</h1>
+<p><strong>Two bots replacing two manual back-office jobs, with a rule
+about when not to decide.</strong></p>
+<p>Taiwo Alabi · MSc Artificial Intelligence, National College of
+Ireland</p>
+<hr />
+<h2 id="contents">Contents</h2>
+<ol type="1">
+<li><a href="#1-the-problem">The problem</a></li>
+<li><a href="#2-results">Results</a></li>
+<li><a href="#3-the-process-before">The process, before</a></li>
+<li><a href="#4-the-process-after">The process, after</a></li>
+<li><a href="#5-how-the-triage-agent-works">How the triage agent
+works</a></li>
+<li><a href="#6-the-decision-that-matters-when-not-to-decide">The
+decision that matters: when not to decide</a></li>
+<li><a href="#7-the-second-bot-rule-based-validation">The second bot:
+rule-based validation</a></li>
+<li><a href="#8-honest-limitations">Honest limitations</a></li>
+<li><a href="#9-running-it">Running it</a></li>
+</ol></div>
+<h2 id="1-the-problem">1. The problem</h2>
+<p>Hundreds of customer complaints sorted by hand every morning, on a
+Nigerian mobile network. A person reads each one and decides which
+back-end team it belongs to: SIM activation, network, refunds, payment
+and billing, or general.</p>
+<p>Two things go wrong. People misroute tickets, because after the
+sixtieth complaint they all start to read the same. And the customer
+waits while their ticket finds the right desk, then waits again once it
+gets there.</p>
+<p>A misroute is not a small error. It costs the customer days, and the
+business a second handling pass on work it already paid for once.</p>
+<hr />
+<h2 id="2-results">2. Results</h2>
+<div class="tablewrap"><table>
+<thead>
+<tr class="header">
+<th>Measure</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Routing accuracy on held-out tickets</td>
+<td><strong>95.2%</strong> (40 of 42)</td>
+</tr>
+<tr class="even">
+<td>Labelled corpus</td>
+<td>210 tickets, 42 per category</td>
+</tr>
+<tr class="odd">
+<td>Categories</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>Confidence threshold for escalation</td>
+<td>0.55</td>
+</tr>
+<tr class="odd">
+<td>Manual processes replaced</td>
+<td>2</td>
+</tr>
+</tbody>
+</table></div>
+<p>The accuracy number is the least interesting thing here. What matters
+is what the agent does with the tickets it is <strong>not</strong>
+confident about, which is section 6.</p>
+<hr />
+<h2 id="3-the-process-before">3. The process, before</h2>
+<figure><a href="/assets/img/as_is.jpg" target="_blank" rel="noopener"><img src="/assets/img/as_is.jpg" alt="As-is process" loading="lazy"></a><figcaption>Every complaint read
+and routed by a person.</figcaption></figure>
+<p>I modelled the existing process in BPMN 2.0 before writing any code.
+That order was deliberate: it meant the automation replaced a process I
+actually understood, rather than my assumption of one, and the model is
+what made the manual touchpoints explicit enough to decide which were
+worth automating.</p>
+<hr />
+<h2 id="4-the-process-after">4. The process, after</h2>
+<figure><a href="/assets/img/to_be.jpg" target="_blank" rel="noopener"><img src="/assets/img/to_be.jpg" alt="To-be process" loading="lazy"></a><figcaption>Two pools. Automated
+triage above, the daily customer report bot below.</figcaption></figure>
+<p>The redesign splits the work by the kind of decision each part
+requires. Field validation has known correct answers, so it goes to
+rules. Reading a complaint and inferring intent does not, so it goes to
+a classifier. The confidence gate sits between the classifier and the
+outcome.</p>
+<hr />
+<h2 id="5-how-the-triage-agent-works">5. How the triage agent works</h2>
+<p>Ticket text is vectorised with TF-IDF and classified by multinomial
+Naive Bayes across the five routing categories.</p>
+<p>Naive Bayes is a deliberate choice rather than a default. The corpus
+is 210 tickets, which is small, and Naive Bayes remains stable at that
+size where a heavier model would overfit. It is also inspectable: I can
+see which terms drive a routing decision, which matters when somebody
+asks why a ticket went where it did.</p>
+<p><img src="/assets/img/fig1_classification_report.png"
+alt="Classification report" /> <em>Per-class precision, recall and
+F1.</em></p>
+<p>Reported per class rather than as a single figure, because a router
+that is strong on common categories and weak on rare ones is a different
+system from one that is evenly good, and an average hides that
+difference.</p>
+<figure><a href="/assets/img/fig2_confusion_matrix.jpg" target="_blank" rel="noopener"><img src="/assets/img/fig2_confusion_matrix.jpg" alt="Confusion matrix" loading="lazy"></a><figcaption>Where the classifier confuses one team with another.</figcaption></figure>
+<p>The matrix shows where errors concentrate. Confusion between
+neighbouring categories is a routing problem worth fixing; errors
+scattered evenly would suggest the features themselves are too weak, and
+that is not the pattern.</p>
+<hr />
+<h2 id="6-the-decision-that-matters-when-not-to-decide">6. The decision
+that matters: when not to decide</h2>
+<p><img src="/assets/img/fig4_confidence_scores.png"
+alt="Confidence distribution" /> <em>The escalation gate. Below 0.55,
+the ticket goes to a human.</em></p>
+<p>A classifier will always return an answer. Asked to route a ticket it
+has never seen anything like, it will still pick the closest of the five
+categories and report a number. That is the failure mode worth designing
+against.</p>
+<p>So the agent does not have to answer. Any ticket scoring below
+<strong>0.55</strong> confidence is flagged
+<code>needs_human_review</code> and escalated instead of routed.</p>
+<p>The economics justify it. A needless escalation costs an agent about
+five minutes. A confident misroute costs the customer days. When one
+error is two orders of magnitude more expensive than the other, the
+correct system is one that escalates freely, and I would rather report a
+lower automation rate than a higher misroute rate.</p>
+<hr />
+<h2 id="7-the-second-bot-rule-based-validation">7. The second bot:
+rule-based validation</h2>
+<figure><a href="/assets/img/fig3_rpa_validation.jpg" target="_blank" rel="noopener"><img src="/assets/img/fig3_rpa_validation.jpg" alt="RPA validation" loading="lazy"></a><figcaption>The
+validator checking each record against its requirements.</figcaption></figure>
+<p>The second automation produces the daily customer creation report: it
+reads the customer records, validates each field, writes the clean
+report to Excel and Word, and writes everything that failed validation
+to a separate exceptions file.</p>
+<p>This half is deliberately <strong>not</strong> machine learning.
+These are hard business rules with known correct answers, so a
+classifier would introduce uncertainty where none needs to exist.
+Choosing not to use ML is as much a design decision as choosing to.</p>
+<p>Outputs: <code>routed_tickets.csv</code>,
+<code>validation_exceptions.csv</code>, and the daily report in both
+<code>.xlsx</code> and <code>.docx</code>.</p>
+<hr />
+<h2 id="8-honest-limitations">8. Honest limitations</h2>
+<ul>
+<li><strong>The corpus is small and synthetic.</strong> 210 generated
+tickets across five categories. Real complaints are messier:
+code-switching, abbreviations, several issues in one message. The
+generator was written to be realistic, but it is still a generator.</li>
+<li><strong>42 test tickets is a thin evaluation.</strong> 95.2% means
+40 of 42, so a single ticket moves the figure by more than two points.
+The pattern of errors is more informative than the headline number.</li>
+<li><strong>Five categories is a simplification.</strong> A real network
+has more teams and less clean boundaries between them.</li>
+<li><strong>The confidence threshold was set by judgement, not
+swept.</strong> 0.55 reflects the cost asymmetry described above, but a
+proper sweep against real escalation costs would be the honest way to
+fix it.</li>
+</ul>
+<hr />
+<h2 id="9-running-it">9. Running it</h2>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> gen_data.py          <span class="co"># build the labelled corpus</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> triage_bot.py        <span class="co"># train, evaluate, route</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> rpa_report_bot.py    <span class="co"># validate records, write the daily report</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> plot_results.py      <span class="co"># regenerate every figure in this document</span></span></code></pre></div>
+<p>Seeded, so results reproduce on every run.</p>
+<p><strong>Stack:</strong> Python · scikit-learn (TF-IDF, Naive Bayes) ·
+pandas · BPMN 2.0 · openpyxl · python-docx</p>
+
+<a class="back" href="/">&larr; All work</a>
+<footer>
+  <div>Taiwo Alabi &middot; <a href="mailto:alabitaiwo625@gmail.com">alabitaiwo625@gmail.com</a>
+   &middot; <a href="https://www.linkedin.com/in/tami-alabi/">LinkedIn</a>
+   &middot; <a href="https://github.com/iamtamilore">GitHub</a></div>
+</footer>
+</div>
+</body>
+</html>

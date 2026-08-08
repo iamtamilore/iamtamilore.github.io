@@ -1,0 +1,136 @@
+"""Build the project pages from the same markdown that produces the PDFs.
+
+One source per project. Run this after editing any README.
+"""
+import re
+import subprocess
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent
+SRC = Path("/home/newtazer/Desktop/NCI/CV VARIANTS/symplicity")
+
+# slug, source README, page title, og description, and how each image name maps
+PROJECTS = [
+    dict(slug="image-qa", src=SRC / "imageqa/README.md",
+         title="Image QA Gate",
+         desc="Catches the moment an AI-generated model stops being the same person. "
+              "F1 0.90, zero false positives.",
+         card="image_qa.png",
+         imgmap={"architecture.png": "architecture.jpg",
+                 "roc_curves.png": "roc_curves.jpg",
+                 "cm_siamese.png": "cm_siamese.jpg",
+                 "fn_siamese.png": "fn_siamese.jpg",
+                 "grade_drift_examples.png": "grade_drift_examples.jpg"}),
+
+    dict(slug="care-agent", src=SRC / "careagent/README.md",
+         title="Care Agent",
+         desc="Complaint routing at 95.2% accuracy, with a confidence gate that escalates "
+              "rather than guesses.",
+         card="care_agent.jpg",
+         imgmap={"as_is.png": "as_is.jpg", "to_be.png": "to_be.jpg",
+                 "fig1_classification_report.png": "fig1_classification_report.png",
+                 "fig2_confusion_matrix.png": "fig2_confusion_matrix.jpg",
+                 "fig3_rpa_validation.png": "fig3_rpa_validation.jpg",
+                 "fig4_confidence_scores.png": "fig4_confidence_scores.png"}),
+
+    dict(slug="termsguard", src=SRC / "termsguard/README.md",
+         title="TermsGuard AI",
+         desc="Reads the small print and flags what is unfair to you, grounded in GDPR. "
+              "87% F1, live on the internet.",
+         card="termsguard.jpg",
+         imgmap={"TermsGuard_architecture.png": "tg_architecture.jpg"}),
+
+    dict(slug="clinical-rag", src=SRC / "clinicalrag/README.md",
+         title="Smart Medical Records",
+         desc="A doctor asks in plain English and gets an answer from that patient's own "
+              "notes. Self-hosted, scoped, audited.",
+         card="clinical_rag.png",
+         imgmap={"architecture.png": "rag_architecture.jpg",
+                 "data_model.png": "rag_data_model.jpg"}),
+]
+
+TEMPLATE = """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title} | Taiwo Alabi</title>
+<meta name="description" content="{desc}">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%232E2C6E'/><text y='72' x='50' font-size='62' text-anchor='middle' fill='%23FF7A3D' font-family='sans-serif' font-weight='bold'>T</text></svg>">
+<meta property="og:title" content="{title} | Taiwo Alabi">
+<meta property="og:description" content="{desc}">
+<meta property="og:image" content="https://iamtamilore.github.io/assets/img/{card}">
+<meta property="og:url" content="https://iamtamilore.github.io/p/{slug}/">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/">&larr; Taiwo Alabi</a>
+{body}
+<a class="back" href="/">&larr; All work</a>
+<footer>
+  <div>Taiwo Alabi &middot; <a href="mailto:alabitaiwo625@gmail.com">alabitaiwo625@gmail.com</a>
+   &middot; <a href="https://www.linkedin.com/in/tami-alabi/">LinkedIn</a>
+   &middot; <a href="https://github.com/iamtamilore">GitHub</a></div>
+</footer>
+</div>
+</body>
+</html>
+"""
+
+
+def md_to_html(path: Path) -> str:
+    return subprocess.run(
+        ["pandoc", str(path), "-f", "gfm", "-t", "html5"],
+        capture_output=True, text=True, check=True).stdout
+
+
+def transform(html: str, imgmap: dict) -> str:
+    # point images at the optimised copies in /assets/img/
+    for old, new in imgmap.items():
+        html = html.replace(f'src="{old}"', f'src="/assets/img/{new}"')
+
+    # every image becomes tap-to-open-full-size, with its caption below
+    def fig(m):
+        src, alt = m.group("src"), m.group("alt")
+        return (f'<figure><a href="{src}" target="_blank" rel="noopener">'
+                f'<img src="{src}" alt="{alt}" loading="lazy"></a>')
+    html = re.sub(r'<p><img src="(?P<src>[^"]+)" alt="(?P<alt>[^"]*)"[^>]*>\s*'
+                  r'<em>(?P<cap>.*?)</em></p>',
+                  lambda m: fig(m) + f'<figcaption>{m.group("cap")}</figcaption></figure>',
+                  html, flags=re.S)
+    html = re.sub(r'<p><img src="(?P<src>[^"]+)" alt="(?P<alt>[^"]*)"[^>]*></p>',
+                  lambda m: fig(m) + '</figure>', html)
+
+    # tables scroll horizontally on a phone instead of breaking the layout
+    html = html.replace("<table>", '<div class="tablewrap"><table>')
+    html = html.replace("</table>", "</table></div>")
+
+    # style the contents block
+    html = re.sub(r'<h2 id="contents">Contents</h2>\s*<ol>',
+                  '<div class="toc"><h3 style="margin-top:0">Contents</h3><ol>', html, count=1)
+    html = html.replace("</ol>\n<hr />", "</ol></div>", 1)
+
+    # the h1 gets the accent rule above it, matching the home page
+    html = html.replace("<h1", '<hr class="rule"><h1', 1)
+    return html
+
+
+def main():
+    for p in PROJECTS:
+        if not p["src"].exists():
+            print(f"  MISSING {p['src']}")
+            continue
+        body = transform(md_to_html(p["src"]), p["imgmap"])
+        out_dir = ROOT / "p" / p["slug"]
+        out_dir.mkdir(parents=True, exist_ok=True)
+        (out_dir / "index.html").write_text(
+            TEMPLATE.format(title=p["title"], desc=p["desc"], card=p["card"],
+                            slug=p["slug"], body=body), encoding="utf8")
+        print(f"  built /p/{p['slug']}/")
+
+
+if __name__ == "__main__":
+    main()

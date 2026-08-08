@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Smart Medical Records | Taiwo Alabi</title>
+<meta name="description" content="A doctor asks in plain English and gets an answer from that patient's own notes. Self-hosted, scoped, audited.">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%232E2C6E'/><text y='72' x='50' font-size='62' text-anchor='middle' fill='%23FF7A3D' font-family='sans-serif' font-weight='bold'>T</text></svg>">
+<meta property="og:title" content="Smart Medical Records | Taiwo Alabi">
+<meta property="og:description" content="A doctor asks in plain English and gets an answer from that patient's own notes. Self-hosted, scoped, audited.">
+<meta property="og:image" content="https://iamtamilore.github.io/assets/img/clinical_rag.png">
+<meta property="og:url" content="https://iamtamilore.github.io/p/clinical-rag/">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/">&larr; Taiwo Alabi</a>
+<hr class="rule"><h1 id="smart-medical-records-engine">Smart Medical Records Engine</h1>
+<p><strong>Helps a doctor find the one thing in a patient file that
+matters, before the appointment ends.</strong></p>
+<p>Taiwo Alabi · MSc Artificial Intelligence, National College of
+Ireland</p>
+<hr />
+<h2 id="contents">Contents</h2>
+<ol type="1">
+<li><a href="#1-the-problem">The problem</a></li>
+<li><a href="#2-what-it-does">What it does</a></li>
+<li><a href="#3-how-it-works">How it works</a></li>
+<li><a href="#4-the-safety-rail-that-matters-most">The safety rail that
+matters most</a></li>
+<li><a href="#5-who-is-allowed-in">Who is allowed in</a></li>
+<li><a href="#6-the-data-model">The data model</a></li>
+<li><a href="#7-why-self-hosted">Why self-hosted</a></li>
+<li><a href="#8-honest-limitations">Honest limitations</a></li>
+<li><a href="#9-running-it">Running it</a></li>
+</ol></div>
+<h2 id="1-the-problem">1. The problem</h2>
+<p>A doctor has ten minutes with you.</p>
+<p>Somewhere in your file, which might be three years of notes from
+different visits, different doctors, different hospitals, there is a
+line saying you reacted badly to a particular medicine.</p>
+<p>Your doctor is about to prescribe you something. Do they remember
+that line? Did they ever see it? Nobody reads three years of notes in
+ten minutes.</p>
+<p>That is the whole problem. Not a modelling problem, a retrieval
+problem with a consequence attached.</p>
+<hr />
+<h2 id="2-what-it-does">2. What it does</h2>
+<p>A search box a doctor can talk to normally. They ask <em>"has this
+patient ever reacted badly to any medication?"</em> and it answers from
+<strong>that patient's own notes</strong>, showing the actual note it
+found the answer in.</p>
+<p>Three things make it trustworthy, and all three matter more than the
+clever part:</p>
+<ul>
+<li><strong>It only reads one file.</strong> Not a similar patient's,
+not someone with the same illness.</li>
+<li><strong>Records never leave the hospital.</strong> The model runs on
+the hospital's own machine.</li>
+<li><strong>Every access is written down.</strong> If anyone asks who
+opened a patient's file, there is an answer.</li>
+</ul>
+<hr />
+<h2 id="3-how-it-works">3. How it works</h2>
+<figure><a href="/assets/img/rag_architecture.jpg" target="_blank" rel="noopener"><img src="/assets/img/rag_architecture.jpg" alt="Architecture" loading="lazy"></a><figcaption>Four Docker
+Compose services on one private network. Orange marks the controls that
+constrain what the system is allowed to do.</figcaption></figure>
+<p>A question arrives at the FastAPI service. It passes the auth check,
+gets embedded by <code>nomic-embed-text</code>, and is used to search
+that patient's notes in Postgres with pgvector. The retrieved notes are
+handed to a locally-running <code>llama3.1</code> as context, and the
+answer comes back quoting them.</p>
+<p>Ingestion runs once as a separate service: it chunks the records,
+embeds them, and loads them with their patient reference attached.</p>
+<hr />
+<h2 id="4-the-safety-rail-that-matters-most">4. The safety rail that
+matters most</h2>
+<p>Retrieval is <strong>scoped by patient before it ranks by
+similarity.</strong></p>
+<p>This sounds like a detail. It is the whole design. A general vector
+search over all notes would happily return another patient's record if
+that record happened to be the closer semantic match, and it often
+would, because two people with the same condition produce very similar
+notes.</p>
+<p>So the filter is not a ranking preference applied afterwards.
+Wrong-patient results are excluded from the candidate set entirely, and
+the constraint is carried in the schema rather than left to application
+code.</p>
+<hr />
+<h2 id="5-who-is-allowed-in">5. Who is allowed in</h2>
+<p>Physician authentication with JWT, passwords hashed rather than
+stored.</p>
+<p>PII redaction runs before text reaches the model, so the language
+model never receives identifying details it does not need to answer the
+question.</p>
+<p>Every access writes an <code>audit_log</code> row against the doctor
+who made it. A system handling medical records that cannot answer "who
+looked at this, and when" is not deployable regardless of how well it
+retrieves.</p>
+<hr />
+<h2 id="6-the-data-model">6. The data model</h2>
+<figure><a href="/assets/img/rag_data_model.jpg" target="_blank" rel="noopener"><img src="/assets/img/rag_data_model.jpg" alt="Data model" loading="lazy"></a><figcaption>The
+<code>patient_id</code> foreign key on every embedded row is what
+enforces scoping at the database level.</figcaption></figure>
+<p>Notes are stored in SOAP format, subjective / objective / assessment
+/ plan, because that is how clinicians already write them. Matching the
+existing format matters more than choosing a neater one: it means
+records can be ingested as they are.</p>
+<p>Each note carries a <code>vector(768)</code> embedding on the same
+row as its <code>patient_id</code>, so the scoping constraint and the
+searchable content cannot drift apart.</p>
+<hr />
+<h2 id="7-why-self-hosted">7. Why self-hosted</h2>
+<p>Every model in this system runs locally through Ollama. No API calls,
+no data sent out.</p>
+<p>That decision costs accuracy. A hosted frontier model would answer
+better. But patient records leaving a hospital network is not a
+trade-off a hospital can make, so the ceiling on model quality is fixed
+by the constraint, not the other way round.</p>
+<p>The whole stack, API, database and language model, runs across four
+Docker Compose services on one machine.</p>
+<hr />
+<h2 id="8-honest-limitations">8. Honest limitations</h2>
+<ul>
+<li><strong>It has not been tested with real clinicians.</strong> The
+retrieval works; whether the interface fits a ten-minute consultation is
+unproven, and that is the claim that matters.</li>
+<li><strong>The data is synthetic.</strong> Real notes are messier:
+abbreviations, inconsistent formatting, scanned documents.</li>
+<li><strong>A local <code>llama3.1</code> is weaker than a hosted
+model.</strong> Accepted deliberately, but it means answers on complex
+questions are less reliable than the retrieval underneath them.</li>
+<li><strong>No formal evaluation set.</strong> I can show the system
+does not leak across patients, which was the priority, but I have not
+measured answer quality against a labelled benchmark.</li>
+</ul>
+<hr />
+<h2 id="9-running-it">9. Running it</h2>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> compose up</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/create_doctor.py     <span class="co"># create a physician account</span></span></code></pre></div>
+<p>Ollama pulls <code>nomic-embed-text</code> and <code>llama3.1</code>
+on first run. Ingestion loads the records and builds the embeddings.
+Nothing reaches the internet after the model pull.</p>
+<p><strong>Stack:</strong> Python · FastAPI · PostgreSQL + pgvector ·
+Ollama (llama3.1) · Docker Compose · JWT</p>
+
+<a class="back" href="/">&larr; All work</a>
+<footer>
+  <div>Taiwo Alabi &middot; <a href="mailto:alabitaiwo625@gmail.com">alabitaiwo625@gmail.com</a>
+   &middot; <a href="https://www.linkedin.com/in/tami-alabi/">LinkedIn</a>
+   &middot; <a href="https://github.com/iamtamilore">GitHub</a></div>
+</footer>
+</div>
+</body>
+</html>
