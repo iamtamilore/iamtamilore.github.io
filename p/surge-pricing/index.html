@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RL vs Genetic Algorithm | Taiwo Alabi</title>
+<meta name="description" content="Two ways to learn a surge pricing policy, tested on 637,976 real Boston ride records. GA +21.4% over fixed pricing.">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%232E2C6E'/><text y='72' x='50' font-size='62' text-anchor='middle' fill='%23FF7A3D' font-family='sans-serif' font-weight='bold'>T</text></svg>">
+<meta property="og:title" content="RL vs Genetic Algorithm | Taiwo Alabi">
+<meta property="og:description" content="Two ways to learn a surge pricing policy, tested on 637,976 real Boston ride records. GA +21.4% over fixed pricing.">
+<meta property="og:image" content="https://iamtamilore.github.io/assets/img/surge_pricing.jpg">
+<meta property="og:url" content="https://iamtamilore.github.io/p/surge-pricing/">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<div class="topbar">
+  <a href="/cv/">&larr; Back to CV</a>
+  <a href="/">All work</a>
+</div>
+<div class="wrap">
+<hr class="rule"><h1 id="rl-vs-genetic-algorithm-for-surge-pricing">RL vs Genetic
+Algorithm for Surge Pricing</h1>
+<p><strong>Two ways to learn a pricing policy, tested against each other
+on 637,976 real Boston ride records.</strong></p>
+<p>Taiwo Alabi · MSc Artificial Intelligence, National College of
+Ireland</p>
+<hr />
+<h2 id="contents">Contents</h2>
+<ol type="1">
+<li><a href="#1-the-problem">The problem</a></li>
+<li><a href="#2-results">Results</a></li>
+<li><a href="#3-how-the-problem-was-modelled">How the problem was
+modelled</a></li>
+<li><a href="#4-the-part-i-had-to-invent">The part I had to
+invent</a></li>
+<li><a href="#5-approach-one-q-learning">Approach one:
+Q-learning</a></li>
+<li><a href="#6-approach-two-genetic-algorithm">Approach two: genetic
+algorithm</a></li>
+<li><a href="#7-what-the-two-agents-learned">What the two agents
+learned</a></li>
+<li><a href="#8-honest-limitations">Honest limitations</a></li>
+<li><a href="#9-run-it">Run it</a></li>
+</ol></div>
+<h2 id="1-the-problem">1. The problem</h2>
+<p>Surge pricing decides what multiplier to charge based on the
+situation right now. Raining at 6pm with more riders than drivers is not
+the same as a dry Tuesday afternoon, and the price should not be
+either.</p>
+<p>Most surge rules are written by hand: <em>if it is raining or rush
+hour, charge 1.5x</em>. That captures something real, but it is a blunt
+instrument. It treats every wet rush hour the same, and it was never
+tested against the alternative.</p>
+<p>The question here is whether an agent can learn a better policy than
+that rule, and whether two very different learning methods arrive at the
+same answer.</p>
+<hr />
+<h2 id="2-results">2. Results</h2>
+<p>Average daily revenue, evaluated on 8 seeds of 30 simulated days
+each, so every strategy faces the identical sequence of market
+conditions.</p>
+<div class="tablewrap"><table>
+<thead>
+<tr class="header">
+<th>Strategy</th>
+<th>Avg daily revenue</th>
+<th>Std</th>
+<th>Uplift vs fixed</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Fixed: always 1.0x</td>
+<td>$704,646</td>
+<td>6,797</td>
+<td>0.0%</td>
+</tr>
+<tr class="even">
+<td>Rule: 1.5x if rain or rush</td>
+<td>$760,117</td>
+<td>9,098</td>
+<td>+7.9%</td>
+</tr>
+<tr class="odd">
+<td><strong>RL: Q-learning</strong></td>
+<td><strong>$833,103</strong></td>
+<td>13,465</td>
+<td><strong>+18.2%</strong></td>
+</tr>
+<tr class="even">
+<td><strong>GA: evolved policy</strong></td>
+<td><strong>$855,244</strong></td>
+<td>13,442</td>
+<td><strong>+21.4%</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>Both learned methods roughly <strong>double</strong> the gain the
+hand-written rule achieves. The standard deviations are small relative
+to the means, so the ordering is stable across seeds rather than an
+artefact of one lucky run.</p>
+<figure><a href="/assets/img/3_revenue_comparison.jpg" target="_blank" rel="noopener"><img src="/assets/img/3_revenue_comparison.jpg" alt="Revenue comparison" loading="lazy"></a><figcaption>Average daily revenue for all four strategies, with error bars
+across evaluation seeds.</figcaption></figure>
+<p>The rule baseline earning +7.9% is itself a useful result: it
+confirms weather and time of day genuinely carry pricing signal. The
+learned methods then roughly double that by tuning the multiplier per
+state instead of applying one surge level to every rainy or busy
+hour.</p>
+<hr />
+<h2 id="3-how-the-problem-was-modelled">3. How the problem was
+modelled</h2>
+<p>A finite Markov Decision Process, which is a way of describing a
+situation as a set of states, a set of choices available in each, and a
+reward for choosing well.</p>
+<p><strong>State (24 of them).</strong> Three variables describe each
+hour:</p>
+<ul>
+<li><strong>time bucket:</strong> morning rush (07-09), day (10-15),
+evening rush (16-19), night</li>
+<li><strong>weather:</strong> dry or wet</li>
+<li><strong>demand level:</strong> low, mid, high</li>
+</ul>
+<p>That is 4 x 2 x 3 = 24 states. Kept deliberately small: 24 states x 5
+actions is 120 Q-table entries, few enough to read and inspect by hand.
+A larger state space would price more precisely and be impossible to
+audit.</p>
+<p><strong>Action (5 of them).</strong> The multiplier to charge: 1.00,
+1.25, 1.50, 1.75, 2.00.</p>
+<p><strong>Reward.</strong> Revenue for that hour, which is the
+multiplier times the base fare times the number of rides, times the
+fraction of riders who accept at that price.</p>
+<p>One detail that mattered: the raw dataset prices already have Uber's
+own surge baked into them. Dividing it back out gives the clean base
+fare, so the agent applies its multiplier from scratch rather than on
+top of one that is already there.</p>
+<hr />
+<h2 id="4-the-part-i-had-to-invent">4. The part I had to invent</h2>
+<p>The dataset cannot tell you how sensitive riders are to price. It
+only records demand at the surge levels Uber actually charged, so there
+is no observation of what demand would have been at a different price on
+the same day. Worse, Uber raised prices precisely when demand was
+already high, so high surge and high demand appear together in a way
+that makes cause and effect impossible to separate.</p>
+<p>So the acceptance model is assumed, not measured:</p>
+<pre><code>acceptance(m, s) = max(0, 1 - K(s) * (m - 1))
+K = base * wet_factor * rush_factor</code></pre>
+<p><code>K</code> controls how fast bookings drop as the price rises,
+and it is state-dependent because not every rider reacts the same way.
+Someone stuck in the rain during rush hour needs the ride and will
+absorb a surge. Someone on a quiet dry afternoon has other options.</p>
+<p>I bounded it deliberately. <strong>Below 0.15</strong> would mean
+riders pay literally any price, which no market does. <strong>Above
+1.2</strong> would mean a 1.1x surge drives away almost everyone, which
+is equally unrealistic. Stacked multiplications can push <code>K</code>
+to either extreme, so the bounds keep the simulator honest.</p>
+<p>This is the weakest part of the project and section 8 says so
+plainly.</p>
+<hr />
+<h2 id="5-approach-one-q-learning">5. Approach one: Q-learning</h2>
+<p>Q-learning keeps a table with one row per state and one column per
+multiplier. Each cell holds the agent's current estimate of how much
+long-run revenue that choice earns in that situation. Every hour of
+training nudges the relevant cell toward what actually happened.</p>
+<p>Settings, each chosen rather than defaulted:</p>
+<ul>
+<li><strong>Learning rate 0.1.</strong> Only a tenth of the gap between
+estimate and outcome is applied each time, so a single unusual hour
+cannot swing the table.</li>
+<li><strong>Discount 0.9.</strong> Next hour's expected revenue counts
+for 90% of this hour's, which suits a 24-hour episode where early
+decisions shape later conditions.</li>
+<li><strong>Epsilon 1.0 decaying to 0.05.</strong> The agent starts
+fully random, knowing nothing, and decays by 0.999 per episode. By
+episode 3,000 it mostly exploits what it has learned, keeping 5%
+exploration so it never gets permanently stuck on a habit.</li>
+</ul>
+<figure><a href="/assets/img/1_rl_learning_curve.jpg" target="_blank" rel="noopener"><img src="/assets/img/1_rl_learning_curve.jpg" alt="RL learning curve" loading="lazy"></a><figcaption>Average daily revenue per training episode. The Q-table converges to
+a stable policy over 3,000 episodes.</figcaption></figure>
+<hr />
+<h2 id="6-approach-two-genetic-algorithm">6. Approach two: genetic
+algorithm</h2>
+<p>The genetic algorithm attacks the same problem from the opposite
+direction. Rather than updating one state at a time, it evolves a
+<strong>whole policy at once</strong>: a length-24 vector assigning one
+multiplier to every state.</p>
+<p>Each generation runs four steps. <strong>Tournament
+selection</strong>, where three candidates compete and the fittest
+becomes a parent. <strong>Uniform crossover</strong>, where the child
+inherits each of the 24 positions from either parent with equal
+probability. <strong>Mutation</strong>, replacing a position at random
+with probability 0.1. And <strong>elitism</strong>, carrying the top two
+genomes forward unchanged so a good policy is never lost to chance.</p>
+<p>Fitness is average daily revenue over ten fixed-seed simulator
+days.</p>
+<figure><a href="/assets/img/2_ga_fitness_curve.jpg" target="_blank" rel="noopener"><img src="/assets/img/2_ga_fitness_curve.jpg" alt="GA fitness curve" loading="lazy"></a><figcaption>Best
+policy fitness per generation. The curve climbs steeply and plateaus
+near generation 30.</figcaption></figure>
+<hr />
+<h2 id="7-what-the-two-agents-learned">7. What the two agents
+learned</h2>
+<figure><a href="/assets/img/4_policy_heatmaps.jpg" target="_blank" rel="noopener"><img src="/assets/img/4_policy_heatmaps.jpg" alt="Policy heatmaps" loading="lazy"></a><figcaption>The
+learned multiplier for every state, side by side.</figcaption></figure>
+<p>This is the result worth pausing on. <strong>Both methods
+independently discovered the same pricing structure</strong>: surge in
+high-demand and rainy conditions, hold the price in quiet dry periods.
+Neither was told that rule. One built it up cell by cell from thousands
+of individual hours; the other evolved it as a whole policy under
+selection pressure. They converged anyway.</p>
+<p>The GA edges Q-learning, +21.4% against +18.2%, and the reason is
+visible in how it learns. It evaluates all 24 states simultaneously as a
+single unit, so even rarely-visited state combinations get shaped by the
+fitness signal. Q-learning can only learn about a state it actually
+lands in, so rare states get fewer updates.</p>
+<p>That advantage comes with a trade-off. Q-learning updates online and
+would adapt to a shifting market; the GA would need re-evolving.</p>
+<hr />
+<h2 id="8-honest-limitations">8. Honest limitations</h2>
+<ul>
+<li><strong>The demand model is assumed, not learned.</strong>
+<code>K</code>, the function controlling how fast bookings drop as price
+rises, is my own construction. Every revenue figure inherits that
+assumption, and a different <code>K</code> would move the numbers.</li>
+<li><strong>The state and action spaces are deliberately small.</strong>
+24 states and 5 price points keep the policy readable and auditable, but
+limit how precisely it can respond.</li>
+<li><strong>It is a simulator.</strong> Running an untrained agent
+against real riders is not an option, so the environment is built from
+historical data rather than live response.</li>
+<li><strong>Revenue is the only objective.</strong> A real deployment
+would weigh rider retention, driver supply and fairness, and pure
+revenue maximisation is not obviously the right target.</li>
+</ul>
+<hr />
+<h2 id="9-run-it">9. Run it</h2>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements.txt</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> data.py     <span class="co"># builds clean_rides.csv from the raw data</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> run.py      <span class="co"># trains both agents, prints the table, saves the four plots</span></span></code></pre></div>
+<p><code>data.py</code> must run first. Global <code>SEED = 42</code>,
+so results reproduce exactly.</p>
+<p><strong>Data:</strong> Uber and Lyft Cab Prices (Boston), Kaggle,
+2019. 693,071 rows, reduced to <strong>637,976</strong> after dropping
+metered Taxi-tier rides that carry no quoted price. Duplicate weather
+readings collapsed to one entry per location-hour, 6,276 rows down to
+3,960.</p>
+<p><strong>Stack:</strong> Python · NumPy · pandas · Matplotlib</p>
+
+<div class="endnav">
+  <a class="cta cta-ghost" href="/cv/">&larr; Back to CV</a>
+  <a class="cta cta-ghost" href="/">All work</a>
+</div>
+<footer>
+  <div>Taiwo Alabi &middot; <a href="mailto:alabitaiwo625@gmail.com">alabitaiwo625@gmail.com</a>
+   &middot; <a href="https://www.linkedin.com/in/tami-alabi/">LinkedIn</a>
+   &middot; <a href="https://github.com/iamtamilore">GitHub</a></div>
+</footer>
+</div>
+</body>
+</html>

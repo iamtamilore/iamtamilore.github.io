@@ -42,6 +42,16 @@ PROJECTS = [
          card="termsguard.jpg",
          imgmap={"TermsGuard_architecture.png": "tg_architecture.jpg"}),
 
+    dict(slug="surge-pricing", src=SRC / "surgepricing/README.md",
+         title="RL vs Genetic Algorithm",
+         desc="Two ways to learn a surge pricing policy, tested on 637,976 real Boston "
+              "ride records. GA +21.4% over fixed pricing.",
+         card="surge_pricing.jpg",
+         imgmap={"3_revenue_comparison.png": "3_revenue_comparison.jpg",
+                 "1_rl_learning_curve.png": "1_rl_learning_curve.jpg",
+                 "2_ga_fitness_curve.png": "2_ga_fitness_curve.jpg",
+                 "4_policy_heatmaps.png": "4_policy_heatmaps.jpg"}),
+
     dict(slug="clinical-rag", src=SRC / "clinicalrag/README.md",
          title="Smart Medical Records",
          desc="A doctor asks in plain English and gets an answer from that patient's own "
@@ -50,6 +60,31 @@ PROJECTS = [
          imgmap={"architecture.png": "rag_architecture.jpg",
                  "data_model.png": "rag_data_model.jpg"}),
 ]
+
+# labelled links shown under the title on each project page
+RESOURCES = {
+ "image-qa": [("Full write-up", "/assets/docs/image_qa_writeup.pdf", "pdf"),
+              ("Source code", "https://github.com/iamtamilore/campaign-image-qa", "")],
+ "care-agent": [("Full write-up", "/assets/docs/care_agent_writeup.pdf", "pdf"),
+                ("Source code", "https://github.com/iamtamilore/customer-care-automation", "")],
+ "termsguard": [("Live demo", "https://newtazer-terms-guard-ai.hf.space", "live"),
+                ("Full write-up", "/assets/docs/termsguard_writeup.pdf", "pdf"),
+                ("Source code", "https://github.com/iamtamilore/terms-guard-ai", "")],
+ "clinical-rag": [("Full write-up", "/assets/docs/clinical_rag_writeup.pdf", "pdf"),
+                  ("Source code", "https://github.com/iamtamilore/agentic_rag_fastapi", "")],
+ "surge-pricing": [("Watch the walkthrough", "https://youtu.be/Q_6xYLD4ykA", "video"),
+                   ("Full report", "/assets/docs/surge_pricing_report.pdf", "pdf"),
+                   ("Slides", "/assets/docs/surge_pricing_slides.pdf", "pdf")],
+}
+
+
+def resource_strip(slug):
+    items = []
+    for label, href, kind in RESOURCES.get(slug, []):
+        tag = f'<span class="tag">{kind}</span>' if kind else ""
+        items.append(f'<a href="{href}">{label}{tag}</a>')
+    return '<div class="resources">' + "".join(items) + "</div>" if items else ""
+
 
 TEMPLATE = """<!DOCTYPE html>
 <html lang="en">
@@ -68,10 +103,16 @@ TEMPLATE = """<!DOCTYPE html>
 <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
+<div class="topbar">
+  <a href="/cv/">&larr; Back to CV</a>
+  <a href="/">All work</a>
+</div>
 <div class="wrap">
-<a class="back" href="/">&larr; Taiwo Alabi</a>
 {body}
-<a class="back" href="/">&larr; All work</a>
+<div class="endnav">
+  <a class="cta cta-ghost" href="/cv/">&larr; Back to CV</a>
+  <a class="cta cta-ghost" href="/">All work</a>
+</div>
 <footer>
   <div>Taiwo Alabi &middot; <a href="mailto:alabitaiwo625@gmail.com">alabitaiwo625@gmail.com</a>
    &middot; <a href="https://www.linkedin.com/in/tami-alabi/">LinkedIn</a>
@@ -128,6 +169,10 @@ def main():
         body = transform(md_to_html(p["src"]), p["imgmap"])
         out_dir = ROOT / "p" / p["slug"]
         out_dir.mkdir(parents=True, exist_ok=True)
+        # resource links sit directly under the intro, before the contents block
+        strip = resource_strip(p["slug"])
+        if strip:
+            body = body.replace('<div class="toc">', strip + '<div class="toc">', 1)
         (out_dir / "index.html").write_text(
             TEMPLATE.format(title=p["title"], desc=p["desc"], card=p["card"],
                             slug=p["slug"], body=body), encoding="utf8")

@@ -225,3 +225,34 @@ ul.exp strong { color: var(--text); }
 ul.exp .when { color: var(--muted-2); font-size: 13.5px; }
 
 @media print { .cta, .endcta { display: none; } }
+
+/* ---------- top bar: Back to CV is reachable at any scroll depth ---------- */
+.topbar {
+  position: sticky; top: 0; z-index: 50;
+  display: flex; gap: 18px; align-items: center;
+  padding: 11px var(--pad); font-size: 13.5px;
+  background: rgba(15,14,12,.93); backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.topbar a { color: var(--muted); }
+.topbar a:first-child { color: var(--accent); font-weight: 600; }
+.topbar a:hover { color: var(--accent); border-bottom-color: transparent; }
+
+/* ---------- resource strip: what a reader can open, labelled ---------- */
+.resources { display: flex; flex-wrap: wrap; gap: 10px; margin: 22px 0 4px; }
+.resources a {
+  display: inline-flex; align-items: center; gap: 7px;
+  border: 1px solid var(--line); background: var(--panel);
+  border-radius: 8px; padding: 9px 14px; font-size: 14px; color: var(--text);
+}
+.resources a:hover { border-color: var(--accent); color: var(--accent); }
+.tag {
+  font-size: 10px; letter-spacing: .09em; text-transform: uppercase;
+  color: var(--muted-2); border: 1px solid var(--line); border-radius: 4px;
+  padding: 1px 5px;
+}
+.resources a:hover .tag { border-color: var(--accent-dim); color: var(--accent); }
+
+.endnav { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px; }
+
+@media print { .topbar, .resources, .endnav { display: none; } }
