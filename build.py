@@ -158,9 +158,10 @@ def transform(html: str, imgmap: dict) -> str:
     html = html.replace("</table>", "</table></div>")
 
     # style the contents block
-    html = re.sub(r'<h2 id="contents">Contents</h2>\s*<ol>',
+    # pandoc emits <ol type="1">, so match any attributes
+    html = re.sub(r'<h2 id="contents">Contents</h2>\s*<ol[^>]*>',
                   '<div class="toc"><h3 style="margin-top:0">Contents</h3><ol>', html, count=1)
-    html = html.replace("</ol>\n<hr />", "</ol></div>", 1)
+    html = re.sub(r'</ol>\s*<hr />', '</ol></div>', html, count=1)
 
     # the h1 gets the accent rule above it, matching the home page
     html = html.replace("<h1", '<hr class="rule"><h1', 1)
@@ -181,7 +182,7 @@ def main():
         # resource links sit directly under the intro, before the contents block
         strip = resource_strip(p["slug"])
         if strip:
-            body = body.replace('<div class="toc">', strip + '<div class="toc">', 1)
+            body = body.replace('</ol></div>', '</ol></div>' + strip, 1)
         (out_dir / "index.html").write_text(
             TEMPLATE.format(title=p["title"], desc=p["desc"], card=p["card"],
                             slug=p["slug"], body=body), encoding="utf8")
