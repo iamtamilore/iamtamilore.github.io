@@ -188,3 +188,40 @@ body::after {
   background: #7fd18b; margin-right: 5px; vertical-align: 1px;
 }
 @media print { .live { color:#333; border-color:#999; background:none; } }
+
+/* ---------- card links ----------
+   The whole card stays clickable via a stretched pseudo-element, but the
+   direct Code and Live demo links sit above it so they win the click.        */
+.card { position: relative; }
+.stretch { border: 0; }
+.stretch::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+.cardlinks {
+  position: relative; z-index: 2; display: flex; gap: 12px; align-items: center;
+  margin-top: 14px; padding-top: 13px; border-top: 1px solid var(--line);
+  font-size: 13.5px;
+}
+.cardlinks a { color: var(--muted); }
+.cardlinks a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.cardlinks span { color: var(--line); }
+@media print { .cardlinks { display: none; } }
+
+/* ---------- call to action ---------- */
+.cta {
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 20px;
+  background: var(--accent); color: #14100c; font-weight: 600; font-size: 14.5px;
+  padding: 11px 18px; border-radius: 8px; border: 1px solid var(--accent);
+}
+.cta:hover { background: #ff8b55; border-color: #ff8b55; }
+.cta-sub { font-weight: 500; opacity: .62; font-size: 12px; letter-spacing: .06em; }
+.cta-ghost { background: none; color: var(--text); border-color: var(--line); }
+.cta-ghost:hover { background: none; border-color: var(--accent); color: var(--accent); }
+.endcta { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* ---------- experience list ---------- */
+ul.exp { list-style: none; padding: 0; margin: 22px 0 0; }
+ul.exp li { border-left: 2px solid var(--line); padding: 0 0 0 16px; margin-bottom: 22px;
+            max-width: 62ch; color: var(--muted); }
+ul.exp strong { color: var(--text); }
+ul.exp .when { color: var(--muted-2); font-size: 13.5px; }
+
+@media print { .cta, .endcta { display: none; } }
