@@ -17,7 +17,7 @@ PROJECTS = [
          title="Image QA Gate",
          desc="Catches the moment an AI-generated model stops being the same person. "
               "F1 0.90, zero false positives.",
-         card="image_qa.png",
+         card="image_qa.jpg",
          imgmap={"architecture.png": "architecture.jpg",
                  "roc_curves.png": "roc_curves.jpg",
                  "cm_siamese.png": "cm_siamese.jpg",
@@ -46,7 +46,7 @@ PROJECTS = [
          title="Smart Medical Records",
          desc="A doctor asks in plain English and gets an answer from that patient's own "
               "notes. Self-hosted, scoped, audited.",
-         card="clinical_rag.png",
+         card="clinical_rag.jpg",
          imgmap={"architecture.png": "rag_architecture.jpg",
                  "data_model.png": "rag_data_model.jpg"}),
 ]
