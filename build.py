@@ -2,12 +2,14 @@
 
 One source per project. Run this after editing any README.
 """
+import os
 import re
 import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-SRC = Path("/home/newtazer/Desktop/NCI/CV VARIANTS/symplicity")
+# where the project READMEs live locally; override with SYMPLICITY_SRC if needed
+SRC = Path(os.environ.get("SYMPLICITY_SRC", Path.home() / "Desktop/NCI/CV VARIANTS/symplicity"))
 
 # slug, source README, page title, og description, and how each image name maps
 PROJECTS = [
