@@ -173,3 +173,18 @@ body::after {
 .hero-photo:hover { filter: grayscale(.82) contrast(1.06); }
 
 @media print { body::after { display: none; } .hero-photo { filter: grayscale(1); width: 34mm; } }
+
+/* ---------- live badge ----------
+   The only element allowed a second colour, because "it is running right now"
+   is a different kind of fact from a metric. Kept small and quiet.            */
+.live {
+  display: inline-block; vertical-align: 2px; margin-left: 8px;
+  font-size: 10.5px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  color: #7fd18b; border: 1px solid #2f5c37; background: #16241a;
+  border-radius: 99px; padding: 2px 8px;
+}
+.live::before {
+  content: ""; display: inline-block; width: 5px; height: 5px; border-radius: 50%;
+  background: #7fd18b; margin-right: 5px; vertical-align: 1px;
+}
+@media print { .live { color:#333; border-color:#999; background:none; } }
