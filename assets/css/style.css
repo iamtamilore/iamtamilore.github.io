@@ -5,15 +5,16 @@
    --------------------------------------------------------------- */
 
 :root {
-  --ink:        #0d0d14;
-  --ink-2:      #14141f;
-  --panel:      #191926;
-  --line:       #26263a;
-  --text:       #e8e8f0;
-  --muted:      #8f8fa8;
-  --muted-2:    #6a6a82;
+  /* G5 Tri-X: warm near-black and paper greys. Orange is the ONE surviving colour. */
+  --ink:        #0f0e0c;
+  --ink-2:      #16140f;
+  --panel:      #1a1713;
+  --line:       #2b2620;
+  --text:       #ece7dd;
+  --muted:      #968c7e;
+  --muted-2:    #6f665b;
   --accent:     #ff7a3d;
-  --accent-dim: #c95a26;
+  --accent-dim: #b8541f;
   --max:        900px;
   --pad:        20px;
 }
@@ -145,3 +146,30 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 34px 0; }
   h2 { page-break-after: avoid; margin-top: 22pt; }
   figure img { border: 1px solid #ddd; max-height: 92mm; width: auto; margin: 0 auto; }
 }
+
+
+/* ---------- film grain overlay ----------
+   G5 grade is grain-forward. This is what stops a flat dark page reading as a
+   template. Fixed, pointer-transparent, very low opacity.                     */
+body::after {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+  opacity: .045;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='140' height='140' filter='url(%23n)'/></svg>");
+}
+
+/* ---------- hero: photo beside the name ---------- */
+.hero { display: grid; gap: 20px; align-items: center; margin-bottom: 4px; }
+@media (min-width: 720px) {
+  .hero { grid-template-columns: 168px 1fr; gap: 30px; }
+}
+.hero-photo {
+  width: 116px; height: 145px; object-fit: cover; object-position: 50% 22%;
+  border-radius: 10px; display: block; border: 1px solid var(--line);
+  filter: grayscale(1) contrast(1.06);
+}
+@media (min-width: 720px) { .hero-photo { width: 168px; height: 210px; } }
+
+/* the one place colour returns to the photo, on hover */
+.hero-photo:hover { filter: grayscale(.82) contrast(1.06); }
+
+@media print { body::after { display: none; } .hero-photo { filter: grayscale(1); width: 34mm; } }
