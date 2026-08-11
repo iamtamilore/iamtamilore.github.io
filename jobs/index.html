@@ -9,58 +9,76 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230f0e0c'/><text y='72' x='50' font-size='62' text-anchor='middle' fill='%23FF7A3D' font-family='sans-serif' font-weight='bold'>T</text></svg>">
 <meta name="robots" content="noindex">
 <style>
-  .jobs-wrap { max-width: 640px; margin: 0 auto; padding: 0 var(--pad) 60px; }
-  .top-label { font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin: 28px 0 10px; }
+  .jobs-wrap { max-width: 640px; margin: 0 auto; padding: 0 var(--pad) 70px; }
+  .progress-line { font-size: 13.5px; color: var(--muted); margin: 14px 0 4px; }
+  .progress-line strong { color: var(--accent); }
+  .progress-bar { height: 4px; background: var(--line); border-radius: 999px; overflow: hidden; margin-bottom: 18px; }
+  .progress-bar .fill { height: 100%; background: var(--accent); }
+
+  .tabs { display: flex; gap: 6px; border-bottom: 1px solid var(--line); margin-bottom: 18px; }
+  .tab-btn {
+    flex: 1; background: none; border: none; color: var(--muted); font-size: 14px;
+    padding: 10px 4px; border-bottom: 2px solid transparent; -webkit-tap-highlight-color: transparent;
+  }
+  .tab-btn.active { color: #fff; border-bottom-color: var(--accent); font-weight: 600; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
   .top-card {
     background: var(--panel); border: 1px solid var(--accent-dim); border-radius: 14px;
-    padding: 22px; margin-bottom: 10px;
+    padding: 22px; margin-bottom: 22px;
   }
+  .top-label { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
   .top-card .company { font-size: 20px; font-weight: 700; color: #fff; }
   .top-card .role { font-size: 15.5px; color: var(--text); margin-top: 3px; }
-  .top-card .meta-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; font-size: 12.5px; color: var(--muted); }
+  .meta-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; font-size: 12.5px; color: var(--muted); }
   .pill { border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; }
   .pill.deadline { color: var(--accent); border-color: var(--accent-dim); }
-  .top-card .why { font-size: 14px; color: var(--muted); margin-top: 14px; line-height: 1.5; }
+  .why { font-size: 14px; color: var(--muted); margin-top: 14px; line-height: 1.5; }
   .apply-btn {
-    display: block; text-align: center; margin-top: 18px; padding: 15px;
+    display: block; text-align: center; margin-top: 16px; padding: 15px;
     background: var(--accent); color: #16140f; font-weight: 700; font-size: 16px;
     border-radius: 10px; text-decoration: none;
   }
   .apply-btn:active { background: #ff8b55; }
-  .yn-row { display: flex; gap: 10px; margin-top: 12px; }
-  .yn-btn {
+  .action-row { display: flex; gap: 10px; margin-top: 12px; }
+  .act-btn {
     flex: 1; padding: 13px; border-radius: 10px; border: 1px solid var(--line);
-    background: none; color: var(--text); font-size: 15px; font-weight: 600;
+    background: none; color: var(--text); font-size: 14.5px; font-weight: 600;
     -webkit-tap-highlight-color: transparent;
   }
-  .yn-btn.yes { border-color: #3f9e5a; color: #6fce8a; }
-  .yn-btn.no { border-color: var(--line); color: var(--muted); }
-  .yn-btn.active.yes { background: #3f9e5a; color: #0f0e0c; }
+  .act-btn.applied { border-color: #3f9e5a; color: #6fce8a; }
+  .act-btn.snooze { color: var(--muted); }
   .clicks-note { font-size: 12px; color: var(--muted-2); margin-top: 10px; text-align: right; }
   .done-msg { text-align: center; color: var(--muted); padding: 30px 0; font-size: 15px; }
-  .list-toggle {
-    width: 100%; text-align: left; background: none; border: none; color: var(--muted);
-    font-size: 13.5px; padding: 20px 0 8px; cursor: pointer; border-top: 1px solid var(--line);
-    margin-top: 24px;
-  }
-  .list-toggle .arrow { display: inline-block; transition: transform .15s; margin-right: 6px; }
-  .list-toggle.open .arrow { transform: rotate(90deg); }
-  .full-list { display: none; }
-  .full-list.open { display: block; }
-  .tier-heading { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted-2); margin: 18px 0 8px; }
+
+  .tier-heading { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted-2); margin: 20px 0 8px; }
+  .tier-heading:first-child { margin-top: 0; }
   .job-row {
-    display: flex; justify-content: space-between; align-items: center; gap: 10px;
     padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 14px;
   }
-  .job-row a { color: var(--text); }
-  .job-row a:hover { color: var(--accent); }
-  .job-row .row-role { color: var(--muted); font-size: 12.5px; display: block; }
-  .job-row .status-tag { font-size: 11px; padding: 2px 7px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted-2); white-space: nowrap; }
-  .job-row.applied { opacity: .5; }
-  .job-row.applied .status-tag { color: #6fce8a; border-color: #3f9e5a; }
-  .job-row .row-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-  .row-toggle { background: none; border: 1px solid var(--line); color: var(--muted); border-radius: 999px; font-size: 11px; padding: 3px 9px; }
-  .row-toggle.applied { border-color: #3f9e5a; color: #6fce8a; }
+  .job-row .row-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+  .job-row a.row-link { color: var(--text); flex: 1; }
+  .job-row a.row-link:hover { color: var(--accent); }
+  .job-row .row-role { color: var(--muted); font-size: 12.5px; display: block; margin-top: 2px; }
+  .job-row .row-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+  .status-tag { font-size: 11px; padding: 2px 7px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted-2); white-space: nowrap; }
+  .row-btn { background: none; border: 1px solid var(--line); color: var(--muted); border-radius: 999px; font-size: 11px; padding: 4px 10px; white-space: nowrap; }
+  .row-btn.applied { border-color: #3f9e5a; color: #6fce8a; }
+  .row-btn.snoozed { border-color: var(--accent-dim); color: var(--accent); }
+  .row-note {
+    width: 100%; margin-top: 8px; background: var(--ink-2); border: 1px solid var(--line);
+    border-radius: 8px; color: var(--text); font-size: 13px; padding: 8px 10px; box-sizing: border-box;
+  }
+  .note-toggle { background: none; border: none; color: var(--muted-2); font-size: 12px; padding: 2px 4px; }
+
+  .applied-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .applied-row .ar-company { color: #fff; font-weight: 600; font-size: 14.5px; }
+  .applied-row .ar-role { color: var(--muted); font-size: 12.5px; }
+  .applied-row .ar-when { color: var(--muted-2); font-size: 11.5px; margin-top: 2px; }
+  .undo-btn { background: none; border: 1px solid var(--line); color: var(--muted); border-radius: 999px; font-size: 12px; padding: 5px 12px; flex-shrink: 0; }
+  .empty-note { color: var(--muted-2); font-size: 13.5px; padding: 20px 0; text-align: center; }
+
   .sync-note { font-size: 12px; color: var(--muted-2); text-align: center; margin-top: 30px; }
 </style>
 </head>
@@ -75,16 +93,32 @@
   <header style="margin-top:10px;">
     <hr class="rule">
     <h1 style="font-size:26px;">Applications</h1>
-    <p class="lede" style="font-size:14.5px;">One role at a time. Tap the link, then tell it yes or no.</p>
+    <p class="lede" style="font-size:14.5px;">One role at a time. Tap the link, then mark it.</p>
   </header>
 
-  <div class="top-label">Apply to this next</div>
-  <div id="top-card-slot"><div class="top-card"><p class="why">Loading&hellip;</p></div></div>
+  <div class="progress-line" id="progress-line">Loading&hellip;</div>
+  <div class="progress-bar"><div class="fill" id="progress-fill" style="width:0%"></div></div>
 
-  <button class="list-toggle" id="list-toggle">
-    <span class="arrow">&#9656;</span> All roles
-  </button>
-  <div class="full-list" id="full-list"></div>
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="triage">Triage</button>
+    <button class="tab-btn" data-tab="applied">Applied</button>
+    <button class="tab-btn" data-tab="all">All</button>
+  </div>
+
+  <div class="tab-panel active" id="panel-triage">
+    <div class="top-label">Apply to this next</div>
+    <div id="top-card-slot"><div class="top-card"><p class="why">Loading&hellip;</p></div></div>
+    <div class="top-label" style="margin-top:6px;">Up next, in order</div>
+    <div id="triage-list"></div>
+  </div>
+
+  <div class="tab-panel" id="panel-applied">
+    <div id="applied-list"></div>
+  </div>
+
+  <div class="tab-panel" id="panel-all">
+    <div id="all-list"></div>
+  </div>
 
   <p class="sync-note">Status syncs across devices. 48 roles, verified and deduplicated 11 Aug 2026.</p>
 </div>
@@ -160,9 +194,11 @@ const CATALOG = [
 ];
 
 const TIER_ORDER = { TIER1: 0, TIER2: 1, TIER3: 2 };
-const STATUS_ORDER = { live: 0, monitor_only: 1 };
+const POST_STATUS_ORDER = { live: 0, monitor_only: 1 }; // posting liveness, from the catalog itself
 
-let appState = {}; // id -> {applied, clicks, ...}
+// Per-job application state, keyed by job id, synced via Firestore.
+// appStatus: "new" | "viewed" | "snoozed" | "applied"
+let appState = {};
 
 async function loadState() {
   const snap = await getDocs(collection(db, "applications"));
@@ -170,7 +206,7 @@ async function loadState() {
 }
 
 function stateFor(id) {
-  return appState[id] || { applied: false, clicks: 0 };
+  return appState[id] || { appStatus: "new", clicks: 0, notes: "" };
 }
 
 function daysUntil(dateStr) {
@@ -180,39 +216,80 @@ function daysUntil(dateStr) {
   return Math.round((target - today) / 86400000);
 }
 
-function pickTopJob() {
-  const candidates = CATALOG.filter(j => !stateFor(j.id).applied);
-  if (!candidates.length) return null;
-  candidates.sort((a, b) => {
+function sortByUrgency(list) {
+  return list.slice().sort((a, b) => {
     const da = daysUntil(a.deadline_date), db_ = daysUntil(b.deadline_date);
     const aHard = a.deadline_date && da >= 0, bHard = b.deadline_date && db_ >= 0;
     if (aHard && bHard && da !== db_) return da - db_;
     if (aHard !== bHard) return aHard ? -1 : 1;
     if (TIER_ORDER[a.tier] !== TIER_ORDER[b.tier]) return TIER_ORDER[a.tier] - TIER_ORDER[b.tier];
-    if (STATUS_ORDER[a.status] !== STATUS_ORDER[b.status]) return STATUS_ORDER[a.status] - STATUS_ORDER[b.status];
+    if (POST_STATUS_ORDER[a.status] !== POST_STATUS_ORDER[b.status]) return POST_STATUS_ORDER[a.status] - POST_STATUS_ORDER[b.status];
     return stateFor(a.id).clicks - stateFor(b.id).clicks;
   });
-  return candidates[0];
+}
+
+function triageCandidates() {
+  return sortByUrgency(CATALOG.filter(j => {
+    const s = stateFor(j.id).appStatus;
+    return s === "new" || s === "viewed" || !s;
+  }));
+}
+
+async function writeState(id, patch) {
+  const ref = doc(db, "applications", id);
+  appState[id] = { ...stateFor(id), ...patch };
+  const firestorePatch = { ...patch };
+  if ("clicksIncrement" in firestorePatch) {
+    delete firestorePatch.clicksIncrement;
+    firestorePatch.clicks = increment(1);
+  }
+  await setDoc(ref, firestorePatch, { merge: true });
 }
 
 async function recordClick(id) {
-  const ref = doc(db, "applications", id);
   const prev = stateFor(id);
-  appState[id] = { ...prev, clicks: (prev.clicks || 0) + 1, lastVisited: Date.now() };
-  await setDoc(ref, { clicks: increment(1), lastVisited: serverTimestamp() }, { merge: true });
+  const patch = { clicksIncrement: true, lastVisited: serverTimestamp() };
+  if (prev.appStatus === "new" || !prev.appStatus) patch.appStatus = "viewed";
+  appState[id] = { ...prev, clicks: (prev.clicks || 0) + 1 };
+  await writeState(id, patch);
 }
 
-async function recordApplied(id, applied) {
-  const ref = doc(db, "applications", id);
-  appState[id] = { ...stateFor(id), applied };
-  await setDoc(ref, { applied, appliedAt: applied ? serverTimestamp() : null }, { merge: true });
+async function setAppStatus(id, appStatus) {
+  const patch = { appStatus };
+  patch.appliedAt = appStatus === "applied" ? serverTimestamp() : (stateFor(id).appliedAt ?? null);
+  await writeState(id, patch);
+  renderAll();
+}
+
+async function saveNote(id, notes) {
+  await writeState(id, { notes });
+}
+
+function progressCounts() {
+  const total = CATALOG.length;
+  const applied = CATALOG.filter(j => stateFor(j.id).appStatus === "applied").length;
+  const urgent = CATALOG.filter(j => {
+    const s = stateFor(j.id).appStatus;
+    if (s === "applied" || s === "snoozed") return false;
+    const d = daysUntil(j.deadline_date);
+    return j.deadline_date && d >= 0 && d <= 7;
+  }).length;
+  return { total, applied, urgent };
+}
+
+function renderProgress() {
+  const { total, applied, urgent } = progressCounts();
+  document.getElementById("progress-line").innerHTML =
+    `<strong>${applied}/${total}</strong> applied${urgent ? ` &middot; <strong>${urgent}</strong> urgent (due within 7 days)` : ""}`;
+  document.getElementById("progress-fill").style.width = total ? `${(applied / total) * 100}%` : "0%";
 }
 
 function renderTopCard() {
   const slot = document.getElementById("top-card-slot");
-  const job = pickTopJob();
+  const candidates = triageCandidates();
+  const job = candidates[0];
   if (!job) {
-    slot.innerHTML = '<div class="top-card"><p class="done-msg">You have marked every role as applied. Nice work &mdash; check the full list below if new roles get added.</p></div>';
+    slot.innerHTML = '<div class="top-card"><p class="done-msg">Nothing left to triage &mdash; check Snoozed roles in the All tab, or you are caught up.</p></div>';
     return;
   }
   const st = stateFor(job.id);
@@ -227,65 +304,131 @@ function renderTopCard() {
       </div>
       <p class="why">${job.why_it_fits}</p>
       <a class="apply-btn" href="${job.url}" target="_blank" rel="noopener" id="apply-link">Open application &rarr;</a>
-      <div class="yn-row">
-        <button class="yn-btn no" id="btn-no">Not yet</button>
-        <button class="yn-btn yes" id="btn-yes">Applied &#10003;</button>
+      <div class="action-row">
+        <button class="act-btn snooze" id="btn-snooze">Snooze</button>
+        <button class="act-btn applied" id="btn-applied">Applied &#10003;</button>
       </div>
       ${st.clicks ? `<div class="clicks-note">opened ${st.clicks} time${st.clicks === 1 ? "" : "s"}</div>` : ""}
     </div>
   `;
   document.getElementById("apply-link").addEventListener("click", () => recordClick(job.id));
-  document.getElementById("btn-yes").addEventListener("click", async () => {
-    await recordApplied(job.id, true);
-    renderAll();
-  });
-  document.getElementById("btn-no").addEventListener("click", () => {
-    // "not yet" just re-renders (useful after opening the link) without marking applied
-    renderAll();
-  });
+  document.getElementById("btn-applied").addEventListener("click", () => setAppStatus(job.id, "applied"));
+  document.getElementById("btn-snooze").addEventListener("click", () => setAppStatus(job.id, "snoozed"));
 }
 
-function renderFullList() {
-  const wrap = document.getElementById("full-list");
+function renderTriageList() {
+  const wrap = document.getElementById("triage-list");
+  const candidates = triageCandidates().slice(1); // everything after the top card
+  if (!candidates.length) {
+    wrap.innerHTML = '<p class="empty-note">Nothing else queued right now.</p>';
+    return;
+  }
+  wrap.innerHTML = candidates.map(j => jobRowHtml(j)).join("");
+  wireJobRows(wrap);
+}
+
+function renderAppliedList() {
+  const wrap = document.getElementById("applied-list");
+  const applied = CATALOG.filter(j => stateFor(j.id).appStatus === "applied");
+  if (!applied.length) {
+    wrap.innerHTML = '<p class="empty-note">Nothing marked applied yet. Anything you mark here can always be undone.</p>';
+    return;
+  }
+  applied.sort((a, b) => {
+    const ta = stateFor(a.id).appliedAt?.toMillis?.() || 0;
+    const tb = stateFor(b.id).appliedAt?.toMillis?.() || 0;
+    return tb - ta;
+  });
+  wrap.innerHTML = applied.map(j => {
+    const st = stateFor(j.id);
+    const when = st.appliedAt?.toDate ? st.appliedAt.toDate().toLocaleDateString(undefined, { day: "numeric", month: "short" }) : "recently";
+    return `
+      <div class="applied-row">
+        <div>
+          <div class="ar-company">${j.company}</div>
+          <div class="ar-role">${j.role}</div>
+          <div class="ar-when">applied ${when}</div>
+        </div>
+        <button class="undo-btn" data-id="${j.id}">Undo</button>
+      </div>`;
+  }).join("");
+  wrap.querySelectorAll(".undo-btn").forEach(btn => btn.addEventListener("click", () => setAppStatus(btn.dataset.id, "viewed")));
+}
+
+function jobRowHtml(j) {
+  const st = stateFor(j.id);
+  const applied = st.appStatus === "applied";
+  const snoozed = st.appStatus === "snoozed";
+  return `
+    <div class="job-row" data-id="${j.id}">
+      <div class="row-top">
+        <a href="${j.url}" target="_blank" rel="noopener" class="row-link" data-id="${j.id}">
+          ${j.company}<span class="row-role">${j.role} &middot; ${j.deadline}</span>
+        </a>
+        <div class="row-right">
+          ${st.clicks ? `<span class="status-tag">${st.clicks}x</span>` : ""}
+          <button class="row-btn ${applied ? "applied" : ""} ${snoozed ? "snoozed" : ""}" data-id="${j.id}" data-action="toggle-applied">
+            ${applied ? "Applied" : snoozed ? "Snoozed" : "Mark applied"}
+          </button>
+        </div>
+      </div>
+      <button class="note-toggle" data-id="${j.id}" data-action="toggle-note">${st.notes ? "&#9998; note" : "+ note"}</button>
+      <div style="display:none;" data-id="${j.id}" data-role="note-wrap">
+        <textarea class="row-note" rows="2" placeholder="e.g. needs cover letter tailored to telco CDR scale" data-id="${j.id}">${st.notes || ""}</textarea>
+      </div>
+    </div>`;
+}
+
+function wireJobRows(wrap) {
+  wrap.querySelectorAll(".row-link").forEach(a => a.addEventListener("click", () => recordClick(a.dataset.id)));
+  wrap.querySelectorAll('[data-action="toggle-applied"]').forEach(btn => btn.addEventListener("click", () => {
+    const id = btn.dataset.id;
+    const cur = stateFor(id).appStatus;
+    setAppStatus(id, cur === "applied" ? "viewed" : "applied");
+  }));
+  wrap.querySelectorAll('[data-action="toggle-note"]').forEach(btn => btn.addEventListener("click", () => {
+    const row = wrap.querySelector(`[data-role="note-wrap"][data-id="${btn.dataset.id}"]`);
+    row.style.display = row.style.display === "none" ? "block" : "none";
+  }));
+  wrap.querySelectorAll(".row-note").forEach(ta => ta.addEventListener("blur", () => saveNote(ta.dataset.id, ta.value)));
+}
+
+function renderAllList() {
+  const wrap = document.getElementById("all-list");
   const byTier = { TIER1: [], TIER2: [], TIER3: [] };
-  CATALOG.forEach(j => byTier[j.tier].push(j));
+  const snoozed = [];
+  CATALOG.forEach(j => {
+    if (stateFor(j.id).appStatus === "snoozed") snoozed.push(j);
+    else byTier[j.tier].push(j);
+  });
   const labels = { TIER1: "Tier 1 — apply first", TIER2: "Tier 2 — strong match", TIER3: "Tier 3 — worth monitoring" };
   let html = "";
   for (const tier of ["TIER1", "TIER2", "TIER3"]) {
     html += `<div class="tier-heading">${labels[tier]}</div>`;
-    byTier[tier].forEach(j => {
-      const st = stateFor(j.id);
-      html += `
-        <div class="job-row ${st.applied ? "applied" : ""}" data-id="${j.id}">
-          <a href="${j.url}" target="_blank" rel="noopener" class="row-link" data-id="${j.id}">
-            ${j.company}<span class="row-role">${j.role}</span>
-          </a>
-          <div class="row-right">
-            ${st.clicks ? `<span class="status-tag">${st.clicks}x</span>` : ""}
-            <button class="row-toggle ${st.applied ? "applied" : ""}" data-id="${j.id}">${st.applied ? "Applied" : "Mark applied"}</button>
-          </div>
-        </div>`;
-    });
+    html += sortByUrgency(byTier[tier]).map(j => jobRowHtml(j)).join("");
+  }
+  if (snoozed.length) {
+    html += `<div class="tier-heading">Snoozed</div>`;
+    html += sortByUrgency(snoozed).map(j => jobRowHtml(j)).join("");
   }
   wrap.innerHTML = html;
-  wrap.querySelectorAll(".row-link").forEach(a => a.addEventListener("click", () => recordClick(a.dataset.id)));
-  wrap.querySelectorAll(".row-toggle").forEach(btn => btn.addEventListener("click", async () => {
-    const id = btn.dataset.id;
-    await recordApplied(id, !stateFor(id).applied);
-    renderAll();
-  }));
+  wireJobRows(wrap);
 }
 
 function renderAll() {
+  renderProgress();
   renderTopCard();
-  renderFullList();
+  renderTriageList();
+  renderAppliedList();
+  renderAllList();
 }
 
-document.getElementById("list-toggle").addEventListener("click", (e) => {
-  const btn = e.currentTarget;
-  btn.classList.toggle("open");
-  document.getElementById("full-list").classList.toggle("open");
-});
+document.querySelectorAll(".tab-btn").forEach(btn => btn.addEventListener("click", () => {
+  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+  document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+  btn.classList.add("active");
+  document.getElementById(`panel-${btn.dataset.tab}`).classList.add("active");
+}));
 
 (async function init() {
   try {
