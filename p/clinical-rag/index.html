@@ -21,9 +21,9 @@
 </div>
 <div class="wrap">
 <hr class="rule"><h1 id="smart-medical-records-engine">Smart Medical Records Engine</h1>
-<p class="readtime">4 min read</p>
+<p class="readtime">5 min read</p>
 <p><strong>Helps a doctor find the one thing in a patient file that
-matters, before the appointment ends.</strong></p>
+matters, before the appointment ends.</strong></p><div class="stats-strip"><span class="stat">0/30 leak probes succeeded</span><span class="stat">every access logged</span><span class="stat">scoped by patient before ranking</span></div>
 <p>Taiwo Alabi · MSc Artificial Intelligence, National College of
 Ireland</p>
 <hr />
@@ -36,8 +36,10 @@ matters most</a></li>
 <li><a href="#5-who-is-allowed-in">Who is allowed in</a></li>
 <li><a href="#6-the-data-model">The data model</a></li>
 <li><a href="#7-why-self-hosted">Why self-hosted</a></li>
-<li><a href="#8-honest-limitations">Honest limitations</a></li>
-<li><a href="#9-running-it">Running it</a></li>
+<li><a href="#8-verified-thirty-attempts-to-leak-zero-leaks">Verified:
+thirty attempts to leak, zero leaks</a></li>
+<li><a href="#9-honest-limitations">Honest limitations</a></li>
+<li><a href="#10-running-it">Running it</a></li>
 </ol></div><div class="resources"><a href="/assets/docs/clinical_rag_writeup.pdf">Full write-up<span class="tag">pdf</span></a><a href="https://github.com/iamtamilore/agentic_rag_fastapi">Source code</a></div>
 <h2 id="1-the-problem">1. The problem</h2>
 <p>A doctor has ten minutes with you.</p>
@@ -59,7 +61,7 @@ found the answer in.</p>
 clever part:</p>
 <ul>
 <li><strong>It only reads one file.</strong> Not a similar patient's,
-not someone with the same illness.</li>
+not someone with the same illness. Verified: section 8.</li>
 <li><strong>Records never leave the hospital.</strong> The model runs on
 the hospital's own machine.</li>
 <li><strong>Every access is written down.</strong> If anyone asks who
@@ -125,7 +127,30 @@ by the constraint, not the other way round.</p>
 <p>The whole stack, API, database and language model, runs across four
 Docker Compose services on one machine.</p>
 <hr />
-<h2 id="8-honest-limitations">8. Honest limitations</h2>
+<h2 id="8-verified-thirty-attempts-to-leak-zero-leaks">8. Verified:
+thirty attempts to leak, zero leaks</h2>
+<p>The claim in section 4 is now tested rather than asserted. I ran
+thirty adversarial probes against the live application, through the real
+path: signed in as a physician, asking questions designed to pull
+another patient's notes into the answer. Near-verbatim copies of a decoy
+patient's most distinctive lines. Semantic twins of the same clinical
+facts. Broad fishing questions. Queries naming the wrong patient
+outright.</p>
+<p>Each probe carried a vacuity guard. Before a probe counts, I ran the
+same search without the patient filter, to confirm the unscoped search
+would have surfaced another patient's note first. All thirty passed that
+check: in 30/30 cases, the wrong patient's note would have been the top
+result. Scoped retrieval leaked 0/30.</p>
+<p>What this is not: a penetration test. No auth bypass was attempted,
+no injection, no infrastructure attacks. It verifies the scoping design
+through the application's own query path, which is the design this
+system stands or falls on.</p>
+<p>Reproduce:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> leak_probes/seed_fixture.py   <span class="co"># seeds a target patient + two near-duplicate decoys</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> leak_probes/run_probes.py     <span class="co"># runs the same thirty probes, prints a results table</span></span></code></pre></div>
+<hr />
+<h2 id="9-honest-limitations">9. Honest limitations</h2>
 <ul>
 <li><strong>It has not been tested with real clinicians.</strong> The
 retrieval works; whether the interface fits a ten-minute consultation is
@@ -135,15 +160,15 @@ abbreviations, inconsistent formatting, scanned documents.</li>
 <li><strong>A local <code>llama3.1</code> is weaker than a hosted
 model.</strong> Accepted deliberately, but it means answers on complex
 questions are less reliable than the retrieval underneath them.</li>
-<li><strong>No formal evaluation set.</strong> I can show the system
-does not leak across patients, which was the priority, but I have not
-measured answer quality against a labelled benchmark.</li>
+<li><strong>No formal evaluation set.</strong> Leakage was the priority,
+and it is measured in section 8: 0/30 across thirty adversarial probes.
+Answer quality against a labelled benchmark remains unmeasured.</li>
 </ul>
 <hr />
-<h2 id="9-running-it">9. Running it</h2>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> compose up</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/create_doctor.py     <span class="co"># create a physician account</span></span></code></pre></div>
+<h2 id="10-running-it">10. Running it</h2>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> compose up</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/create_doctor.py     <span class="co"># create a physician account</span></span></code></pre></div>
 <p>Ollama pulls <code>nomic-embed-text</code> and <code>llama3.1</code>
 on first run. Ingestion loads the records and builds the embeddings.
 Nothing reaches the internet after the model pull.</p>

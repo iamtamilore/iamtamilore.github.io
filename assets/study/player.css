@@ -39,6 +39,14 @@
 }
 
 * { box-sizing: border-box; }
+.util {
+  display: flex; justify-content: flex-end; gap: 1rem;
+  padding: .5rem 1rem; border-bottom: 1px solid var(--line);
+  font-size: .78rem; line-height: 1;
+}
+.util a { color: var(--muted); text-decoration: none; padding: .35rem .15rem; }
+.util a:hover { color: var(--accent); }
+.util a:focus-visible { outline: 1px dashed var(--muted); outline-offset: 2px; }
 body.study-body {
   margin: 0;
   background: var(--bg);

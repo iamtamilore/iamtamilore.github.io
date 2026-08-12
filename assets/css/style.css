@@ -63,6 +63,7 @@ header { padding: 46px 0 8px; }
   margin: 26px 0 0; max-width: 30ch; font-weight: 600;
 }
 .claim b { color: var(--accent); font-weight: 600; }
+.proof { font-size: 14.5px; line-height: 1.5; color: var(--muted); margin: 12px 0 0; max-width: 34ch; }
 
 /* ---------- meta row ---------- */
 .meta { display: flex; flex-wrap: wrap; gap: 8px 14px; margin: 26px 0 0;
@@ -192,6 +193,30 @@ body::after {
 /* ---------- card links ----------
    The whole card stays clickable via a stretched pseudo-element, but the
    direct Code and Live demo links sit above it so they win the click.        */
+
+/* ---------- personal utility strip: study/tracker, deliberately quiet ---------- */
+.util {
+  display: flex; justify-content: flex-end; gap: 1rem;
+  padding: 0.5rem 1rem; border-bottom: 1px solid var(--line);
+  font-size: 0.78rem; line-height: 1;
+}
+.util a { color: var(--muted-2); text-decoration: none; padding: 0.35rem 0.15rem; }
+.util a:hover { color: var(--muted); }
+.util a:focus-visible { outline: 1px dashed var(--muted); outline-offset: 2px; }
+
+/* ---------- /study/ shelf index (grows as more subjects are built) ---------- */
+.study-index { max-width: 40rem; margin: 0 auto; padding: 2.5rem 1.25rem; }
+.study-index h1 { font-size: 1.4rem; }
+.study-note { color: var(--muted); font-size: 0.9rem; margin: 0.5rem 0 1.75rem; }
+.shelf { list-style: none; margin: 0; padding: 0; }
+.shelf-row { display: block; padding: 1rem 0.75rem; border-top: 1px solid var(--line); text-decoration: none; }
+.shelf li:last-child .shelf-row { border-bottom: 1px solid var(--line); }
+.shelf-title { display: block; color: var(--text); }
+.shelf-meta { display: block; margin-top: 0.25rem; font-size: 0.8rem; color: var(--muted); }
+.shelf-row:hover .shelf-title { color: var(--accent); }
+.colophon { font-size: 0.72rem; color: var(--muted-2); margin-top: 3rem; }
+.colophon a { color: inherit; }
+
 .card { position: relative; }
 .stretch { border: 0; }
 .stretch::after { content: ""; position: absolute; inset: 0; z-index: 1; }
@@ -204,6 +229,17 @@ body::after {
 .cardlinks a:hover { color: var(--accent); border-bottom-color: var(--accent); }
 .cardlinks span { color: var(--line); }
 @media print { .cardlinks { display: none; } }
+
+/* ---------- project page: headline numbers before the narrative ---------- */
+.stats-strip {
+  display: flex; flex-wrap: wrap; gap: 10px 22px; margin: 16px 0 22px;
+  padding: 14px 16px; background: var(--panel); border: 1px solid var(--line);
+  border-radius: 10px;
+}
+.stats-strip .stat {
+  font-size: 14px; font-weight: 600; color: var(--accent);
+}
+@media print { .stats-strip { border: 1px solid #999; background: none; } }
 
 /* ---------- call to action ---------- */
 .cta {

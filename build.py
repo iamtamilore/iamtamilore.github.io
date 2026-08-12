@@ -86,6 +86,29 @@ def resource_strip(slug):
     return '<div class="resources">' + "".join(items) + "</div>" if items else ""
 
 
+# headline numbers for the 45-second skimmer, shown before any narrative prose.
+# care-agent keeps the honest eval-set size (42) rather than softening it away -
+# hiding it here while the CV states a different number would read as evasive.
+METRICS = {
+ "image-qa": ["precision 1.00", "0 false passes in 90 sealed pairs", "133ms per image"],
+ "care-agent": ["95.2% routing accuracy (40 of 42 held-out)", "escalates below 0.55",
+                "2 manual processes replaced"],
+ "termsguard": ["87% F1", "hallucination rate cut 77%", "latency 28s to under 10s"],
+ "clinical-rag": ["0/30 leak probes succeeded", "every access logged",
+                   "scoped by patient before ranking"],
+ "surge-pricing": ["+21.4% revenue vs fixed pricing", "637,976 real records",
+                    "both methods converged on the same policy"],
+}
+
+
+def metrics_strip(slug):
+    stats = METRICS.get(slug, [])
+    if not stats:
+        return ""
+    items = "".join(f'<span class="stat">{s}</span>' for s in stats)
+    return '<div class="stats-strip">' + items + "</div>"
+
+
 TEMPLATE = """<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -179,6 +202,11 @@ def main():
         body = body.replace("</h1>", f'</h1>\n<p class="readtime">{mins} min read</p>', 1)
         out_dir = ROOT / "p" / p["slug"]
         out_dir.mkdir(parents=True, exist_ok=True)
+        # headline numbers go right after the subtitle, before the reader hits
+        # the Contents block or any narrative prose - the 45-second skimmer's entrance
+        mstrip = metrics_strip(p["slug"])
+        if mstrip:
+            body = re.sub(r'(<p><strong>.*?</strong></p>)', r'\1' + mstrip, body, count=1, flags=re.S)
         # resource links sit directly under the intro, before the contents block
         strip = resource_strip(p["slug"])
         if strip:
