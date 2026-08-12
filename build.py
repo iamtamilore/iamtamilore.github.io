@@ -135,6 +135,7 @@ TEMPLATE = """<!DOCTYPE html>
 <nav class="util" aria-label="Personal">
   <a href="/study/eeai/">study</a>
   <a href="/jobs/">tracker</a>
+  <a href="/bank-pwa/">bank</a>
 </nav>
 <div class="topbar">
   <a href="/cv/">&larr; Back to CV</a>
