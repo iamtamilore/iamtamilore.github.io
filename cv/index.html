@@ -15,6 +15,11 @@
 </head>
 <body>
 
+<nav class="util" aria-label="Personal">
+  <a href="/study/eeai/">study</a>
+  <a href="/jobs/">tracker</a>
+</nav>
+
 <div class="topbar">
   <a href="/">&larr; Home</a>
   <a href="/assets/Taiwo_Alabi_CV.pdf" target="_blank" rel="noopener">Download PDF</a>
@@ -81,33 +86,6 @@
   <div class="grid">
 
     <div class="card">
-      <div class="metric">zero</div>
-      <div class="metric-label">false alarms in 90 test pairs</div>
-      <div class="title">Automated QA Gate for AI-Generated Imagery</div>
-      <div class="desc">Siamese network on a frozen ResNet50 for identity, autoencoder for
-        colour drift. Tuning the threshold off the sigmoid default lifted F1 to 1.00.
-        TensorFlow, Keras, scikit-learn.</div>
-      <div class="go"><a class="stretch" href="/p/image-qa/">Read it &rarr;</a></div>
-      <div class="cardlinks">
-        <a href="/assets/docs/image_qa_writeup.pdf">Write-up</a><span aria-hidden="true">|</span>
-        <a href="https://github.com/iamtamilore/campaign-image-qa">Code</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="metric">95.2%</div>
-      <div class="metric-label">routing accuracy, escalates the rest</div>
-      <div class="title">Customer Care Process Automation</div>
-      <div class="desc">Field-level conformance bot against a signed report catalogue, plus
-        a routing agent with a confidence gate. Python, scikit-learn, BPMN 2.0.</div>
-      <div class="go"><a class="stretch" href="/p/care-agent/">Read it &rarr;</a></div>
-      <div class="cardlinks">
-        <a href="/assets/docs/care_agent_writeup.pdf">Write-up</a><span aria-hidden="true">|</span>
-        <a href="https://github.com/iamtamilore/customer-care-automation">Code</a>
-      </div>
-    </div>
-
-    <div class="card">
       <div class="metric">87%</div>
       <div class="metric-label">F1, invented content cut 77%</div>
       <div class="title">TermsGuard AI <span class="live">Live</span></div>
@@ -122,6 +100,20 @@
     </div>
 
     <div class="card">
+      <div class="metric">zero</div>
+      <div class="metric-label">false alarms in 90 test pairs</div>
+      <div class="title">Automated QA Gate for AI-Generated Imagery</div>
+      <div class="desc">Siamese network on a frozen ResNet50 for identity, autoencoder for
+        colour drift. Tuning the threshold off the sigmoid default lifted F1 to 1.00.
+        TensorFlow, Keras, scikit-learn.</div>
+      <div class="go"><a class="stretch" href="/p/image-qa/">Read it &rarr;</a></div>
+      <div class="cardlinks">
+        <a href="/assets/docs/image_qa_writeup.pdf">Write-up</a><span aria-hidden="true">|</span>
+        <a href="https://github.com/iamtamilore/campaign-image-qa">Code</a>
+      </div>
+    </div>
+
+    <div class="card">
       <div class="metric">on&nbsp;site</div>
       <div class="metric-label">patient data never leaves the network</div>
       <div class="title">Smart Medical Records Engine</div>
@@ -131,6 +123,19 @@
       <div class="cardlinks">
         <a href="/assets/docs/clinical_rag_writeup.pdf">Write-up</a><span aria-hidden="true">|</span>
         <a href="https://github.com/iamtamilore/agentic_rag_fastapi">Code</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="metric">95.2%</div>
+      <div class="metric-label">routing accuracy, escalates the rest</div>
+      <div class="title">Customer Care Process Automation</div>
+      <div class="desc">Field-level conformance bot against a signed report catalogue, plus
+        a routing agent with a confidence gate. Python, scikit-learn, BPMN 2.0.</div>
+      <div class="go"><a class="stretch" href="/p/care-agent/">Read it &rarr;</a></div>
+      <div class="cardlinks">
+        <a href="/assets/docs/care_agent_writeup.pdf">Write-up</a><span aria-hidden="true">|</span>
+        <a href="https://github.com/iamtamilore/customer-care-automation">Code</a>
       </div>
     </div>
 
@@ -169,7 +174,7 @@
   networks, Transformers.<br>
   <strong>AI and Agents:</strong> RAG pipelines, Claude, MCP servers, LangChain, LangGraph,
   vector search (pgvector, FAISS), LLM evaluation, intelligent and multi-modal agents,
-  <a href="/p/surge-pricing/">genetic algorithms</a>,
+  <a href="/p/surge-pricing/" style="color:inherit;border-bottom:1px solid var(--line)">genetic algorithms</a>,
   zero-shot and few-shot learning.<br>
   <strong>Data and Databases:</strong> PostgreSQL, Hadoop HDFS, HBase, GaussDB, data modeling.<br>
   <strong>Containers and Deployment:</strong> Docker, Docker Compose, Kubernetes, FastAPI,

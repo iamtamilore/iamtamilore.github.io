@@ -81,8 +81,13 @@ RESOURCES = {
 def resource_strip(slug):
     items = []
     for label, href, kind in RESOURCES.get(slug, []):
-        tag = f'<span class="tag">{kind}</span>' if kind else ""
-        items.append(f'<a href="{href}">{label}{tag}</a>')
+        if kind == "live":
+            # the one place a project page mirrors the homepage's solid CTA:
+            # "try the running software" gets the same visual weight both times.
+            items.append(f'<a class="cta" href="{href}" target="_blank" rel="noopener">{label}</a>')
+        else:
+            tag = f'<span class="tag">{kind}</span>' if kind else ""
+            items.append(f'<a href="{href}">{label}{tag}</a>')
     return '<div class="resources">' + "".join(items) + "</div>" if items else ""
 
 
@@ -126,6 +131,10 @@ TEMPLATE = """<!DOCTYPE html>
 <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
+<nav class="util" aria-label="Personal">
+  <a href="/study/eeai/">study</a>
+  <a href="/jobs/">tracker</a>
+</nav>
 <div class="topbar">
   <a href="/cv/">&larr; Back to CV</a>
   <a href="/">All work</a>
