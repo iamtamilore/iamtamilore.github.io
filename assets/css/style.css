@@ -172,7 +172,7 @@ tbody tr:last-child td { border-bottom: 0; }
 
 /* ---------- code ---------- */
 code { background: var(--ink-2); border: 1px solid var(--line); border-radius: 4px;
-       padding: 1px 6px; font-size: 13.5px; color: #d8d8e8;
+       padding: 1px 6px; font-size: 13.5px; color: var(--text);
        font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
 pre { background: var(--ink-2); border: 1px solid var(--line);
       border-left: 3px solid var(--accent); border-radius: 8px; padding: 16px 18px;
