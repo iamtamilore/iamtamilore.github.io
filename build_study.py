@@ -29,6 +29,7 @@ COURSES = [
             dict(id="w5", week=5, title="Serving & Evaluation", file="week5.m4a"),
             dict(id="w6", week=6, title="Complexity & Sensitivity", file="week6.m4a"),
             dict(id="w7", week=7, title="ML Deployment", file="week7.m4a"),
+            dict(id="w8", week=8, title="Why Smart AI Makes Stupid Choices", file="week8.m4a"),
         ],
     ),
 ]
