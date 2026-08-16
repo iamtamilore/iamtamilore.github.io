@@ -29,7 +29,7 @@ PROJECTS = [
          blurb="grounding against hallucination",
          cmetric="87%", clabel="F1, with invented content cut 77%",
          cdesc="Reads the small print and flags what is unfair to you, grounded in\n"
-               "        4,527 chunks of GDPR text. Live on the internet.",
+               "        4,527 chunks of GDPR text. Deployed and publicly reachable.",
          clive=True,
          ccta=("Try the live demo", "https://newtazer-terms-guard-ai.hf.space"),
          clinks=[("Code", "https://github.com/iamtamilore/terms-guard-ai")],
@@ -57,7 +57,7 @@ PROJECTS = [
          card="care_agent.jpg",
          published=True,
          blurb="the confidence gate",
-         cmetric="95.2%", clabel="routing accuracy, and it escalates the rest",
+         cmetric="95.2%", clabel="routing accuracy, 40 of 42 held-out",
          cdesc="Two bots replacing two manual back-office jobs on a mobile network. The\n"
                "        interesting part is when it refuses to decide.",
          clive=False, ccta=None,
@@ -144,7 +144,7 @@ def resource_strip(slug):
 METRICS = {
  "image-qa": ["precision 1.00", "0 false passes in 90 sealed pairs", "133ms per image"],
  "care-agent": ["escalates rather than guesses, below 0.55",
-                "95.2% routing accuracy (40 of 42 held-out)",
+                "95.2% on 40 of 42 held-out tickets",
                 "2 manual processes replaced"],
  "termsguard": ["invented content cut 77%", "87% F1 on unfair-clause detection",
                 "latency 28s to under 10s"],
