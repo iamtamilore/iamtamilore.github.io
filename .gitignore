@@ -3,3 +3,6 @@
 *.bak
 *.bak2
 *.bak-*
+
+# skill data, not site content. Was publicly served at /.claude/...
+.claude/

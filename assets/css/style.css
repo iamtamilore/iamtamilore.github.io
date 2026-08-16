@@ -459,3 +459,175 @@ ul.exp .when { color: var(--muted-2); font-size: 13.5px; }
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; animation: none; }
 }
+
+/* ---------- site shell ----------
+   The site was one flat 900px column with no navigation on the landing page and
+   no sectioning anywhere. That is what made it read as a styled document rather
+   than a designed site. Bands, a persistent header and a real footer fix the
+   composition without touching a word of the content.
+
+   Every colour below is a token. Four themes swap those ten tokens, so a single
+   hardcoded hex here silently breaks three of them.                            */
+
+/* --- scroll progress --- */
+#scrollbar {
+  position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 101;
+  background: var(--accent); transform: scaleX(0); transform-origin: left;
+}
+
+/* --- header --- */
+.sitehead {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 14px 0; border-bottom: 1px solid transparent;
+  transition: background .24s ease, border-color .24s ease;
+}
+.sitehead.is-stuck {
+  /* solid token first, blur only as an enhancement: legibility must not
+     depend on backdrop-filter being supported. */
+  background: var(--ink);
+  background: color-mix(in srgb, var(--ink) 92%, transparent);
+  border-bottom-color: var(--line);
+  backdrop-filter: blur(10px);
+}
+.sitehead-inner {
+  max-width: var(--max); margin: 0 auto; padding: 0 var(--pad);
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+}
+.wordmark {
+  font-family: Archivo, ui-sans-serif, system-ui, sans-serif;
+  font-weight: 800; font-size: 16px; letter-spacing: -.02em;
+  color: var(--text); border: 0;
+}
+.wordmark:hover { color: var(--accent); border: 0; }
+.sitenav { display: flex; align-items: center; gap: 22px; font-size: 14px; }
+.sitenav a {
+  position: relative; color: var(--muted); border: 0; padding: 3px 0;
+}
+.sitenav a::after {
+  content: ""; position: absolute; left: 0; bottom: 0; height: 2px; width: 0;
+  background: var(--accent);
+}
+.sitenav a:hover, .sitenav a:focus-visible { color: var(--text); border: 0; }
+.sitenav a[aria-current="page"] { color: var(--text); }
+.sitenav a[aria-current="page"]::after { width: 100%; }
+@media (prefers-reduced-motion: no-preference) {
+  .sitenav a::after { transition: width .22s ease; }
+  .sitenav a:hover::after, .sitenav a:focus-visible::after { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sitenav a:hover::after, .sitenav a:focus-visible::after { width: 100%; }
+}
+.nav-cta {
+  color: var(--on-accent) !important; background: var(--accent);
+  border-radius: 999px; padding: 7px 15px !important; font-weight: 600;
+}
+.nav-cta::after { display: none; }
+.nav-cta:hover { background: #ff8b55; }
+/* Five links, so no burger. Below 720px only the one with an ask survives. */
+@media (max-width: 719px) {
+  .sitenav a:not(.nav-cta) { display: none; }
+  .sitehead { padding: 10px 0; }
+}
+/* content must not sit under the fixed header */
+body.has-shell { padding-top: 62px; }
+@media (min-width: 720px) { body.has-shell { padding-top: 68px; } }
+
+/* --- bands: full bleed background sections --- */
+.band { width: 100%; padding: 68px 0; scroll-margin-top: 90px; }
+@media (min-width: 720px) { .band { padding: 104px 0; } }
+.band-inner { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
+.band--base  { background: var(--ink); }
+.band--lift  { background: var(--ink-2); }
+.band--panel { background: var(--panel); border-top: 1px solid var(--line);
+               border-bottom: 1px solid var(--line); }
+/* The hero sits directly under the header, so it does not need its own top gap. */
+.band--hero { padding-top: 34px; }
+@media (min-width: 720px) { .band--hero { padding-top: 52px; } }
+/* Two adjacent bands of the same variant would read as one long block and the
+   border would double. Collapse both. */
+.band--panel + .band--panel { border-top: 0; }
+.band--base + .band--base,
+.band--lift + .band--lift,
+.band--panel + .band--panel { padding-top: 0; }
+.band > .band-inner > h2:first-child,
+.band > .band-inner > .eyebrow-num:first-child { margin-top: 0; }
+.band h2 { margin-top: 10px; }
+.section-lead { color: var(--muted); max-width: 56ch; margin-top: 10px; }
+
+/* --- numbered section eyebrows --- */
+.eyebrow-num {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 12px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--muted); margin: 0 0 6px;
+}
+.eyebrow-num::before {
+  content: ""; flex: none; width: 26px; height: 2px; background: var(--accent-dim);
+}
+.eyebrow-num b { color: var(--accent); font-weight: 700; }
+
+/* --- ticker --- */
+.ticker {
+  background: var(--ink-2); border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  overflow: hidden; padding: 13px 0;
+  transform: rotate(-.5deg) scale(1.02);
+}
+.ticker-track { display: flex; width: max-content; }
+.ticker-group {
+  display: flex; align-items: center; gap: 34px; padding-right: 34px;
+  white-space: nowrap; font-size: 13px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--muted);
+}
+.ticker-group i { color: var(--accent); font-style: normal; }
+@media (prefers-reduced-motion: no-preference) {
+  /* the group is duplicated in the markup, so -50% is one seamless loop */
+  .ticker-track { animation: ticker-run 34s linear infinite; }
+  .ticker:hover .ticker-track { animation-play-state: paused; }
+  @keyframes ticker-run { to { transform: translateX(-50%); } }
+}
+
+/* --- asymmetric two column --- */
+.split { display: grid; gap: 28px; align-items: start; }
+@media (min-width: 720px) {
+  .split { grid-template-columns: 1.05fr .95fr; gap: 44px; }
+  .split--flip > *:first-child { order: 2; }
+  .split--flip > *:last-child  { order: 1; }
+}
+.split .anchor { margin-top: 0; }
+
+/* --- footer --- */
+.sitefoot {
+  background: var(--ink-2); border-top: 1px solid var(--line);
+  padding: 44px 0; font-size: 14px; color: var(--muted-2);
+}
+.sitefoot-inner {
+  max-width: var(--max); margin: 0 auto; padding: 0 var(--pad);
+  display: grid; gap: 30px;
+}
+@media (min-width: 720px) {
+  .sitefoot-inner { grid-template-columns: 1.4fr .8fr 1fr; gap: 40px; }
+}
+.sitefoot p { margin: 8px 0 0; max-width: 34ch; line-height: 1.55; }
+.foot-name {
+  font-family: Archivo, ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700; font-size: 16px; color: var(--text);
+}
+.foot-stamp { font-size: 12.5px; color: var(--muted-2); }
+.sitefoot h4 {
+  font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--muted); margin: 0 0 12px; font-weight: 600;
+}
+.sitefoot a { display: block; color: var(--muted-2); padding: 3px 0; border: 0; }
+.sitefoot a:hover { color: var(--accent); border: 0; }
+.foot-util { display: block; margin-top: 12px; font-size: 12.5px; color: var(--line); }
+.foot-util a { display: inline; padding: 0; }
+
+/* --- print: the shell is screen furniture, none of it belongs on paper --- */
+@media print {
+  .sitehead, #scrollbar, .ticker { display: none; }
+  body.has-shell { padding-top: 0; }
+  .band { background: none; border: 0; padding: 16px 0; }
+  .band-inner { max-width: none; padding: 0; }
+  .sitefoot { background: none; padding: 16px 0; }
+  .sitefoot a { display: inline; }
+}

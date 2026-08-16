@@ -17,20 +17,26 @@
 <meta property="og:url" content="https://iamtamilore.github.io/cv/">
 <meta name="twitter:card" content="summary_large_image">
 </head>
-<body>
+<body class="has-shell">
 
-<nav class="util" aria-label="Personal">
-  <a href="/study/eeai/">study</a>
-  <a href="/jobs/">tracker</a>
-  <a href="/bank-pwa/">bank</a>
-</nav>
+<!-- SHELLHEAD:START -->
+<div id="scrollbar" aria-hidden="true"></div>
+<header class="sitehead" id="sitehead">
+  <div class="sitehead-inner">
+    <a class="wordmark" href="/">Taiwo&nbsp;Alabi</a>
+    <nav class="sitenav" aria-label="Primary">
+      <a href="/#work">Work</a>
+      <a href="/#experience">Experience</a>
+      <a href="/#method">Method</a>
+      <a href="/cv/">CV</a>
+      <a class="nav-cta" href="mailto:alabitaiwo625@gmail.com">Get in touch</a>
+    </nav>
+  </div>
+</header>
+<!-- SHELLHEAD:END -->
 
-<div class="topbar">
-  <a href="/">&larr; Home</a>
-  <a href="/assets/Taiwo_Alabi_CV.pdf" target="_blank" rel="noopener">Download PDF</a>
-</div>
-
-<div class="wrap">
+<main class="band band--base">
+<div class="band-inner">
 
   <header>
     <hr class="rule">
@@ -53,6 +59,7 @@
   <a class="cta" href="/assets/Taiwo_Alabi_CV.pdf" target="_blank" rel="noopener">
     Download CV <span class="cta-sub">PDF</span></a>
 
+  <div class="eyebrow-num"><b>01</b> the argument in one paragraph</div>
   <h2>Profile</h2>
   <p>I tune intelligence to <strong>the cost of being wrong</strong>. My coursework
   and my projects are built around four things: applying software architecture principles to AI
@@ -61,6 +68,7 @@
   I establish what the problem looks like solved badly, because <strong>a model that cannot beat
   the majority class or a simple rule does not deserve to exist</strong>.</p>
 
+  <div class="eyebrow-num"><b>02</b> where the constraints came from</div>
   <h2>Professional Experience</h2>
 
   <ul class="exp">
@@ -87,6 +95,7 @@
       stream. <strong>Both surfaced in verification, before any customer saw them.</strong></li>
   </ul>
 
+  <div class="eyebrow-num"><b>03</b> evidence, each one documented</div>
   <h2>Selected Projects</h2>
   <p style="color:var(--muted);max-width:56ch">Every project below opens a full write-up
   with the diagrams, plots and results behind it.</p>
@@ -163,6 +172,7 @@
 
   </div>
 
+  <div class="eyebrow-num"><b>04</b> what the coursework certifies</div>
   <h2>Education</h2>
   <ul class="exp">
     <li><strong>National College of Ireland, Dublin</strong> <span class="when">Jan 2026 to Jan 2027</span><br>
@@ -171,6 +181,7 @@
       BSc Computer Science, Second Class Honours, Upper Division (2.1).</li>
   </ul>
 
+  <div class="eyebrow-num"><b>05</b> method first, then tools</div>
   <h2>Technical Skills</h2>
   <p><strong>Languages:</strong> Python, SQL.<br>
   <strong>Data and Infrastructure:</strong> Hadoop HDFS, HBase, GaussDB, PostgreSQL, pgvector,
@@ -185,6 +196,7 @@
   evaluation, confidence calibration, GDPR data cataloguing, data lineage, UAT design.<br>
   <strong>Tools:</strong> Git, GitHub, Claude Code, Linux.</p>
 
+  <div class="eyebrow-num"><b>06</b> the ask</div>
   <h2>Get in touch</h2>
   <div class="endcta">
     <a class="cta" href="mailto:alabitaiwo625@gmail.com">Email me</a>
@@ -192,12 +204,57 @@
       Download CV <span class="cta-sub">PDF</span></a>
   </div>
 
-  <footer>
-    <div>Taiwo Alabi &middot; Dublin, Ireland &middot;
-      <a href="mailto:alabitaiwo625@gmail.com">alabitaiwo625@gmail.com</a></div>
-  </footer>
-
 </div>
+</main>
+
+<!-- SHELLFOOT:START -->
+<footer class="sitefoot">
+  <div class="sitefoot-inner">
+    <div>
+      <div class="foot-name">Taiwo Alabi</div>
+      <p>Data Scientist, Dublin. MSc Artificial Intelligence,
+         National College of Ireland.</p>
+      <p class="foot-stamp">Last updated 16 August 2026</p>
+    </div>
+    <div>
+      <h4>Read</h4>
+      <a href="/#work">The work</a>
+      <a href="/cv/">CV</a>
+      <a href="/assets/Taiwo_Alabi_CV.pdf" target="_blank" rel="noopener">CV as PDF</a>
+      <a href="https://github.com/iamtamilore">GitHub</a>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <a href="mailto:alabitaiwo625@gmail.com">alabitaiwo625@gmail.com</a>
+      <a href="https://www.linkedin.com/in/tami-alabi/">LinkedIn</a>
+      <a href="https://wa.me/353870042838?text=Hi%20Taiwo%2C%20I%20saw%20your%20portfolio">WhatsApp</a>
+      <span class="foot-util"><a href="/study/eeai/">study</a> &middot;
+        <a href="/jobs/">tracker</a></span>
+    </div>
+  </div>
+</footer>
+<script>
+(function () {
+  var head = document.getElementById("sitehead"),
+      bar  = document.getElementById("scrollbar");
+  function frame() {
+    var y = window.pageYOffset || document.documentElement.scrollTop;
+    if (head) head.classList.toggle("is-stuck", y > 8);
+    if (bar) {
+      var h = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.transform = "scaleX(" + (h > 0 ? Math.min(y / h, 1) : 0) + ")";
+    }
+  }
+  var queued = false;
+  window.addEventListener("scroll", function () {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(function () { frame(); queued = false; });
+  }, {passive: true});
+  frame();
+})();
+</script>
+<!-- SHELLFOOT:END -->
 
 <div class="theme-picker" role="group" aria-label="colour theme">
   <button type="button" class="theme-dot" data-set-theme="g5" style="--sw:#ff7a3d" title="G5 Tri-X" aria-pressed="true"></button>

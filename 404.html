@@ -4,31 +4,103 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Not found | Taiwo Alabi</title>
+<script>document.documentElement.setAttribute("data-theme",localStorage.getItem("tw-theme")||"g5")</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800&display=swap">
 <link rel="stylesheet" href="/assets/css/style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230f0e0c'/><text y='72' x='50' font-size='62' text-anchor='middle' fill='%23FF7A3D' font-family='sans-serif' font-weight='bold'>T</text></svg>">
+<meta name="robots" content="noindex">
 </head>
-<body>
-<div class="topbar"><a href="/">&larr; Home</a><a href="/cv/">CV</a></div>
-<div class="wrap">
-  <header>
+<body class="has-shell">
+
+<!-- SHELLHEAD:START -->
+<div id="scrollbar" aria-hidden="true"></div>
+<header class="sitehead" id="sitehead">
+  <div class="sitehead-inner">
+    <a class="wordmark" href="/">Taiwo&nbsp;Alabi</a>
+    <nav class="sitenav" aria-label="Primary">
+      <a href="/#work">Work</a>
+      <a href="/#experience">Experience</a>
+      <a href="/#method">Method</a>
+      <a href="/cv/">CV</a>
+      <a class="nav-cta" href="mailto:alabitaiwo625@gmail.com">Get in touch</a>
+    </nav>
+  </div>
+</header>
+<!-- SHELLHEAD:END -->
+
+<main class="band band--base">
+  <div class="band-inner">
     <hr class="rule">
     <h1>That page moved</h1>
     <p class="lede">Nothing here. Everything worth reading is one click away.</p>
-  </header>
-  <div class="endcta" style="margin-top:24px">
-    <a class="cta" href="/">All work</a>
-    <a class="cta cta-ghost" href="/cv/">View CV</a>
-  </div>
-  <h2>The work</h2>
+
+    <div class="endcta" style="margin-top:24px">
+      <a class="cta" href="/#work">All work</a>
+      <a class="cta cta-ghost" href="/cv/">View CV</a>
+    </div>
+
+    <div class="eyebrow-num" style="margin-top:52px"><b>01</b> The work</div>
+    <h2 style="margin-top:8px">Each one leads with a decision</h2>
+<!-- NOTFOUND:START -->
   <ul class="exp">
-    <li><a href="/p/image-qa/">Image QA Gate</a> <span class="when">zero false alarms</span></li>
-    <li><a href="/p/care-agent/">Care Agent</a> <span class="when">95.2% routing accuracy</span></li>
-    <li><a href="/p/termsguard/">TermsGuard AI</a> <span class="when">87% F1, live on the internet</span></li>
-    <li><a href="/p/clinical-rag/">Smart Medical Records</a> <span class="when">patient data stays on site</span></li>
-    <li><a href="/p/surge-pricing/">RL vs Genetic Algorithm</a> <span class="when">+21.4% revenue</span></li>
+    <li><a href="/p/termsguard/">TermsGuard AI</a> <span class="when">grounding against hallucination</span></li>
+    <li><a href="/p/clinical-rag/">Smart Medical Records</a> <span class="when">wrong-patient retrieval</span></li>
+    <li><a href="/p/care-agent/">Care Agent</a> <span class="when">the confidence gate</span></li>
   </ul>
-  <footer><div>Taiwo Alabi &middot; Dublin &middot;
-    <a href="mailto:alabitaiwo625@gmail.com">alabitaiwo625@gmail.com</a></div></footer>
-</div>
+<!-- NOTFOUND:END -->
+  </div>
+</main>
+
+<!-- SHELLFOOT:START -->
+<footer class="sitefoot">
+  <div class="sitefoot-inner">
+    <div>
+      <div class="foot-name">Taiwo Alabi</div>
+      <p>Data Scientist, Dublin. MSc Artificial Intelligence,
+         National College of Ireland.</p>
+      <p class="foot-stamp">Last updated 16 August 2026</p>
+    </div>
+    <div>
+      <h4>Read</h4>
+      <a href="/#work">The work</a>
+      <a href="/cv/">CV</a>
+      <a href="/assets/Taiwo_Alabi_CV.pdf" target="_blank" rel="noopener">CV as PDF</a>
+      <a href="https://github.com/iamtamilore">GitHub</a>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <a href="mailto:alabitaiwo625@gmail.com">alabitaiwo625@gmail.com</a>
+      <a href="https://www.linkedin.com/in/tami-alabi/">LinkedIn</a>
+      <a href="https://wa.me/353870042838?text=Hi%20Taiwo%2C%20I%20saw%20your%20portfolio">WhatsApp</a>
+      <span class="foot-util"><a href="/study/eeai/">study</a> &middot;
+        <a href="/jobs/">tracker</a></span>
+    </div>
+  </div>
+</footer>
+<script>
+(function () {
+  var head = document.getElementById("sitehead"),
+      bar  = document.getElementById("scrollbar");
+  function frame() {
+    var y = window.pageYOffset || document.documentElement.scrollTop;
+    if (head) head.classList.toggle("is-stuck", y > 8);
+    if (bar) {
+      var h = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.transform = "scaleX(" + (h > 0 ? Math.min(y / h, 1) : 0) + ")";
+    }
+  }
+  var queued = false;
+  window.addEventListener("scroll", function () {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(function () { frame(); queued = false; });
+  }, {passive: true});
+  frame();
+})();
+</script>
+<!-- SHELLFOOT:END -->
+
 </body>
 </html>
