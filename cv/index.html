@@ -94,8 +94,8 @@
   <div class="grid">
 
     <div class="card">
-      <div class="metric">87%</div>
-      <div class="metric-label">F1, invented content cut 77%</div>
+      <div class="metric">grounded</div>
+      <div class="metric-label">every flag cites the GDPR article it came from. Invented content cut 77%</div>
       <div class="title">TermsGuard AI <span class="live">Live</span></div>
       <div class="desc">Cosine similarity alone marks "we do not sell your data" as a violation,
         because negation barely moves an embedding. Rule guards sit on top of the score, not
@@ -109,8 +109,8 @@
     </div>
 
     <div class="card">
-      <div class="metric">zero</div>
-      <div class="metric-label">false alarms in 90 test pairs</div>
+      <div class="metric">benchmarked</div>
+      <div class="metric-label">against pixel difference at F1 0.59 and kNN at 0.26. Reached 0.90</div>
       <div class="title">Automated QA Gate for AI-Generated Imagery</div>
       <div class="desc">Siamese network on a frozen ResNet50 for identity, autoencoder for
         colour drift. Precision 1.00 with zero false positives on a 90-pair test set, against pixel-difference and kNN baselines at F1 0.59 and 0.26.
@@ -122,8 +122,8 @@
     </div>
 
     <div class="card">
-      <div class="metric">on&nbsp;site</div>
-      <div class="metric-label">patient data never leaves the network</div>
+      <div class="metric">scoped</div>
+      <div class="metric-label">per patient before ranking, not filtered after. 30 leak probes, 0 leaks</div>
       <div class="title">Smart Medical Records Engine</div>
       <div class="desc">A general vector search over a hospital corpus will eventually surface the
         wrong patient. Scoping happens at the query layer, not as a filter afterwards. Thirty
@@ -136,8 +136,8 @@
     </div>
 
     <div class="card">
-      <div class="metric">95.2%</div>
-      <div class="metric-label">routing accuracy, 40 of 42 held-out</div>
+      <div class="metric">escalates</div>
+      <div class="metric-label">below 0.55 a human decides. 95.2% on the 40 of 42 it routed</div>
       <div class="title">Customer Care Process Automation</div>
       <div class="desc">The decision was the gate, not the classifier. Below 0.55 it escalates to a
         human rather than forcing a label, and I report the lower automation rate that produces.</div>
@@ -149,8 +149,8 @@
     </div>
 
     <div class="card">
-      <div class="metric">+21.4%</div>
-      <div class="metric-label">revenue over fixed pricing</div>
+      <div class="metric">two baselines</div>
+      <div class="metric-label">flat pricing, then the hand-written rule. Only then does +21.4% mean anything</div>
       <div class="title">RL vs Genetic Algorithm</div>
       <div class="desc">Surge pricing policy learned two ways, tested on 637,976 Boston ride
         records. Python, NumPy, pandas.</div>

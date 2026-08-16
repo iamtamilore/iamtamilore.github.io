@@ -27,7 +27,7 @@ PROJECTS = [
          card="termsguard.jpg",
          published=True,
          blurb="grounding against hallucination",
-         cmetric="87%", clabel="F1, with invented content cut 77%",
+         cmetric="grounded", clabel="every flag cites the GDPR article it came from. Invented content cut 77%",
          cdesc="Cosine similarity alone marks \"we do not sell your data\" as a violation,\n"
                "        because negation barely moves an embedding. Rule guards sit on top of the\n"
                "        score, not instead of it.",
@@ -43,7 +43,7 @@ PROJECTS = [
          card="clinical_rag.jpg",
          published=True,
          blurb="wrong-patient retrieval",
-         cmetric="on site", clabel="patient data never leaves the network",
+         cmetric="scoped", clabel="per patient before ranking, not filtered after. 30 leak probes, 0 leaks",
          cdesc="A general vector search over a hospital corpus will eventually surface\n"
                "        the wrong patient. Scoping happens at the query layer, not as a filter\n"
                "        afterwards. Thirty adversarial probes, zero leaks.",
@@ -59,7 +59,7 @@ PROJECTS = [
          card="care_agent.jpg",
          published=True,
          blurb="the confidence gate",
-         cmetric="95.2%", clabel="routing accuracy, 40 of 42 held-out",
+         cmetric="escalates", clabel="below 0.55 a human decides. 95.2% on the 40 of 42 it routed",
          cdesc="The decision was the gate, not the classifier. Below 0.55 it escalates to\n"
                "        a human rather than forcing a label, and I report the lower automation\n"
                "        rate that produces.",
@@ -78,7 +78,7 @@ PROJECTS = [
          card="image_qa.jpg",
          published=False,
          blurb="which error to make",
-         cmetric="zero", clabel="false alarms in 90 test pairs",
+         cmetric="benchmarked", clabel="against pixel difference at F1 0.59 and kNN at 0.26. Reached 0.90",
          cdesc="Catches the moment an AI-generated model stops being the same person.\n"
                "        Siamese network on a frozen ResNet50, plus an autoencoder for colour drift.",
          clive=False, ccta=None,
@@ -96,7 +96,7 @@ PROJECTS = [
          card="surge_pricing.jpg",
          published=False,
          blurb="the baseline nobody sets",
-         cmetric="+21.4%", clabel="revenue over fixed pricing",
+         cmetric="two baselines", clabel="flat pricing, then the hand-written rule. Only then does +21.4% mean anything",
          cdesc="Two ways to learn a surge pricing policy, tested against each other\n"
                "        on 637,976 real Boston ride records. Both found the same structure.",
          clive=False, ccta=None,

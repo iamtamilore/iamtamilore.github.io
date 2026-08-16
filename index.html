@@ -60,8 +60,8 @@
 <!-- CARDS:START -->
 
     <div class="card" id="termsguard">
-      <div class="metric">87%</div>
-      <div class="metric-label">F1, with invented content cut 77%</div>
+      <div class="metric">grounded</div>
+      <div class="metric-label">every flag cites the GDPR article it came from. Invented content cut 77%</div>
       <div class="title">TermsGuard AI <span class="live">Live</span></div>
       <div class="desc">Cosine similarity alone marks "we do not sell your data" as a violation,
         because negation barely moves an embedding. Rule guards sit on top of the
@@ -71,8 +71,8 @@
     <div class="cardlinks"><a href="https://github.com/iamtamilore/terms-guard-ai">Code</a></div></div>
 
     <div class="card" id="clinical-rag">
-      <div class="metric">on site</div>
-      <div class="metric-label">patient data never leaves the network</div>
+      <div class="metric">scoped</div>
+      <div class="metric-label">per patient before ranking, not filtered after. 30 leak probes, 0 leaks</div>
       <div class="title">Smart Medical Records</div>
       <div class="desc">A general vector search over a hospital corpus will eventually surface
         the wrong patient. Scoping happens at the query layer, not as a filter
@@ -81,8 +81,8 @@
     <div class="cardlinks"><a href="https://github.com/iamtamilore/agentic_rag_fastapi">Code</a></div></div>
 
     <div class="card" id="care-agent">
-      <div class="metric">95.2%</div>
-      <div class="metric-label">routing accuracy, 40 of 42 held-out</div>
+      <div class="metric">escalates</div>
+      <div class="metric-label">below 0.55 a human decides. 95.2% on the 40 of 42 it routed</div>
       <div class="title">Care Agent</div>
       <div class="desc">The decision was the gate, not the classifier. Below 0.55 it escalates to
         a human rather than forcing a label, and I report the lower automation
@@ -112,7 +112,7 @@
 
   <h2>What I use</h2>
   <p style="max-width:60ch;color:var(--muted)">
-    Python and SQL. TensorFlow and Keras, scikit-learn, pandas. RAG pipelines, vector search
+    Python and SQL. TensorFlow and Keras, scikit-learn, pandas, Matplotlib. RAG pipelines, vector search
     with pgvector and FAISS, LangGraph. PostgreSQL. Docker and Kubernetes, FastAPI, Flask.
     GDPR data cataloguing, lineage and UAT design. Linux, day to day.
   </p>
