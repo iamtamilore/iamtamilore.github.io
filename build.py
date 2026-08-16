@@ -28,8 +28,9 @@ PROJECTS = [
          published=True,
          blurb="grounding against hallucination",
          cmetric="87%", clabel="F1, with invented content cut 77%",
-         cdesc="Reads the small print and flags what is unfair to you, grounded in\n"
-               "        4,527 chunks of GDPR text. Deployed and publicly reachable.",
+         cdesc="Cosine similarity alone marks \"we do not sell your data\" as a violation,\n"
+               "        because negation barely moves an embedding. Rule guards sit on top of the\n"
+               "        score, not instead of it.",
          clive=True,
          ccta=("Try the live demo", "https://newtazer-terms-guard-ai.hf.space"),
          clinks=[("Code", "https://github.com/iamtamilore/terms-guard-ai")],
@@ -43,8 +44,9 @@ PROJECTS = [
          published=True,
          blurb="wrong-patient retrieval",
          cmetric="on site", clabel="patient data never leaves the network",
-         cdesc="A doctor asks a question in plain English and gets an answer from that\n"
-               "        patient's own notes. Self-hosted, scoped, audited.",
+         cdesc="A general vector search over a hospital corpus will eventually surface\n"
+               "        the wrong patient. Scoping happens at the query layer, not as a filter\n"
+               "        afterwards. Thirty adversarial probes, zero leaks.",
          clive=False, ccta=None,
          clinks=[("Code", "https://github.com/iamtamilore/agentic_rag_fastapi")],
          imgmap={"architecture.png": "rag_architecture.jpg",
@@ -58,8 +60,9 @@ PROJECTS = [
          published=True,
          blurb="the confidence gate",
          cmetric="95.2%", clabel="routing accuracy, 40 of 42 held-out",
-         cdesc="Two bots replacing two manual back-office jobs on a mobile network. The\n"
-               "        interesting part is when it refuses to decide.",
+         cdesc="The decision was the gate, not the classifier. Below 0.55 it escalates to\n"
+               "        a human rather than forcing a label, and I report the lower automation\n"
+               "        rate that produces.",
          clive=False, ccta=None,
          clinks=[("Code", "https://github.com/iamtamilore/customer-care-automation")],
          imgmap={"as_is.png": "as_is.jpg", "to_be.png": "to_be.jpg",

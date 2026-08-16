@@ -54,13 +54,12 @@
     Download CV <span class="cta-sub">PDF</span></a>
 
   <h2>Profile</h2>
-  <p>I tune intelligence to <strong>the cost of being wrong</strong>. Every model has a
-  dial, and the setting depends on the actual <strong>weight of a mistake</strong> in real life.
-  I learned that on a telecom platform carrying <strong>400 million usage records a day</strong>,
-  where a bad deploy meant fourteen downstream systems read nothing, or read twice. I am a
-  Master's student in Artificial Intelligence with <strong>five systems</strong> designed and
-  produced <strong>end-to-end</strong>, one deployed and publicly reachable, and I can
-  <strong>explain every one</strong> of them to you during our interview.</p>
+  <p>I tune intelligence to <strong>the cost of being wrong</strong>. Before I train
+  anything I establish what the problem looks like solved badly: the majority-class score,
+  the simple rule, the off-the-shelf tool. <strong>A model that cannot beat those does not
+  deserve to exist</strong>, and one that does has earned the number it reports. I learned why
+  that matters on a telecom platform carrying <strong>400 million usage records a day</strong>,
+  where a bad deploy meant fourteen downstream systems read nothing, or read twice.</p>
 
   <h2>Professional Experience</h2>
 
@@ -98,8 +97,9 @@
       <div class="metric">87%</div>
       <div class="metric-label">F1, invented content cut 77%</div>
       <div class="title">TermsGuard AI <span class="live">Live</span></div>
-      <div class="desc">Flags unfair clauses in plain English, grounded in GDPR. Sentence
-        transformers, FAISS, Claude API, Flask.</div>
+      <div class="desc">Cosine similarity alone marks "we do not sell your data" as a violation,
+        because negation barely moves an embedding. Rule guards sit on top of the score, not
+        instead of it. Every flag grounded in retrieved GDPR text.</div>
       <div class="go"><a class="stretch" href="/p/termsguard/">Read it &rarr;</a></div>
       <div class="cardlinks">
         <a href="https://newtazer-terms-guard-ai.hf.space">Live demo</a><span aria-hidden="true">|</span>
@@ -125,8 +125,9 @@
       <div class="metric">on&nbsp;site</div>
       <div class="metric-label">patient data never leaves the network</div>
       <div class="title">Smart Medical Records Engine</div>
-      <div class="desc">Clinical RAG scoped per patient, self-hosted. FastAPI,
-        PostgreSQL/pgvector, LangGraph, Docker.</div>
+      <div class="desc">A general vector search over a hospital corpus will eventually surface the
+        wrong patient. Scoping happens at the query layer, not as a filter afterwards. Thirty
+        adversarial probes, zero leaks.</div>
       <div class="go"><a class="stretch" href="/p/clinical-rag/">Read it &rarr;</a></div>
       <div class="cardlinks">
         <a href="/assets/docs/clinical_rag_writeup.pdf">Write-up</a><span aria-hidden="true">|</span>
@@ -138,8 +139,8 @@
       <div class="metric">95.2%</div>
       <div class="metric-label">routing accuracy, 40 of 42 held-out</div>
       <div class="title">Customer Care Process Automation</div>
-      <div class="desc">Field-level conformance bot against a signed report catalogue, plus
-        a routing agent with a confidence gate. Python, scikit-learn, BPMN 2.0.</div>
+      <div class="desc">The decision was the gate, not the classifier. Below 0.55 it escalates to a
+        human rather than forcing a label, and I report the lower automation rate that produces.</div>
       <div class="go"><a class="stretch" href="/p/care-agent/">Read it &rarr;</a></div>
       <div class="cardlinks">
         <a href="/assets/docs/care_agent_writeup.pdf">Write-up</a><span aria-hidden="true">|</span>
