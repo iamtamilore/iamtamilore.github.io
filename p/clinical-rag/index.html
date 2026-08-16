@@ -25,8 +25,8 @@
 <div class="wrap">
 <hr class="rule"><h1 id="smart-medical-records-engine">Smart Medical Records Engine</h1>
 <p class="readtime">5 min read</p>
-<p><strong>Helps a doctor find the one thing in a patient file that
-matters, before the appointment ends.</strong></p><div class="stats-strip"><span class="stat">0/30 leak probes succeeded</span><span class="stat">every access logged</span><span class="stat">scoped by patient before ranking</span></div>
+<p>Helps a doctor find the one thing in a patient file that matters,
+before the appointment ends.</p>
 <p>Taiwo Alabi · MSc Artificial Intelligence, National College of
 Ireland</p>
 <hr />
@@ -58,17 +58,17 @@ problem with a consequence attached.</p>
 <h2 id="2-what-it-does">2. What it does</h2>
 <p>A search box a doctor can talk to normally. They ask <em>"has this
 patient ever reacted badly to any medication?"</em> and it answers from
-<strong>that patient's own notes</strong>, showing the actual note it
-found the answer in.</p>
+that patient's own notes, showing the actual note it found the answer
+in.</p>
 <p>Three things make it trustworthy, and all three matter more than the
 clever part:</p>
 <ul>
-<li><strong>It only reads one file.</strong> Not a similar patient's,
-not someone with the same illness. Verified: section 8.</li>
-<li><strong>Records never leave the hospital.</strong> The model runs on
-the hospital's own machine.</li>
-<li><strong>Every access is written down.</strong> If anyone asks who
-opened a patient's file, there is an answer.</li>
+<li>It only reads one file. Not a similar patient's, not someone with
+the same illness. Verified: section 8.</li>
+<li>Records never leave the hospital. The model runs on the hospital's
+own machine.</li>
+<li>Every access is written down. If anyone asks who opened a patient's
+file, there is an answer.</li>
 </ul>
 <hr />
 <h2 id="3-how-it-works">3. How it works</h2>
@@ -85,8 +85,8 @@ embeds them, and loads them with their patient reference attached.</p>
 <hr />
 <h2 id="4-the-safety-rail-that-matters-most">4. The safety rail that
 matters most</h2>
-<p>Retrieval is <strong>scoped by patient before it ranks by
-similarity.</strong></p>
+<p><strong>Retrieval is scoped by patient before it ranks by
+similarity.</strong></p><div class="stats-strip"><span class="stat">0/30 leak probes succeeded</span><span class="stat">every access logged</span><span class="stat">scoped by patient before ranking</span></div>
 <p>This sounds like a detail. It is the whole design. A general vector
 search over all notes would happily return another patient's record if
 that record happened to be the closer semantic match, and it often
@@ -155,17 +155,17 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="
 <hr />
 <h2 id="9-honest-limitations">9. Honest limitations</h2>
 <ul>
-<li><strong>It has not been tested with real clinicians.</strong> The
-retrieval works; whether the interface fits a ten-minute consultation is
-unproven, and that is the claim that matters.</li>
-<li><strong>The data is synthetic.</strong> Real notes are messier:
-abbreviations, inconsistent formatting, scanned documents.</li>
-<li><strong>A local <code>llama3.1</code> is weaker than a hosted
-model.</strong> Accepted deliberately, but it means answers on complex
-questions are less reliable than the retrieval underneath them.</li>
-<li><strong>No formal evaluation set.</strong> Leakage was the priority,
-and it is measured in section 8: 0/30 across thirty adversarial probes.
-Answer quality against a labelled benchmark remains unmeasured.</li>
+<li>It has not been tested with real clinicians. The retrieval works;
+whether the interface fits a ten-minute consultation is unproven, and
+that is the claim that matters.</li>
+<li>The data is synthetic. Real notes are messier: abbreviations,
+inconsistent formatting, scanned documents.</li>
+<li>A local <code>llama3.1</code> is weaker than a hosted model.
+Accepted deliberately, but it means answers on complex questions are
+less reliable than the retrieval underneath them.</li>
+<li>No formal evaluation set. Leakage was the priority, and it is
+measured in section 8: 0/30 across thirty adversarial probes. Answer
+quality against a labelled benchmark remains unmeasured.</li>
 </ul>
 <hr />
 <h2 id="10-running-it">10. Running it</h2>
@@ -175,8 +175,8 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="
 <p>Ollama pulls <code>nomic-embed-text</code> and <code>llama3.1</code>
 on first run. Ingestion loads the records and builds the embeddings.
 Nothing reaches the internet after the model pull.</p>
-<p><strong>Stack:</strong> Python · FastAPI · PostgreSQL + pgvector ·
-Ollama (llama3.1) · Docker Compose · JWT</p>
+<p>Stack: Python · FastAPI · PostgreSQL + pgvector · Ollama (llama3.1) ·
+Docker Compose · JWT</p>
 
 <div class="lateral"><a class="latnav prev" href="/p/termsguard/">&larr; TermsGuard AI<span>grounding against hallucination</span></a><a class="latnav next" href="/p/care-agent/">Care Agent &rarr;<span>the confidence gate</span></a></div>
 <div class="endnav">

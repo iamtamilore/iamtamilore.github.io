@@ -25,13 +25,13 @@
 <div class="wrap">
 <hr class="rule"><h1 id="termsguard-ai">TermsGuard AI</h1>
 <p class="readtime">4 min read</p>
-<p><strong>Reads the small print and flags the parts that are unfair to
-you, in plain English.</strong></p><div class="stats-strip"><span class="stat">invented content cut 77%</span><span class="stat">87% F1 on unfair-clause detection</span><span class="stat">latency 28s to under 10s</span></div>
+<p>Reads the small print and flags the parts that are unfair to you, in
+plain English.</p>
 <p>Taiwo Alabi · MSc Artificial Intelligence, National College of
 Ireland</p>
-<p><strong>Live demo:</strong> <a
+<p>Live demo: <a
 href="https://newtazer-terms-guard-ai.hf.space">https://newtazer-terms-guard-ai.hf.space</a>
-<strong>Source:</strong> <a
+Source: <a
 href="https://github.com/iamtamilore/terms-guard-ai">https://github.com/iamtamilore/terms-guard-ai</a></p>
 <hr />
 <div class="toc"><h3 style="margin-top:0">Contents</h3><ol>
@@ -49,8 +49,8 @@ is not enough</a></li>
 </ol></div><div class="resources"><a class="cta" href="https://newtazer-terms-guard-ai.hf.space" target="_blank" rel="noopener">Try it</a><a href="/assets/docs/termsguard_writeup.pdf">Read the detail<span class="tag">pdf</span></a><a href="https://github.com/iamtamilore/terms-guard-ai">Check the code</a></div>
 <h2 id="1-the-problem">1. The problem</h2>
 <p>Reading every privacy policy an average internet user meets would
-take roughly <strong>244 hours a year</strong>. Nobody does it. So
-people agree to data selling and tracking without knowing they have.</p>
+take roughly 244 hours a year. Nobody does it. So people agree to data
+selling and tracking without knowing they have.</p>
 <p>The problem is not that the documents are secret. They are published,
 free, and legally binding. They are simply unreadable at the length and
 density they are written, and the one clause that matters is buried
@@ -67,15 +67,15 @@ among forty that do not.</p>
 <tbody>
 <tr class="odd">
 <td>Invented content, after grounding</td>
-<td><strong>cut by 77%</strong></td>
+<td>cut by 77%</td>
 </tr>
 <tr class="even">
 <td>Unfair-clause detection</td>
-<td><strong>87% F1</strong></td>
+<td>87% F1</td>
 </tr>
 <tr class="odd">
 <td>End-to-end latency</td>
-<td><strong>28 seconds to under 10</strong></td>
+<td>28 seconds to under 10</td>
 </tr>
 <tr class="even">
 <td>GDPR reference chunks indexed</td>
@@ -107,13 +107,13 @@ Anything that looks unfair then has GDPR context retrieved for it from a
 FAISS index, and Claude Haiku verifies the flag before it is shown.</p>
 <hr />
 <h2 id="4-what-it-compares-against">4. What it compares against</h2>
-<p>The system carries <strong>205 hand-labelled reference
-clauses</strong>: 105 examples of fair terms and 100 examples of unfair
-ones. A new clause is judged by how close it sits to each set.</p>
-<p>Separately, a FAISS index holds <strong>4,527 chunks of GDPR
-text</strong>. When a clause is flagged, retrieval pulls the most
-relevant articles, so the explanation cites the regulation rather than
-the model's impression of it.</p>
+<p>The system carries 205 hand-labelled reference clauses: 105 examples
+of fair terms and 100 examples of unfair ones. A new clause is judged by
+how close it sits to each set.</p>
+<p>Separately, a FAISS index holds 4,527 chunks of GDPR text. When a
+clause is flagged, retrieval pulls the most relevant articles, so the
+explanation cites the regulation rather than the model's impression of
+it.</p>
 <p>That split matters. The labelled clauses decide <em>whether</em>
 something is a problem. The GDPR corpus supplies <em>why</em>, and it is
 the second half that makes a flag worth acting on.</p>
@@ -123,26 +123,25 @@ not enough</h2>
 <p>This is the part I would defend hardest in an interview.</p>
 <p>Consider two sentences:</p>
 <blockquote>
-<p>"We sell your personal data to third parties." "We do
-<strong>not</strong> sell your personal data to third parties."</p>
+<p>"We sell your personal data to third parties." "We do not sell your
+personal data to third parties."</p>
 </blockquote>
 <p>To a sentence embedding these are nearly identical. They share almost
 every word, the same grammar, the same subject matter. Cosine similarity
-will place them side by side, and a purely semantic classifier will flag
-the second sentence as a violation when it is actually a
-reassurance.</p>
+will place them side by side, and a purely semantic classifier will
+<strong>flag the second sentence as a violation when it is actually a
+reassurance</strong>.</p>
 <p>So the pipeline carries a layer of explicit rule guards on top of the
 similarity score:</p>
 <ul>
-<li><strong>Negation detection</strong>, for exactly the case
-above.</li>
-<li><strong>Protective-context detection</strong>, for clauses that
-describe a right being granted rather than removed.</li>
-<li><strong>A children's-data check</strong>, because clauses about
-minors carry obligations that generic similarity scoring does not weight
+<li>Negation detection, for exactly the case above.</li>
+<li>Protective-context detection, for clauses that describe a right
+being granted rather than removed.</li>
+<li>A children's-data check, because clauses about minors carry
+obligations that generic similarity scoring does not weight
 correctly.</li>
-<li><strong>Keyword boosting</strong>, for terms whose presence changes
-the reading regardless of how the sentence embeds.</li>
+<li>Keyword boosting, for terms whose presence changes the reading
+regardless of how the sentence embeds.</li>
 </ul>
 <p>None of these are clever. They exist because I ran the
 similarity-only version, read what it got wrong, and found the errors
@@ -152,11 +151,11 @@ clustered around cases where meaning is inverted by a single word.</p>
 <p>When an API key is configured, Claude Haiku re-reads each flagged
 clause and removes false positives before anything is shown to the
 user.</p>
-<p>The design decision worth noting is the <strong>fallback</strong>:
-with no key set, the tool runs in matching-only mode rather than
-failing. It degrades to a less precise version of itself instead of
-refusing to work, which means the demo is always live and the tool is
-not hostage to a paid dependency.</p>
+<p>The design decision worth noting is the fallback: with no key set,
+the tool runs in matching-only mode rather than failing. It degrades to
+a less precise version of itself instead of refusing to work, which
+means the demo is always live and the tool is not hostage to a paid
+dependency.</p>
 <hr />
 <h2 id="7-saying-how-sure-it-is">7. Saying how sure it is</h2>
 <p>Flags are tiered by confidence rather than presented as flat
@@ -173,20 +172,20 @@ uncertainty rather than hide it behind a single number.</p>
 <li><strong>It is not legal advice</strong>, and the interface says so.
 It surfaces clauses worth reading properly; it does not tell you your
 rights.</li>
-<li><strong>Grounded in GDPR only.</strong> A policy written for another
-jurisdiction gets judged against the wrong regulation, and the tool does
-not currently detect that mismatch.</li>
-<li><strong>The 87% F1 is measured on my own labelled set.</strong> 205
-reference clauses is a working corpus, not a benchmark, and performance
-on unusual drafting styles is unmeasured.</li>
-<li><strong>This was a contributed project</strong>, not a solo build.
-My work was the retrieval pipeline, the grounding, the rule guards and
-the latency reduction.</li>
+<li>Grounded in GDPR only. A policy written for another jurisdiction
+gets judged against the wrong regulation, and the tool does not
+currently detect that mismatch.</li>
+<li>The 87% F1 is measured on my own labelled set. 205 reference clauses
+is a working corpus, not a benchmark, and performance on unusual
+drafting styles is unmeasured.</li>
+<li>This was a contributed project, not a solo build. My work was the
+retrieval pipeline, the grounding, the rule guards and the latency
+reduction.</li>
 </ul>
 <hr />
 <h2 id="9-run-it">9. Run it</h2>
-<p>Easiest is the live demo: <strong><a
-href="https://newtazer-terms-guard-ai.hf.space">https://newtazer-terms-guard-ai.hf.space</a></strong></p>
+<p>Easiest is the live demo: <a
+href="https://newtazer-terms-guard-ai.hf.space">https://newtazer-terms-guard-ai.hf.space</a></p>
 <p>Locally:</p>
 <div class="sourceCode" id="cb1"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements.txt</span>
@@ -194,8 +193,8 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="
 <p>Optional, for the verification layer:</p>
 <div class="sourceCode" id="cb2"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">ANTHROPIC_API_KEY</span><span class="op">=</span><span class="st">&quot;sk-ant-...&quot;</span></span></code></pre></div>
-<p><strong>Stack:</strong> Python · Flask · sentence-transformers
-(MiniLM) · FAISS · Anthropic API · Docker</p>
+<p>Stack: Python · Flask · sentence-transformers (MiniLM) · FAISS ·
+Anthropic API · Docker</p>
 
 <div class="lateral"><a class="latnav next" href="/p/clinical-rag/">Smart Medical Records &rarr;<span>wrong-patient retrieval</span></a></div>
 <div class="endnav">

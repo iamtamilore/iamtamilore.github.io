@@ -26,8 +26,8 @@
 <hr class="rule"><h1 id="customer-care-process-automation">Customer Care Process
 Automation</h1>
 <p class="readtime">4 min read</p>
-<p><strong>Two bots replacing two manual back-office jobs, with a rule
-about when not to decide.</strong></p><div class="stats-strip"><span class="stat">escalates rather than guesses, below 0.55</span><span class="stat">95.2% on 40 of 42 held-out tickets</span><span class="stat">2 manual processes replaced</span></div>
+<p>Two bots replacing two manual back-office jobs, with a rule about
+when not to decide.</p>
 <p>Taiwo Alabi · MSc Artificial Intelligence, National College of
 Ireland</p>
 <hr />
@@ -68,11 +68,11 @@ business a second handling pass on work it already paid for once.</p>
 <tbody>
 <tr class="odd">
 <td>Confidence threshold for escalation</td>
-<td><strong>0.55</strong>, below which a human decides</td>
+<td>0.55, below which a human decides</td>
 </tr>
 <tr class="even">
 <td>Routing accuracy on held-out tickets</td>
-<td><strong>95.2%</strong> (40 of 42)</td>
+<td>95.2% (40 of 42)</td>
 </tr>
 <tr class="odd">
 <td>Labelled corpus</td>
@@ -89,8 +89,8 @@ business a second handling pass on work it already paid for once.</p>
 </tbody>
 </table></div>
 <p>The accuracy number is the least interesting thing here. What matters
-is what the agent does with the tickets it is <strong>not</strong>
-confident about, which is section 6.</p>
+is what the agent does with the tickets it is not confident about, which
+is section 6.</p>
 <hr />
 <h2 id="3-the-process-before">3. The process, before</h2>
 <figure><a href="/assets/img/as_is.jpg" target="_blank" rel="noopener"><img src="/assets/img/as_is.jpg" alt="As-is process" loading="lazy"></a><figcaption>Every complaint read
@@ -140,14 +140,14 @@ the ticket goes to a human.</em></p>
 has never seen anything like, it will still pick the closest of the five
 categories and report a number. That is the failure mode worth designing
 against.</p>
-<p>So the agent does not have to answer. Any ticket scoring below
-<strong>0.55</strong> confidence is flagged
-<code>needs_human_review</code> and escalated instead of routed.</p>
+<p>So the agent does not have to answer. Any ticket scoring below 0.55
+confidence is flagged <code>needs_human_review</code> and escalated
+instead of routed.</p>
 <p>The economics justify it. A needless escalation costs an agent about
 five minutes. A confident misroute costs the customer days. When one
 error is two orders of magnitude more expensive than the other, the
-correct system is one that escalates freely, and I would rather report a
-lower automation rate than a higher misroute rate.</p>
+correct system is one that escalates freely, and <strong>I would rather
+report a lower automation rate than a higher misroute rate</strong>.</p>
 <hr />
 <h2 id="7-the-second-bot-rule-based-validation">7. The second bot:
 rule-based validation</h2>
@@ -157,29 +157,28 @@ validator checking each record against its requirements.</figcaption></figure>
 reads the customer records, validates each field, writes the clean
 report to Excel and Word, and writes everything that failed validation
 to a separate exceptions file.</p>
-<p>This half is deliberately <strong>not</strong> machine learning.
-These are hard business rules with known correct answers, so a
-classifier would introduce uncertainty where none needs to exist.
-Choosing not to use ML is as much a design decision as choosing to.</p>
+<p>This half is deliberately not machine learning. These are hard
+business rules with known correct answers, so a classifier would
+introduce uncertainty where none needs to exist. Choosing not to use ML
+is as much a design decision as choosing to.</p>
 <p>Outputs: <code>routed_tickets.csv</code>,
 <code>validation_exceptions.csv</code>, and the daily report in both
 <code>.xlsx</code> and <code>.docx</code>.</p>
 <hr />
 <h2 id="8-honest-limitations">8. Honest limitations</h2>
 <ul>
-<li><strong>The corpus is small and synthetic.</strong> 210 generated
-tickets across five categories. Real complaints are messier:
-code-switching, abbreviations, several issues in one message. The
-generator was written to be realistic, but it is still a generator.</li>
-<li><strong>42 test tickets is a thin evaluation.</strong> 95.2% means
-40 of 42, so a single ticket moves the figure by more than two points.
-The pattern of errors is more informative than the headline number.</li>
-<li><strong>Five categories is a simplification.</strong> A real network
-has more teams and less clean boundaries between them.</li>
-<li><strong>The confidence threshold was set by judgement, not
-swept.</strong> 0.55 reflects the cost asymmetry described above, but a
-proper sweep against real escalation costs would be the honest way to
-fix it.</li>
+<li>The corpus is small and synthetic. 210 generated tickets across five
+categories. Real complaints are messier: code-switching, abbreviations,
+several issues in one message. The generator was written to be
+realistic, but it is still a generator.</li>
+<li>42 test tickets is a thin evaluation. 95.2% means 40 of 42, so a
+single ticket moves the figure by more than two points. The pattern of
+errors is more informative than the headline number.</li>
+<li>Five categories is a simplification. A real network has more teams
+and less clean boundaries between them.</li>
+<li>The confidence threshold was set by judgement, not swept. 0.55
+reflects the cost asymmetry described above, but a proper sweep against
+real escalation costs would be the honest way to fix it.</li>
 </ul>
 <hr />
 <h2 id="9-running-it">9. Running it</h2>
@@ -189,8 +188,8 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> rpa_report_bot.py    <span class="co"># validate records, write the daily report</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> plot_results.py      <span class="co"># regenerate every figure in this document</span></span></code></pre></div>
 <p>Seeded, so results reproduce on every run.</p>
-<p><strong>Stack:</strong> Python · scikit-learn (TF-IDF, Naive Bayes) ·
-pandas · BPMN 2.0 · openpyxl · python-docx</p>
+<p>Stack: Python · scikit-learn (TF-IDF, Naive Bayes) · pandas · BPMN
+2.0 · openpyxl · python-docx</p>
 
 <div class="lateral"><a class="latnav prev" href="/p/clinical-rag/">&larr; Smart Medical Records<span>wrong-patient retrieval</span></a><a class="latnav next" href="/cv/">CV &rarr;<span>the short version</span></a></div>
 <div class="endnav">
