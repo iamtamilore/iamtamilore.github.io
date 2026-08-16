@@ -375,3 +375,71 @@ ul.exp .when { color: var(--muted-2); font-size: 13.5px; }
   color: var(--muted-2); font-size: 13px; letter-spacing: .06em;
   text-transform: uppercase; margin: -4px 0 18px;
 }
+
+/* ---------- lateral project navigation ---------- */
+/* Explicit grid columns rather than space-between: the first project page has
+   no .prev, and .next must still sit right. */
+.lateral { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 40px; }
+.latnav {
+  display: block; background: var(--panel); border: 1px solid var(--line);
+  border-radius: 12px; padding: 22px 20px 20px; color: var(--text);
+  box-sizing: border-box; min-width: 0;
+  transition: border-color .16s ease, transform .16s ease;
+}
+.latnav:hover { border-color: var(--accent-dim); transform: translateY(-2px); }
+.latnav span { display: block; margin-top: 6px; color: var(--muted); font-size: 13.5px; }
+.latnav.prev { text-align: left; }
+.latnav.next { text-align: right; }
+
+@media (min-width: 680px) {
+  .lateral { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .latnav.prev { grid-column: 1; }
+  .latnav.next { grid-column: 2; }
+}
+
+.util-footer { margin-top: 10px; color: var(--muted-2); font-size: 12.5px; }
+.util-footer a { color: inherit; transition: color .16s ease; }
+.util-footer a:hover { color: var(--accent); }
+
+@media print { .lateral, .util-footer { display: none; } }
+
+/* ---------- landing page anchor: the first number a reader meets ---------- */
+.anchor { margin-top: 30px; padding: 20px 22px; background: var(--panel);
+          border: 1px solid var(--line); border-left: 3px solid var(--accent);
+          border-radius: 12px; max-width: 56ch; }
+.anchor-num { font-size: clamp(30px, 8vw, 40px); font-weight: 700; color: var(--accent);
+              line-height: 1.05; }
+.anchor-label { color: var(--text); font-size: 14.5px; margin-top: 4px; }
+.anchor p { margin: 12px 0 0; color: var(--muted); font-size: 14px; }
+
+/* ---------- motion: guards first, effects second ----------
+   Two gates, both non-negotiable.
+   1. prefers-reduced-motion. Some readers have vestibular disorders, and some
+      recruiters browse with it on. Motion is opt-in, never assumed.
+   2. @supports (animation-timeline). Chrome, Edge and Safari support scroll-driven
+      animations. Firefox is still behind a flag, so without this gate a Firefox
+      visitor gets elements stuck at opacity 0 and sees a blank page.
+   Anything animated must degrade to fully visible, not to hidden.               */
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      animation: reveal-in linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 32%;
+    }
+
+    @keyframes reveal-in {
+      to { opacity: 1; transform: none; }
+    }
+  }
+}
+
+/* Explicit fallback. If either gate fails, content is visible with no transform.
+   Never rely on the absence of a rule for this. */
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; animation: none; }
+}

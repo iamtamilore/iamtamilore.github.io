@@ -61,7 +61,7 @@
   <h2>Professional Experience</h2>
 
   <ul class="exp">
-    <li><strong>Turing, Remote (Dublin)</strong> <span class="when">Jan 2026 to Mar 2026</span><br>
+    <li><strong>Turing, Remote (Dublin)</strong> <span class="when">Apr 2026 to May 2026</span><br>
       <strong>AI Quality Analyst, Google Gemini evaluation programme</strong><br>
       I measured the quality of Google Gemini responses on personalization features, then
       wrote prompts to test the models, and documented the process for a Reinforcement
@@ -71,14 +71,17 @@
       <span class="when">Summer 2024 &amp; 2025</span><br>
       <strong>Product Manager Intern</strong><br>
       On a national mobile network in one of Africa's largest mobile markets, 400 million
-      daily call records represent 400 million bills that real people pay. I designed a data
-      migration architecture that partitions customer data into domain-specific buckets,
-      migrating fragmented data into distributed read-only storage each team can query
-      directly. Data quality improved across the reporting platform, the Customer Care team
-      can now generate on-demand reports, and query speed dropped to
-      <strong>under 4 seconds</strong>. With the test team I designed over
-      <strong>440 User Acceptance Test cases</strong> to identify faults before any system
-      went live.</li>
+      daily call records represent 400 million bills that real people pay. I designed and
+      tested the API layer for a cloud integration between the contact centre platform and a
+      commercial bank's customer care line. I tracked every interface the bank had to expose
+      against what we had actually received, and tested each one with curl before it went near
+      a voice prompt. When authentication fails, the call does not retry silently and does not
+      dead-end. <strong>It transfers to a person.</strong> That is the rule I have built into
+      every system since. I also worked with the solutions architect on a data migration that
+      partitions customer data into domain-specific buckets, and with the test team designed
+      over <strong>440 User Acceptance Test cases</strong>. During the phased cutover a downstream
+      storage target filled and blocked uploads, and a control connection reset stopped one CDR
+      stream. <strong>Both surfaced in verification, before any customer saw them.</strong></li>
   </ul>
 
   <h2>Selected Projects</h2>
@@ -106,9 +109,8 @@
       <div class="metric-label">false alarms in 90 test pairs</div>
       <div class="title">Automated QA Gate for AI-Generated Imagery</div>
       <div class="desc">Siamese network on a frozen ResNet50 for identity, autoencoder for
-        colour drift. Tuning the threshold off the sigmoid default lifted F1 to 1.00.
+        colour drift. Precision 1.00 with zero false positives on a 90-pair test set, against pixel-difference and kNN baselines at F1 0.59 and 0.26.
         TensorFlow, Keras, scikit-learn.</div>
-      <div class="go"><a class="stretch" href="/p/image-qa/">Read it &rarr;</a></div>
       <div class="cardlinks">
         <a href="/assets/docs/image_qa_writeup.pdf">Write-up</a><span aria-hidden="true">|</span>
         <a href="https://github.com/iamtamilore/campaign-image-qa">Code</a>
@@ -147,7 +149,6 @@
       <div class="title">RL vs Genetic Algorithm</div>
       <div class="desc">Surge pricing policy learned two ways, tested on 637,976 Boston ride
         records. Python, NumPy, pandas.</div>
-      <div class="go"><a class="stretch" href="/p/surge-pricing/">Read it &rarr;</a></div>
       <div class="cardlinks">
         <a href="https://youtu.be/Q_6xYLD4ykA">Walkthrough</a><span aria-hidden="true">|</span>
         <a href="/assets/docs/surge_pricing_report.pdf">Report</a><span aria-hidden="true">|</span>
@@ -176,14 +177,14 @@
   networks, Transformers.<br>
   <strong>AI and Agents:</strong> RAG pipelines, Claude, MCP servers, LangChain, LangGraph,
   vector search (pgvector, FAISS), LLM evaluation, intelligent and multi-modal agents,
-  <a href="/p/surge-pricing/" style="color:inherit;border-bottom:1px solid var(--line)">genetic algorithms</a>,
+  <a href="/assets/docs/" style="color:inherit;border-bottom:1px solid var(--line)">genetic algorithms</a>,
   zero-shot and few-shot learning.<br>
   <strong>Data and Databases:</strong> PostgreSQL, Hadoop HDFS, HBase, GaussDB, data modeling.<br>
   <strong>Containers and Deployment:</strong> Docker, Docker Compose, Kubernetes, FastAPI,
   Flask, autoscaling, Google Cloud, Google Kubernetes Engine.<br>
   <strong>Data Governance:</strong> GDPR data cataloging, data lineage, data quality
   validation, UAT design.<br>
-  <strong>Tools:</strong> Git, GitHub, Claude Code. Native Linux user, dual-boot server.
+  <strong>Tools:</strong> Git, GitHub, Claude Code. Linux.
   </p>
 
   <h2>Get in touch</h2>

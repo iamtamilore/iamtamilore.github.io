@@ -1,0 +1,5 @@
+
+# local safety backups, never published
+*.bak
+*.bak2
+*.bak-*

@@ -17,11 +17,6 @@
 </head>
 <body>
 
-<nav class="util" aria-label="Personal">
-  <a href="/study/eeai/">study</a>
-  <a href="/jobs/">tracker</a>
-  <a href="/bank-pwa/">bank</a>
-</nav>
 
 <div class="wrap">
 
@@ -33,8 +28,8 @@
       <div>
         <div class="eyebrow">Dublin, Ireland</div>
         <h1>Taiwo Alabi</h1>
-        <p class="lede">Data Scientist. MSc Artificial Intelligence, National College of Ireland.</p>
         <p class="claim">I tune AI to <b>the cost of being wrong</b>.</p>
+        <p class="lede">Data Scientist. MSc Artificial Intelligence, National College of Ireland.</p>
         <p class="proof">I build AI systems end-to-end and publish exactly where each one fails.</p>
         <a class="cta" href="/cv/">View CV</a>
         <a class="cta cta-ghost" href="/assets/Taiwo_Alabi_CV.pdf" target="_blank" rel="noopener">Download <span class="cta-sub">PDF</span></a>
@@ -42,28 +37,26 @@
     </div>
   </header>
 
+  <div class="anchor">
+    <div class="anchor-num">400 million</div>
+    <div class="anchor-label">usage records a day, on the platform where I learned this</div>
+    <p>Huawei, telecom mediation for a Nigerian mobile operator. Seven upstream network
+       elements, fourteen downstream consumers, thirty-three production flows on Hadoop.</p>
+  </div>
+
   <p style="margin-top:26px;max-width:56ch;color:var(--muted)">
     Every model has a threshold, and where you set it is a <strong>business decision, not a
     technical one</strong>. A misrouted support ticket costs someone ten minutes. A line missed in a patient's
-    history costs a great deal more. So I build systems that admit uncertainty and ask a
-    human, rather than guess confidently and occasionally be badly wrong.
+    history costs a great deal more. Every system below is built around a different answer to
+    the same question: <strong>which error can we afford?</strong>
   </p>
-
-  <nav class="meta" aria-label="Contact">
-    <a href="mailto:alabitaiwo625@gmail.com">alabitaiwo625@gmail.com</a>
-    <span aria-hidden="true">|</span>
-    <a href="https://www.linkedin.com/in/tami-alabi/">LinkedIn</a>
-    <span aria-hidden="true">|</span>
-    <a href="https://github.com/iamtamilore">GitHub</a>
-    <span aria-hidden="true">|</span>
-    <a href="https://wa.me/353870042838?text=Hi%20Taiwo%2C%20I%20saw%20your%20portfolio">WhatsApp +353 87 004 2838</a>
-  </nav>
 
   <h2>Work</h2>
 
   <div class="grid">
+<!-- CARDS:START -->
 
-    <div class="card">
+    <div class="card" id="termsguard">
       <div class="metric">87%</div>
       <div class="metric-label">F1, with invented content cut 77%</div>
       <div class="title">TermsGuard AI <span class="live">Live</span></div>
@@ -73,53 +66,39 @@
       <a class="cta" style="position:relative;z-index:2" href="https://newtazer-terms-guard-ai.hf.space" target="_blank" rel="noopener">Try the live demo</a>
     <div class="cardlinks"><a href="https://github.com/iamtamilore/terms-guard-ai">Code</a></div></div>
 
-    <div class="card">
-      <div class="metric">zero</div>
-      <div class="metric-label">false alarms in 90 test pairs</div>
-      <div class="title">Image QA Gate</div>
-      <div class="desc">Catches the moment an AI-generated model stops being the same person.
-        Siamese network on a frozen ResNet50, plus an autoencoder for colour drift.</div>
-      <div class="go"><a class="stretch" href="/p/image-qa/">Read it &rarr;</a></div>
-    <div class="cardlinks"><a href="https://github.com/iamtamilore/campaign-image-qa">Code</a></div></div>
-
-    <div class="card">
-      <div class="metric">on&nbsp;site</div>
+    <div class="card" id="clinical-rag">
+      <div class="metric">on site</div>
       <div class="metric-label">patient data never leaves the network</div>
       <div class="title">Smart Medical Records</div>
-      <div class="desc">A doctor asks a question in plain English and gets an answer from
-        that patient's own notes. Self-hosted, scoped, audited.</div>
+      <div class="desc">A doctor asks a question in plain English and gets an answer from that
+        patient's own notes. Self-hosted, scoped, audited.</div>
       <div class="go"><a class="stretch" href="/p/clinical-rag/">Read it &rarr;</a></div>
     <div class="cardlinks"><a href="https://github.com/iamtamilore/agentic_rag_fastapi">Code</a></div></div>
 
-    <div class="card">
+    <div class="card" id="care-agent">
       <div class="metric">95.2%</div>
       <div class="metric-label">routing accuracy, and it escalates the rest</div>
       <div class="title">Care Agent</div>
-      <div class="desc">Two bots replacing two manual back-office jobs on a mobile network.
-        The interesting part is when it refuses to decide.</div>
+      <div class="desc">Two bots replacing two manual back-office jobs on a mobile network. The
+        interesting part is when it refuses to decide.</div>
       <div class="go"><a class="stretch" href="/p/care-agent/">Read it &rarr;</a></div>
     <div class="cardlinks"><a href="https://github.com/iamtamilore/customer-care-automation">Code</a></div></div>
 
-    <div class="card">
-      <div class="metric">+21.4%</div>
-      <div class="metric-label">revenue over fixed pricing</div>
-      <div class="title">RL vs Genetic Algorithm</div>
-      <div class="desc">Two ways to learn a surge pricing policy, tested against each other
-        on 637,976 real Boston ride records. Both found the same structure.</div>
-      <div class="go"><a class="stretch" href="/p/surge-pricing/">Read it &rarr;</a></div>
-      <div class="cardlinks"><a href="https://youtu.be/Q_6xYLD4ykA">Walkthrough</a><span aria-hidden="true">|</span><a href="/assets/docs/surge_pricing_report.pdf">Report</a></div>
-    </div>
-
+  <!-- CARDS:END -->
   </div>
 
   <h2>Before this</h2>
 
   <ul class="exp">
     <li><strong>Huawei</strong> <span class="when">two summers, Globacom network</span><br>
-      400 million daily call records, which are 400 million bills real people pay. I
-      redesigned how that data was partitioned so teams could query it directly, brought
-      response time <strong>under four seconds</strong>, and wrote over
-      <strong>440 acceptance test cases</strong> to find faults before they reached anyone.</li>
+      400 million daily call records, which are 400 million bills real people pay. I designed
+      and tested the API layer for a cloud integration with a bank's customer care line, and
+      tested every interface with curl before it went near a voice prompt. When authentication
+      fails, that call does not retry silently and does not dead-end. <strong>It transfers to a
+      person.</strong> I also worked with the solutions architect on the data migration, and
+      with the test team designed over 440 acceptance test cases. During the phased cutover a
+      downstream storage target filled and blocked uploads, and a control connection reset stopped
+      one CDR stream. <strong>Both surfaced in verification, before any customer saw them.</strong></li>
     <li><strong>Turing</strong> <span class="when">Google Gemini evaluation programme</span><br>
       Measured response quality on personalisation features and wrote prompts to test the
       models for an RLHF project.</li>
@@ -151,6 +130,9 @@
 
   <footer>
     <div>Taiwo Alabi &middot; Dublin, Ireland</div>
+    <div class="util-footer"><a href="/study/eeai/">study</a>
+     &middot; <a href="/jobs/">tracker</a>
+     &middot; <a href="/bank-pwa/">bank</a></div>
     <div style="margin-top:6px;font-size:12.5px;color:var(--muted-2)">Last updated 12 August 2026</div>
   </footer>
 

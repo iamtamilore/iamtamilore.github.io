@@ -16,20 +16,14 @@
 <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
-<nav class="util" aria-label="Personal">
-  <a href="/study/eeai/">study</a>
-  <a href="/jobs/">tracker</a>
-  <a href="/bank-pwa/">bank</a>
-</nav>
 <div class="topbar">
-  <a href="/cv/">&larr; Back to CV</a>
-  <a href="/">All work</a>
+  <a href="/#termsguard">&larr; All work</a>
 </div>
 <div class="wrap">
 <hr class="rule"><h1 id="termsguard-ai">TermsGuard AI</h1>
 <p class="readtime">4 min read</p>
 <p><strong>Reads the small print and flags the parts that are unfair to
-you, in plain English.</strong></p><div class="stats-strip"><span class="stat">87% F1</span><span class="stat">hallucination rate cut 77%</span><span class="stat">latency 28s to under 10s</span></div>
+you, in plain English.</strong></p><div class="stats-strip"><span class="stat">invented content cut 77%</span><span class="stat">87% F1 on unfair-clause detection</span><span class="stat">latency 28s to under 10s</span></div>
 <p>Taiwo Alabi · MSc Artificial Intelligence, National College of
 Ireland</p>
 <p><strong>Live demo:</strong> <a
@@ -49,7 +43,7 @@ is not enough</a></li>
 <li><a href="#7-saying-how-sure-it-is">Saying how sure it is</a></li>
 <li><a href="#8-honest-limitations">Honest limitations</a></li>
 <li><a href="#9-run-it">Run it</a></li>
-</ol></div><div class="resources"><a class="cta" href="https://newtazer-terms-guard-ai.hf.space" target="_blank" rel="noopener">Live demo</a><a href="/assets/docs/termsguard_writeup.pdf">Full write-up<span class="tag">pdf</span></a><a href="https://github.com/iamtamilore/terms-guard-ai">Source code</a></div>
+</ol></div><div class="resources"><a class="cta" href="https://newtazer-terms-guard-ai.hf.space" target="_blank" rel="noopener">Try it</a><a href="/assets/docs/termsguard_writeup.pdf">Read the detail<span class="tag">pdf</span></a><a href="https://github.com/iamtamilore/terms-guard-ai">Check the code</a></div>
 <h2 id="1-the-problem">1. The problem</h2>
 <p>Reading every privacy policy an average internet user meets would
 take roughly <strong>244 hours a year</strong>. Nobody does it. So
@@ -69,12 +63,12 @@ among forty that do not.</p>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Unfair-clause detection</td>
-<td><strong>87% F1</strong></td>
-</tr>
-<tr class="even">
 <td>Invented content, after grounding</td>
 <td><strong>cut by 77%</strong></td>
+</tr>
+<tr class="even">
+<td>Unfair-clause detection</td>
+<td><strong>87% F1</strong></td>
 </tr>
 <tr class="odd">
 <td>End-to-end latency</td>
@@ -90,11 +84,15 @@ among forty that do not.</p>
 </tr>
 </tbody>
 </table></div>
-<p>The 77% figure is the one I care about most. A tool that tells you a
-clause is unfair, and is sometimes making it up, is worse than no tool,
-because it teaches you to distrust the warnings. Grounding each flag in
-a retrieved GDPR article is what makes the output checkable: every
-concern points at the legal text it came from.</p>
+<p>The 77% figure is the one I care about most, and it is first in that
+table on purpose. A tool that tells you a clause is unfair, and is
+sometimes making it up, is worse than no tool, because it teaches you to
+distrust the warnings. Grounding each flag in a retrieved GDPR article
+is what makes the output checkable: every concern points at the legal
+text it came from.</p>
+<p>The latency line is the one an engineer will ask about. Retrieval was
+added to a pipeline that did not previously have it, which normally
+makes a system slower, not faster. It went the other way here.</p>
 <hr />
 <h2 id="3-how-it-works">3. How it works</h2>
 <figure><a href="/assets/img/tg_architecture.jpg" target="_blank" rel="noopener"><img src="/assets/img/tg_architecture.jpg" alt="Architecture" loading="lazy"></a><figcaption>Retrieval-augmented pipeline. Similarity proposes, rules and
@@ -196,14 +194,19 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="
 <p><strong>Stack:</strong> Python · Flask · sentence-transformers
 (MiniLM) · FAISS · Anthropic API · Docker</p>
 
+<div class="lateral"><a class="latnav next" href="/p/clinical-rag/">Smart Medical Records &rarr;<span>wrong-patient retrieval</span></a></div>
 <div class="endnav">
-  <a class="cta cta-ghost" href="/cv/">&larr; Back to CV</a>
-  <a class="cta cta-ghost" href="/">All work</a>
+  <a class="cta cta-ghost" href="/#termsguard">&larr; All work</a>
+  <a class="cta cta-ghost" href="/cv/">CV</a>
+  <a class="cta cta-ghost" href="https://github.com/iamtamilore">GitHub</a>
 </div>
 <footer>
   <div>Taiwo Alabi &middot; <a href="mailto:alabitaiwo625@gmail.com">alabitaiwo625@gmail.com</a>
    &middot; <a href="https://www.linkedin.com/in/tami-alabi/">LinkedIn</a>
    &middot; <a href="https://github.com/iamtamilore">GitHub</a></div>
+  <div class="util-footer"><a href="/study/eeai/">study</a>
+   &middot; <a href="/jobs/">tracker</a>
+   &middot; <a href="/bank-pwa/">bank</a></div>
 </footer>
 </div>
 

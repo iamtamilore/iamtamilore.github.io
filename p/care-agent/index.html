@@ -16,21 +16,15 @@
 <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
-<nav class="util" aria-label="Personal">
-  <a href="/study/eeai/">study</a>
-  <a href="/jobs/">tracker</a>
-  <a href="/bank-pwa/">bank</a>
-</nav>
 <div class="topbar">
-  <a href="/cv/">&larr; Back to CV</a>
-  <a href="/">All work</a>
+  <a href="/#care-agent">&larr; All work</a>
 </div>
 <div class="wrap">
 <hr class="rule"><h1 id="customer-care-process-automation">Customer Care Process
 Automation</h1>
 <p class="readtime">4 min read</p>
 <p><strong>Two bots replacing two manual back-office jobs, with a rule
-about when not to decide.</strong></p><div class="stats-strip"><span class="stat">95.2% routing accuracy (40 of 42 held-out)</span><span class="stat">escalates below 0.55</span><span class="stat">2 manual processes replaced</span></div>
+about when not to decide.</strong></p><div class="stats-strip"><span class="stat">escalates rather than guesses, below 0.55</span><span class="stat">95.2% routing accuracy (40 of 42 held-out)</span><span class="stat">2 manual processes replaced</span></div>
 <p>Taiwo Alabi · MSc Artificial Intelligence, National College of
 Ireland</p>
 <hr />
@@ -47,7 +41,7 @@ decision that matters: when not to decide</a></li>
 rule-based validation</a></li>
 <li><a href="#8-honest-limitations">Honest limitations</a></li>
 <li><a href="#9-running-it">Running it</a></li>
-</ol></div><div class="resources"><a href="/assets/docs/care_agent_writeup.pdf">Full write-up<span class="tag">pdf</span></a><a href="https://github.com/iamtamilore/customer-care-automation">Source code</a></div>
+</ol></div><div class="resources"><a href="/assets/docs/care_agent_writeup.pdf">Read the detail<span class="tag">pdf</span></a><a href="https://github.com/iamtamilore/customer-care-automation">Check the code</a></div>
 <h2 id="1-the-problem">1. The problem</h2>
 <p>Hundreds of customer complaints sorted by hand every morning, on a
 Nigerian mobile network. A person reads each one and decides which
@@ -70,20 +64,20 @@ business a second handling pass on work it already paid for once.</p>
 </thead>
 <tbody>
 <tr class="odd">
+<td>Confidence threshold for escalation</td>
+<td><strong>0.55</strong>, below which a human decides</td>
+</tr>
+<tr class="even">
 <td>Routing accuracy on held-out tickets</td>
 <td><strong>95.2%</strong> (40 of 42)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Labelled corpus</td>
 <td>210 tickets, 42 per category</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Categories</td>
 <td>5</td>
-</tr>
-<tr class="even">
-<td>Confidence threshold for escalation</td>
-<td>0.55</td>
 </tr>
 <tr class="odd">
 <td>Manual processes replaced</td>
@@ -195,14 +189,19 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="
 <p><strong>Stack:</strong> Python · scikit-learn (TF-IDF, Naive Bayes) ·
 pandas · BPMN 2.0 · openpyxl · python-docx</p>
 
+<div class="lateral"><a class="latnav prev" href="/p/clinical-rag/">&larr; Smart Medical Records<span>wrong-patient retrieval</span></a><a class="latnav next" href="/cv/">CV &rarr;<span>the short version</span></a></div>
 <div class="endnav">
-  <a class="cta cta-ghost" href="/cv/">&larr; Back to CV</a>
-  <a class="cta cta-ghost" href="/">All work</a>
+  <a class="cta cta-ghost" href="/#care-agent">&larr; All work</a>
+  <a class="cta cta-ghost" href="/cv/">CV</a>
+  <a class="cta cta-ghost" href="https://github.com/iamtamilore">GitHub</a>
 </div>
 <footer>
   <div>Taiwo Alabi &middot; <a href="mailto:alabitaiwo625@gmail.com">alabitaiwo625@gmail.com</a>
    &middot; <a href="https://www.linkedin.com/in/tami-alabi/">LinkedIn</a>
    &middot; <a href="https://github.com/iamtamilore">GitHub</a></div>
+  <div class="util-footer"><a href="/study/eeai/">study</a>
+   &middot; <a href="/jobs/">tracker</a>
+   &middot; <a href="/bank-pwa/">bank</a></div>
 </footer>
 </div>
 
