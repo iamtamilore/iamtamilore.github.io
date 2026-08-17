@@ -25,7 +25,7 @@
 <div class="wrap">
 <hr class="rule"><h1 id="customer-care-process-automation">Customer Care Process
 Automation</h1>
-<p class="readtime">4 min read</p>
+<p class="readtime">6 min read</p>
 <p>Two bots replacing two manual back-office jobs, with a rule about
 when not to decide.</p>
 <p><strong>What this evidences:</strong> critiquing model quality and
@@ -33,6 +33,29 @@ evaluation design. A 95.2% headline on 42 held-out tickets is not the
 result. What the agent does with the tickets it is unsure about is.</p>
 <p>Taiwo Alabi · MSc Artificial Intelligence, National College of
 Ireland</p>
+<hr />
+<h2 id="terms-used-in-this-report">Terms used in this report</h2>
+<p>Quick definitions before the technical detail starts, so nothing
+below assumes you already know these:</p>
+<ul>
+<li><strong>Precision</strong> — of the tickets the model sent to a
+category, how many actually belonged there. Low precision means it cries
+wolf.</li>
+<li><strong>Recall</strong> — of the tickets that truly belonged to a
+category, how many the model actually caught. Low recall means it misses
+real cases.</li>
+<li><strong>F1 score</strong> — one number that blends precision and
+recall, so a model can't look good by being great at only one of
+them.</li>
+<li><strong>TF-IDF</strong> — a way of scoring each word in a ticket by
+how much it tells you about the topic, turning text into numbers a model
+can use.</li>
+<li><strong>Naive Bayes</strong> — a simple, fast classifier that
+guesses a category based on which words showed up in similar tickets
+before.</li>
+<li><strong>BPMN 2.0</strong> — a standard way of drawing a business
+process as a flowchart, before automating any of it.</li>
+</ul>
 <hr />
 <div class="toc"><h3 style="margin-top:0">Contents</h3><ol>
 <li><a href="#1-the-problem">The problem</a></li>
@@ -98,7 +121,8 @@ is section 6.</p>
 <h2 id="3-the-process-before">3. The process, before</h2>
 <figure><a href="/assets/img/as_is.jpg" target="_blank" rel="noopener"><img src="/assets/img/as_is.jpg" alt="As-is process" loading="lazy"></a><figcaption>Every complaint read
 and routed by a person.</figcaption></figure>
-<p>I modelled the existing process in BPMN 2.0 before writing any code.
+<p>I mapped out the existing process as a flowchart, using BPMN 2.0 (a
+standard way of drawing business processes), before writing any code.
 That order was deliberate: it meant the automation replaced a process I
 actually understood, rather than my assumption of one, and the model is
 what made the manual touchpoints explicit enough to decide which were
@@ -114,19 +138,24 @@ a classifier. The confidence gate sits between the classifier and the
 outcome.</p>
 <hr />
 <h2 id="5-how-the-triage-agent-works">5. How the triage agent works</h2>
-<p>Ticket text is vectorised with TF-IDF and classified by multinomial
-Naive Bayes across the five routing categories.</p>
+<p>Ticket text is turned into numbers with TF-IDF, a way of scoring each
+word by how much it tells you about the topic, then sorted into one of
+the five routing categories by Naive Bayes, a simple, fast classifier
+built on word probabilities.</p>
 <p>Naive Bayes is a deliberate choice rather than a default. The corpus
-is 210 tickets, which is small, and Naive Bayes remains stable at that
-size where a heavier model would overfit. It is also inspectable: I can
-see which terms drive a routing decision, which matters when somebody
-asks why a ticket went where it did.</p>
+is 210 tickets, which is small, and Naive Bayes stays reliable at that
+size where a heavier, more complex model would start memorising the
+training tickets instead of learning the pattern. It is also
+inspectable: I can see which words drive a routing decision, which
+matters when somebody asks why a ticket went where it did.</p>
 <p><img src="/assets/img/fig1_classification_report.png"
-alt="Classification report" /> <em>Per-class precision, recall and
-F1.</em></p>
-<p>Reported per class rather than as a single figure, because a router
-that is strong on common categories and weak on rare ones is a different
-system from one that is evenly good, and an average hides that
+alt="Classification report" /> <em>Per-class precision, recall and F1:
+precision is how often a category the model picked was actually right,
+recall is how many of the true cases for that category it actually
+caught, and F1 blends the two into one number.</em></p>
+<p>Reported per category rather than as a single figure, because a
+router that is strong on common categories and weak on rare ones is a
+different system from one that is evenly good, and an average hides that
 difference.</p>
 <figure><a href="/assets/img/fig2_confusion_matrix.jpg" target="_blank" rel="noopener"><img src="/assets/img/fig2_confusion_matrix.jpg" alt="Confusion matrix" loading="lazy"></a><figcaption>Where the classifier confuses one team with another.</figcaption></figure>
 <p>The matrix shows where errors concentrate. Confusion between

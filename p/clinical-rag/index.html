@@ -24,16 +24,35 @@
 </div>
 <div class="wrap">
 <hr class="rule"><h1 id="smart-medical-records-engine">Smart Medical Records Engine</h1>
-<p class="readtime">5 min read</p>
+<p class="readtime">6 min read</p>
 <p>Helps a doctor find the one thing in a patient file that matters,
 before the appointment ends.</p>
 <p>Taiwo Alabi · MSc Artificial Intelligence, National College of
 Ireland</p>
-<h2
-id="what-this-evidences-applying-software-architecture-principles-under-a-hard-constraint-the-model-is-the-easy-part-scoping-retrieval-so-the-wrong-patient-cannot-surface-and-proving-it-is-the-system"><strong>What
-this evidences:</strong> applying software architecture principles under
-a hard constraint. The model is the easy part. Scoping retrieval so the
-wrong patient cannot surface, and proving it, is the system.</h2>
+<p><strong>What this evidences:</strong> applying software architecture
+principles under a hard constraint. The model is the easy part. Scoping
+retrieval so the wrong patient cannot surface, and proving it, is the
+system.</p>
+<hr />
+<h2 id="terms-used-in-this-report">Terms used in this report</h2>
+<p>Quick definitions before the technical detail starts, so nothing
+below assumes you already know these:</p>
+<ul>
+<li><strong>Embedding</strong> — turning a patient's note into a row of
+numbers, so a computer can search by meaning instead of just matching
+words.</li>
+<li><strong>JWT</strong> — a secure login token a doctor gets after
+signing in, checked on every request.</li>
+<li><strong>PII</strong> — personal details like a name or address that
+could identify someone.</li>
+<li><strong>Retrieval</strong> — the step of finding and pulling in the
+right piece of information before answering a question, rather than the
+AI guessing from memory.</li>
+<li><strong>Scoping</strong> — restricting a search to one patient's own
+records before it even starts, rather than searching everyone and
+filtering afterwards.</li>
+</ul>
+<hr />
 <div class="toc"><h3 style="margin-top:0">Contents</h3><ol>
 <li><a href="#1-the-problem">The problem</a></li>
 <li><a href="#2-what-it-does">What it does</a></li>
@@ -79,11 +98,13 @@ file, there is an answer.</li>
 <figure><a href="/assets/img/rag_architecture.jpg" target="_blank" rel="noopener"><img src="/assets/img/rag_architecture.jpg" alt="Architecture" loading="lazy"></a><figcaption>Four Docker
 Compose services on one private network. Orange marks the controls that
 constrain what the system is allowed to do.</figcaption></figure>
-<p>A question arrives at the FastAPI service. It passes the auth check,
-gets embedded by <code>nomic-embed-text</code>, and is used to search
-that patient's notes in Postgres with pgvector. The retrieved notes are
-handed to a locally-running <code>llama3.1</code> as context, and the
-answer comes back quoting them.</p>
+<p>A question arrives at the service that handles requests. It passes
+the login check, gets turned into a row of numbers by
+<code>nomic-embed-text</code> (so it can be compared for meaning, not
+just matching words), and is used to search that one patient's notes in
+the database. The matching notes are handed to a locally-running AI
+model, <code>llama3.1</code>, as its source material, and the answer
+comes back quoting them directly.</p>
 <p>Ingestion runs once as a separate service: it chunks the records,
 embeds them, and loads them with their patient reference attached.</p>
 <hr />
@@ -102,11 +123,12 @@ the constraint is carried in the schema rather than left to application
 code.</p>
 <hr />
 <h2 id="5-who-is-allowed-in">5. Who is allowed in</h2>
-<p>Physician authentication with JWT, passwords hashed rather than
-stored.</p>
-<p>PII redaction runs before text reaches the model, so the language
-model never receives identifying details it does not need to answer the
-question.</p>
+<p>Doctors log in with JWT, a secure login token, and passwords are
+never stored in readable form, only a scrambled version that can check a
+password without keeping it.</p>
+<p>Personal details, PII, like names and addresses, are stripped out
+before the text ever reaches the AI model, so it never sees identifying
+information it does not need in order to answer the question.</p>
 <p>Every access writes an <code>audit_log</code> row against the doctor
 who made it. A system handling medical records that cannot answer "who
 looked at this, and when" is not deployable regardless of how well it

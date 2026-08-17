@@ -38,6 +38,24 @@ href="https://newtazer-terms-guard-ai.hf.space">https://newtazer-terms-guard-ai.
 Source: <a
 href="https://github.com/iamtamilore/terms-guard-ai">https://github.com/iamtamilore/terms-guard-ai</a></p>
 <hr />
+<h2 id="terms-used-in-this-report">Terms used in this report</h2>
+<p>Quick definitions before the technical detail starts, so nothing
+below assumes you already know these:</p>
+<ul>
+<li><strong>Cosine similarity</strong> — a way of measuring how close
+two pieces of text are in meaning, not just how many words they
+share.</li>
+<li><strong>Embedding</strong> — turning a piece of text into a row of
+numbers, so a computer can compare meaning mathematically instead of
+just matching words.</li>
+<li><strong>FAISS index</strong> — a fast lookup table, built for
+searching millions of embeddings for the closest match almost
+instantly.</li>
+<li><strong>Negation</strong> — the word or phrase that flips a
+sentence's meaning, like turning "we sell your data" into "we do
+<em>not</em> sell your data".</li>
+</ul>
+<hr />
 <div class="toc"><h3 style="margin-top:0">Contents</h3><ol>
 <li><a href="#1-the-problem">The problem</a></li>
 <li><a href="#2-results">Results</a></li>
@@ -99,10 +117,12 @@ makes a system slower, not faster. It went the other way here.</p>
 <figure><a href="/assets/img/tg_architecture.jpg" target="_blank" rel="noopener"><img src="/assets/img/tg_architecture.jpg" alt="Architecture" loading="lazy"></a><figcaption>Retrieval-augmented pipeline. Similarity proposes, rules and
 retrieval constrain, the LLM verifies.</figcaption></figure>
 <p>Text is split into individual clauses and de-duplicated. Each clause
-is embedded with <code>all-MiniLM-L6-v2</code> and compared by cosine
-similarity against labelled examples of fair and unfair clauses.
-Anything that looks unfair then has GDPR context retrieved for it from a
-FAISS index, and Claude Haiku verifies the flag before it is shown.</p>
+is turned into a row of numbers by <code>all-MiniLM-L6-v2</code>, then
+compared by cosine similarity, a way of measuring how close two pieces
+of text are in meaning, against labelled examples of fair and unfair
+clauses. Anything that looks unfair then has GDPR context pulled for it
+from a FAISS index (a fast lookup table built for exactly this kind of
+search), and Claude Haiku double-checks the flag before it is shown.</p>
 <hr />
 <h2 id="4-what-it-compares-against">4. What it compares against</h2>
 <p>The system carries 205 hand-labelled reference clauses: 105 examples
@@ -124,11 +144,12 @@ not enough</h2>
 <p>"We sell your personal data to third parties." "We do not sell your
 personal data to third parties."</p>
 </blockquote>
-<p>To a sentence embedding these are nearly identical. They share almost
-every word, the same grammar, the same subject matter. Cosine similarity
-will place them side by side, and a purely semantic classifier will
-<strong>flag the second sentence as a violation when it is actually a
-reassurance</strong>.</p>
+<p>To a computer that only measures word patterns, these two sentences
+look almost identical. They share nearly every word, the same grammar,
+the same subject. So a system that judges purely by how similar the
+words look will <strong>flag the second sentence, the reassurance, as a
+violation</strong>, because it never actually checked which way the
+sentence points.</p>
 <p>So the pipeline carries a layer of explicit rule guards on top of the
 similarity score:</p>
 <ul>
