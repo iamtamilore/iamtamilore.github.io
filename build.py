@@ -1,15 +1,7 @@
 """Build the project pages from the same markdown that produces the PDFs.
 
 One source per project. Run this after editing any README.
-
-It also owns the site shell. The header, the scroll bar, the footer and the
-404 work list are written into every page from the constants below, between
-marker comments, rather than being maintained by hand in seven files. Seven
-hand-kept copies is how /bank-pwa/ ended up linked from a path that is not in
-this repository, and how the 404 page kept advertising two pages that return
-404 themselves.
 """
-import datetime
 import os
 import re
 import shutil
@@ -115,139 +107,6 @@ PROJECTS = [
                  "2_ga_fitness_curve.png": "2_ga_fitness_curve.jpg",
                  "4_policy_heatmaps.png": "4_policy_heatmaps.jpg"}),
 ]
-
-# ---------------------------------------------------------------------------
-# the shell. One definition, injected into every page between markers.
-# ---------------------------------------------------------------------------
-
-# Nav targets are absolute so the same markup works from /, /cv/ and /p/<slug>/.
-# Five links, so no burger menu is needed: below 720px the CSS keeps only the
-# last one, which is the one with an ask attached to it.
-NAV = [("Work", "/#work"), ("Experience", "/#experience"),
-       ("Method", "/#method"), ("CV", "/cv/")]
-
-SHELL_HEAD = """<div id="scrollbar" aria-hidden="true"></div>
-<header class="sitehead" id="sitehead">
-  <div class="sitehead-inner">
-    <a class="wordmark" href="/">Taiwo&nbsp;Alabi</a>
-    <nav class="sitenav" aria-label="Primary">
-{links}
-      <a class="nav-cta" href="mailto:alabitaiwo625@gmail.com">Get in touch</a>
-    </nav>
-  </div>
-</header>"""
-
-SHELL_FOOT = """<footer class="sitefoot">
-  <div class="sitefoot-inner">
-    <div>
-      <div class="foot-name">Taiwo Alabi</div>
-      <p>Data Scientist, Dublin. MSc Artificial Intelligence,
-         National College of Ireland.</p>
-      <p class="foot-stamp">Last updated {stamp}</p>
-    </div>
-    <div>
-      <h4>Read</h4>
-      <a href="/#work">The work</a>
-      <a href="/cv/">CV</a>
-      <a href="/assets/Taiwo_Alabi_CV.pdf" target="_blank" rel="noopener">CV as PDF</a>
-      <a href="https://github.com/iamtamilore">GitHub</a>
-    </div>
-    <div>
-      <h4>Contact</h4>
-      <a href="mailto:alabitaiwo625@gmail.com">alabitaiwo625@gmail.com</a>
-      <a href="https://www.linkedin.com/in/tami-alabi/">LinkedIn</a>
-      <a href="https://wa.me/353870042838?text=Hi%20Taiwo%2C%20I%20saw%20your%20portfolio">WhatsApp</a>
-      <span class="foot-util"><a href="/study/eeai/">study</a> &middot;
-        <a href="/jobs/">tracker</a></span>
-    </div>
-  </div>
-</footer>"""
-
-# Progress bar and the stuck state for the header. Deliberately tiny and inline:
-# a separate request for eighteen lines costs more than it saves, and the header
-# must settle before first paint or it visibly jumps.
-SHELL_JS = """<script>
-(function () {
-  var head = document.getElementById("sitehead"),
-      bar  = document.getElementById("scrollbar");
-  function frame() {
-    var y = window.pageYOffset || document.documentElement.scrollTop;
-    if (head) head.classList.toggle("is-stuck", y > 8);
-    if (bar) {
-      var h = document.documentElement.scrollHeight - window.innerHeight;
-      bar.style.transform = "scaleX(" + (h > 0 ? Math.min(y / h, 1) : 0) + ")";
-    }
-  }
-  var queued = false;
-  window.addEventListener("scroll", function () {
-    if (queued) return;
-    queued = true;
-    requestAnimationFrame(function () { frame(); queued = false; });
-  }, {passive: true});
-  frame();
-})();
-</script>"""
-
-
-def shell_head():
-    links = "\n".join(f'      <a href="{h}">{l}</a>' for l, h in NAV)
-    return SHELL_HEAD.format(links=links)
-
-
-def shell_foot():
-    stamp = datetime.date.today().strftime("%-d %B %Y")
-    return SHELL_FOOT.format(stamp=stamp)
-
-
-def inject(path: Path, name: str, block: str) -> bool:
-    """Replace whatever sits between <!-- NAME:START --> and <!-- NAME:END -->.
-
-    Returns False and says so when a file has no markers, rather than guessing
-    where the block belongs. A build step that silently skips a file is how
-    surfaces drift apart.
-    """
-    start, end = f"<!-- {name}:START -->", f"<!-- {name}:END -->"
-    text = path.read_text(encoding="utf8")
-    i, j = text.find(start), text.find(end)
-    if i == -1 or j == -1:
-        print(f"  SKIPPED {path.relative_to(ROOT)}: no {name} markers")
-        return False
-    new = text[:i + len(start)] + "\n" + block + "\n" + text[j:]
-    if new == text:
-        return True
-    path.write_text(new, encoding="utf8")
-    return True
-
-
-# Pages that carry the shell but are not built from a README.
-SHELL_PAGES = ["index.html", "404.html", "cv/index.html"]
-
-
-def update_shell():
-    for rel in SHELL_PAGES:
-        p = ROOT / rel
-        if not p.exists():
-            print(f"  MISSING {rel}")
-            continue
-        ok_h = inject(p, "SHELLHEAD", shell_head())
-        ok_f = inject(p, "SHELLFOOT", shell_foot() + "\n" + SHELL_JS)
-        if ok_h and ok_f:
-            print(f"  shell -> {rel}")
-
-
-def notfound_list():
-    """The 404 work list, from the published set only.
-
-    Hand-maintained, this page spent weeks offering /p/image-qa/ and
-    /p/surge-pricing/, both of which return 404. A list generated from the same
-    source as the cards cannot make that mistake.
-    """
-    rows = "".join(
-        f'\n    <li><a href="/p/{p["slug"]}/">{p["title"]}</a> '
-        f'<span class="when">{p["blurb"]}</span></li>'
-        for p in published())
-    return f'  <ul class="exp">{rows}\n  </ul>'
-
 
 # labelled links shown under the title on each project page
 RESOURCES = {
@@ -392,10 +251,11 @@ TEMPLATE = """<!DOCTYPE html>
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary_large_image">
 </head>
-<body class="has-shell">
-{shellhead}
-<main class="band band--base">
-<div class="band-inner">
+<body>
+<div class="topbar">
+  <a href="/#{slug}">&larr; All work</a>
+</div>
+<div class="wrap">
 {body}
 {latnav}
 <div class="endnav">
@@ -403,10 +263,15 @@ TEMPLATE = """<!DOCTYPE html>
   <a class="cta cta-ghost" href="/cv/">CV</a>
   <a class="cta cta-ghost" href="https://github.com/iamtamilore">GitHub</a>
 </div>
+<footer>
+  <div>Taiwo Alabi &middot; <a href="mailto:alabitaiwo625@gmail.com">alabitaiwo625@gmail.com</a>
+   &middot; <a href="https://www.linkedin.com/in/tami-alabi/">LinkedIn</a>
+   &middot; <a href="https://github.com/iamtamilore">GitHub</a></div>
+  <div class="util-footer"><a href="/study/eeai/">study</a>
+   &middot; <a href="/jobs/">tracker</a>
+   &middot; <a href="/bank-pwa/">bank</a></div>
+</footer>
 </div>
-</main>
-{shellfoot}
-{shelljs}
 
 <div class="theme-picker" role="group" aria-label="colour theme">
   <button type="button" class="theme-dot" data-set-theme="g5" style="--sw:#ff7a3d" title="G5 Tri-X" aria-pressed="true"></button>
@@ -506,19 +371,9 @@ def main():
         out_dir.mkdir(parents=True, exist_ok=True)
         # headline numbers go right after the subtitle, before the reader hits
         # the Contents block or any narrative prose - the 45-second skimmer's entrance
-        # Anchor on the Contents block, which every project README has, rather
-        # than on a paragraph shape. The old anchor was <p><strong>...</strong></p>,
-        # and adding the "What this evidences:" opener broke it on two of three
-        # pages. re.sub with no match substitutes nothing and says nothing, so
-        # the strip disappeared from the live site unnoticed. Fail loudly now.
         mstrip = metrics_strip(p["slug"])
         if mstrip:
-            anchor = '<div class="toc">'
-            if anchor not in body:
-                raise SystemExit(
-                    f"HALT: {p['slug']} has no Contents block, so the metrics "
-                    f"strip has nowhere to go. Fix the README or drop it from METRICS.")
-            body = body.replace(anchor, mstrip + anchor, 1)
+            body = re.sub(r'(<p><strong>.*?</strong></p>)', r'\1' + mstrip, body, count=1, flags=re.S)
         # resource links sit directly under the intro, before the contents block
         strip = resource_strip(p["slug"])
         if strip:
@@ -526,16 +381,10 @@ def main():
         (out_dir / "index.html").write_text(
             TEMPLATE.format(title=p["title"], desc=p["desc"], card=p["card"],
                             slug=p["slug"], body=body,
-                            latnav=lateral_nav(p["slug"]),
-                            shellhead=shell_head(), shellfoot=shell_foot(),
-                            shelljs=SHELL_JS), encoding="utf8")
+                            latnav=lateral_nav(p["slug"])), encoding="utf8")
         print(f"  built /p/{p['slug']}/")
 
     update_index_cards()
-    nf = ROOT / "404.html"
-    if nf.exists():
-        inject(nf, "NOTFOUND", notfound_list())
-    update_shell()
     print(f"published: {len(published())}  |  hidden: {', '.join(hidden) or 'none'}")
 
 

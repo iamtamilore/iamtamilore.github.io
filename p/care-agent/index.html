@@ -18,22 +18,11 @@
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary_large_image">
 </head>
-<body class="has-shell">
-<div id="scrollbar" aria-hidden="true"></div>
-<header class="sitehead" id="sitehead">
-  <div class="sitehead-inner">
-    <a class="wordmark" href="/">Taiwo&nbsp;Alabi</a>
-    <nav class="sitenav" aria-label="Primary">
-      <a href="/#work">Work</a>
-      <a href="/#experience">Experience</a>
-      <a href="/#method">Method</a>
-      <a href="/cv/">CV</a>
-      <a class="nav-cta" href="mailto:alabitaiwo625@gmail.com">Get in touch</a>
-    </nav>
-  </div>
-</header>
-<main class="band band--base">
-<div class="band-inner">
+<body>
+<div class="topbar">
+  <a href="/#care-agent">&larr; All work</a>
+</div>
+<div class="wrap">
 <hr class="rule"><h1 id="customer-care-process-automation">Customer Care Process
 Automation</h1>
 <p class="readtime">4 min read</p>
@@ -45,7 +34,7 @@ result. What the agent does with the tickets it is unsure about is.</p>
 <p>Taiwo Alabi · MSc Artificial Intelligence, National College of
 Ireland</p>
 <hr />
-<div class="stats-strip"><span class="stat">escalates rather than guesses, below 0.55</span><span class="stat">95.2% on 40 of 42 held-out tickets</span><span class="stat">2 manual processes replaced</span></div><div class="toc"><h3 style="margin-top:0">Contents</h3><ol>
+<div class="toc"><h3 style="margin-top:0">Contents</h3><ol>
 <li><a href="#1-the-problem">The problem</a></li>
 <li><a href="#2-results">Results</a></li>
 <li><a href="#3-the-process-before">The process, before</a></li>
@@ -211,54 +200,15 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="
   <a class="cta cta-ghost" href="/cv/">CV</a>
   <a class="cta cta-ghost" href="https://github.com/iamtamilore">GitHub</a>
 </div>
-</div>
-</main>
-<footer class="sitefoot">
-  <div class="sitefoot-inner">
-    <div>
-      <div class="foot-name">Taiwo Alabi</div>
-      <p>Data Scientist, Dublin. MSc Artificial Intelligence,
-         National College of Ireland.</p>
-      <p class="foot-stamp">Last updated 16 August 2026</p>
-    </div>
-    <div>
-      <h4>Read</h4>
-      <a href="/#work">The work</a>
-      <a href="/cv/">CV</a>
-      <a href="/assets/Taiwo_Alabi_CV.pdf" target="_blank" rel="noopener">CV as PDF</a>
-      <a href="https://github.com/iamtamilore">GitHub</a>
-    </div>
-    <div>
-      <h4>Contact</h4>
-      <a href="mailto:alabitaiwo625@gmail.com">alabitaiwo625@gmail.com</a>
-      <a href="https://www.linkedin.com/in/tami-alabi/">LinkedIn</a>
-      <a href="https://wa.me/353870042838?text=Hi%20Taiwo%2C%20I%20saw%20your%20portfolio">WhatsApp</a>
-      <span class="foot-util"><a href="/study/eeai/">study</a> &middot;
-        <a href="/jobs/">tracker</a></span>
-    </div>
-  </div>
+<footer>
+  <div>Taiwo Alabi &middot; <a href="mailto:alabitaiwo625@gmail.com">alabitaiwo625@gmail.com</a>
+   &middot; <a href="https://www.linkedin.com/in/tami-alabi/">LinkedIn</a>
+   &middot; <a href="https://github.com/iamtamilore">GitHub</a></div>
+  <div class="util-footer"><a href="/study/eeai/">study</a>
+   &middot; <a href="/jobs/">tracker</a>
+   &middot; <a href="/bank-pwa/">bank</a></div>
 </footer>
-<script>
-(function () {
-  var head = document.getElementById("sitehead"),
-      bar  = document.getElementById("scrollbar");
-  function frame() {
-    var y = window.pageYOffset || document.documentElement.scrollTop;
-    if (head) head.classList.toggle("is-stuck", y > 8);
-    if (bar) {
-      var h = document.documentElement.scrollHeight - window.innerHeight;
-      bar.style.transform = "scaleX(" + (h > 0 ? Math.min(y / h, 1) : 0) + ")";
-    }
-  }
-  var queued = false;
-  window.addEventListener("scroll", function () {
-    if (queued) return;
-    queued = true;
-    requestAnimationFrame(function () { frame(); queued = false; });
-  }, {passive: true});
-  frame();
-})();
-</script>
+</div>
 
 <div class="theme-picker" role="group" aria-label="colour theme">
   <button type="button" class="theme-dot" data-set-theme="g5" style="--sw:#ff7a3d" title="G5 Tri-X" aria-pressed="true"></button>
