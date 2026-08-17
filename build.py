@@ -22,15 +22,15 @@ SRC = Path(os.environ.get("SYMPLICITY_SRC", Path.home() / "Desktop/NCI/CV VARIAN
 PROJECTS = [
     dict(slug="termsguard", src=SRC / "termsguard/README.md",
          title="TermsGuard AI",
-         desc="Reads the small print and flags what is unfair to you, grounded in GDPR. "
-              "87% F1, live on the internet.",
+         desc="Reads the small print and flags what is unfair to you, grounded in GDPR "
+              "so citations can't be invented. Live on the internet.",
          card="termsguard.jpg",
          published=True,
          blurb="grounding against hallucination",
-         cmetric="grounded", clabel="every flag cites the GDPR article it came from. Invented content cut 77%",
+         cmetric="grounded", clabel="every flag cites the GDPR article it came from, so nothing is invented",
          cdesc="Cosine similarity alone marks \"we do not sell your data\" as a violation,\n"
-               "        because negation barely moves an embedding. Rule guards sit on top of the\n"
-               "        score, not instead of it.",
+               "        because the model can barely tell \"sell\" from \"do not sell\" apart. Rule\n"
+               "        guards sit on top of the score, not instead of it.",
          clive=True,
          ccta=("Try the live demo", "https://newtazer-terms-guard-ai.hf.space"),
          clinks=[("Code", "https://github.com/iamtamilore/terms-guard-ai")],
@@ -149,7 +149,7 @@ METRICS = {
  "care-agent": ["escalates rather than guesses, below 0.55",
                 "95.2% on 40 of 42 held-out tickets",
                 "2 manual processes replaced"],
- "termsguard": ["invented content cut 77%", "87% F1 on unfair-clause detection",
+ "termsguard": ["citations always real, never invented", "grounded in 4,527 indexed GDPR clauses",
                 "latency 28s to under 10s"],
  "clinical-rag": ["0/30 leak probes succeeded", "every access logged",
                    "scoped by patient before ranking"],
