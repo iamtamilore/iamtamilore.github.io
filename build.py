@@ -43,10 +43,10 @@ PROJECTS = [
          card="clinical_rag.jpg",
          published=True,
          blurb="wrong-patient retrieval",
-         cmetric="scoped", clabel="per patient before ranking, not filtered after. 30 leak probes, 0 leaks",
+         cmetric="scoped", clabel="per patient before ranking, not filtered after. Tried 30 ways to leak data, 0 worked",
          cdesc="A general vector search over a hospital corpus will eventually surface\n"
                "        the wrong patient. Scoping happens at the query layer, not as a filter\n"
-               "        afterwards. Thirty adversarial probes, zero leaks.",
+               "        afterwards. Tried thirty ways to leak another patient's data. None worked.",
          clive=False, ccta=None,
          clinks=[("Code", "https://github.com/iamtamilore/agentic_rag_fastapi")],
          imgmap={"architecture.png": "rag_architecture.jpg",
@@ -151,7 +151,7 @@ METRICS = {
                 "2 manual processes replaced"],
  "termsguard": ["citations always real, never invented", "grounded in 4,527 indexed GDPR clauses",
                 "latency 28s to under 10s"],
- "clinical-rag": ["0/30 leak probes succeeded", "every access logged",
+ "clinical-rag": ["0 of 30 attempts to leak data succeeded", "every access logged",
                    "scoped by patient before ranking"],
  "surge-pricing": ["+21.4% revenue vs fixed pricing", "637,976 real records",
                     "both methods converged on the same policy"],

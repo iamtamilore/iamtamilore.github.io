@@ -90,7 +90,7 @@ embeds them, and loads them with their patient reference attached.</p>
 <h2 id="4-the-safety-rail-that-matters-most">4. The safety rail that
 matters most</h2>
 <p><strong>Retrieval is scoped by patient before it ranks by
-similarity.</strong></p><div class="stats-strip"><span class="stat">0/30 leak probes succeeded</span><span class="stat">every access logged</span><span class="stat">scoped by patient before ranking</span></div>
+similarity.</strong></p><div class="stats-strip"><span class="stat">0 of 30 attempts to leak data succeeded</span><span class="stat">every access logged</span><span class="stat">scoped by patient before ranking</span></div>
 <p>This sounds like a detail. It is the whole design. A general vector
 search over all notes would happily return another patient's record if
 that record happened to be the closer semantic match, and it often
@@ -136,18 +136,19 @@ Docker Compose services on one machine.</p>
 <hr />
 <h2 id="8-verified-thirty-attempts-to-leak-zero-leaks">8. Verified:
 thirty attempts to leak, zero leaks</h2>
-<p>The claim in section 4 is now tested rather than asserted. I ran
-thirty adversarial probes against the live application, through the real
-path: signed in as a physician, asking questions designed to pull
-another patient's notes into the answer. Near-verbatim copies of a decoy
-patient's most distinctive lines. Semantic twins of the same clinical
-facts. Broad fishing questions. Queries naming the wrong patient
-outright.</p>
-<p>Each probe carried a vacuity guard. Before a probe counts, I ran the
-same search without the patient filter, to confirm the unscoped search
-would have surfaced another patient's note first. All thirty passed that
-check: in 30/30 cases, the wrong patient's note would have been the top
-result. Scoped retrieval leaked 0/30.</p>
+<p>The claim in section 4 is now tested rather than asserted. I made
+thirty attempts to trick the live application into leaking another
+patient's data, through the real path: signed in as a physician, asking
+questions designed to pull another patient's notes into the answer.
+Near-verbatim copies of a decoy patient's most distinctive lines.
+Semantic twins of the same clinical facts. Broad fishing questions.
+Queries naming the wrong patient outright.</p>
+<p>Each attempt included a check to make sure it was a fair test: before
+counting it, I ran the same search without the patient filter, to
+confirm an unscoped search really would have surfaced another patient's
+note first. All thirty passed that check: in 30 out of 30 cases, the
+wrong patient's note would have been the top result. With scoping on,
+none of the thirty attempts leaked anything.</p>
 <p>What this is not: a penetration test. No auth bypass was attempted,
 no injection, no infrastructure attacks. It verifies the scoping design
 through the application's own query path, which is the design this
@@ -168,8 +169,8 @@ inconsistent formatting, scanned documents.</li>
 Accepted deliberately, but it means answers on complex questions are
 less reliable than the retrieval underneath them.</li>
 <li>No formal evaluation set. Leakage was the priority, and it is
-measured in section 8: 0/30 across thirty adversarial probes. Answer
-quality against a labelled benchmark remains unmeasured.</li>
+measured in section 8: zero leaks across thirty attempts to trick it.
+Answer quality against a labelled benchmark remains unmeasured.</li>
 </ul>
 <hr />
 <h2 id="10-running-it">10. Running it</h2>
