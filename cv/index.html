@@ -59,7 +59,7 @@
   systems, evaluating them for completeness and admissibility, critiquing model quality and
   evaluation design, and critiquing the infrastructure they deploy onto. Before I train anything
   I establish what the problem looks like solved badly, because <strong>a model that cannot beat
-  the majority class or a simple rule does not deserve to exist</strong>.</p>
+  guessing the most common answer, or a simple rule, does not deserve to exist</strong>.</p>
 
   <h2>Professional Experience</h2>
 
@@ -77,14 +77,14 @@
       daily call records represent 400 million bills that real people pay. I designed and
       tested the API layer for a cloud integration between the contact centre platform and a
       commercial bank's customer care line. I tracked every interface the bank had to expose
-      against what we had actually received, and tested each one with curl before it went near
+      against what we had actually received, and tested each one by hand with a command-line tool before it went near
       a voice prompt. When authentication fails, the call does not retry silently and does not
       dead-end. <strong>It transfers to a person.</strong> That is the rule I have built into
-      every system since. I also worked with the solutions architect on a data migration that
-      partitions customer data into domain-specific buckets, and with the test team designed
-      over <strong>440 User Acceptance Test cases</strong>. During the phased cutover a downstream
-      storage target filled and blocked uploads, and a control connection reset stopped one CDR
-      stream. <strong>Both surfaced in verification, before any customer saw them.</strong></li>
+      every system since. I also worked with the solutions architect on a data migration that split customer
+      data into separate groups based on what kind of data it was, and with the test team designed
+      over <strong>440 User Acceptance Test cases</strong>. During the actual switchover, one
+      storage system ran out of space and blocked new uploads, and a dropped connection interrupted
+      one stream of call records. <strong>Both were caught during testing, before any customer saw them.</strong></li>
   </ul>
 
   <h2>Selected Projects</h2>
@@ -123,11 +123,11 @@
 
     <div class="card">
       <div class="metric">scoped</div>
-      <div class="metric-label">per patient before ranking, not filtered after. 30 leak probes, 0 leaks</div>
+      <div class="metric-label">per patient before ranking, not filtered after. Tried 30 tricks to leak one, none worked</div>
       <div class="title">Smart Medical Records Engine</div>
       <div class="desc">A general vector search over a hospital corpus will eventually surface the
-        wrong patient. Scoping happens at the query layer, not as a filter afterwards. Thirty
-        adversarial probes, zero leaks.</div>
+        wrong patient. Scoping happens at the query layer, not as a filter afterwards. I tried 30
+        different ways to make it leak one patient's file into someone else's lookup. None worked.</div>
       <div class="go"><a class="stretch" href="/p/clinical-rag/">Read it &rarr;</a></div>
       <div class="cardlinks">
         <a href="/assets/docs/clinical_rag_writeup.pdf">Write-up</a><span aria-hidden="true">|</span>
