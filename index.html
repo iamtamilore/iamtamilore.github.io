@@ -101,12 +101,12 @@
     <li><strong>Huawei</strong> <span class="when">two summers, Globacom network</span><br>
       400 million daily call records, which are 400 million bills real people pay. I designed
       and tested the API layer for a cloud integration with a bank's customer care line, and
-      tested every interface with curl before it went near a voice prompt. When authentication
+      tested every interface by hand with a command-line tool before it went near a voice prompt. When authentication
       fails, that call does not retry silently and does not dead-end. <strong>It transfers to a
       person.</strong> I also worked with the solutions architect on the data migration, and
-      with the test team designed over 440 acceptance test cases. During the phased cutover a
-      downstream storage target filled and blocked uploads, and a control connection reset stopped
-      one CDR stream. <strong>Both surfaced in verification, before any customer saw them.</strong></li>
+      with the test team designed over 440 acceptance test cases. During the actual switchover, one
+      storage system ran out of space and blocked new uploads, and a dropped connection interrupted
+      one stream of call records. <strong>Both were caught during testing, before any customer saw them.</strong></li>
     <li><strong>Turing</strong> <span class="when">Google Gemini evaluation programme</span><br>
       Measured response quality on personalisation features and wrote prompts to test the
       models for an RLHF project.</li>
