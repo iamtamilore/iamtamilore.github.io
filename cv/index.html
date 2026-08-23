@@ -11,7 +11,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/assets/css/design-system.css">
 <style>
-/* CV-specific scoped styles */
 .cv-page { color: var(--text); font-family: var(--font); line-height: 1.5; }
 .cv-wrap { max-width: 860px; margin: 0 auto; padding: var(--space-6) var(--space-4); }
 .cv-topbar { display: flex; justify-content: space-between; align-items: center; padding: var(--space-4) 0; margin-bottom: var(--space-6); border-bottom: 1px solid var(--border); }
@@ -28,7 +27,6 @@
 .cv-body-text { font-size: var(--text-sm); color: var(--text-2); line-height: 1.6; max-width: none; }
 .cv-body-text p { margin-bottom: var(--space-4); }
 .cv-body-text strong { color: var(--text); font-weight: 600; }
-
 .cv-entry { margin-bottom: var(--space-8); }
 .cv-entry-header { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-4); flex-wrap: wrap; margin-bottom: var(--space-2); }
 .cv-entry-org { font-size: var(--text-lg); font-weight: 700; color: var(--text); }
@@ -36,35 +34,27 @@
 .cv-entry-role { font-size: var(--text-sm); font-weight: 600; color: var(--text-2); margin-bottom: var(--space-3); }
 .cv-entry-body { font-size: var(--text-sm); color: var(--text-2); line-height: 1.6; }
 .cv-entry-body p { margin-bottom: var(--space-3); }
-
 .cv-project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--space-4); }
 .cv-project-card { background: var(--bg-2); border: 1px solid var(--border); border-radius: 0; padding: var(--space-5); display: flex; flex-direction: column; gap: var(--space-3); transition: all var(--motion-duration) var(--motion-ease); }
 .cv-project-card:hover { border-color: var(--accent); box-shadow: none; transform: translateY(-2px); }
 .cv-project-metric { font-family: var(--font-mono); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: var(--space-1); }
-.cv-project-label { font-size: var(--text-xs); color: var(--text-3); line-height: 1.4; margin-bottom: var(--space-2); }
+.cv-project-label { font-size: var(--text-xs); color: var(--text-3); line-height: 1.4; margin-bottom: var(--space-2); font-style: italic; }
 .cv-project-title { font-size: var(--text-base); font-weight: 700; color: var(--text); margin-bottom: var(--space-2); line-height: 1.1; }
 .cv-project-desc { font-size: var(--text-sm); color: var(--text-2); line-height: 1.6; flex: 1; }
+.cv-project-desc p { margin-bottom: var(--space-3); }
+.cv-project-desc p:last-child { margin-bottom: 0; }
 .cv-project-links { margin-top: auto; padding-top: var(--space-3); border-top: 1px solid var(--border); display: flex; gap: var(--space-3); flex-wrap: wrap; font-size: var(--text-xs); }
 .cv-project-links a { color: var(--text-3); text-decoration: none; border-bottom: none; }
 .cv-project-links a:hover { color: var(--accent); }
 .cv-project-cta { margin-top: var(--space-3); }
-
 .cv-skill-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-4); margin-top: var(--space-4); }
 .cv-skill-block { background: var(--bg-2); border: 1px solid var(--border); border-radius: 0; padding: var(--space-4); }
 .cv-skill-cat { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-3); margin-bottom: var(--space-2); font-weight: 600; }
 .cv-skill-list { font-size: var(--text-sm); color: var(--text-2); line-height: 1.6; margin: 0; }
-
-.cv-commitments { list-style: none; padding: 0; margin: var(--space-4) 0; counter-reset: commit; }
-.cv-commitments li { position: relative; padding-left: var(--space-8); margin-bottom: var(--space-4); color: var(--text-2); font-size: var(--text-sm); line-height: 1.6; }
-.cv-commitments li::before { counter-increment: commit; content: counter(commit, decimal-leading-zero); position: absolute; left: 0; top: 0; font-family: var(--font-mono); font-size: var(--text-xs); color: var(--accent); font-weight: 700; }
-.cv-commitments li strong { color: var(--text); }
-
 .cv-footer { margin-top: var(--space-12); padding-top: var(--space-6); border-top: 1px solid var(--border); text-align: center; color: var(--text-3); font-size: var(--text-xs); }
-
 .util { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; gap: var(--space-4); padding: var(--space-3) var(--space-4); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.08em; background: var(--bg); border-bottom: 1px solid var(--border-2); backdrop-filter: blur(12px); }
 .util a { color: var(--text-3); text-decoration: none; border-bottom: none; }
 .util a:hover { color: var(--text); }
-
 @media (max-width: 640px) {
   .cv-entry-header { flex-direction: column; gap: var(--space-1); }
   .cv-project-grid { grid-template-columns: 1fr; }
@@ -74,7 +64,6 @@
 </style>
 </head>
 <body class="cv-page">
-
 <nav class="util" aria-label="Site">
   <a href="/">home</a>
   <a href="/cv/">cv</a>
@@ -82,53 +71,46 @@
   <a href="/jobs/">jobs</a>
   <a href="/#systems">systems</a>
 </nav>
-
 <div class="cv-wrap">
-
   <div class="cv-topbar">
-    <a href="/">← Home</a>
-    <a href="/assets/Taiwo_Alabi_CV.pdf" target="_blank" rel="noopener">Download PDF ↓</a>
+    <a href="/">&larr; Home</a>
+    <a href="/assets/Taiwo_Alabi_CV.pdf" target="_blank" rel="noopener">Download PDF &darr;</a>
   </div>
-
   <header class="cv-header">
     <h1 class="cv-h1">Taiwo Alabi</h1>
     <p class="cv-identity">Data Scientist. I build AI systems end-to-end and publish exactly where each one fails.</p>
     <div class="cv-meta">
       <a href="mailto:alabitaiwo625@gmail.com">alabitaiwo625@gmail.com</a>
-      <span aria-hidden="true">·</span>
+      <span aria-hidden="true">&middot;</span>
       <span>+353 87 004 2838</span>
-      <span aria-hidden="true">·</span>
+      <span aria-hidden="true">&middot;</span>
       <a href="https://www.linkedin.com/in/tami-alabi/">LinkedIn</a>
-      <span aria-hidden="true">·</span>
+      <span aria-hidden="true">&middot;</span>
       <a href="https://github.com/iamtamilore">GitHub</a>
-      <span aria-hidden="true">·</span>
+      <span aria-hidden="true">&middot;</span>
       <span>County Dublin D03 K0Y3, Ireland</span>
     </div>
   </header>
-
   <section class="cv-section">
     <h2 class="cv-sec-title">Profile</h2>
     <div class="cv-body-text">
-      <p>I build AI systems that know when they are unsure. My projects all start from the same four questions: is the structure sound, does it actually work, is the model any good, and are the machines it runs on reliable? Before I train anything, I check what a simple guess or a basic rule would achieve. <strong>A model that cannot beat those does not deserve to exist.</strong></p>
+      <p>I build AI systems that know when they are unsure. Every project asks the same four questions: is the structure sound, does it actually work, is the model any good, and are the machines it runs on reliable? Before I train anything, I check what a simple guess or a basic rule would achieve. <strong>A model that cannot beat those does not deserve to exist.</strong></p>
     </div>
   </section>
-
   <section class="cv-section">
     <h2 class="cv-sec-title">Professional Experience</h2>
-
     <article class="cv-entry">
       <div class="cv-entry-header">
         <div class="cv-entry-org">Huawei Technologies (via RGS), Globacom Telecommunications</div>
-        <div class="cv-entry-when">Summer 2024 & 2025 · Lagos</div>
+        <div class="cv-entry-when">Summer 2024 &amp; 2025 &middot; Lagos</div>
       </div>
       <div class="cv-entry-role">Product Manager Intern</div>
       <div class="cv-entry-body">
         <p><strong>Problem:</strong> The system moves phone usage records from the network to every department that needs them - billing, audits, reports. It handles <strong>400 million records a day</strong>, from seven sources to fourteen destinations, each needing the same data in a different format. The real risk is not speed. A bad update could leave fourteen systems reading nothing, or reading the same record twice - and reading twice means billing the customer twice.</p>
-        <p><strong>Action:</strong> I designed and tested the connection layer between the phone company's call centre and a bank's customer service line. I mapped every data field the bank needed to share, tested each one by hand with a command-line tool before it reached a real voice prompt, and made sure every menu option had a recorded message - including wrong choices and failed login.</p>
+        <p><strong>Action:</strong> I designed and tested the connection layer between the phone company&#39;s call centre and a bank&#39;s customer service line. I mapped every data field the bank needed to share, tested each one by hand with a command-line tool before it reached a real voice prompt, and made sure every menu option had a recorded message - including wrong choices and failed login.</p>
         <p><strong>Result:</strong> The lesson I still use came from what happens when things fail. When a caller cannot authenticate, the call goes to a person - it does not get stuck or retry endlessly. I also helped split customer data into separate groups by type, and designed over <strong>440 test cases</strong> with the test team. During the live switchover, a storage system filled up and a connection dropped. <strong>Both problems showed up in testing before any customer noticed.</strong></p>
       </div>
     </article>
-
     <article class="cv-entry">
       <div class="cv-entry-header">
         <div class="cv-entry-org">Turing, Remote (Dublin)</div>
@@ -144,14 +126,16 @@
   <section class="cv-section">
     <h2 class="cv-sec-title">Selected Projects</h2>
     <p class="cv-body-text" style="margin-bottom:var(--space-6)">Every project below links to its full write-up, architecture diagrams, and source code. Click through, read the failure modes, then use the nav to return here.</p>
-
     <div class="cv-project-grid">
-
       <div class="cv-project-card">
         <div class="cv-project-metric">scoped</div>
         <div class="cv-project-label">locked to one patient before searching, not filtered after. Tried 30 ways to leak data, 0 worked</div>
         <div class="cv-project-title">Smart Medical Records Engine</div>
-        <div class="cv-project-desc">Searching across every patient at once risks pulling up the wrong person's record. This system locks the search to one patient at the database level. The AI model runs on the hospital's own machine across four services, so patient data never leaves the building.</div>
+        <div class="cv-project-desc">
+          <p><strong>Problem:</strong> A doctor has ten minutes. Somewhere in a patient file spread across years of notes is a line saying they reacted badly to a medicine. The doctor is about to prescribe something. Do they remember that line?</p>
+          <p><strong>Action:</strong> Searching across every patient at once risks pulling up the wrong person&#39;s record. This system locks the search to one patient at the database level. I tried <strong>30 different ways</strong> to trick it into leaking data. <strong>None worked.</strong> The AI runs on the hospital&#39;s own machine, not through an outside service, because patient records leaving the building is not a trade a hospital can make.</p>
+          <p><strong>Result:</strong> The whole system - the API, the database with vector search, and the AI model - runs across four services on one machine. Patient data never leaves the hospital&#39;s network.</p>
+        </div>
         <div class="cv-project-links">
           <a href="/p/clinical-rag/">Write-up</a>
           <a href="/assets/docs/clinical_rag_writeup.pdf" target="_blank" rel="noopener">PDF</a>
@@ -159,14 +143,17 @@
           <a href="/assets/img/rag_data_model.jpg" target="_blank" rel="noopener">Data model</a>
           <a href="https://github.com/iamtamilore/agentic_rag_fastapi" target="_blank" rel="noopener">Code</a>
         </div>
-        <div class="cv-project-cta"><a class="ds-btn ds-btn-secondary ds-btn-sm" href="/p/clinical-rag/" style="width:100%;justify-content:center">Read project →</a></div>
+        <div class="cv-project-cta"><a class="ds-btn ds-btn-secondary ds-btn-sm" href="/p/clinical-rag/" style="width:100%;justify-content:center">Read project &rarr;</a></div>
       </div>
-
       <div class="cv-project-card">
         <div class="cv-project-metric">escalates</div>
         <div class="cv-project-label">hands off to a human when unsure. Got 40 out of 42 test tickets right</div>
         <div class="cv-project-title">Customer Care Process Automation</div>
-        <div class="cv-project-desc">I drew the process on paper before writing any code, so the automation replaced what actually happens, not what I assumed happens. Hard rules check the form fields; a simple classifier reads the complaint and routes it. When the classifier is unsure, it hands off to a person. I picked a small, fast model because 210 example tickets is too few for anything larger - a bigger model would just memorise the examples instead of learning the pattern.</div>
+        <div class="cv-project-desc">
+          <p><strong>Problem:</strong> Hundreds of customer complaints were sorted by hand every morning. After the sixtieth ticket, they all start to read the same. People misroute them. The customer waits while their ticket finds the right desk, then waits again once it gets there.</p>
+          <p><strong>Action:</strong> I drew the process on paper before writing any code, so the automation replaced what actually happens, not what I assumed happens. Hard rules check the form fields; a simple program reads the complaint and routes it. When the program is unsure, it hands off to a person.</p>
+          <p><strong>Result:</strong> When the program is not confident enough, it passes the ticket to a person instead of guessing. I would rather report a lower automation rate than a higher mistake rate. I picked a small, fast model because 210 example tickets is too few for anything larger - a bigger model would just memorise the examples instead of learning the pattern.</p>
+        </div>
         <div class="cv-project-links">
           <a href="/p/care-agent/">Write-up</a>
           <a href="/assets/docs/care_agent_writeup.pdf" target="_blank" rel="noopener">PDF</a>
@@ -175,14 +162,17 @@
           <a href="/assets/img/fig2_confusion_matrix.jpg" target="_blank" rel="noopener">Confusion matrix</a>
           <a href="https://github.com/iamtamilore/customer-care-automation" target="_blank" rel="noopener">Code</a>
         </div>
-        <div class="cv-project-cta"><a class="ds-btn ds-btn-secondary ds-btn-sm" href="/p/care-agent/" style="width:100%;justify-content:center">Read project →</a></div>
+        <div class="cv-project-cta"><a class="ds-btn ds-btn-secondary ds-btn-sm" href="/p/care-agent/" style="width:100%;justify-content:center">Read project &rarr;</a></div>
       </div>
-
       <div class="cv-project-card">
         <div class="cv-project-metric">grounded</div>
         <div class="cv-project-label">every warning points to the exact law it came from, so nothing is made up</div>
         <div class="cv-project-title">TermsGuard AI <span class="ds-badge ds-badge-success" style="font-size:9px;padding:2px 6px;margin-left:4px">Live</span></div>
-        <div class="cv-project-desc">The old version sometimes made up legal citations that did not exist. The new version builds every answer only from text it actually found in the law. Plain text matching alone flags "we do not sell your data" as a problem because it only sees the words and misses the "not", so extra rules sit on top to catch that. Answer time cut from 28 seconds to under 10.</div>
+        <div class="cv-project-desc">
+          <p><strong>Problem:</strong> Reading every privacy policy an average person meets would take about 244 hours a year. Nobody does it. So people agree to data selling and tracking without knowing they have.</p>
+          <p><strong>Action:</strong> The old version sometimes made up legal citations that did not exist. The new version builds every answer only from text it actually found in the law. Plain text matching alone flags &quot;we do not sell your data&quot; as a problem because it only sees the words and misses the &quot;not&quot;, so extra rules sit on top to catch that.</p>
+          <p><strong>Result:</strong> Answer time cut from 28 seconds to under 10. A second AI double-checks each flagged clause and removes false positives. If no API key is set, the tool falls back to text-matching only - it degrades to a less precise version instead of refusing to work.</p>
+        </div>
         <div class="cv-project-links">
           <a href="https://newtazer-terms-guard-ai.hf.space" target="_blank" rel="noopener">Live demo</a>
           <a href="/p/termsguard/">Write-up</a>
@@ -190,14 +180,17 @@
           <a href="/assets/img/tg_architecture.jpg" target="_blank" rel="noopener">Architecture</a>
           <a href="https://github.com/iamtamilore/terms-guard-ai" target="_blank" rel="noopener">Code</a>
         </div>
-        <div class="cv-project-cta"><a class="ds-btn ds-btn-secondary ds-btn-sm" href="/p/termsguard/" style="width:100%;justify-content:center">Read project →</a></div>
+        <div class="cv-project-cta"><a class="ds-btn ds-btn-secondary ds-btn-sm" href="/p/termsguard/" style="width:100%;justify-content:center">Read project &rarr;</a></div>
       </div>
-
       <div class="cv-project-card">
         <div class="cv-project-metric">two baselines</div>
-        <div class="cv-project-label">pixel diff F1 0.59, kNN 0.26, Siamese 0.90. The gap is the result</div>
+        <div class="cv-project-label">simple checks scored 0.59 and 0.26. The neural network scored 0.90. The gap is the result</div>
         <div class="cv-project-title">Automated QA Gate for AI Generated Imagery</div>
-        <div class="cv-project-desc">I started with two simple checks first: comparing pixels directly, and finding the nearest match. A neural network then reached much better results on a 90-pair test set. I moved the decision cutoff from 0.5 to 0.4821, tuned only on validation data, because rejecting a good image costs one retry while accepting a bad one sends it to the client.</div>
+        <div class="cv-project-desc">
+          <p><strong>Problem:</strong> AI-generated fashion images drift over multiple generations - the character&#39;s face slowly shifts or details I want to keep become inconsistent.</p>
+          <p><strong>Action:</strong> I started with two simple checks first: comparing pixels directly, and finding the nearest match. A neural network then reached much better results on a 90-pair test set. The gap between the simple checks and the neural network is the result - the high score on its own is not. I moved the decision cutoff from the default halfway point to 0.4821, tuned only on validation data, because rejecting a good image costs one retry while accepting a bad one sends it to the client.</p>
+          <p><strong>Honest limit:</strong> This only catches identity drift, not colour and lighting drift, which needs a separate weaker check.</p>
+        </div>
         <div class="cv-project-links">
           <a href="/assets/docs/image_qa_writeup.pdf" target="_blank" rel="noopener">Write-up PDF</a>
           <a href="/assets/img/fig3_rpa_validation.jpg" target="_blank" rel="noopener">ROC curve</a>
@@ -205,8 +198,8 @@
         </div>
         <div class="cv-project-cta"><span class="ds-btn ds-btn-secondary ds-btn-sm" style="width:100%;justify-content:center;opacity:0.6;cursor:default">Project page after grading</span></div>
       </div>
-
     </div>
+    <p class="cv-body-text" style="margin-top:var(--space-6);color:var(--text-3);font-style:italic;">Every project above follows the same rules: establish the baseline first, name the affordable error, draw before coding, freeze the pipeline, version everything, and state what breaks.</p>
   </section>
 
   <section class="cv-section">
@@ -216,16 +209,16 @@
       <p style="margin-top:var(--space-4)"><strong>Afe Babalola University, Lagos</strong> <span class="cv-entry-when" style="display:inline">Sep 2021 - Feb 2025</span><br>BSc Computer Science, Second Class Honours, Upper Division (2.1).</p>
     </div>
   </section>
-
   <section class="cv-section">
     <h2 class="cv-sec-title">Technical Skills</h2>
+    <p class="cv-body-text" style="margin-bottom:var(--space-4)">These are the tools and systems I work with. A recruiter scanning for a specific name should find it here.</p>
     <div class="cv-skill-grid">
       <div class="cv-skill-block">
         <div class="cv-skill-cat">Languages</div>
         <p class="cv-skill-list">Python, SQL</p>
       </div>
       <div class="cv-skill-block">
-        <div class="cv-skill-cat">Data & Infrastructure</div>
+        <div class="cv-skill-cat">Data &amp; Infrastructure</div>
         <p class="cv-skill-list">Hadoop HDFS, HBase, GaussDB, PostgreSQL, pgvector, Docker, Docker Compose, Kubernetes, FastAPI, Flask, Google Cloud</p>
       </div>
       <div class="cv-skill-block">
@@ -233,11 +226,11 @@
         <p class="cv-skill-list">scikit-learn, pandas, TensorFlow/Keras, transfer learning, reinforcement learning, Q-Learning, neural networks, Transformers</p>
       </div>
       <div class="cv-skill-block">
-        <div class="cv-skill-cat">AI & Agents</div>
+        <div class="cv-skill-cat">AI &amp; Agents</div>
         <p class="cv-skill-list">RAG pipelines, vector search (pgvector, FAISS), LangGraph, LLM evaluation, genetic algorithms</p>
       </div>
       <div class="cv-skill-block">
-        <div class="cv-skill-cat">Systems & Evaluation</div>
+        <div class="cv-skill-cat">Systems &amp; Evaluation</div>
         <p class="cv-skill-list">Training-serving skew, model registries, blue-green rollout, p95/p99 latency, baseline design, sliced evaluation, confidence calibration, GDPR cataloguing, data lineage, UAT design</p>
       </div>
       <div class="cv-skill-block">
@@ -246,20 +239,6 @@
       </div>
     </div>
   </section>
-
-  <section class="cv-section">
-    <h2 class="cv-sec-title">How I Work</h2>
-    <p class="cv-body-text" style="margin-bottom:var(--space-4)">These are not aspirational. They are extracted from what actually happened in the projects above.</p>
-    <ol class="cv-commitments">
-      <li><strong>Establish the baseline before training anything.</strong> A model that cannot beat a simple guess does not deserve to exist.</li>
-      <li><strong>Name the error you can afford before choosing a threshold.</strong> Rejecting a good image costs one retry; accepting a bad one sends it to the client. The cutoff moves accordingly.</li>
-      <li><strong>Model the process in BPMN before writing code.</strong> Draw the process on paper before coding it. The automation should replace what actually happens, not what you think happens.</li>
-      <li><strong>Freeze the preprocessing with the model</strong> so the way you prepare data in training stays the same in production.</li>
-      <li><strong>Version every artefact</strong> so you can roll back a bad release instead of spending hours figuring out what broke.</li>
-      <li><strong>State what breaks, in writing, next to what works.</strong> Every project page in this document says what can go wrong before it says what works.</li>
-    </ol>
-  </section>
-
   <section class="cv-section">
     <h2 class="cv-sec-title">Get in touch</h2>
     <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;margin-bottom:var(--space-6)">
@@ -270,14 +249,11 @@
       <a href="https://wa.me/353870042838?text=Hi%20Taiwo%2C%20I%20saw%20your%20portfolio">WhatsApp +353 87 004 2838</a>
     </div>
   </section>
-
   <footer class="cv-footer">
-    <p>Taiwo Alabi · Dublin, Ireland · <a href="mailto:alabitaiwo625@gmail.com" style="color:var(--text-muted);text-decoration:none">alabitaiwo625@gmail.com</a></p>
+    <p>Taiwo Alabi &middot; Dublin, Ireland &middot; <a href="mailto:alabitaiwo625@gmail.com" style="color:var(--text-muted);text-decoration:none">alabitaiwo625@gmail.com</a></p>
     <p style="margin-top:var(--space-2)">Last updated 23 August 2026</p>
   </footer>
-
 </div>
-
 <script>
 (function(){
   var K = "tw-theme", R = document.documentElement;
@@ -290,6 +266,5 @@
   if(stored)apply(stored);
 })();
 </script>
-
 </body>
 </html>
