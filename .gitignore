@@ -12,3 +12,4 @@
 # and must never be pushed.
 atoms/reels_db.sqlite
 *.sqlite
+atoms/frames

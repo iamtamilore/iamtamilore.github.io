@@ -663,8 +663,28 @@ async function pickFramesFolder(){
 }
 tryRestoreFramesFolder();
 
+// When this page is served locally/staging with frames/ symlinked next to it
+// (same trick as reels_db.sqlite's auto-load), images load with a plain fetch
+// - no folder picker, no permission prompt, works on first page load. On the
+// public deployed site there is no such symlink, so this 404s and the code
+// falls through to the File System Access picker below.
+async function tryDirectFrameUrl(imagePath){
+  const marker = '02_frames/';
+  const idx = imagePath.indexOf(marker);
+  if(idx === -1) return null;
+  const relPath = 'frames/' + imagePath.slice(idx + marker.length);
+  try{
+    const res = await fetch(relPath, {method:'HEAD', cache:'no-store'});
+    return res.ok ? relPath : null;
+  }catch(e){ return null; }
+}
+
 async function resolveImageSrc(imagePath){
-  if(!imagePath || !fsApiSupported || !framesDirHandle) return null;
+  if(!imagePath) return null;
+  const direct = await tryDirectFrameUrl(imagePath);
+  if(direct) return direct;
+
+  if(!fsApiSupported || !framesDirHandle) return null;
   const cleanPath = imagePath.replace(/^file:\/\//, '');
   const parts = cleanPath.split('/').filter(Boolean);
   for(let i=0;i<parts.length;i++){
@@ -1076,14 +1096,14 @@ async function showImgPopup(frame,e){
   const p=frame.image_path||'';
   const popupToken=frame;
   if(p){
-    if(!fsApiSupported){
+    imgPopup.innerHTML=`<div class="ipp">${esc(frameId(frame))}<br><span style="font-size:10px;color:var(--text-dim)">Loading...</span></div>`;
+    const src=await resolveImageSrc(p);
+    if(S.hoverFrame!==popupToken)return; // hover moved on before resolve finished
+    if(!src && !fsApiSupported){
       imgPopup.innerHTML=`<div class="ipp">${esc(frameId(frame))}<br><span style="font-size:10px;color:var(--text-dim)">${fsUnsupportedMsg()}</span></div>`;
-    }else if(!framesDirHandle){
+    }else if(!src && !framesDirHandle){
       imgPopup.innerHTML=`<div class="ipp">${esc(frameId(frame))}<br><span style="font-size:10px;color:var(--text-dim)">Select folder to view</span></div>`;
     }else{
-      imgPopup.innerHTML=`<div class="ipp">${esc(frameId(frame))}<br><span style="font-size:10px;color:var(--text-dim)">Loading...</span></div>`;
-      const src=await resolveImageSrc(p);
-      if(S.hoverFrame!==popupToken)return; // hover moved on before resolve finished
       if(src){
         imgPopup.innerHTML=`<img src="${esc(src)}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="ipp" style="display:none">${esc(frameId(frame))}</div>`;
       }else{
@@ -1150,7 +1170,7 @@ function renderCompare(frames){
     h+=`<div class="compare-col"><h3>${esc(f.reel_id)} · frame_${String(f.frame_number).padStart(4,'0')}</h3>`;
     // Image (resolved async below, once this markup is in the DOM)
     if(f.image_path){
-      h+=`<img class="compare-img" data-path="${escA(f.image_path)}" style="max-width:100%;max-height:150px;border-radius:0;margin-bottom:12px;display:none" onerror="this.style.display='none'"><div class="compare-img-ph" style="font-size:11px;color:var(--text-dim);margin-bottom:12px">${!fsApiSupported?fsUnsupportedMsg():(!framesDirHandle?'Select folder to view':'Loading...')}</div>`;
+      h+=`<img class="compare-img" data-path="${escA(f.image_path)}" style="max-width:100%;max-height:150px;border-radius:0;margin-bottom:12px;display:none" onerror="this.style.display='none'"><div class="compare-img-ph" style="font-size:11px;color:var(--text-dim);margin-bottom:12px">Loading...</div>`;
     }
     fields.forEach(([label,key])=>{
       const val=f[key];
@@ -1182,10 +1202,11 @@ async function resolveCompareImages(){
   const imgs=[...document.querySelectorAll('.compare-img')];
   for(const img of imgs){
     const ph=img.nextElementSibling;
-    if(!fsApiSupported||!framesDirHandle)continue; // placeholder text already set correctly above
     const src=await resolveImageSrc(img.dataset.path);
     if(src){img.src=src;img.style.display='block';if(ph)ph.style.display='none'}
-    else if(ph){ph.textContent='File not found in folder'}
+    else if(ph){
+      ph.textContent=!fsApiSupported?fsUnsupportedMsg():(!framesDirHandle?'Select folder to view':'File not found in folder');
+    }
   }
 }
 
@@ -1205,22 +1226,20 @@ function openDetail(frame){
   const fid=frameId(frame);
   const ip=frame.image_path||'';
   if(ip){
-    if(!fsApiSupported){
-      $('detail-left').innerHTML=`<div class="modal-img-ph"><div class="icon">◇</div><p>${fsUnsupportedMsg()}</p><p style="font-size:10px;margin-top:8px;color:#444">${esc(ip)}</p></div>`;
-    }else if(!framesDirHandle){
-      $('detail-left').innerHTML=`<div class="modal-img-ph"><div class="icon">◇</div><p>Select folder to view</p><p style="font-size:10px;margin-top:8px;color:#444">${esc(ip)}</p></div>`;
-    }else{
-      $('detail-left').innerHTML=`<div class="modal-img-ph"><div class="icon">◇</div><p>Loading...</p></div>`;
-      const detailToken=frame;
-      resolveImageSrc(ip).then(src=>{
-        if(S.detailFrame!==detailToken)return; // a different frame's detail opened before this resolved
-        if(src){
-          $('detail-left').innerHTML=`<img src="${esc(src)}" class="modal-img" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="modal-img-ph" style="display:none"><div class="icon">◇</div><p>Image not accessible</p><p style="font-size:10px;margin-top:8px;color:#444">${esc(ip)}</p></div>`;
-        }else{
-          $('detail-left').innerHTML=`<div class="modal-img-ph"><div class="icon">◇</div><p>File not found in folder</p><p style="font-size:10px;margin-top:8px;color:#444">${esc(ip)}</p></div>`;
-        }
-      });
-    }
+    $('detail-left').innerHTML=`<div class="modal-img-ph"><div class="icon">◇</div><p>Loading...</p></div>`;
+    const detailToken=frame;
+    resolveImageSrc(ip).then(src=>{
+      if(S.detailFrame!==detailToken)return; // a different frame's detail opened before this resolved
+      if(src){
+        $('detail-left').innerHTML=`<img src="${esc(src)}" class="modal-img" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="modal-img-ph" style="display:none"><div class="icon">◇</div><p>Image not accessible</p><p style="font-size:10px;margin-top:8px;color:#444">${esc(ip)}</p></div>`;
+      }else if(!fsApiSupported){
+        $('detail-left').innerHTML=`<div class="modal-img-ph"><div class="icon">◇</div><p>${fsUnsupportedMsg()}</p><p style="font-size:10px;margin-top:8px;color:#444">${esc(ip)}</p></div>`;
+      }else if(!framesDirHandle){
+        $('detail-left').innerHTML=`<div class="modal-img-ph"><div class="icon">◇</div><p>Select folder to view</p><p style="font-size:10px;margin-top:8px;color:#444">${esc(ip)}</p></div>`;
+      }else{
+        $('detail-left').innerHTML=`<div class="modal-img-ph"><div class="icon">◇</div><p>File not found in folder</p><p style="font-size:10px;margin-top:8px;color:#444">${esc(ip)}</p></div>`;
+      }
+    });
   }else{
     $('detail-left').innerHTML=`<div class="modal-img-ph"><div class="icon">◇</div><p>No image path</p></div>`;
   }
