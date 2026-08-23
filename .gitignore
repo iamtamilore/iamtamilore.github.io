@@ -6,3 +6,9 @@
 
 # skill data, not site content. Was publicly served at /.claude/...
 .claude/
+
+# local-only data symlink for the Atom Browser auto-load (points outside the
+# repo, to a personal file on this machine). Never resolves on GitHub Pages
+# and must never be pushed.
+atoms/reels_db.sqlite
+*.sqlite
