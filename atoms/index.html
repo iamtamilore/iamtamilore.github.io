@@ -491,6 +491,15 @@ const S = {
 
 let framesDirHandle = null;
 const fsApiSupported = 'showDirectoryPicker' in window;
+let isBraveBrowser = false;
+if(navigator.brave && typeof navigator.brave.isBrave === 'function'){
+  navigator.brave.isBrave().then(r=>{isBraveBrowser=!!r});
+}
+function fsUnsupportedMsg(){
+  return (!fsApiSupported && isBraveBrowser)
+    ? 'Blocked by Brave Shields - allow it for this site'
+    : 'Browser unsupported';
+}
 
 // ─── DOM REFS ───
 const $ = id => document.getElementById(id);
@@ -572,10 +581,79 @@ function applyTheme(){
 }
 
 // ─── FILE SYSTEM ACCESS API IMAGE LOADER ───
+// ─── FOLDER HANDLE PERSISTENCE (IndexedDB) ───
+// A FileSystemDirectoryHandle is structured-cloneable, so it can be stored
+// directly. Storing it does not by itself grant future access - the browser
+// still requires either a remembered 'granted' permission (queryPermission,
+// fully silent) or one more click through requestPermission (a lightweight
+// native prompt, not the full folder browser). Neither path can be made
+// fully silent forever; that is a deliberate browser security limit, not
+// something this code can work around.
+const FS_DB_NAME='atom-browser-fs', FS_STORE='handles', FS_KEY='framesDir';
+function fsIdbOpen(){
+  return new Promise((resolve,reject)=>{
+    const req=indexedDB.open(FS_DB_NAME,1);
+    req.onupgradeneeded=()=>req.result.createObjectStore(FS_STORE);
+    req.onsuccess=()=>resolve(req.result);
+    req.onerror=()=>reject(req.error);
+  });
+}
+async function fsIdbSet(handle){
+  try{
+    const db=await fsIdbOpen();
+    await new Promise((resolve,reject)=>{
+      const tx=db.transaction(FS_STORE,'readwrite');
+      tx.objectStore(FS_STORE).put(handle,FS_KEY);
+      tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);
+    });
+  }catch(e){/* persistence is a convenience, not required for the feature to work this session */}
+}
+async function fsIdbGet(){
+  try{
+    const db=await fsIdbOpen();
+    return await new Promise((resolve,reject)=>{
+      const tx=db.transaction(FS_STORE,'readonly');
+      const req=tx.objectStore(FS_STORE).get(FS_KEY);
+      req.onsuccess=()=>resolve(req.result||null);
+      req.onerror=()=>reject(req.error);
+    });
+  }catch(e){return null}
+}
+async function tryRestoreFramesFolder(){
+  if(!fsApiSupported)return;
+  const stored=await fsIdbGet();
+  if(!stored)return;
+  try{
+    const perm=await stored.queryPermission({mode:'read'});
+    if(perm==='granted'){
+      framesDirHandle=stored;
+      const btn=$('btn-folder');if(btn)btn.textContent='📁 Folder selected';
+    }else{
+      // Permission needs a fresh click, but the folder itself is remembered -
+      // requestPermission on this handle re-prompts without the full picker.
+      pendingRestoreHandle=stored;
+      const btn=$('btn-folder');if(btn)btn.textContent='📁 Re-allow folder';
+    }
+  }catch(e){/* stored handle no longer valid (folder moved/deleted) */}
+}
+let pendingRestoreHandle=null;
+
 async function pickFramesFolder(){
-  if(!fsApiSupported){showToast('File System Access API not supported in this browser');return;}
+  if(!fsApiSupported){showToast(fsUnsupportedMsg());return;}
+  if(pendingRestoreHandle){
+    try{
+      const perm=await pendingRestoreHandle.requestPermission({mode:'read'});
+      if(perm==='granted'){
+        framesDirHandle=pendingRestoreHandle;pendingRestoreHandle=null;
+        showToast('Folder access restored');
+        const btn=$('btn-folder');if(btn)btn.textContent='📁 Folder selected';
+        return;
+      }
+    }catch(e){/* fall through to a full fresh pick below */}
+  }
   try{
     framesDirHandle = await window.showDirectoryPicker();
+    fsIdbSet(framesDirHandle);
     showToast('Folder access granted');
     const btn = $('btn-folder');
     if(btn) btn.textContent = '📁 Folder selected';
@@ -583,6 +661,7 @@ async function pickFramesFolder(){
     if(err.name !== 'AbortError') showToast('Error selecting folder: '+err.message);
   }
 }
+tryRestoreFramesFolder();
 
 async function resolveImageSrc(imagePath){
   if(!imagePath || !fsApiSupported || !framesDirHandle) return null;
@@ -668,7 +747,7 @@ function buildStats(){
   const mc={};S.allFrames.forEach(f=>{const m=f.vision_model||'unknown';mc[m]=(mc[m]||0)+1});
   let h=`<div><span class="sv">${total}</span> <span class="sl">frames</span></div><div><span class="sv">${reelSet.size}</span> <span class="sl">reels</span></div>`;
   Object.entries(mc).forEach(([m,c])=>{h+=`<div><span class="sv">${c}</span> <span class="sl">${m.replace(/[:].*/,'')}</span></div>`});
-  h+=`<div style="margin-left:auto"><button class="tb-btn" id="btn-folder" title="Select frames folder">📁 ${!fsApiSupported?'Browser unsupported':(framesDirHandle?'Folder selected':'Select folder')}</button></div>`;
+  h+=`<div style="margin-left:auto"><button class="tb-btn" id="btn-folder" title="Select frames folder">📁 ${!fsApiSupported?fsUnsupportedMsg():(framesDirHandle?'Folder selected':'Select folder')}</button></div>`;
   topbarStats.innerHTML=h;
   $('btn-folder').addEventListener('click',pickFramesFolder);
 }
@@ -998,7 +1077,7 @@ async function showImgPopup(frame,e){
   const popupToken=frame;
   if(p){
     if(!fsApiSupported){
-      imgPopup.innerHTML=`<div class="ipp">${esc(frameId(frame))}<br><span style="font-size:10px;color:var(--text-dim)">Browser unsupported for image preview</span></div>`;
+      imgPopup.innerHTML=`<div class="ipp">${esc(frameId(frame))}<br><span style="font-size:10px;color:var(--text-dim)">${fsUnsupportedMsg()}</span></div>`;
     }else if(!framesDirHandle){
       imgPopup.innerHTML=`<div class="ipp">${esc(frameId(frame))}<br><span style="font-size:10px;color:var(--text-dim)">Select folder to view</span></div>`;
     }else{
@@ -1071,7 +1150,7 @@ function renderCompare(frames){
     h+=`<div class="compare-col"><h3>${esc(f.reel_id)} · frame_${String(f.frame_number).padStart(4,'0')}</h3>`;
     // Image (resolved async below, once this markup is in the DOM)
     if(f.image_path){
-      h+=`<img class="compare-img" data-path="${escA(f.image_path)}" style="max-width:100%;max-height:150px;border-radius:0;margin-bottom:12px;display:none" onerror="this.style.display='none'"><div class="compare-img-ph" style="font-size:11px;color:var(--text-dim);margin-bottom:12px">${!fsApiSupported?'Browser unsupported':(!framesDirHandle?'Select folder to view':'Loading...')}</div>`;
+      h+=`<img class="compare-img" data-path="${escA(f.image_path)}" style="max-width:100%;max-height:150px;border-radius:0;margin-bottom:12px;display:none" onerror="this.style.display='none'"><div class="compare-img-ph" style="font-size:11px;color:var(--text-dim);margin-bottom:12px">${!fsApiSupported?fsUnsupportedMsg():(!framesDirHandle?'Select folder to view':'Loading...')}</div>`;
     }
     fields.forEach(([label,key])=>{
       const val=f[key];
@@ -1127,7 +1206,7 @@ function openDetail(frame){
   const ip=frame.image_path||'';
   if(ip){
     if(!fsApiSupported){
-      $('detail-left').innerHTML=`<div class="modal-img-ph"><div class="icon">◇</div><p>Browser unsupported</p><p style="font-size:10px;margin-top:8px;color:#444">${esc(ip)}</p></div>`;
+      $('detail-left').innerHTML=`<div class="modal-img-ph"><div class="icon">◇</div><p>${fsUnsupportedMsg()}</p><p style="font-size:10px;margin-top:8px;color:#444">${esc(ip)}</p></div>`;
     }else if(!framesDirHandle){
       $('detail-left').innerHTML=`<div class="modal-img-ph"><div class="icon">◇</div><p>Select folder to view</p><p style="font-size:10px;margin-top:8px;color:#444">${esc(ip)}</p></div>`;
     }else{
