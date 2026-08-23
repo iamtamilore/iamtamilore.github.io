@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#14100c">
+<meta name="robots" content="noindex">
+<title>Bank</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<style>
+:root{
+  --bg:#0f0e0c; --panel:#1a1713; --line:#2b2620; --text:#ece7dd;
+  --muted:#968c7e; --muted2:#6f665b; --accent:#ff7a3d; --accent-dim:#b8541f;
+  --danger:#e0684c;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  -webkit-tap-highlight-color:transparent}
+body{padding:env(safe-area-inset-top) 14px calc(env(safe-area-inset-bottom) + 20px)}
+h1{font-size:18px;font-weight:700;margin:16px 0 4px}
+.sub{color:var(--muted);font-size:13px;margin-bottom:16px}
+.tabs{display:flex;gap:6px;margin-bottom:14px}
+.tab{flex:1;background:var(--panel);border:1px solid var(--line);color:var(--muted);
+  padding:11px 0;border-radius:8px;font-size:13px;font-weight:600;letter-spacing:.04em}
+.tab.on{background:var(--accent);color:#14100c;border-color:var(--accent)}
+.pane{display:none}
+.pane.on{display:block}
+
+.dropzone{border:1.5px dashed var(--line);border-radius:12px;padding:26px 14px;
+  text-align:center;color:var(--muted);font-size:13.5px;margin-bottom:12px}
+.dropzone.filled{border-style:solid;border-color:var(--accent-dim);padding:0;overflow:hidden}
+.dropzone img,.dropzone video{width:100%;display:block;max-height:220px;object-fit:cover}
+input[type=file]{display:none}
+.pickbtn{display:inline-block;background:var(--panel);border:1px solid var(--line);
+  color:var(--text);padding:10px 18px;border-radius:8px;font-size:13.5px;font-weight:600}
+
+.clipctrl{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:10px 0}
+.clipctrl button{background:var(--panel);border:1px solid var(--line);color:var(--text);
+  padding:12px 0;border-radius:8px;font-size:12.5px;font-weight:600}
+#btnIn{color:#8fb89f}#btnOut{color:var(--danger)}
+.rangeread{font-size:12px;color:var(--muted2);margin:0 0 12px;min-height:16px}
+.rangeread b{color:#8fb89f}
+.gatehint{font-size:11.5px;color:var(--danger);margin:0 0 12px;min-height:16px}
+.gatehint.ok{color:#8fb89f}
+canvas{display:none}
+
+label.field{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted2);margin:14px 0 6px}
+input[type=url],input[type=text],textarea{width:100%;background:var(--panel);
+  border:1px solid var(--line);color:var(--text);padding:11px 12px;border-radius:8px;
+  font-size:14.5px;font-family:inherit}
+textarea{min-height:70px;resize:vertical}
+input:focus,textarea:focus{outline:none;border-color:var(--accent)}
+
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{background:none;border:1px solid var(--line);color:var(--muted);padding:7px 12px;
+  border-radius:20px;font-size:12px}
+.chip.on{background:#2a3d31;border-color:#8fb89f;color:#8fb89f;font-weight:600}
+
+.switchrow{display:flex;align-items:center;gap:10px;margin-top:16px}
+.sw{position:relative;width:38px;height:22px;flex:none}
+.sw input{opacity:0;width:0;height:0}
+.sw i{position:absolute;inset:0;background:var(--panel);border:1px solid var(--line);
+  border-radius:22px}
+.sw i::after{content:"";position:absolute;left:2px;top:2px;width:16px;height:16px;
+  border-radius:50%;background:var(--muted);transition:.2s}
+.sw input:checked+i{background:#3a2418;border-color:var(--danger)}
+.sw input:checked+i::after{background:var(--danger);transform:translateX(16px)}
+.swlab{font-size:12.5px;color:var(--muted)}
+.swlab b{color:var(--danger)}
+
+.targetbtn{width:100%;margin-top:14px;background:none;border:1px dashed var(--line);
+  color:var(--muted);padding:11px;border-radius:8px;font-size:13px}
+.targetprev{display:none;align-items:center;gap:10px;margin-top:10px}
+.targetprev.on{display:flex}
+.targetprev img{width:46px;height:46px;object-fit:cover;border-radius:6px;border:1px solid var(--line)}
+.targetprev input{flex:1}
+
+.bankbtn{width:100%;margin-top:20px;background:var(--accent);color:#14100c;border:0;
+  padding:15px 0;border-radius:10px;font-size:14px;font-weight:700;letter-spacing:.04em}
+.bankbtn:disabled{opacity:.5}
+
+#status{margin-top:14px;font-size:12.5px;color:var(--muted);min-height:18px}
+#status.err{color:var(--danger)}
+#status.ok{color:#8fb89f}
+
+.queuebar{position:fixed;top:0;left:0;right:0;background:#3a2418;color:#e2b25c;
+  font-size:11.5px;text-align:center;padding:6px 0;display:none;
+  padding-top:calc(6px + env(safe-area-inset-top))}
+.queuebar.show{display:block}
+
+.settings{margin-top:36px;border-top:1px solid var(--line);padding-top:16px}
+.settings summary{color:var(--muted2);font-size:12px;list-style:none;cursor:pointer}
+.settings summary::-webkit-details-marker{display:none}
+.settings[open] summary{margin-bottom:10px}
+</style>
+</head>
+<body>
+
+<div class="queuebar" id="queueBar">0 queued, will send when back online</div>
+
+<h1>Bank it</h1>
+<p class="sub">Something you liked. Save it here, sort it later.</p>
+
+<div class="tabs">
+  <button class="tab on" data-pane="video">VIDEO</button>
+  <button class="tab" data-pane="photo">PHOTO</button>
+  <button class="tab" data-pane="link">LINK</button>
+</div>
+
+<div class="pane on" id="pane-video">
+  <div class="dropzone" id="videoDrop">
+    <span>Tap to pick or record a video</span>
+    <input type="file" id="videoInput" accept="video/*">
+  </div>
+  <div class="clipctrl" id="clipCtrl" style="display:none">
+    <button id="btnPlay">▶ play</button>
+    <button id="btnIn">● mark in</button>
+    <button id="btnOut">● mark out</button>
+  </div>
+  <div class="rangeread" id="rangeRead"></div>
+  <div class="gatehint" id="gateHint"></div>
+  <canvas id="grabCanvas"></canvas>
+</div>
+
+<div class="pane" id="pane-photo">
+  <div class="dropzone" id="photoDrop">
+    <span>Tap to pick or take a photo</span>
+    <input type="file" id="photoInput" accept="image/*">
+  </div>
+</div>
+
+<div class="pane" id="pane-link">
+  <label class="field">URL</label>
+  <input type="url" id="linkUrl" placeholder="https://...">
+</div>
+
+<label class="field">Why (plain english)</label>
+<textarea id="whyBox" placeholder="what you liked about it, whatever it is"></textarea>
+
+<label class="field">What it's about (optional tags)</label>
+<div class="chips" id="chipsRow">
+  <button class="chip" data-a="camera-move">camera move</button>
+  <button class="chip" data-a="subject-motion">subject motion</button>
+  <button class="chip" data-a="grade">grade / colour</button>
+  <button class="chip" data-a="transition">transition</button>
+  <button class="chip" data-a="environment">environment</button>
+  <button class="chip" data-a="styling">styling</button>
+  <button class="chip" data-a="composition">composition</button>
+  <button class="chip" data-a="audio">audio</button>
+</div>
+
+<div class="switchrow">
+  <label class="sw"><input type="checkbox" id="rightsSwitch"><i></i></label>
+  <span class="swlab">real person in frame → <b>privacy lane</b></span>
+</div>
+
+<button class="targetbtn" id="targetToggle">+ attach a reference to apply this to (optional)</button>
+<div class="targetprev" id="targetPrev">
+  <img id="targetImg" alt="">
+  <input type="text" id="targetIntent" placeholder="apply this to...">
+</div>
+<input type="file" id="targetInput" accept="image/*" style="display:none">
+
+<button class="bankbtn" id="btnBank">BANK IT</button>
+<div id="status"></div>
+
+<details class="settings">
+  <summary>settings</summary>
+  <label class="field">GitHub token (fine-grained, contents:write on idea_bank only)</label>
+  <input type="text" id="tokenInput" placeholder="github_pat_...">
+  <button class="pickbtn" id="btnSaveToken" style="margin-top:10px">save token</button>
+  <p class="sub" id="tokenStatus" style="margin-top:8px"></p>
+</details>
+
+<script src="app.js"></script>
+</body>
+</html>

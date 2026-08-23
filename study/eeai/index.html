@@ -6,17 +6,39 @@
 <meta name="color-scheme" content="light dark">
 <meta name="robots" content="noindex">
 <title>Engineering & Evaluating AI Systems - H9EEAI - Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="/assets/css/design-system.css">
 <link rel="stylesheet" href="/assets/study/player.css">
+<style>
+  /* Prevent design-system .theme-toggle from fixing the study-header button */
+  .study-header .theme-toggle {
+    position: static;
+    bottom: auto;
+    right: auto;
+    width: auto;
+    height: auto;
+    border: none;
+    background: transparent;
+    color: inherit;
+    display: inline-block;
+  }
+</style>
 </head>
 <body class="study-body">
+
 <nav class="util" aria-label="Personal">
   <a href="/">home</a>
-  <a href="/jobs/">tracker</a>
+  <a href="/cv/">cv</a>
+  <a href="/study/eeai/">study</a>
+  <a href="/jobs/">jobs</a>
 </nav>
+
 <div class="study-wrap">
   <div class="study-header">
     <h1>Engineering & Evaluating AI Systems - H9EEAI</h1>
-    <button class="theme-toggle" id="themeToggle" type="button">Theme</button>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">◐</button>
   </div>
 
   <div class="continue-card">
@@ -64,8 +86,14 @@
     var cur = root.dataset.theme === "dark" ? "light"
       : root.dataset.theme === "light" ? "" : "dark";
     if (cur) root.dataset.theme = cur; else delete root.dataset.theme;
-    try { localStorage.setItem("study-theme", cur); } catch (e) {}
+    try { localStorage.setItem("tw-theme", cur); } catch (e) {}
   });
+
+  // Sync with the unified theme on load
+  (function(){
+    var stored = localStorage.getItem("tw-theme");
+    if (stored) document.documentElement.dataset.theme = stored;
+  })();
 
   new StudyPlayer(document.body, {
     courseId: "eeai",

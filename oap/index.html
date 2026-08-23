@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>O.A.P. Trainer | Taiwo Alabi</title>
+<meta name="description" content="1,217 social-dynamics examples from 796 YouTube videos. SM-2 spaced repetition with AI-generated scenarios. Local only.">
+<script>document.documentElement.setAttribute("data-theme",localStorage.getItem("tw-theme")||"")</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="/assets/css/design-system.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231a1816'/><text y='72' x='50' font-size='62' text-anchor='middle' fill='%23c45a1f' font-family='sans-serif' font-weight='bold'>T</text></svg>">
+</head>
+<body>
+
+<nav class="util" aria-label="Personal">
+  <a href="/">home</a>
+  <a href="/cv/">cv</a>
+  <a href="/study/eeai/">study</a>
+  <a href="/jobs/">jobs</a>
+</nav>
+
+<div class="topbar">
+  <a href="/">&larr; Home</a>
+  <span style="color:var(--text-3);font-size:var(--text-xs);text-transform:uppercase;letter-spacing:0.08em">O.A.P. Trainer</span>
+</div>
+
+<div class="wrap">
+
+  <header>
+    <h1>O.A.P. Trainer</h1>
+    <p style="max-width:var(--content-max);color:var(--text-2)">
+      1,217 social-dynamics examples mined from 796 YouTube videos. Spaced repetition
+      with SM-2 scheduling and AI-generated practice scenarios. Built because I needed a
+      training system that did not exist.</p>
+  </header>
+
+  <div class="system-status unavailable" id="statusBanner">
+    <span class="status-dot" id="statusDot"></span>
+    <span class="status-text" id="statusText">Checking local system...</span>
+    <button class="cta cta-ghost" id="btnCheck" type="button" style="margin-left:auto;font-size:var(--text-xs);padding:var(--space-1) var(--space-3)">Check again</button>
+  </div>
+
+  <div class="oap-grid" style="margin-top:var(--space-8)">
+
+    <div>
+
+      <h2>What it does</h2>
+      <p>The O.A.P. Trainer is a spaced-repetition system for social-dynamics patterns.
+        It pulls examples from a library of 1,217 mined interactions, schedules them
+        with SM-2, and generates new practice scenarios through an LLM when you need
+        fresh material. Every scenario costs an API call, so the system is gated by
+        your own usage.</p>
+
+      <h2>How it is built</h2>
+      <ul class="exp">
+        <li><strong>Backend</strong> <span class="when">FastAPI on localhost:8000</span><br>
+          Seven endpoints, CORS enabled, no authentication. SQLite database on the
+          laptop's internal disk. Works with no external drive.</li>
+        <li><strong>Scheduling</strong> <span class="when">SM-2 algorithm</span><br>
+          Cards due today are surfaced first. Rating a card updates its interval and
+          ease factor. The algorithm is deterministic and auditable.</li>
+        <li><strong>Scenarios</strong> <span class="when">LLM-generated on demand</span><br>
+          When the library does not cover a situation, the system generates a scenario,
+          scores your response against rubrics, and stores the result. Each generation
+          costs one LLM call.</li>
+        <li><strong>Data</strong> <span class="when">SQLite, local only</span><br>
+          The 1,217 examples and your practice history live in a SQLite file on your
+          laptop. No cloud sync, no export, no backup. If the laptop dies, the data
+          dies with it. That is a deliberate choice for a personal training tool.</li>
+      </ul>
+
+      <h2>Why it is not on the internet</h2>
+      <p>Three reasons, in order of importance:</p>
+      <ol style="max-width:var(--content-max);color:var(--text-2);margin:var(--space-4) 0">
+        <li><strong>It spends money.</strong> Every scenario generation calls a paid LLM.
+          Exposing this to the internet would be exposing a metered resource.</li>
+        <li><strong>It has no authentication.</strong> The FastAPI backend has CORS on
+          and no auth layer. Adding auth would mean secrets, sessions, and attack surface
+          for a tool only I use.</li>
+        <li><strong>It is personal.</strong> The examples are mined from content I
+          watched and judged relevant. The practice history is mine. There is no reason
+          for this to be public data.</li>
+      </ol>
+      <p style="max-width:var(--content-max);color:var(--text-2)">
+        This page exists so you know the system exists. The UI below shows what you would
+        see if you were sitting at my laptop with the backend running. When the laptop is
+        off, it is disabled. That is the normal state.</p>
+
+      <h2>Endpoint reference</h2>
+      <ul class="endpoint-list">
+        <li class="get"><span class="endpoint-method">GET</span> /api/cards/due</li>
+        <li class="post"><span class="endpoint-method">POST</span> /api/cards/{id}/rate</li>
+        <li class="post"><span class="endpoint-method">POST</span> /api/scenario/generate</li>
+        <li class="post"><span class="endpoint-method">POST</span> /api/scenario/score</li>
+        <li class="get"><span class="endpoint-method">GET</span> /api/library</li>
+        <li class="get"><span class="endpoint-method">GET</span> /api/stats</li>
+      </ul>
+
+    </div>
+
+    <div class="oap-panel disabled" id="oapPanel">
+      <h3>Trainer</h3>
+      <div class="system-status unavailable" style="margin:var(--space-4) 0">
+        <span class="status-dot" id="panelDot"></span>
+        <span class="status-text" id="panelText">Unreachable</span>
+      </div>
+
+      <div style="margin:var(--space-4) 0">
+        <div style="font-size:var(--text-xs);text-transform:uppercase;letter-spacing:0.08em;color:var(--text-3);margin-bottom:var(--space-2)">Due today</div>
+        <div style="font-family:var(--font-mono);font-size:var(--text-2xl);color:var(--text-3)"> - </div>
+      </div>
+
+      <div style="margin:var(--space-4) 0">
+        <div style="font-size:var(--text-xs);text-transform:uppercase;letter-spacing:0.08em;color:var(--text-3);margin-bottom:var(--space-2)">Total cards</div>
+        <div style="font-family:var(--font-mono);font-size:var(--text-xl);color:var(--text-3)"> - </div>
+      </div>
+
+      <div style="margin:var(--space-4) 0">
+        <div style="font-size:var(--text-xs);text-transform:uppercase;letter-spacing:0.08em;color:var(--text-3);margin-bottom:var(--space-2)">Retention</div>
+        <div style="font-family:var(--font-mono);font-size:var(--text-xl);color:var(--text-3)"> - </div>
+      </div>
+
+      <button class="cta" disabled style="width:100%;margin-top:var(--space-4);opacity:0.4;cursor:not-allowed">Start Session</button>
+      <button class="cta cta-ghost" disabled style="width:100%;margin-top:var(--space-2);opacity:0.4;cursor:not-allowed">Generate Scenario</button>
+
+      <div class="polling-log" id="pollingLog">
+        <div class="log-entry"><span class="log-time">--:--</span>Waiting for localhost:8000...</div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <div>Taiwo Alabi &middot; Dublin, Ireland</div>
+    <div class="util-footer">
+      <a href="/">home</a>
+      <a href="/cv/">cv</a>
+      <a href="/study/eeai/">study</a>
+      <a href="/jobs/">jobs</a>
+    </div>
+  </footer>
+
+</div>
+
+<button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">◐</button>
+
+<script>
+(function() {
+  var ENDPOINT = 'http://localhost:8000/api/stats';
+  var logEl = document.getElementById('pollingLog');
+  var statusBanner = document.getElementById('statusBanner');
+  var statusDot = document.getElementById('statusDot');
+  var statusText = document.getElementById('statusText');
+  var panelDot = document.getElementById('panelDot');
+  var panelText = document.getElementById('panelText');
+  var oapPanel = document.getElementById('oapPanel');
+
+  function timeStr() {
+    var now = new Date();
+    return now.getHours().toString().padStart(2,'0') + ':' +
+           now.getMinutes().toString().padStart(2,'0');
+  }
+
+  function addLog(msg, ok) {
+    var entry = document.createElement('div');
+    entry.className = 'log-entry';
+    var span = document.createElement('span');
+    span.className = 'log-time';
+    span.textContent = timeStr() + ' ';
+    var txt = document.createElement('span');
+    txt.className = ok ? 'log-ok' : 'log-fail';
+    txt.textContent = msg;
+    entry.appendChild(span);
+    entry.appendChild(txt);
+    logEl.insertBefore(entry, logEl.firstChild);
+    while (logEl.children.length > 20) {
+      logEl.removeChild(logEl.lastChild);
+    }
+  }
+
+  function setAvailable() {
+    statusBanner.classList.remove('unavailable');
+    statusDot.classList.add('active');
+    statusText.textContent = 'Connected to localhost:8000';
+    panelDot.classList.add('active');
+    panelText.textContent = 'Connected';
+    oapPanel.classList.remove('disabled');
+    oapPanel.querySelectorAll('button').forEach(function(b){
+      b.disabled = false;
+      b.style.opacity = '';
+      b.style.cursor = '';
+    });
+    // Try to fetch stats
+    fetch('http://localhost:8000/api/stats', {mode:'cors',cache:'no-store'})
+      .then(function(r){return r.json();})
+      .then(function(data){
+        var fields = oapPanel.querySelectorAll('div[style*="font-mono"]');
+        if (fields[0]) fields[0].textContent = data.due_today || data.due || 0;
+        if (fields[1]) fields[1].textContent = data.total_cards || data.total || 0;
+        if (fields[2]) fields[2].textContent = (data.retention ? (data.retention*100).toFixed(1) : ' - ') + '%';
+      })
+      .catch(function(){});
+  }
+
+  function setUnavailable(reason) {
+    statusBanner.classList.add('unavailable');
+    statusDot.classList.remove('active');
+    statusText.textContent = 'Local only - ' + (reason || 'laptop is off or backend not running');
+    panelDot.classList.remove('active');
+    panelText.textContent = 'Unreachable';
+    oapPanel.classList.add('disabled');
+    oapPanel.querySelectorAll('button').forEach(function(b){
+      b.disabled = true;
+      b.style.opacity = '0.4';
+      b.style.cursor = 'not-allowed';
+    });
+    var fields = oapPanel.querySelectorAll('div[style*="font-mono"]');
+    fields.forEach(function(f){f.textContent = ' - ';});
+  }
+
+  function check() {
+    fetch(ENDPOINT, {mode:'cors',cache:'no-store',signal:AbortSignal.timeout(3000)})
+      .then(function(r){
+        if (r.ok) {
+          addLog('localhost:8000 responded', true);
+          setAvailable();
+        } else {
+          throw new Error('HTTP ' + r.status);
+        }
+      })
+      .catch(function(err){
+        var msg = err.name === 'AbortError' ? 'timeout' :
+                  err.message.includes('Failed to fetch') ? 'no response' :
+                  err.message;
+        addLog('localhost:8000 - ' + msg, false);
+        setUnavailable(msg);
+      });
+  }
+
+  document.getElementById('btnCheck').addEventListener('click', check);
+
+  // Auto-check on load
+  check();
+
+  // Theme
+  document.getElementById('themeToggle').addEventListener('click', function(){
+    var R = document.documentElement;
+    var cur = R.getAttribute('data-theme');
+    var next = cur === 'dark' ? 'light' : cur === 'light' ? '' : 'dark';
+    if (next) R.setAttribute('data-theme', next); else R.removeAttribute('data-theme');
+    if (next) localStorage.setItem('tw-theme', next); else localStorage.removeItem('tw-theme');
+  });
+})();
+</script>
+
+</body>
+</html>

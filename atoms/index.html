@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atom Browser | Taiwo Alabi</title>
+<meta name="description" content="Browse 577 analysed frames from 21 Instagram reels. Drag a SQLite file. Runs entirely in the browser.">
+<script>document.documentElement.setAttribute("data-theme",localStorage.getItem("tw-theme")||"")</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="/assets/css/design-system.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231a1816'/><text y='72' x='50' font-size='62' text-anchor='middle' fill='%23c45a1f' font-family='sans-serif' font-weight='bold'>T</text></svg>">
+</head>
+<body>
+
+<nav class="util" aria-label="Personal">
+  <a href="/">home</a>
+  <a href="/cv/">cv</a>
+  <a href="/study/eeai/">study</a>
+  <a href="/jobs/">jobs</a>
+</nav>
+
+<div class="topbar">
+  <a href="/">&larr; Home</a>
+  <span style="color:var(--text-3);font-size:var(--text-xs);text-transform:uppercase;letter-spacing:0.08em">Atom Browser</span>
+</div>
+
+<div class="wrap">
+
+  <header>
+    <h1>Atom Browser</h1>
+    <p style="max-width:var(--content-max);color:var(--text-2)">
+      577 analysed frames from 21 Instagram reels, turned into structured prompt components.
+      Drag your <code>.sqlite</code> file onto this page. Nothing is uploaded - it runs
+      entirely in your browser using sql.js.</p>
+  </header>
+
+  <div class="system-status" style="margin-bottom:var(--space-6)">
+    <span class="status-dot active"></span>
+    <span class="status-text">Browser-only - no server, no upload</span>
+  </div>
+
+  <div class="drop-zone" id="dropZone">
+    <div class="drop-zone-label">Drag a <code>.sqlite</code> file here</div>
+    <div class="drop-zone-hint">or click to browse</div>
+    <input type="file" id="fileInput" accept=".sqlite,.sqlite3,.db,.db3" style="display:none">
+  </div>
+
+  <div class="sql-status hidden" id="sqlStatus"></div>
+
+  <div class="atom-main hidden" id="atomMain">
+    <div class="atom-sidebar">
+      <h4>Tables</h4>
+      <ul id="tableList"></ul>
+      <h4 style="margin-top:var(--space-6)">Views</h4>
+      <ul id="viewList"></ul>
+    </div>
+    <div class="atom-content">
+      <div class="atom-toolbar" id="atomToolbar">
+        <button class="active" data-mode="frames">Frames</button>
+        <button data-mode="components">Components</button>
+        <button data-mode="sql">SQL</button>
+      </div>
+      <div id="atomDisplay"></div>
+    </div>
+  </div>
+
+  <footer>
+    <div>Taiwo Alabi &middot; Dublin, Ireland</div>
+    <div class="util-footer">
+      <a href="/">home</a>
+      <a href="/cv/">cv</a>
+      <a href="/study/eeai/">study</a>
+      <a href="/jobs/">jobs</a>
+    </div>
+  </footer>
+
+</div>
+
+<button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">◐</button>
+
+<script src="/assets/js/sql.js"></script>
+<script>
+(function() {
+  var db = null;
+  var currentTable = null;
+  var currentMode = 'frames';
+
+  function esc(s) {
+    var d = document.createElement('div');
+    d.textContent = s || '';
+    return d.innerHTML;
+  }
+
+  function log(msg) {
+    var el = document.getElementById('sqlStatus');
+    el.textContent = msg;
+    el.classList.remove('hidden');
+  }
+
+  function initSQL(file) {
+    if (typeof initSqlJs === 'undefined') {
+      log('sql.js not loaded. Place sql.js at /assets/js/sql.js');
+      return;
+    }
+    log('Loading sql.js...');
+    initSqlJs({ locateFile: function() { return '/assets/js/sql-wasm.wasm'; } })
+      .then(function(SQL) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          var Uints = new Uint8Array(e.target.result);
+          try {
+            db = new SQL.Database(Uints);
+            log('Loaded: ' + file.name + ' - ' + db.exec("SELECT COUNT(*) FROM sqlite_master")[0].values[0][0] + ' objects');
+            document.getElementById('dropZone').classList.add('hidden');
+            document.getElementById('atomMain').classList.remove('hidden');
+            discoverSchema();
+            showFrames();
+          } catch(err) {
+            log('Error: ' + err.message);
+          }
+        };
+        reader.readAsArrayBuffer(file);
+      })
+      .catch(function(err) {
+        log('sql.js init failed: ' + err.message);
+      });
+  }
+
+  function discoverSchema() {
+    var tables = db.exec("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name");
+    var views = db.exec("SELECT name FROM sqlite_master WHERE type='view' ORDER BY name");
+    renderList('tableList', tables.length ? tables[0].values.map(function(r){return r[0];}) : []);
+    renderList('viewList', views.length ? views[0].values.map(function(r){return r[0];}) : []);
+  }
+
+  function renderList(id, names) {
+    var ul = document.getElementById(id);
+    ul.innerHTML = '';
+    if (!names.length) {
+      ul.innerHTML = '<li style="color:var(--text-3);cursor:default">None found</li>';
+      return;
+    }
+    names.forEach(function(name) {
+      var li = document.createElement('li');
+      li.textContent = name;
+      li.addEventListener('click', function() {
+        ul.querySelectorAll('li').forEach(function(el){el.classList.remove('active');});
+        li.classList.add('active');
+        currentTable = name;
+        if (currentMode === 'frames') showTable(name);
+        else if (currentMode === 'components') showComponents(name);
+        else showSQL(name);
+      });
+      ul.appendChild(li);
+    });
+  }
+
+  function guessImageColumn(columns) {
+    var candidates = ['frame_path','image_path','path','url','src','thumbnail','frame_url'];
+    for (var i = 0; i < candidates.length; i++) {
+      var idx = columns.indexOf(candidates[i]);
+      if (idx !== -1) return idx;
+    }
+    return -1;
+  }
+
+  function guessIdColumn(columns) {
+    var candidates = ['id','frame_id','reel_id','component_id','uuid'];
+    for (var i = 0; i < candidates.length; i++) {
+      var idx = columns.indexOf(candidates[i]);
+      if (idx !== -1) return idx;
+    }
+    return 0;
+  }
+
+  function showFrames() {
+    currentMode = 'frames';
+    updateToolbar();
+    var display = document.getElementById('atomDisplay');
+    display.innerHTML = '';
+    if (!db) return;
+
+    // Try to find a frames table
+    var tables = db.exec("SELECT name FROM sqlite_master WHERE type='table' AND name LIKE '%frame%'");
+    var tableName = (tables.length && tables[0].values[0]) ? tables[0].values[0][0] : null;
+    if (!tableName) {
+      // fallback: first table
+      var all = db.exec("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' LIMIT 1");
+      if (all.length) tableName = all[0].values[0][0];
+    }
+    if (!tableName) {
+      display.innerHTML = '<p style="color:var(--text-3)">No tables found.</p>';
+      return;
+    }
+    currentTable = tableName;
+    showTable(tableName);
+  }
+
+  function showTable(name) {
+    var display = document.getElementById('atomDisplay');
+    try {
+      var res = db.exec('SELECT * FROM "' + name + '" LIMIT 100');
+      if (!res.length) {
+        display.innerHTML = '<p style="color:var(--text-3)">Table is empty.</p>';
+        return;
+      }
+      var cols = res[0].columns;
+      var vals = res[0].values;
+      var imgCol = guessImageColumn(cols);
+      var idCol = guessIdColumn(cols);
+
+      var grid = document.createElement('div');
+      grid.className = 'frame-grid';
+
+      vals.forEach(function(row) {
+        var thumb = document.createElement('div');
+        thumb.className = 'frame-thumb';
+        var id = row[idCol] || '';
+        if (imgCol !== -1 && row[imgCol]) {
+          var path = row[imgCol];
+          // If path looks like a URL, show it; otherwise show placeholder
+          if (path.match(/^https?:\/\//)) {
+            thumb.innerHTML = '<img src="' + esc(path) + '" alt="Frame ' + esc(id) + '" loading="lazy" onerror="this.style.display=\'none\';this.parentNode.textContent=\'['+esc(id)+']\'">';
+          } else {
+            thumb.textContent = esc(id);
+          }
+        } else {
+          thumb.textContent = esc(id);
+        }
+        thumb.title = cols.map(function(c,i){return c+': '+row[i];}).join('\n');
+        grid.appendChild(thumb);
+      });
+
+      display.innerHTML = '<p style="font-size:var(--text-xs);color:var(--text-3);margin-bottom:var(--space-3)">Showing ' + vals.length + ' rows from <code>' + esc(name) + '</code></p>';
+      display.appendChild(grid);
+    } catch(err) {
+      display.innerHTML = '<p style="color:var(--error)">Error: ' + esc(err.message) + '</p>';
+    }
+  }
+
+  function showComponents(name) {
+    currentMode = 'components';
+    updateToolbar();
+    var display = document.getElementById('atomDisplay');
+    display.innerHTML = '';
+    if (!db) return;
+
+    try {
+      var res = db.exec('SELECT * FROM "' + name + '" LIMIT 50');
+      if (!res.length) {
+        display.innerHTML = '<p style="color:var(--text-3)">Table is empty.</p>';
+        return;
+      }
+      var cols = res[0].columns;
+      var vals = res[0].values;
+
+      var list = document.createElement('div');
+      list.className = 'component-list';
+
+      vals.forEach(function(row) {
+        var rowEl = document.createElement('div');
+        rowEl.className = 'component-row';
+        cols.forEach(function(col, i) {
+          var key = document.createElement('div');
+          key.className = 'component-key';
+          key.textContent = col;
+          var val = document.createElement('div');
+          val.className = 'component-val';
+          val.textContent = row[i] || '';
+          var copy = document.createElement('button');
+          copy.className = 'component-copy';
+          copy.textContent = 'Copy';
+          copy.addEventListener('click', function() {
+            navigator.clipboard.writeText(String(row[i] || ''));
+            copy.textContent = 'Copied';
+            setTimeout(function(){copy.textContent='Copy';}, 1500);
+          });
+          var wrap = document.createElement('div');
+          wrap.style.display = 'contents';
+          wrap.appendChild(key);
+          wrap.appendChild(val);
+          wrap.appendChild(copy);
+          rowEl.appendChild(wrap);
+        });
+        list.appendChild(rowEl);
+      });
+
+      display.innerHTML = '<p style="font-size:var(--text-xs);color:var(--text-3);margin-bottom:var(--space-3)">Showing ' + vals.length + ' rows from <code>' + esc(name) + '</code></p>';
+      display.appendChild(list);
+    } catch(err) {
+      display.innerHTML = '<p style="color:var(--error)">Error: ' + esc(err.message) + '</p>';
+    }
+  }
+
+  function showSQL(name) {
+    currentMode = 'sql';
+    updateToolbar();
+    var display = document.getElementById('atomDisplay');
+    display.innerHTML = '';
+
+    var editor = document.createElement('textarea');
+    editor.rows = 4;
+    editor.style.fontFamily = 'var(--font-mono)';
+    editor.style.fontSize = 'var(--text-sm)';
+    editor.style.marginBottom = 'var(--space-3)';
+    editor.value = 'SELECT * FROM "' + name + '" LIMIT 20;';
+
+    var run = document.createElement('button');
+    run.className = 'cta';
+    run.textContent = 'Run';
+    run.style.marginBottom = 'var(--space-4)';
+
+    var out = document.createElement('div');
+    out.style.fontFamily = 'var(--font-mono)';
+    out.style.fontSize = 'var(--text-xs)';
+    out.style.overflow = 'auto';
+
+    run.addEventListener('click', function() {
+      try {
+        var res = db.exec(editor.value);
+        if (!res.length) {
+          out.innerHTML = '<p style="color:var(--text-3)">No results.</p>';
+          return;
+        }
+        var html = '<table><thead><tr>';
+        res[0].columns.forEach(function(c){html+='<th>'+esc(c)+'</th>';});
+        html += '</tr></thead><tbody>';
+        res[0].values.forEach(function(row){
+          html += '<tr>';
+          row.forEach(function(v){html += '<td>' + esc(String(v)) + '</td>';});
+          html += '</tr>';
+        });
+        html += '</tbody></table>';
+        out.innerHTML = html;
+      } catch(err) {
+        out.innerHTML = '<p style="color:var(--error)">' + esc(err.message) + '</p>';
+      }
+    });
+
+    display.appendChild(editor);
+    display.appendChild(run);
+    display.appendChild(out);
+  }
+
+  function updateToolbar() {
+    document.querySelectorAll('.atom-toolbar button').forEach(function(btn){
+      btn.classList.toggle('active', btn.dataset.mode === currentMode);
+    });
+  }
+
+  // Drag and drop
+  var dropZone = document.getElementById('dropZone');
+  var fileInput = document.getElementById('fileInput');
+
+  dropZone.addEventListener('click', function(){fileInput.click();});
+  fileInput.addEventListener('change', function(){
+    if (fileInput.files.length) initSQL(fileInput.files[0]);
+  });
+
+  dropZone.addEventListener('dragover', function(e){
+    e.preventDefault();
+    dropZone.classList.add('dragover');
+  });
+  dropZone.addEventListener('dragleave', function(){
+    dropZone.classList.remove('dragover');
+  });
+  dropZone.addEventListener('drop', function(e){
+    e.preventDefault();
+    dropZone.classList.remove('dragover');
+    var files = e.dataTransfer.files;
+    for (var i = 0; i < files.length; i++) {
+      if (files[i].name.match(/\.(sqlite|sqlite3|db|db3)$/i)) {
+        initSQL(files[i]);
+        break;
+      }
+    }
+  });
+
+  // Toolbar
+  document.querySelectorAll('.atom-toolbar button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      if (btn.dataset.mode === 'frames') showFrames();
+      else if (btn.dataset.mode === 'components') {
+        currentMode = 'components';
+        updateToolbar();
+        // Try to find a components table
+        var tables = db.exec("SELECT name FROM sqlite_master WHERE type='table' AND name LIKE '%component%'");
+        var name = (tables.length && tables[0].values[0]) ? tables[0].values[0][0] : currentTable;
+        showComponents(name || currentTable);
+      } else {
+        currentMode = 'sql';
+        updateToolbar();
+        showSQL(currentTable || 'sqlite_master');
+      }
+    });
+  });
+
+  // Theme
+  document.getElementById('themeToggle').addEventListener('click', function(){
+    var R = document.documentElement;
+    var cur = R.getAttribute('data-theme');
+    var next = cur === 'dark' ? 'light' : cur === 'light' ? '' : 'dark';
+    if (next) R.setAttribute('data-theme', next); else R.removeAttribute('data-theme');
+    if (next) localStorage.setItem('tw-theme', next); else localStorage.removeItem('tw-theme');
+  });
+})();
+</script>
+
+</body>
+</html>

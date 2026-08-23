@@ -4,227 +4,292 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CV | Taiwo Alabi</title>
-<meta name="description" content="Taiwo Alabi, Data Scientist. Dublin. Every project links to its write-up, plots and code.">
-<script>document.documentElement.setAttribute("data-theme",localStorage.getItem("tw-theme")||"g5")</script>
+<meta name="description" content="Taiwo Alabi - Data Scientist. Full CV with project write-ups, diagrams, and source code links.">
+<script>document.documentElement.setAttribute("data-theme",localStorage.getItem("tw-theme")||"")</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800&display=swap">
-<link rel="stylesheet" href="/assets/css/style.css">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230f0e0c'/><text y='72' x='50' font-size='62' text-anchor='middle' fill='%23FF7A3D' font-family='sans-serif' font-weight='bold'>T</text></svg>">
-<meta property="og:title" content="CV | Taiwo Alabi">
-<meta property="og:description" content="Data Scientist, Dublin. Every project links to its write-up, plots and code.">
-<meta property="og:image" content="https://iamtamilore.github.io/assets/img/banner.jpg">
-<meta property="og:url" content="https://iamtamilore.github.io/cv/">
-<meta name="twitter:card" content="summary_large_image">
-</head>
-<body>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/css/design-system.css">
+<style>
+/* CV-specific scoped styles */
+.cv-page { color: var(--text); font-family: var(--font); line-height: 1.5; }
+.cv-wrap { max-width: 860px; margin: 0 auto; padding: var(--space-6) var(--space-4); }
+.cv-topbar { display: flex; justify-content: space-between; align-items: center; padding: var(--space-4) 0; margin-bottom: var(--space-6); border-bottom: 1px solid var(--border); }
+.cv-topbar a { color: var(--text-3); font-size: var(--text-sm); text-decoration: none; border-bottom: none; }
+.cv-topbar a:hover { color: var(--text); }
+.cv-header { margin-bottom: var(--space-10); }
+.cv-h1 { font-size: var(--text-3xl); font-weight: 700; line-height: 1.1; margin-bottom: var(--space-2); }
+.cv-identity { font-size: var(--text-base); color: var(--text-2); margin-bottom: var(--space-4); line-height: 1.3; }
+.cv-meta { display: flex; gap: var(--space-3); flex-wrap: wrap; font-size: var(--text-sm); color: var(--text-3); }
+.cv-meta a { color: var(--accent); text-decoration: none; border-bottom: none; }
+.cv-meta a:hover { text-decoration: underline; }
+.cv-section { margin-bottom: var(--space-10); }
+.cv-sec-title { font-size: var(--text-2xl); font-weight: 700; margin-bottom: var(--space-6); padding-bottom: var(--space-3); border-bottom: 1px solid var(--border); }
+.cv-body-text { font-size: var(--text-sm); color: var(--text-2); line-height: 1.6; max-width: none; }
+.cv-body-text p { margin-bottom: var(--space-4); }
+.cv-body-text strong { color: var(--text); font-weight: 600; }
 
-<nav class="util" aria-label="Personal">
+.cv-entry { margin-bottom: var(--space-8); }
+.cv-entry-header { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-4); flex-wrap: wrap; margin-bottom: var(--space-2); }
+.cv-entry-org { font-size: var(--text-lg); font-weight: 700; color: var(--text); }
+.cv-entry-when { font-size: var(--text-xs); color: var(--text-3); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.05em; }
+.cv-entry-role { font-size: var(--text-sm); font-weight: 600; color: var(--text-2); margin-bottom: var(--space-3); }
+.cv-entry-body { font-size: var(--text-sm); color: var(--text-2); line-height: 1.6; }
+.cv-entry-body p { margin-bottom: var(--space-3); }
+
+.cv-project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--space-4); }
+.cv-project-card { background: var(--bg-2); border: 1px solid var(--border); border-radius: 0; padding: var(--space-5); display: flex; flex-direction: column; gap: var(--space-3); transition: all var(--motion-duration) var(--motion-ease); }
+.cv-project-card:hover { border-color: var(--accent); box-shadow: none; transform: translateY(-2px); }
+.cv-project-metric { font-family: var(--font-mono); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: var(--space-1); }
+.cv-project-label { font-size: var(--text-xs); color: var(--text-3); line-height: 1.4; margin-bottom: var(--space-2); }
+.cv-project-title { font-size: var(--text-base); font-weight: 700; color: var(--text); margin-bottom: var(--space-2); line-height: 1.1; }
+.cv-project-desc { font-size: var(--text-sm); color: var(--text-2); line-height: 1.6; flex: 1; }
+.cv-project-links { margin-top: auto; padding-top: var(--space-3); border-top: 1px solid var(--border); display: flex; gap: var(--space-3); flex-wrap: wrap; font-size: var(--text-xs); }
+.cv-project-links a { color: var(--text-3); text-decoration: none; border-bottom: none; }
+.cv-project-links a:hover { color: var(--accent); }
+.cv-project-cta { margin-top: var(--space-3); }
+
+.cv-skill-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-4); margin-top: var(--space-4); }
+.cv-skill-block { background: var(--bg-2); border: 1px solid var(--border); border-radius: 0; padding: var(--space-4); }
+.cv-skill-cat { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-3); margin-bottom: var(--space-2); font-weight: 600; }
+.cv-skill-list { font-size: var(--text-sm); color: var(--text-2); line-height: 1.6; margin: 0; }
+
+.cv-commitments { list-style: none; padding: 0; margin: var(--space-4) 0; counter-reset: commit; }
+.cv-commitments li { position: relative; padding-left: var(--space-8); margin-bottom: var(--space-4); color: var(--text-2); font-size: var(--text-sm); line-height: 1.6; }
+.cv-commitments li::before { counter-increment: commit; content: counter(commit, decimal-leading-zero); position: absolute; left: 0; top: 0; font-family: var(--font-mono); font-size: var(--text-xs); color: var(--accent); font-weight: 700; }
+.cv-commitments li strong { color: var(--text); }
+
+.cv-footer { margin-top: var(--space-12); padding-top: var(--space-6); border-top: 1px solid var(--border); text-align: center; color: var(--text-3); font-size: var(--text-xs); }
+
+.util { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; gap: var(--space-4); padding: var(--space-3) var(--space-4); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.08em; background: var(--bg); border-bottom: 1px solid var(--border-2); backdrop-filter: blur(12px); }
+.util a { color: var(--text-3); text-decoration: none; border-bottom: none; }
+.util a:hover { color: var(--text); }
+
+@media (max-width: 640px) {
+  .cv-entry-header { flex-direction: column; gap: var(--space-1); }
+  .cv-project-grid { grid-template-columns: 1fr; }
+  .cv-skill-grid { grid-template-columns: 1fr; }
+  .cv-h1 { font-size: var(--text-2xl); }
+}
+</style>
+</head>
+<body class="cv-page">
+
+<nav class="util" aria-label="Site">
+  <a href="/">home</a>
+  <a href="/cv/">cv</a>
   <a href="/study/eeai/">study</a>
-  <a href="/jobs/">tracker</a>
-  <a href="/bank-pwa/">bank</a>
+  <a href="/jobs/">jobs</a>
+  <a href="/#systems">systems</a>
 </nav>
 
-<div class="topbar">
-  <a href="/">&larr; Home</a>
-  <a href="/assets/Taiwo_Alabi_CV.pdf" target="_blank" rel="noopener">Download PDF</a>
-</div>
+<div class="cv-wrap">
 
-<div class="wrap">
+  <div class="cv-topbar">
+    <a href="/">← Home</a>
+    <a href="/assets/Taiwo_Alabi_CV.pdf" target="_blank" rel="noopener">Download PDF ↓</a>
+  </div>
 
-  <header>
-    <hr class="rule">
-    <h1>Taiwo Alabi</h1>
-    <p class="lede">Data Scientist</p>
+  <header class="cv-header">
+    <h1 class="cv-h1">Taiwo Alabi</h1>
+    <p class="cv-identity">Data Scientist. I build AI systems end-to-end and publish exactly where each one fails.</p>
+    <div class="cv-meta">
+      <a href="mailto:alabitaiwo625@gmail.com">alabitaiwo625@gmail.com</a>
+      <span aria-hidden="true">·</span>
+      <span>+353 87 004 2838</span>
+      <span aria-hidden="true">·</span>
+      <a href="https://www.linkedin.com/in/tami-alabi/">LinkedIn</a>
+      <span aria-hidden="true">·</span>
+      <a href="https://github.com/iamtamilore">GitHub</a>
+      <span aria-hidden="true">·</span>
+      <span>County Dublin D03 K0Y3, Ireland</span>
+    </div>
   </header>
 
-  <nav class="meta" aria-label="Contact">
-    <a href="mailto:alabitaiwo625@gmail.com">alabitaiwo625@gmail.com</a>
-    <span aria-hidden="true">|</span>
-    <a href="https://wa.me/353870042838?text=Hi%20Taiwo%2C%20I%20saw%20your%20portfolio">WhatsApp +353 87 004 2838</a>
-    <span aria-hidden="true">|</span>
-    <a href="https://www.linkedin.com/in/tami-alabi/">linkedin.com/in/tami-alabi</a>
-    <span aria-hidden="true">|</span>
-    <a href="https://github.com/iamtamilore">github.com/iamtamilore</a>
-    <span aria-hidden="true">|</span>
-    <span>County Dublin D03 K0Y3, Ireland</span>
-  </nav>
+  <section class="cv-section">
+    <h2 class="cv-sec-title">Profile</h2>
+    <div class="cv-body-text">
+      <p>I build AI systems that know when they are unsure. My projects all start from the same four questions: is the structure sound, does it actually work, is the model any good, and are the machines it runs on reliable? Before I train anything, I check what a simple guess or a basic rule would achieve. <strong>A model that cannot beat those does not deserve to exist.</strong></p>
+    </div>
+  </section>
 
-  <a class="cta" href="/assets/Taiwo_Alabi_CV.pdf" target="_blank" rel="noopener">
-    Download CV <span class="cta-sub">PDF</span></a>
+  <section class="cv-section">
+    <h2 class="cv-sec-title">Professional Experience</h2>
 
-  <h2>Profile</h2>
-  <p>I tune intelligence to <strong>the cost of being wrong</strong>. My coursework
-  and my projects are built around four things: applying software architecture principles to AI
-  systems, evaluating them for completeness and admissibility, critiquing model quality and
-  evaluation design, and critiquing the infrastructure they deploy onto. Before I train anything
-  I establish what the problem looks like solved badly, because <strong>a model that cannot beat
-  guessing the most common answer, or a simple rule, does not deserve to exist</strong>.</p>
+    <article class="cv-entry">
+      <div class="cv-entry-header">
+        <div class="cv-entry-org">Huawei Technologies (via RGS), Globacom Telecommunications</div>
+        <div class="cv-entry-when">Summer 2024 & 2025 · Lagos</div>
+      </div>
+      <div class="cv-entry-role">Product Manager Intern</div>
+      <div class="cv-entry-body">
+        <p><strong>Problem:</strong> The system moves phone usage records from the network to every department that needs them - billing, audits, reports. It handles <strong>400 million records a day</strong>, from seven sources to fourteen destinations, each needing the same data in a different format. The real risk is not speed. A bad update could leave fourteen systems reading nothing, or reading the same record twice - and reading twice means billing the customer twice.</p>
+        <p><strong>Action:</strong> I designed and tested the connection layer between the phone company's call centre and a bank's customer service line. I mapped every data field the bank needed to share, tested each one by hand with a command-line tool before it reached a real voice prompt, and made sure every menu option had a recorded message - including wrong choices and failed login.</p>
+        <p><strong>Result:</strong> The lesson I still use came from what happens when things fail. When a caller cannot authenticate, the call goes to a person - it does not get stuck or retry endlessly. I also helped split customer data into separate groups by type, and designed over <strong>440 test cases</strong> with the test team. During the live switchover, a storage system filled up and a connection dropped. <strong>Both problems showed up in testing before any customer noticed.</strong></p>
+      </div>
+    </article>
 
-  <h2>Professional Experience</h2>
+    <article class="cv-entry">
+      <div class="cv-entry-header">
+        <div class="cv-entry-org">Turing, Remote (Dublin)</div>
+        <div class="cv-entry-when">Apr 2026 - May 2026</div>
+      </div>
+      <div class="cv-entry-role">AI Quality Analyst, Google Gemini evaluation programme</div>
+      <div class="cv-entry-body">
+        <p>Judging AI output has no single right answer, so the real test is whether two people would score the same response the same way. I rated Gemini answers against a written rubric, wrote tricky questions to find where the rubric failed, and wrote down the rules so a second person would agree. Eighty hours of work that taught me how to turn vague quality into something you can check.</p>
+      </div>
+    </article>
+  </section>
 
-  <ul class="exp">
-    <li><strong>Turing, Remote (Dublin)</strong> <span class="when">Apr 2026 to May 2026</span><br>
-      <strong>AI Quality Analyst, Google Gemini evaluation programme</strong><br>
-      I measured the quality of Google Gemini responses on personalization features, then
-      wrote prompts to test the models, and documented the process for a Reinforcement
-      Learning from Human Feedback (RLHF) project.</li>
+  <section class="cv-section">
+    <h2 class="cv-sec-title">Selected Projects</h2>
+    <p class="cv-body-text" style="margin-bottom:var(--space-6)">Every project below links to its full write-up, architecture diagrams, and source code. Click through, read the failure modes, then use the nav to return here.</p>
 
-    <li><strong>Huawei Technologies (via RGS), Globacom Telecommunications department, Lagos</strong>
-      <span class="when">Summer 2024 &amp; 2025</span><br>
-      <strong>Product Manager Intern</strong><br>
-      On a national mobile network in one of Africa's largest mobile markets, 400 million
-      daily call records represent 400 million bills that real people pay. I designed and
-      tested the API layer for a cloud integration between the contact centre platform and a
-      commercial bank's customer care line. I tracked every interface the bank had to expose
-      against what we had actually received, and tested each one by hand with a command-line tool before it went near
-      a voice prompt. When authentication fails, the call does not retry silently and does not
-      dead-end. <strong>It transfers to a person.</strong> That is the rule I have built into
-      every system since. I also worked with the solutions architect on a data migration that split customer
-      data into separate groups based on what kind of data it was, and with the test team designed
-      over <strong>440 User Acceptance Test cases</strong>. During the actual switchover, one
-      storage system ran out of space and blocked new uploads, and a dropped connection interrupted
-      one stream of call records. <strong>Both were caught during testing, before any customer saw them.</strong></li>
-  </ul>
+    <div class="cv-project-grid">
 
-  <h2>Selected Projects</h2>
-  <p style="color:var(--muted);max-width:56ch">Every project below opens a full write-up
-  with the diagrams, plots and results behind it.</p>
+      <div class="cv-project-card">
+        <div class="cv-project-metric">scoped</div>
+        <div class="cv-project-label">locked to one patient before searching, not filtered after. Tried 30 ways to leak data, 0 worked</div>
+        <div class="cv-project-title">Smart Medical Records Engine</div>
+        <div class="cv-project-desc">Searching across every patient at once risks pulling up the wrong person's record. This system locks the search to one patient at the database level. The AI model runs on the hospital's own machine across four services, so patient data never leaves the building.</div>
+        <div class="cv-project-links">
+          <a href="/p/clinical-rag/">Write-up</a>
+          <a href="/assets/docs/clinical_rag_writeup.pdf" target="_blank" rel="noopener">PDF</a>
+          <a href="/assets/img/rag_architecture.jpg" target="_blank" rel="noopener">Architecture</a>
+          <a href="/assets/img/rag_data_model.jpg" target="_blank" rel="noopener">Data model</a>
+          <a href="https://github.com/iamtamilore/agentic_rag_fastapi" target="_blank" rel="noopener">Code</a>
+        </div>
+        <div class="cv-project-cta"><a class="ds-btn ds-btn-secondary ds-btn-sm" href="/p/clinical-rag/" style="width:100%;justify-content:center">Read project →</a></div>
+      </div>
 
-  <div class="grid">
+      <div class="cv-project-card">
+        <div class="cv-project-metric">escalates</div>
+        <div class="cv-project-label">hands off to a human when unsure. Got 40 out of 42 test tickets right</div>
+        <div class="cv-project-title">Customer Care Process Automation</div>
+        <div class="cv-project-desc">I drew the process on paper before writing any code, so the automation replaced what actually happens, not what I assumed happens. Hard rules check the form fields; a simple classifier reads the complaint and routes it. When the classifier is unsure, it hands off to a person. I picked a small, fast model because 210 example tickets is too few for anything larger - a bigger model would just memorise the examples instead of learning the pattern.</div>
+        <div class="cv-project-links">
+          <a href="/p/care-agent/">Write-up</a>
+          <a href="/assets/docs/care_agent_writeup.pdf" target="_blank" rel="noopener">PDF</a>
+          <a href="/assets/img/as_is.jpg" target="_blank" rel="noopener">BPMN as-is</a>
+          <a href="/assets/img/to_be.jpg" target="_blank" rel="noopener">BPMN to-be</a>
+          <a href="/assets/img/fig2_confusion_matrix.jpg" target="_blank" rel="noopener">Confusion matrix</a>
+          <a href="https://github.com/iamtamilore/customer-care-automation" target="_blank" rel="noopener">Code</a>
+        </div>
+        <div class="cv-project-cta"><a class="ds-btn ds-btn-secondary ds-btn-sm" href="/p/care-agent/" style="width:100%;justify-content:center">Read project →</a></div>
+      </div>
 
-    <div class="card">
-      <div class="metric">grounded</div>
-      <div class="metric-label">every flag cites the GDPR article it came from. Invented content cut 77%</div>
-      <div class="title">TermsGuard AI <span class="live">Live</span></div>
-      <div class="desc">Cosine similarity alone marks "we do not sell your data" as a violation,
-        because negation barely moves an embedding. Rule guards sit on top of the score, not
-        instead of it. Every flag grounded in retrieved GDPR text.</div>
-      <div class="go"><a class="stretch" href="/p/termsguard/">Read it &rarr;</a></div>
-      <div class="cardlinks">
-        <a href="https://newtazer-terms-guard-ai.hf.space">Live demo</a><span aria-hidden="true">|</span>
-        <a href="/assets/docs/termsguard_writeup.pdf">Write-up</a><span aria-hidden="true">|</span>
-        <a href="https://github.com/iamtamilore/terms-guard-ai">Code</a>
+      <div class="cv-project-card">
+        <div class="cv-project-metric">grounded</div>
+        <div class="cv-project-label">every warning points to the exact law it came from, so nothing is made up</div>
+        <div class="cv-project-title">TermsGuard AI <span class="ds-badge ds-badge-success" style="font-size:9px;padding:2px 6px;margin-left:4px">Live</span></div>
+        <div class="cv-project-desc">The old version sometimes made up legal citations that did not exist. The new version builds every answer only from text it actually found in the law. Plain text matching alone flags "we do not sell your data" as a problem because it only sees the words and misses the "not", so extra rules sit on top to catch that. Answer time cut from 28 seconds to under 10.</div>
+        <div class="cv-project-links">
+          <a href="https://newtazer-terms-guard-ai.hf.space" target="_blank" rel="noopener">Live demo</a>
+          <a href="/p/termsguard/">Write-up</a>
+          <a href="/assets/docs/termsguard_writeup.pdf" target="_blank" rel="noopener">PDF</a>
+          <a href="/assets/img/tg_architecture.jpg" target="_blank" rel="noopener">Architecture</a>
+          <a href="https://github.com/iamtamilore/terms-guard-ai" target="_blank" rel="noopener">Code</a>
+        </div>
+        <div class="cv-project-cta"><a class="ds-btn ds-btn-secondary ds-btn-sm" href="/p/termsguard/" style="width:100%;justify-content:center">Read project →</a></div>
+      </div>
+
+      <div class="cv-project-card">
+        <div class="cv-project-metric">two baselines</div>
+        <div class="cv-project-label">pixel diff F1 0.59, kNN 0.26, Siamese 0.90. The gap is the result</div>
+        <div class="cv-project-title">Automated QA Gate for AI Generated Imagery</div>
+        <div class="cv-project-desc">I started with two simple checks first: comparing pixels directly, and finding the nearest match. A neural network then reached much better results on a 90-pair test set. I moved the decision cutoff from 0.5 to 0.4821, tuned only on validation data, because rejecting a good image costs one retry while accepting a bad one sends it to the client.</div>
+        <div class="cv-project-links">
+          <a href="/assets/docs/image_qa_writeup.pdf" target="_blank" rel="noopener">Write-up PDF</a>
+          <a href="/assets/img/fig3_rpa_validation.jpg" target="_blank" rel="noopener">ROC curve</a>
+          <a href="https://github.com/iamtamilore/campaign-image-qa" target="_blank" rel="noopener">Code</a>
+        </div>
+        <div class="cv-project-cta"><span class="ds-btn ds-btn-secondary ds-btn-sm" style="width:100%;justify-content:center;opacity:0.6;cursor:default">Project page after grading</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="cv-section">
+    <h2 class="cv-sec-title">Education</h2>
+    <div class="cv-entry-body">
+      <p><strong>National College of Ireland, Dublin</strong> <span class="cv-entry-when" style="display:inline">Jan 2026 - Jan 2027</span><br>MSc Artificial Intelligence (part time). Assessed on reviewing and critiquing AI systems, not only building them: checking architecture against real quality needs, testing whether search finds everything it should, judging model quality and how you measure it, and checking the machines it runs on.</p>
+      <p style="margin-top:var(--space-4)"><strong>Afe Babalola University, Lagos</strong> <span class="cv-entry-when" style="display:inline">Sep 2021 - Feb 2025</span><br>BSc Computer Science, Second Class Honours, Upper Division (2.1).</p>
+    </div>
+  </section>
+
+  <section class="cv-section">
+    <h2 class="cv-sec-title">Technical Skills</h2>
+    <div class="cv-skill-grid">
+      <div class="cv-skill-block">
+        <div class="cv-skill-cat">Languages</div>
+        <p class="cv-skill-list">Python, SQL</p>
+      </div>
+      <div class="cv-skill-block">
+        <div class="cv-skill-cat">Data & Infrastructure</div>
+        <p class="cv-skill-list">Hadoop HDFS, HBase, GaussDB, PostgreSQL, pgvector, Docker, Docker Compose, Kubernetes, FastAPI, Flask, Google Cloud</p>
+      </div>
+      <div class="cv-skill-block">
+        <div class="cv-skill-cat">Machine Learning</div>
+        <p class="cv-skill-list">scikit-learn, pandas, TensorFlow/Keras, transfer learning, reinforcement learning, Q-Learning, neural networks, Transformers</p>
+      </div>
+      <div class="cv-skill-block">
+        <div class="cv-skill-cat">AI & Agents</div>
+        <p class="cv-skill-list">RAG pipelines, vector search (pgvector, FAISS), LangGraph, LLM evaluation, genetic algorithms</p>
+      </div>
+      <div class="cv-skill-block">
+        <div class="cv-skill-cat">Systems & Evaluation</div>
+        <p class="cv-skill-list">Training-serving skew, model registries, blue-green rollout, p95/p99 latency, baseline design, sliced evaluation, confidence calibration, GDPR cataloguing, data lineage, UAT design</p>
+      </div>
+      <div class="cv-skill-block">
+        <div class="cv-skill-cat">Tools</div>
+        <p class="cv-skill-list">Git, GitHub, Claude Code, Linux</p>
       </div>
     </div>
+  </section>
 
-    <div class="card">
-      <div class="metric">benchmarked</div>
-      <div class="metric-label">against pixel difference at F1 0.59 and kNN at 0.26. Reached 0.90</div>
-      <div class="title">Automated QA Gate for AI-Generated Imagery</div>
-      <div class="desc">Siamese network on a frozen ResNet50 for identity, autoencoder for
-        colour drift. Precision 1.00 with zero false positives on a 90-pair test set, against pixel-difference and kNN baselines at F1 0.59 and 0.26.
-        TensorFlow, Keras, scikit-learn.</div>
-      <div class="cardlinks">
-        <a href="/assets/docs/image_qa_writeup.pdf">Write-up</a><span aria-hidden="true">|</span>
-        <a href="https://github.com/iamtamilore/campaign-image-qa">Code</a>
-      </div>
+  <section class="cv-section">
+    <h2 class="cv-sec-title">How I Work</h2>
+    <p class="cv-body-text" style="margin-bottom:var(--space-4)">These are not aspirational. They are extracted from what actually happened in the projects above.</p>
+    <ol class="cv-commitments">
+      <li><strong>Establish the baseline before training anything.</strong> A model that cannot beat a simple guess does not deserve to exist.</li>
+      <li><strong>Name the error you can afford before choosing a threshold.</strong> Rejecting a good image costs one retry; accepting a bad one sends it to the client. The cutoff moves accordingly.</li>
+      <li><strong>Model the process in BPMN before writing code.</strong> Draw the process on paper before coding it. The automation should replace what actually happens, not what you think happens.</li>
+      <li><strong>Freeze the preprocessing with the model</strong> so the way you prepare data in training stays the same in production.</li>
+      <li><strong>Version every artefact</strong> so you can roll back a bad release instead of spending hours figuring out what broke.</li>
+      <li><strong>State what breaks, in writing, next to what works.</strong> Every project page in this document says what can go wrong before it says what works.</li>
+    </ol>
+  </section>
+
+  <section class="cv-section">
+    <h2 class="cv-sec-title">Get in touch</h2>
+    <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;margin-bottom:var(--space-6)">
+      <a class="ds-btn ds-btn-primary" href="mailto:alabitaiwo625@gmail.com">Email me</a>
+      <a class="ds-btn ds-btn-secondary" href="/assets/Taiwo_Alabi_CV.pdf" target="_blank" rel="noopener">Download CV (PDF)</a>
     </div>
-
-    <div class="card">
-      <div class="metric">scoped</div>
-      <div class="metric-label">per patient before ranking, not filtered after. Tried 30 tricks to leak one, none worked</div>
-      <div class="title">Smart Medical Records Engine</div>
-      <div class="desc">A general vector search over a hospital corpus will eventually surface the
-        wrong patient. Scoping happens at the query layer, not as a filter afterwards. I tried 30
-        different ways to make it leak one patient's file into someone else's lookup. None worked.</div>
-      <div class="go"><a class="stretch" href="/p/clinical-rag/">Read it &rarr;</a></div>
-      <div class="cardlinks">
-        <a href="/assets/docs/clinical_rag_writeup.pdf">Write-up</a><span aria-hidden="true">|</span>
-        <a href="https://github.com/iamtamilore/agentic_rag_fastapi">Code</a>
-      </div>
+    <div class="cv-meta" style="margin-bottom:var(--space-4)">
+      <a href="https://wa.me/353870042838?text=Hi%20Taiwo%2C%20I%20saw%20your%20portfolio">WhatsApp +353 87 004 2838</a>
     </div>
+  </section>
 
-    <div class="card">
-      <div class="metric">escalates</div>
-      <div class="metric-label">below 0.55 a human decides. 95.2% on the 40 of 42 it routed</div>
-      <div class="title">Customer Care Process Automation</div>
-      <div class="desc">The decision was the gate, not the classifier. Below 0.55 it escalates to a
-        human rather than forcing a label, and I report the lower automation rate that produces.</div>
-      <div class="go"><a class="stretch" href="/p/care-agent/">Read it &rarr;</a></div>
-      <div class="cardlinks">
-        <a href="/assets/docs/care_agent_writeup.pdf">Write-up</a><span aria-hidden="true">|</span>
-        <a href="https://github.com/iamtamilore/customer-care-automation">Code</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="metric">two baselines</div>
-      <div class="metric-label">flat pricing, then the hand-written rule. Only then does +21.4% mean anything</div>
-      <div class="title">RL vs Genetic Algorithm</div>
-      <div class="desc">Surge pricing policy learned two ways, tested on 637,976 Boston ride
-        records. Python, NumPy, pandas.</div>
-      <div class="cardlinks">
-        <a href="https://youtu.be/Q_6xYLD4ykA">Walkthrough</a><span aria-hidden="true">|</span>
-        <a href="/assets/docs/surge_pricing_report.pdf">Report</a><span aria-hidden="true">|</span>
-        <a href="/assets/docs/surge_pricing_slides.pdf">Slides</a>
-      </div>
-    </div>
-
-  </div>
-
-  <h2>Education</h2>
-  <ul class="exp">
-    <li><strong>National College of Ireland, Dublin</strong> <span class="when">Jan 2026 to Jan 2027</span><br>
-      MSc Artificial Intelligence (part time). Assessed on reviewing and critiquing AI systems, not only building them: architecture review against quality attributes, evaluating search for completeness and admissibility, critiquing model quality and evaluation design, and critiquing deployment infrastructure.</li>
-    <li><strong>Afe Babalola University, Lagos</strong> <span class="when">Sep 2021 to Feb 2025</span><br>
-      BSc Computer Science, Second Class Honours, Upper Division (2.1).</li>
-  </ul>
-
-  <h2>Technical Skills</h2>
-  <p><strong>Languages:</strong> Python, SQL.<br>
-  <strong>Data and Infrastructure:</strong> Hadoop HDFS, HBase, GaussDB, PostgreSQL, pgvector,
-  Docker, Docker Compose, Kubernetes, FastAPI, Flask, Google Cloud.<br>
-  <strong>Machine Learning:</strong> scikit-learn, pandas, TensorFlow/Keras, transfer learning,
-  reinforcement learning, Q-Learning, neural networks, Transformers.<br>
-  <strong>AI and Agents:</strong> RAG pipelines, vector search (pgvector, FAISS), LangGraph,
-  LLM evaluation, genetic algorithms.<br>
-  <strong>Systems and Evaluation:</strong> training-serving skew and feature contracts, model
-  registries and versioned artefacts, blue-green and canary rollout, decoupling inference from
-  the OLTP path, p95 and p99 latency targets with defined fallback, baseline design, sliced
-  evaluation, confidence calibration, GDPR data cataloguing, data lineage, UAT design.<br>
-  <strong>Tools:</strong> Git, GitHub, Claude Code, Linux.</p>
-
-  <h2>Get in touch</h2>
-  <div class="endcta">
-    <a class="cta" href="mailto:alabitaiwo625@gmail.com">Email me</a>
-    <a class="cta cta-ghost" href="/assets/Taiwo_Alabi_CV.pdf" target="_blank" rel="noopener">
-      Download CV <span class="cta-sub">PDF</span></a>
-  </div>
-
-  <footer>
-    <div>Taiwo Alabi &middot; Dublin, Ireland &middot;
-      <a href="mailto:alabitaiwo625@gmail.com">alabitaiwo625@gmail.com</a></div>
+  <footer class="cv-footer">
+    <p>Taiwo Alabi · Dublin, Ireland · <a href="mailto:alabitaiwo625@gmail.com" style="color:var(--text-muted);text-decoration:none">alabitaiwo625@gmail.com</a></p>
+    <p style="margin-top:var(--space-2)">Last updated 23 August 2026</p>
   </footer>
 
 </div>
 
-<div class="theme-picker" role="group" aria-label="colour theme">
-  <button type="button" class="theme-dot" data-set-theme="g5" style="--sw:#ff7a3d" title="G5 Tri-X" aria-pressed="true"></button>
-  <button type="button" class="theme-dot" data-set-theme="teal" style="--sw:#3fc2b4" title="Teal &amp; Orange" aria-pressed="false"></button>
-  <button type="button" class="theme-dot" data-set-theme="contact" style="--sw:#b8541f" title="Contact Sheet" aria-pressed="false"></button>
-  <button type="button" class="theme-dot" data-set-theme="cyano" style="--sw:#175a9c" title="Cyanotype" aria-pressed="false"></button>
-</div>
 <script>
-(function () {
+(function(){
   var K = "tw-theme", R = document.documentElement;
-  function M() {
-    var c = R.getAttribute("data-theme") || "g5";
-    var d = document.querySelectorAll("[data-set-theme]");
-    for (var i = 0; i < d.length; i++) {
-      d[i].setAttribute("aria-pressed", d[i].getAttribute("data-set-theme") === c ? "true" : "false");
-    }
+  function apply(t){
+    if(t==="dark")R.setAttribute("data-theme","dark");
+    else if(t==="light")R.setAttribute("data-theme","light");
+    else R.removeAttribute("data-theme");
   }
-  document.addEventListener("click", function (e) {
-    var b = e.target.closest ? e.target.closest("[data-set-theme]") : null;
-    if (!b) return;
-    var t = b.getAttribute("data-set-theme");
-    R.setAttribute("data-theme", t);
-    localStorage.setItem(K, t);
-    M();
-  });
-  M();
+  var stored = localStorage.getItem(K);
+  if(stored)apply(stored);
 })();
 </script>
+
 </body>
 </html>

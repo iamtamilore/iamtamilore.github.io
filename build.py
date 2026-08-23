@@ -241,8 +241,7 @@ TEMPLATE = """<!DOCTYPE html>
 <script>document.documentElement.setAttribute("data-theme",localStorage.getItem("tw-theme")||"g5")</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800&display=swap">
-<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/design-system.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%232E2C6E'/><text y='72' x='50' font-size='62' text-anchor='middle' fill='%23FF7A3D' font-family='sans-serif' font-weight='bold'>T</text></svg>">
 <meta property="og:title" content="{title} | Taiwo Alabi">
 <meta property="og:description" content="{desc}">

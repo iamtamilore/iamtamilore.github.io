@@ -3,16 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Taiwo Alabi | AI and Data Science</title>
-<meta name="description" content="I tune AI to the cost of being wrong. Four systems built end to end, one live. MSc Artificial Intelligence, National College of Ireland.">
-<script>document.documentElement.setAttribute("data-theme",localStorage.getItem("tw-theme")||"g5")</script>
+<title>Taiwo Alabi | Systems, Work, and Process</title>
+<meta name="description" content="I tune AI to the cost of being wrong. Built systems, evaluated models, published the failures.">
+<script>document.documentElement.setAttribute("data-theme",localStorage.getItem("tw-theme")||"")</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800&display=swap">
-<link rel="stylesheet" href="/assets/css/style.css">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%232E2C6E'/><text y='72' x='50' font-size='62' text-anchor='middle' fill='%23FF7A3D' font-family='sans-serif' font-weight='bold'>T</text></svg>">
-<meta property="og:title" content="Taiwo Alabi | AI and Data Science">
-<meta property="og:description" content="I tune AI to the cost of being wrong. Four systems built end to end, one live.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="/assets/css/design-system.css">
+<link rel="stylesheet" href="/assets/css/landing.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231a1816'/><text y='72' x='50' font-size='62' text-anchor='middle' fill='%23c45a1f' font-family='sans-serif' font-weight='bold'>T</text></svg>">
+<meta property="og:title" content="Taiwo Alabi | Systems, Work, and Process">
+<meta property="og:description" content="I tune AI to the cost of being wrong. Built systems, evaluated models, published the failures.">
 <meta property="og:image" content="https://iamtamilore.github.io/assets/img/banner.jpg">
 <meta property="og:url" content="https://iamtamilore.github.io/">
 <meta property="og:type" content="website">
@@ -20,11 +21,17 @@
 </head>
 <body>
 
+<nav class="util" aria-label="Personal">
+  <a href="/">home</a>
+  <a href="/cv/">cv</a>
+  <a href="/study/eeai/">study</a>
+  <a href="/jobs/">jobs</a>
+  <a href="#systems">systems</a>
+</nav>
 
 <div class="wrap">
 
   <header>
-    <hr class="rule">
     <div class="hero">
       <img class="hero-photo" src="/assets/img/taiwo.jpg"
            alt="Taiwo Alabi" width="720" height="900">
@@ -34,8 +41,10 @@
         <p class="identity"><strong>Taiwo Alabi</strong> &middot; Data Scientist.
            MSc Artificial Intelligence, National College of Ireland.</p>
         <p class="proof">I design them, evaluate them, and publish exactly where each one fails.</p>
-        <a class="cta" href="/cv/">View CV</a>
-        <a class="cta cta-ghost" href="/assets/Taiwo_Alabi_CV.pdf" target="_blank" rel="noopener">Download <span class="cta-sub">PDF</span></a>
+        <div class="endcta" style="margin:0 0 var(--space-6)">
+          <a class="cta" href="/cv/">View CV</a>
+          <a class="cta cta-ghost" href="/assets/Taiwo_Alabi_CV.pdf" target="_blank" rel="noopener">Download PDF</a>
+        </div>
       </div>
     </div>
   </header>
@@ -43,23 +52,74 @@
   <div class="anchor">
     <div class="anchor-num">400 million</div>
     <div class="anchor-label">usage records a day, on the platform where I learned this</div>
-    <p>Huawei, telecom mediation for a Nigerian mobile operator. Seven upstream network
-       elements, fourteen downstream consumers, thirty-three production flows on Hadoop.</p>
+    <p>At Huawei, I worked on the system that moves phone usage records from the network
+       to every department that needs them - billing, audits, reports. It handled 400 million records a day.
+       When a storage system filled up or a connection dropped, we caught both problems in testing
+       before any customer noticed.</p>
   </div>
 
-  <p style="margin-top:26px;max-width:56ch;color:var(--muted)">
-    Four things run through everything below: applying software architecture principles to AI
-    systems, evaluating them for completeness and admissibility, critiquing model quality and
-    evaluation design, and critiquing the infrastructure they deploy onto. Every model has a
-    threshold, and where you set it is a <strong>business decision, not a technical one</strong>.
-    A misrouted support ticket costs someone ten minutes. A line missed in a patient's history
-    costs a great deal more. Every system below is a different answer to the same question:
-    <strong>which error can we afford?</strong></p>
+  <p style="margin-top:var(--space-10);max-width:var(--content-max);color:var(--text-2)">
+    Four ideas run through every project below. First, build AI the way you build any software - 
+    with clear structure and tested parts. Second, check that the system actually does what it claims.
+    Third, question the model itself and how you measure it. Fourth, question the machines it runs on.
+    Every model has a cutoff point for when it is sure enough. Where you set that cutoff is a
+    <strong>business decision, not a technical one</strong>. Sending a support ticket to the wrong team
+    costs ten minutes. Missing a line in a patient's file costs far more. Every project below answers
+    the same question: <strong>which mistake can we afford?</strong></p>
+
+  <h2 id="systems">Systems</h2>
+  <p style="max-width:var(--content-max);color:var(--text-3);font-size:var(--text-sm)">
+    Tools I built for my own practice. Two run in the browser; one only exists on my laptop.</p>
+
+  <div class="grid">
+
+    <div class="card" id="bank">
+      <div class="metric">idea bank</div>
+      <div class="metric-label">A PWA for capturing and sorting ideas before they disappear</div>
+      <div class="title">Idea Bank</div>
+      <div class="desc">Ideas arrive at the wrong time. This stores them tagged and searchable,
+        offline-first, so I can return to them when I have the bandwidth to build.</div>
+      <div class="go"><a class="stretch" href="/bank/">Open it &rarr;</a></div>
+      <div class="system-status" style="margin-top:var(--space-4)">
+        <span class="status-dot active"></span>
+        <span class="status-text">Available</span>
+      </div>
+    </div>
+
+    <div class="card" id="atoms">
+      <div class="metric">creative pipeline</div>
+      <div class="metric-label">577 analysed frames from 21 Instagram reels, turned into structured prompt components</div>
+      <div class="title">Atom Browser</div>
+      <div class="desc">Drag a database file onto the page and it opens right there in the browser - 
+        no server, nothing uploaded. Browse analysed video frames, pull out the prompt pieces that made them,
+        and generate new images through a paid API.</div>
+      <div class="go"><a class="stretch" href="/atoms/">Open it &rarr;</a></div>
+      <div class="system-status" style="margin-top:var(--space-4)">
+        <span class="status-dot active"></span>
+        <span class="status-text">Available - runs in browser</span>
+      </div>
+    </div>
+
+    <div class="card" id="oap">
+      <div class="metric">local trainer</div>
+      <div class="metric-label">1,217 social-dynamics examples from 796 YouTube videos, SM-2 spaced repetition</div>
+      <div class="title">O.A.P. Trainer</div>
+      <div class="desc">A practice tool that lives on my laptop. It uses a local AI to generate
+        social-skills scenarios for me to work through. Nothing goes online.
+        This card shows whether the system is running right now.</div>
+      <div class="go"><a class="stretch" href="/oap/">Read about it &rarr;</a></div>
+      <div class="system-status unavailable" style="margin-top:var(--space-4)">
+        <span class="status-dot"></span>
+        <span class="status-text">Local only - unavailable when laptop is off</span>
+      </div>
+    </div>
+
+  </div>
 
   <h2>Work</h2>
 
   <div class="grid">
-<!-- CARDS:START -->
+  <!-- CARDS:START -->
 
     <div class="card" id="termsguard">
       <div class="metric">grounded</div>
@@ -93,34 +153,66 @@
     <div class="cardlinks"><a href="https://github.com/iamtamilore/customer-care-automation">Code</a></div></div>
 
   <!-- CARDS:END -->
+
+    <div class="card" id="huawei">
+      <div class="metric">400M/day</div>
+      <div class="metric-label">telecom mediation, 440 test cases, both failures caught in verification</div>
+      <div class="title">Huawei &mdash; Globacom Mediation</div>
+      <div class="desc">Designed and tested the connection between a phone company's call centre
+        and a bank's customer service line. When a caller fails authentication, the call goes to a person
+ - it does not get stuck or retry endlessly.</div>
+      <div class="go"><a class="stretch" href="/cv/">View on CV &rarr;</a></div>
+    </div>
+
+  </div>
+
+  <h2>Log</h2>
+  <p style="max-width:var(--content-max);color:var(--text-3);font-size:var(--text-sm)">
+    Process visibility: what I am learning and what I am pursuing.</p>
+
+  <div class="grid">
+
+    <div class="card" id="study">
+      <div class="metric">study tracker</div>
+      <div class="metric-label">Engineering & Evaluating AI Systems - H9EEAI</div>
+      <div class="title">Study Tracker</div>
+      <div class="desc">Eight weeks of coursework with audio player, keyboard shortcuts,
+        and progress tracking. Built to listen while commuting and mark done while reviewing.</div>
+      <div class="go"><a class="stretch" href="/study/eeai/">Open it &rarr;</a></div>
+    </div>
+
+    <div class="card" id="jobs">
+      <div class="metric">job tracker</div>
+      <div class="metric-label">Applications, interviews, and decisions in progress</div>
+      <div class="title">Job Tracker</div>
+      <div class="desc">A tracker for job applications that shows not just where I applied,
+        but what stage each is at and what I learned from the ones that did not work out.</div>
+      <div class="go"><a class="stretch" href="/jobs/">Open it &rarr;</a></div>
+    </div>
+
   </div>
 
   <h2>Before this</h2>
-
   <ul class="exp">
-    <li><strong>Huawei</strong> <span class="when">two summers, Globacom network</span><br>
-      400 million daily call records, which are 400 million bills real people pay. I designed
-      and tested the API layer for a cloud integration with a bank's customer care line, and
-      tested every interface by hand with a command-line tool before it went near a voice prompt. When authentication
-      fails, that call does not retry silently and does not dead-end. <strong>It transfers to a
-      person.</strong> I also worked with the solutions architect on the data migration, and
-      with the test team designed over 440 acceptance test cases. During the actual switchover, one
-      storage system ran out of space and blocked new uploads, and a dropped connection interrupted
-      one stream of call records. <strong>Both were caught during testing, before any customer saw them.</strong></li>
     <li><strong>Turing</strong> <span class="when">Google Gemini evaluation programme</span><br>
-      Measured response quality on personalisation features and wrote prompts to test the
-      models for an RLHF project.</li>
+      Judging AI output has no single right answer, so the real test is whether two people would
+      score the same response the same way. I rated Gemini answers against a written rubric,
+      wrote tricky questions to find where the rubric failed, and wrote down the rules so a second
+      person would agree. Eighty hours of work that taught me how to turn vague quality into
+      something you can check.</li>
   </ul>
 
   <h2>How I work</h2>
-  <p style="max-width:60ch;color:var(--muted)">
-    Establish the baseline before training anything. Name the error you can afford before
-    choosing a threshold. Freeze the preprocessing with the model so training and serving cannot
-    drift apart. Version every artefact so a bad deploy can be rolled back rather than diagnosed.
-    State what breaks, in writing, next to what works.<br><br>
-    Python and SQL. TensorFlow and Keras, scikit-learn, pandas, Matplotlib. RAG pipelines, vector
-    search with pgvector and FAISS, LangGraph. PostgreSQL, Hadoop HDFS, HBase. Docker and
-    Kubernetes, FastAPI, Flask. GDPR data cataloguing, lineage and UAT design. Linux, day to day.</p>
+  <p style="max-width:var(--content-max);color:var(--text-3);font-size:var(--text-sm);margin-bottom:var(--space-4)">
+    These are not aspirational. They are extracted from what actually happened in the projects above.</p>
+  <ol class="commitments">
+    <li><strong>Establish the baseline before training anything.</strong> A model that cannot beat a simple guess does not deserve to exist.</li>
+    <li><strong>Name the error you can afford before choosing a threshold.</strong> Rejecting a good image costs one retry; accepting a bad one sends it to the client.</li>
+    <li><strong>Model the process in BPMN before writing code.</strong> Draw the process on paper before coding it. The automation should replace what actually happens, not what you think happens.</li>
+    <li><strong>Freeze the preprocessing with the model</strong> so the way you prepare data in training stays the same in production.</li>
+    <li><strong>Version every artefact</strong> so you can roll back a bad release instead of spending hours figuring out what broke.</li>
+    <li><strong>State what breaks, in writing, next to what works.</strong> Every project page says what can go wrong before it says what works.</li>
+  </ol>
 
   <h2>Get in touch</h2>
   <div class="endcta">
@@ -141,40 +233,37 @@
 
   <footer>
     <div>Taiwo Alabi &middot; Dublin, Ireland</div>
-    <div class="util-footer"><a href="/study/eeai/">study</a>
-     &middot; <a href="/jobs/">tracker</a>
-     &middot; <a href="/bank-pwa/">bank</a></div>
-    <div style="margin-top:6px;font-size:12.5px;color:var(--muted-2)">Last updated 17 August 2026</div>
+    <div class="util-footer">
+      <a href="/study/eeai/">study</a>
+      <a href="/jobs/">jobs</a>
+      <a href="/bank/">bank</a>
+      <a href="/atoms/">atoms</a>
+    </div>
+    <div style="margin-top:var(--space-2);font-size:var(--text-xs);color:var(--text-3)">Last updated 23 August 2026</div>
   </footer>
 
 </div>
 
-<div class="theme-picker" role="group" aria-label="colour theme">
-  <button type="button" class="theme-dot" data-set-theme="g5" style="--sw:#ff7a3d" title="G5 Tri-X" aria-pressed="true"></button>
-  <button type="button" class="theme-dot" data-set-theme="teal" style="--sw:#3fc2b4" title="Teal &amp; Orange" aria-pressed="false"></button>
-  <button type="button" class="theme-dot" data-set-theme="contact" style="--sw:#b8541f" title="Contact Sheet" aria-pressed="false"></button>
-  <button type="button" class="theme-dot" data-set-theme="cyano" style="--sw:#175a9c" title="Cyanotype" aria-pressed="false"></button>
-</div>
+<button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">◐</button>
+
 <script>
-(function () {
+(function() {
   var K = "tw-theme", R = document.documentElement;
-  function M() {
-    var c = R.getAttribute("data-theme") || "g5";
-    var d = document.querySelectorAll("[data-set-theme]");
-    for (var i = 0; i < d.length; i++) {
-      d[i].setAttribute("aria-pressed", d[i].getAttribute("data-set-theme") === c ? "true" : "false");
-    }
+  function apply(t) {
+    if (t === "dark") R.setAttribute("data-theme", "dark");
+    else if (t === "light") R.setAttribute("data-theme", "light");
+    else R.removeAttribute("data-theme");
   }
-  document.addEventListener("click", function (e) {
-    var b = e.target.closest ? e.target.closest("[data-set-theme]") : null;
-    if (!b) return;
-    var t = b.getAttribute("data-set-theme");
-    R.setAttribute("data-theme", t);
-    localStorage.setItem(K, t);
-    M();
+  document.getElementById("themeToggle").addEventListener("click", function() {
+    var cur = R.getAttribute("data-theme");
+    var next = cur === "dark" ? "light" : cur === "light" ? "" : "dark";
+    apply(next);
+    if (next) localStorage.setItem(K, next); else localStorage.removeItem(K);
   });
-  M();
+  var stored = localStorage.getItem(K);
+  if (stored) apply(stored);
 })();
 </script>
+
 </body>
 </html>
