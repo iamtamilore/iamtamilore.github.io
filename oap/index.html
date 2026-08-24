@@ -949,9 +949,9 @@
                     <input type="text" class="oap-search-input" placeholder="Search examples..." id="library-search" oninput="filterLibrary()">
                 </div>
                 <button onclick="filterByType('all')" class="oap-btn-secondary filter-btn active" data-filter="all" style="font-size:var(--text-sm);padding:var(--space-2) var(--space-4);">All</button>
-                <button onclick="filterByType('oap')" class="oap-btn-secondary filter-btn" data-filter="oap" style="font-size:var(--text-sm);padding:var(--space-2) var(--space-4);">OAP</button>
-                <button onclick="filterByType('graceful')" class="oap-btn-secondary filter-btn" data-filter="graceful" style="font-size:var(--text-sm);padding:var(--space-2) var(--space-4);">Graceful Exit</button>
-                <button onclick="filterByType('rejection')" class="oap-btn-secondary filter-btn" data-filter="rejection" style="font-size:var(--text-sm);padding:var(--space-2) var(--space-4);">Handling Rejection</button>
+                <button onclick="filterByType('OAP')" class="oap-btn-secondary filter-btn" data-filter="OAP" style="font-size:var(--text-sm);padding:var(--space-2) var(--space-4);">OAP</button>
+                <button onclick="filterByType('Graceful_Exit')" class="oap-btn-secondary filter-btn" data-filter="Graceful_Exit" style="font-size:var(--text-sm);padding:var(--space-2) var(--space-4);">Graceful Exit</button>
+                <button onclick="filterByType('Handling_Rejection')" class="oap-btn-secondary filter-btn" data-filter="Handling_Rejection" style="font-size:var(--text-sm);padding:var(--space-2) var(--space-4);">Handling Rejection</button>
             </div>
 
             <!-- Library Table -->
@@ -973,10 +973,10 @@
                     </table>
                 </div>
                 <div style="display:flex;align-items:center;justify-content:space-between;padding:var(--space-4);border-top:1px solid var(--border);">
-                    <span style="font-size:var(--text-sm);color:var(--text-3);">Showing <span id="showing-count">20</span> of 1,217 examples</span>
+                    <span style="font-size:var(--text-sm);color:var(--text-3);"><span id="showing-range">1-20</span> of <span id="showing-total">1,217</span> examples</span>
                     <div style="display:flex;gap:var(--space-2);">
-                        <button class="oap-btn-secondary" style="font-size:var(--text-sm);padding:var(--space-2) var(--space-3);">← Prev</button>
-                        <button class="oap-btn-secondary" style="font-size:var(--text-sm);padding:var(--space-2) var(--space-3);">Next →</button>
+                        <button id="btn-lib-prev" onclick="changeLibraryPage(-1)" class="oap-btn-secondary" style="font-size:var(--text-sm);padding:var(--space-2) var(--space-3);">← Prev</button>
+                        <button id="btn-lib-next" onclick="changeLibraryPage(1)" class="oap-btn-secondary" style="font-size:var(--text-sm);padding:var(--space-2) var(--space-3);">Next →</button>
                     </div>
                 </div>
             </div>
@@ -1159,20 +1159,20 @@ document.getElementById('settings-dark-toggle')?.addEventListener('change', (e) 
 
 // =================== BACKEND REACHABILITY GATE ===================
 let backendAvailable = false;
-const API_BASE = '';  // Same origin (served by FastAPI)
+// Hardcoded, not same-origin: this page is served by the static site
+// (localhost:8123 locally, or the deployed public site), but the backend
+// only ever runs at localhost:8000. Same-origin '' silently 404s every API
+// call whenever the two aren't on the same port - found 2026-08-24 while
+// fixing the Example Library, backendAvailable was correctly reporting
+// false and the honest "-" placeholders were showing, but nothing actually
+// worked. This only ever succeeds when the backend is actually running on
+// this machine; checkBackend()'s existing timeout/catch handles it being
+// down exactly as before.
+const API_BASE = 'http://localhost:8000';
 
 async function checkBackend() {
     try {
-        const ctrl = new
-conitunue
-Edit
-Copy
-Share
-Implement API endpoints for card due rating scenario library stats
-JavaScript
-Here is the continuation and completion of Task 2  -  O.A.P. Trainer.
-HTML
-        AbortController();
+        const ctrl = new AbortController();
         ctrl.timeout = setTimeout(() => ctrl.abort(), 3000);
         const res = await fetch(`${API_BASE}/api/stats`, { signal: ctrl.signal });
         clearTimeout(ctrl.timeout);
@@ -1195,8 +1195,11 @@ HTML
     return false;
 }
 
-// Check on load and every 30s
-checkBackend();
+// Check on load and every 30s. loadStats() must wait for the FIRST check to
+// resolve - it used to run at top-level immediately after this, unawaited,
+// so it always saw the initial backendAvailable=false and permanently
+// showed "-" even when the backend was actually reachable the whole time.
+checkBackend().then(loadStats);
 setInterval(checkBackend, 30000);
 
 function showToast(msg) {
@@ -1502,18 +1505,33 @@ function resetPractice() {
 }
 
 // =================== LIBRARY ===================
+// Single shared state for the library view - type filter, search text and
+// page all combine into one query instead of each resetting the others
+// (the old code rebuilt the query from scratch per action, so picking a
+// type filter silently threw away any active search text, and vice versa).
+const libraryState = { type: 'all', search: '', page: 1, perPage: 20, total: 0 };
+
 async function loadLibrary() {
     if (!backendAvailable) {
         document.getElementById('library-table-body').innerHTML = '<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--text-3);">Backend not reachable. Start the local API to browse the library.</td></tr>';
         return;
     }
+    await fetchLibrary();
+}
+
+async function fetchLibrary() {
+    if (!backendAvailable) return;
     try {
-        const res = await fetch(`${API_BASE}/api/library?page=1&per_page=20`);
+        const params = new URLSearchParams({
+            page: libraryState.page, per_page: libraryState.perPage,
+        });
+        if (libraryState.type !== 'all') params.set('type', libraryState.type);
+        if (libraryState.search) params.set('search', libraryState.search);
+        const res = await fetch(`${API_BASE}/api/library?${params}`);
         const data = await res.json();
+        libraryState.total = data.total;
         renderLibrary(data.items, data.total);
-    } catch (e) {
-        console.error(e);
-    }
+    } catch (e) { console.error(e); }
 }
 
 function renderLibrary(items, total) {
@@ -1534,7 +1552,20 @@ function renderLibrary(items, total) {
         `;
         tbody.appendChild(row);
     });
-    document.getElementById('showing-count').textContent = items.length;
+    const start = total === 0 ? 0 : (libraryState.page - 1) * libraryState.perPage + 1;
+    const end = Math.min(libraryState.page * libraryState.perPage, total);
+    document.getElementById('showing-range').textContent = `${start}-${end}`;
+    document.getElementById('showing-total').textContent = total.toLocaleString();
+    document.getElementById('btn-lib-prev').disabled = libraryState.page <= 1;
+    document.getElementById('btn-lib-next').disabled = end >= total;
+}
+
+function changeLibraryPage(delta) {
+    const maxPage = Math.max(1, Math.ceil(libraryState.total / libraryState.perPage));
+    const next = libraryState.page + delta;
+    if (next < 1 || next > maxPage) return;
+    libraryState.page = next;
+    fetchLibrary();
 }
 
 async function showDetail(id) {
@@ -1566,7 +1597,7 @@ function closeModal(e) {
     }
 }
 
-async function filterByType(type) {
+function filterByType(type) {
     if (!backendAvailable) return;
     document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.classList.remove('active');
@@ -1579,21 +1610,20 @@ async function filterByType(type) {
         activeBtn.style.borderColor = 'var(--accent)';
         activeBtn.style.background = 'var(--accent-bg)';
     }
-    try {
-        const res = await fetch(`${API_BASE}/api/library?type=${type !== 'all' ? type : ''}&page=1&per_page=20`);
-        const data = await res.json();
-        renderLibrary(data.items, data.total);
-    } catch (e) { console.error(e); }
+    libraryState.type = type;
+    libraryState.page = 1; // a new filter always starts back at page 1
+    fetchLibrary();
 }
 
-async function filterLibrary() {
+let librarySearchDebounce = null;
+function filterLibrary() {
     if (!backendAvailable) return;
-    const search = document.getElementById('library-search').value;
-    try {
-        const res = await fetch(`${API_BASE}/api/library?search=${encodeURIComponent(search)}&page=1&per_page=20`);
-        const data = await res.json();
-        renderLibrary(data.items, data.total);
-    } catch (e) { console.error(e); }
+    clearTimeout(librarySearchDebounce);
+    librarySearchDebounce = setTimeout(() => {
+        libraryState.search = document.getElementById('library-search').value;
+        libraryState.page = 1; // a new search always starts back at page 1
+        fetchLibrary();
+    }, 300);
 }
 
 // =================== ANALYTICS ===================
@@ -1775,7 +1805,8 @@ document.getElementById('scenarios-per-session')?.addEventListener('input', (e) 
 
 // =================== INIT ===================
 generateHeatmap();
-loadStats();
+// loadStats() is called from checkBackend().then(loadStats) above instead of
+// here, so it never runs before backendAvailable is actually known.
 </script>
 </body>
 </html>
