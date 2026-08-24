@@ -1270,8 +1270,9 @@ function openDetail(frame){
       ${frame.remix_world_or_scene?`<div class="m-field"><div class="m-label">World / Scene</div><div class="m-value">${esc(frame.remix_world_or_scene)}</div></div>`:''}
     </div>
     <div class="m-section"><div class="m-sec-title">Metadata</div>
-      ${frame.vision_model?`<div class="m-field"><div class="m-label">Model</div><div class="m-value">${esc(frame.vision_model)}</div></div>`:''}
-      ${frame.vision_processed_at?`<div class="m-field"><div class="m-label">Processed</div><div class="m-value">${esc(frame.vision_processed_at)}</div></div>`:''}
+      ${frame.vision_model?`<div class="m-field"><div class="m-label">Vision Model (description/objects/text)</div><div class="m-value">${esc(frame.vision_model)}</div></div>`:''}
+      ${frame.vision_processed_at?`<div class="m-field"><div class="m-label">Vision Processed</div><div class="m-value">${esc(frame.vision_processed_at)}</div></div>`:''}
+      ${frame.audit_note?`<div class="m-field"><div class="m-label">Audit History</div><div class="m-value" style="font-size:11px;color:var(--text-muted)">${esc(frame.audit_note)}</div></div>`:''}
       ${reel.url?`<div class="m-field"><div class="m-label">Reel URL</div><div class="m-value" style="word-break:break-all;font-size:11px;color:var(--text-muted)">${esc(reel.url)}</div></div>`:''}
       ${reel.duration?`<div class="m-field"><div class="m-label">Duration</div><div class="m-value">${fmtTs(reel.duration)}</div></div>`:''}
       ${frame.timestamp?`<div class="m-field"><div class="m-label">Timestamp</div><div class="m-value">${fmtTs(frame.timestamp)}</div></div>`:''}
