@@ -69,7 +69,6 @@
   <a href="/cv/">cv</a>
   <a href="/study/eeai/">study</a>
   <a href="/jobs/">jobs</a>
-  <a href="/#systems">systems</a>
 </nav>
 <div class="cv-wrap">
   <div class="cv-topbar">
@@ -94,23 +93,11 @@
   <section class="cv-section">
     <h2 class="cv-sec-title">Profile</h2>
     <div class="cv-body-text">
-      <p>I build AI systems that know when they are unsure. Every project asks the same four questions: is the structure sound, does it actually work, is the model any good, and are the machines it runs on reliable? Before I train anything, I check what a simple guess or a basic rule would achieve. <strong>A model that cannot beat those does not deserve to exist.</strong></p>
+      <p>Data Science Intern at <strong>Huawei Technologies</strong> (via RGS, within the Globacom Telecommunications department), a world leader in telecommunications infrastructure powering networks that carry <strong>hundreds of millions of records a day</strong>. Working within the Software Department, further developing professional experience in software engineering and improving my skills in this area.</p>
     </div>
   </section>
   <section class="cv-section">
     <h2 class="cv-sec-title">Professional Experience</h2>
-    <article class="cv-entry">
-      <div class="cv-entry-header">
-        <div class="cv-entry-org">Huawei Technologies (via RGS), Globacom Telecommunications</div>
-        <div class="cv-entry-when">Summer 2024 &amp; 2025 &middot; Lagos</div>
-      </div>
-      <div class="cv-entry-role">Product Manager Intern</div>
-      <div class="cv-entry-body">
-        <p><strong>Problem:</strong> The system moves phone usage records from the network to every department that needs them - billing, audits, reports. It handles <strong>400 million records a day</strong>, from seven sources to fourteen destinations, each needing the same data in a different format. The real risk is not speed. A bad update could leave fourteen systems reading nothing, or reading the same record twice - and reading twice means billing the customer twice.</p>
-        <p><strong>Action:</strong> I designed and tested the connection layer between the phone company&#39;s call centre and a bank&#39;s customer service line. I mapped every data field the bank needed to share, tested each one by hand with a command-line tool before it reached a real voice prompt, and made sure every menu option had a recorded message - including wrong choices and failed login.</p>
-        <p><strong>Result:</strong> The lesson I still use came from what happens when things fail. When a caller cannot authenticate, the call goes to a person - it does not get stuck or retry endlessly. I also helped split customer data into separate groups by type, and designed over <strong>440 test cases</strong> with the test team. During the live switchover, a storage system filled up and a connection dropped. <strong>Both problems showed up in testing before any customer noticed.</strong></p>
-      </div>
-    </article>
     <article class="cv-entry">
       <div class="cv-entry-header">
         <div class="cv-entry-org">Turing, Remote (Dublin)</div>
@@ -118,7 +105,41 @@
       </div>
       <div class="cv-entry-role">AI Quality Analyst, Google Gemini evaluation programme</div>
       <div class="cv-entry-body">
-        <p>Judging AI output has no single right answer, so the real test is whether two people would score the same response the same way. I rated Gemini answers against a written rubric, wrote tricky questions to find where the rubric failed, and wrote down the rules so a second person would agree. Eighty hours of work that taught me how to turn vague quality into something you can check.</p>
+        <p>I checked answers from a smart program to see if they were correct. I wrote tricky questions to find when it got confused. I also wrote down rules so other checkers would agree with me.</p>
+      </div>
+    </article>
+    <article class="cv-entry">
+      <div class="cv-entry-header">
+        <div class="cv-entry-org">Huawei Technologies (via RGS), Globacom Telecommunications department, Lagos</div>
+        <div class="cv-entry-when">Mar 2025 - Jul 2025</div>
+      </div>
+      <div class="cv-entry-role">Data Analyst Intern</div>
+      <div class="cv-entry-body">
+        <ul style="margin:0;padding-left:1.1em">
+          <li>Worked with stakeholders to identify data and reporting requirements, turning raw data into relevant and meaningful insights</li>
+          <li>Managed Power BI assets, including reports, dashboards, workspaces, and underlying datasets</li>
+          <li>Designed and built scalable, effective data models</li>
+          <li>Enabled and implemented advanced analytics capabilities into reports for analysis</li>
+          <li>Responsible for profiling, cleaning, and transforming data</li>
+          <li>Internship extended by the team</li>
+        </ul>
+      </div>
+    </article>
+    <article class="cv-entry">
+      <div class="cv-entry-header">
+        <div class="cv-entry-org">Huawei Technologies (via RGS), Globacom Telecommunications department, Lagos</div>
+        <div class="cv-entry-when">Jul 2025 - Dec 2025</div>
+      </div>
+      <div class="cv-entry-role">Data Specialist</div>
+      <div class="cv-entry-body">
+        <ul style="margin:0;padding-left:1.1em">
+          <li>Provided technical support for new software systems, creating database structures and tables based on 20+ business requirements</li>
+          <li>Created dashboards using SSRS and Tableau to display 30+ KPIs across departmental operations</li>
+          <li>Developed Python scripts to automate daily data extraction from CRM platforms, reducing manual reporting time by 15 hours per week</li>
+          <li>Executed SQL queries to clean and validate 100k+ rows of user engagement data, identifying a 14% discrepancy in monthly active user metrics</li>
+          <li>Worked with stakeholders to identify data and reporting requirements, turning raw data into relevant and meaningful insights</li>
+          <li>I also worked with the solutions architect on a data migration. The migration split customer data into separate groups, based on what kind of data it was. And with the test team, we designed over 440 User Acceptance Test within Q2-Q4.</li>
+        </ul>
       </div>
     </article>
   </section>
@@ -132,9 +153,10 @@
         <div class="cv-project-label">locked to one patient before searching, not filtered after. Tried 30 ways to leak data, 0 worked</div>
         <div class="cv-project-title">Smart Medical Records Engine</div>
         <div class="cv-project-desc">
-          <p><strong>Problem:</strong> A doctor has ten minutes. Somewhere in a patient file spread across years of notes is a line saying they reacted badly to a medicine. The doctor is about to prescribe something. Do they remember that line?</p>
-          <p><strong>Action:</strong> Searching across every patient at once risks pulling up the wrong person&#39;s record. This system locks the search to one patient at the database level. I tried <strong>30 different ways</strong> to trick it into leaking data. <strong>None worked.</strong> The AI runs on the hospital&#39;s own machine, not through an outside service, because patient records leaving the building is not a trade a hospital can make.</p>
-          <p><strong>Result:</strong> The whole system - the API, the database with vector search, and the AI model - runs across four services on one machine. Patient data never leaves the hospital&#39;s network.</p>
+          <p>A system that helps doctors find important information in patient notes quickly.</p>
+          <p><strong>Problem:</strong> A doctor has only ten minutes and a patient&#39;s history is in many notes. An important warning, like a past medicine allergy, can be missed.</p>
+          <p><strong>Action:</strong> I made a search tool that only looks at the right patient&#39;s records. I tried <strong>30 ways</strong> to break it; <strong>none worked</strong>. I used a smaller smart program that runs inside the hospital so patient information never leaves the building.</p>
+          <p><strong>Result:</strong> It works with four parts and keeps patient data safe.</p>
         </div>
         <div class="cv-project-links">
           <a href="/p/clinical-rag/">Write-up</a>
@@ -146,32 +168,14 @@
         <div class="cv-project-cta"><a class="ds-btn ds-btn-secondary ds-btn-sm" href="/p/clinical-rag/" style="width:100%;justify-content:center">Read project &rarr;</a></div>
       </div>
       <div class="cv-project-card">
-        <div class="cv-project-metric">escalates</div>
-        <div class="cv-project-label">hands off to a human when unsure. Got 40 out of 42 test tickets right</div>
-        <div class="cv-project-title">Customer Care Process Automation</div>
-        <div class="cv-project-desc">
-          <p><strong>Problem:</strong> Hundreds of customer complaints were sorted by hand every morning. After the sixtieth ticket, they all start to read the same. People misroute them. The customer waits while their ticket finds the right desk, then waits again once it gets there.</p>
-          <p><strong>Action:</strong> I drew the process on paper before writing any code, so the automation replaced what actually happens, not what I assumed happens. Hard rules check the form fields; a simple program reads the complaint and routes it. When the program is unsure, it hands off to a person.</p>
-          <p><strong>Result:</strong> When the program is not confident enough, it passes the ticket to a person instead of guessing. I would rather report a lower automation rate than a higher mistake rate. I picked a small, fast model because 210 example tickets is too few for anything larger - a bigger model would just memorise the examples instead of learning the pattern.</p>
-        </div>
-        <div class="cv-project-links">
-          <a href="/p/care-agent/">Write-up</a>
-          <a href="/assets/docs/care_agent_writeup.pdf" target="_blank" rel="noopener">PDF</a>
-          <a href="/assets/img/as_is.jpg" target="_blank" rel="noopener">BPMN as-is</a>
-          <a href="/assets/img/to_be.jpg" target="_blank" rel="noopener">BPMN to-be</a>
-          <a href="/assets/img/fig2_confusion_matrix.jpg" target="_blank" rel="noopener">Confusion matrix</a>
-          <a href="https://github.com/iamtamilore/customer-care-automation" target="_blank" rel="noopener">Code</a>
-        </div>
-        <div class="cv-project-cta"><a class="ds-btn ds-btn-secondary ds-btn-sm" href="/p/care-agent/" style="width:100%;justify-content:center">Read project &rarr;</a></div>
-      </div>
-      <div class="cv-project-card">
         <div class="cv-project-metric">grounded</div>
         <div class="cv-project-label">every warning points to the exact law it came from, so nothing is made up</div>
         <div class="cv-project-title">TermsGuard AI <span class="ds-badge ds-badge-success" style="font-size:9px;padding:2px 6px;margin-left:4px">Live</span></div>
         <div class="cv-project-desc">
-          <p><strong>Problem:</strong> Reading every privacy policy an average person meets would take about 244 hours a year. Nobody does it. So people agree to data selling and tracking without knowing they have.</p>
-          <p><strong>Action:</strong> The old version sometimes made up legal citations that did not exist. The new version builds every answer only from text it actually found in the law. Plain text matching alone flags &quot;we do not sell your data&quot; as a problem because it only sees the words and misses the &quot;not&quot;, so extra rules sit on top to catch that.</p>
-          <p><strong>Result:</strong> Answer time cut from 28 seconds to under 10. A second AI double-checks each flagged clause and removes false positives. If no API key is set, the tool falls back to text-matching only - it degrades to a less precise version instead of refusing to work.</p>
+          <p>A tool that reads long privacy policies and tells you if they do something bad with your data.</p>
+          <p><strong>Problem:</strong> Reading all privacy policies would take 244 hours a year. Most people just click &quot;I agree&quot; without reading.</p>
+          <p><strong>Action:</strong> I made the tool point to the exact rule text so it doesn&#39;t make things up. I also taught it the difference between &quot;we sell your data&quot; and &quot;we do not sell your data.&quot;</p>
+          <p><strong>Results:</strong> It got faster (from 28 seconds to under 10) and more accurate.</p>
         </div>
         <div class="cv-project-links">
           <a href="https://newtazer-terms-guard-ai.hf.space" target="_blank" rel="noopener">Live demo</a>
@@ -187,9 +191,10 @@
         <div class="cv-project-label">simple checks scored 0.59 and 0.26. The neural network scored 0.90. The gap is the result</div>
         <div class="cv-project-title">Automated QA Gate for AI Generated Imagery</div>
         <div class="cv-project-desc">
-          <p><strong>Problem:</strong> AI-generated fashion images drift over multiple generations - the character&#39;s face slowly shifts or details I want to keep become inconsistent.</p>
-          <p><strong>Action:</strong> I started with two simple checks first: comparing pixels directly, and finding the nearest match. A neural network then reached much better results on a 90-pair test set. The gap between the simple checks and the neural network is the result - the high score on its own is not. I moved the decision cutoff from the default halfway point to 0.4821, tuned only on validation data, because rejecting a good image costs one retry while accepting a bad one sends it to the client.</p>
-          <p><strong>Honest limit:</strong> This only catches identity drift, not colour and lighting drift, which needs a separate weaker check.</p>
+          <p>A program that checks AI-made pictures of clothes to make sure they still look like the same product.</p>
+          <p><strong>Problem:</strong> When a computer makes many pictures, small changes can creep in, like a shirt changing color or a model&#39;s face looking different.</p>
+          <p><strong>Action:</strong> I first tested simple ways to compare pictures; they didn&#39;t work well. Then I used a smarter method that got 90% right and never said a bad picture was good. I picked a careful cutoff number.</p>
+          <p><strong>Result:</strong> The program now blocks bad pictures before they go to clients.</p>
         </div>
         <div class="cv-project-links">
           <a href="/assets/docs/image_qa_writeup.pdf" target="_blank" rel="noopener">Write-up PDF</a>
@@ -219,11 +224,11 @@
       </div>
       <div class="cv-skill-block">
         <div class="cv-skill-cat">Data &amp; Infrastructure</div>
-        <p class="cv-skill-list">Hadoop HDFS, HBase, GaussDB, PostgreSQL, pgvector, Docker, Docker Compose, Kubernetes, FastAPI, Flask, Google Cloud</p>
+        <p class="cv-skill-list">Hadoop HDFS, HBase, GaussDB, PostgreSQL, pgvector, Docker, Docker Compose, Kubernetes, FastAPI, Flask, Google Cloud, Google BigQuery, SQL Server Reporting Services (SSRS)</p>
       </div>
       <div class="cv-skill-block">
         <div class="cv-skill-cat">Machine Learning</div>
-        <p class="cv-skill-list">scikit-learn, pandas, TensorFlow/Keras, transfer learning, reinforcement learning, Q-Learning, neural networks, Transformers</p>
+        <p class="cv-skill-list">scikit-learn, pandas, TensorFlow/Keras, transfer learning, reinforcement learning, Q-Learning, neural networks, Transformers, Predictive Analytics, Data Mining</p>
       </div>
       <div class="cv-skill-block">
         <div class="cv-skill-cat">AI &amp; Agents</div>
@@ -235,7 +240,15 @@
       </div>
       <div class="cv-skill-block">
         <div class="cv-skill-cat">Tools</div>
-        <p class="cv-skill-list">Git, GitHub, Claude Code, Linux</p>
+        <p class="cv-skill-list">Git, GitHub, Claude Code, Linux, Power BI, Tableau</p>
+      </div>
+      <div class="cv-skill-block">
+        <div class="cv-skill-cat">Domain Techniques</div>
+        <p class="cv-skill-list">Data Warehousing, Survey Data Collection, Data Visualization</p>
+      </div>
+      <div class="cv-skill-block">
+        <div class="cv-skill-cat">Languages Spoken</div>
+        <p class="cv-skill-list">English (Native)</p>
       </div>
     </div>
   </section>
@@ -251,7 +264,7 @@
   </section>
   <footer class="cv-footer">
     <p>Taiwo Alabi &middot; Dublin, Ireland &middot; <a href="mailto:alabitaiwo625@gmail.com" style="color:var(--text-muted);text-decoration:none">alabitaiwo625@gmail.com</a></p>
-    <p style="margin-top:var(--space-2)">Last updated 23 August 2026</p>
+    <p style="margin-top:var(--space-2)">Last updated 4 September 2026</p>
   </footer>
 </div>
 <script>
