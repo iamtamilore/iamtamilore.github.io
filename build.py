@@ -263,7 +263,7 @@ TEMPLATE = """<!DOCTYPE html>
   <a class="cta cta-ghost" href="https://github.com/iamtamilore">GitHub</a>
 </div>
 <footer>
-  <div>Taiwo Alabi &middot; <a href="mailto:alabitaiwo625@gmail.com">alabitaiwo625@gmail.com</a>
+  <div>Taiwo Alabi &middot; <a href="mailto:newalabitaiwo625@gmail.com">newalabitaiwo625@gmail.com</a>
    &middot; <a href="https://www.linkedin.com/in/tami-alabi/">LinkedIn</a>
    &middot; <a href="https://github.com/iamtamilore">GitHub</a></div>
   <div class="util-footer"><a href="/study/eeai/">study</a>

@@ -53,10 +53,10 @@ Establish the baseline before training anything. Name the error you can afford b
     Kubernetes, FastAPI, Flask. GDPR data cataloguing, lineage and UAT design. Linux, day to day.
 
 ### Get in touch
-- LINK: [Email me](mailto:alabitaiwo625@gmail.com)
+- LINK: [Email me](mailto:newalabitaiwo625@gmail.com)
 - LINK: [View CV](/cv/)
 - LINK: [Download CV PDF](/assets/Taiwo_Alabi_CV.pdf)
-- LINK: [alabitaiwo625@gmail.com](mailto:alabitaiwo625@gmail.com)
+- LINK: [newalabitaiwo625@gmail.com](mailto:newalabitaiwo625@gmail.com)
 - LINK: [LinkedIn](https://www.linkedin.com/in/tami-alabi/)
 - LINK: [GitHub](https://github.com/iamtamilore)
 - LINK: [WhatsApp +353 87 004 2838](https://wa.me/353870042838?text=Hi%20Taiwo%2C%20I%20saw%20your%20portfolio)
@@ -76,7 +76,7 @@ Establish the baseline before training anything. Name the error you can afford b
 
 ## Taiwo Alabi
 Data Scientist
-- LINK: [alabitaiwo625@gmail.com](mailto:alabitaiwo625@gmail.com)
+- LINK: [newalabitaiwo625@gmail.com](mailto:newalabitaiwo625@gmail.com)
 - LINK: [WhatsApp +353 87 004 2838](https://wa.me/353870042838?text=Hi%20Taiwo%2C%20I%20saw%20your%20portfolio)
 - LINK: [linkedin.com/in/tami-alabi](https://www.linkedin.com/in/tami-alabi/)
 - LINK: [github.com/iamtamilore](https://github.com/iamtamilore)
@@ -140,9 +140,9 @@ Languages: Python, SQL. Data and Infrastructure: Hadoop HDFS, HBase, GaussDB, Po
   evaluation, confidence calibration, GDPR data cataloguing, data lineage, UAT design. Tools: Git, GitHub, Claude Code, Linux.
 
 ### Get in touch
-- LINK: [Email me](mailto:alabitaiwo625@gmail.com)
+- LINK: [Email me](mailto:newalabitaiwo625@gmail.com)
 - LINK: [Download CV PDF](/assets/Taiwo_Alabi_CV.pdf)
-- LINK: [alabitaiwo625@gmail.com](mailto:alabitaiwo625@gmail.com)
+- LINK: [newalabitaiwo625@gmail.com](mailto:newalabitaiwo625@gmail.com)
 
 ---
 
@@ -339,7 +339,7 @@ Anthropic API · Docker
 - LINK: [← All work](/#termsguard)
 - LINK: [CV](/cv/)
 - LINK: [GitHub](https://github.com/iamtamilore)
-- LINK: [alabitaiwo625@gmail.com](mailto:alabitaiwo625@gmail.com)
+- LINK: [newalabitaiwo625@gmail.com](mailto:newalabitaiwo625@gmail.com)
 - LINK: [LinkedIn](https://www.linkedin.com/in/tami-alabi/)
 - LINK: [GitHub](https://github.com/iamtamilore)
 - LINK: [study](/study/eeai/)
@@ -513,7 +513,7 @@ Docker Compose · JWT
 - LINK: [← All work](/#clinical-rag)
 - LINK: [CV](/cv/)
 - LINK: [GitHub](https://github.com/iamtamilore)
-- LINK: [alabitaiwo625@gmail.com](mailto:alabitaiwo625@gmail.com)
+- LINK: [newalabitaiwo625@gmail.com](mailto:newalabitaiwo625@gmail.com)
 - LINK: [LinkedIn](https://www.linkedin.com/in/tami-alabi/)
 - LINK: [GitHub](https://github.com/iamtamilore)
 - LINK: [study](/study/eeai/)
@@ -667,7 +667,7 @@ Stack: Python · scikit-learn (TF-IDF, Naive Bayes) · pandas · BPMN
 - LINK: [← All work](/#care-agent)
 - LINK: [CV](/cv/)
 - LINK: [GitHub](https://github.com/iamtamilore)
-- LINK: [alabitaiwo625@gmail.com](mailto:alabitaiwo625@gmail.com)
+- LINK: [newalabitaiwo625@gmail.com](mailto:newalabitaiwo625@gmail.com)
 - LINK: [LinkedIn](https://www.linkedin.com/in/tami-alabi/)
 - LINK: [GitHub](https://github.com/iamtamilore)
 - LINK: [study](/study/eeai/)
@@ -697,4 +697,4 @@ Smart Medical Records patient data stays on site
 - LINK: [Smart Medical Records](/p/clinical-rag/)
 RL vs Genetic Algorithm +21.4% revenue
 - LINK: [RL vs Genetic Algorithm](/p/surge-pricing/)
-- LINK: [alabitaiwo625@gmail.com](mailto:alabitaiwo625@gmail.com)
+- LINK: [newalabitaiwo625@gmail.com](mailto:newalabitaiwo625@gmail.com)

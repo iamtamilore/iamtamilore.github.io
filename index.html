@@ -48,17 +48,8 @@
     </div>
   </header>
 
-  <div class="anchor">
-    <div class="anchor-num">400 million</div>
-    <div class="anchor-label">usage records a day, on the platform where I learned this</div>
-    <p>At Huawei, I worked on the system that moves phone usage records from the network
-       to every department that needs them - billing, audits, reports. It handled 400 million records a day.
-       When a storage system filled up or a connection dropped, we caught both problems in testing
-       before any customer noticed.</p>
-  </div>
-
   <p style="margin-top:var(--space-10);max-width:var(--content-max);color:var(--text-2)">
-    Four ideas run through every project below. First, build AI the way you build any software - 
+    Four ideas run through every project below. First, build AI the way you build any software -
     with clear structure and tested parts. Second, check that the system actually does what it claims.
     Third, question the model itself and how you measure it. Fourth, question the machines it runs on.
     Every model has a cutoff point for when it is sure enough. Where you set that cutoff is a
@@ -73,44 +64,40 @@
 
     <div class="card" id="termsguard">
       <div class="metric">grounded</div>
-      <div class="metric-label">every flag cites the GDPR article it came from, so nothing is invented</div>
+      <div class="metric-label">points to the exact rule text, so nothing is made up</div>
       <div class="title">TermsGuard AI <span class="live">Live</span></div>
-      <div class="desc">Cosine similarity alone marks "we do not sell your data" as a violation,
-        because the model can barely tell "sell" from "do not sell" apart. Rule
-        guards sit on top of the score, not instead of it.</div>
+      <div class="desc">A tool that reads long privacy policies and tells you if they do something
+        bad with your data. It points to the exact rule text so it doesn't make things up.</div>
       <div class="go"><a class="stretch" href="/p/termsguard/">Read it &rarr;</a></div>
       <a class="cta" style="position:relative;z-index:2" href="https://newtazer-terms-guard-ai.hf.space" target="_blank" rel="noopener">Try the live demo</a>
     <div class="cardlinks"><a href="https://github.com/iamtamilore/terms-guard-ai">Code</a></div></div>
 
     <div class="card" id="clinical-rag">
       <div class="metric">scoped</div>
-      <div class="metric-label">per patient before ranking, not filtered after. Tried 30 ways to leak data, 0 worked</div>
+      <div class="metric-label">tried 30 ways to leak data, none worked</div>
       <div class="title">Smart Medical Records</div>
-      <div class="desc">A general vector search over a hospital corpus will eventually surface
-        the wrong patient. Scoping happens at the query layer, not as a filter
-        afterwards. Tried thirty ways to leak another patient's data. None worked.</div>
+      <div class="desc">A system that helps doctors find important information in patient notes
+        quickly. I tried 30 ways to break it; none worked.</div>
       <div class="go"><a class="stretch" href="/p/clinical-rag/">Read it &rarr;</a></div>
     <div class="cardlinks"><a href="https://github.com/iamtamilore/agentic_rag_fastapi">Code</a></div></div>
 
     <div class="card" id="care-agent">
       <div class="metric">escalates</div>
-      <div class="metric-label">below 0.55 a human decides. 95.2% on the 40 of 42 it routed</div>
+      <div class="metric-label">hands off to a person instead of guessing</div>
       <div class="title">Care Agent</div>
-      <div class="desc">The decision was the gate, not the classifier. Below 0.55 it escalates to
-        a human rather than forcing a label, and I report the lower automation
-        rate that produces.</div>
+      <div class="desc">Sorts customer complaints and hands off to a person when it isn't
+        sure, instead of forcing a guess.</div>
       <div class="go"><a class="stretch" href="/p/care-agent/">Read it &rarr;</a></div>
     <div class="cardlinks"><a href="https://github.com/iamtamilore/customer-care-automation">Code</a></div></div>
 
   <!-- CARDS:END -->
 
     <div class="card" id="huawei">
-      <div class="metric">400M/day</div>
-      <div class="metric-label">telecom mediation, 440 test cases, both failures caught in verification</div>
-      <div class="title">Huawei - Globacom Mediation</div>
-      <div class="desc">Designed and tested the connection between a phone company's call centre
-        and a bank's customer service line. When a caller fails authentication, the call goes to a person
- - it does not get stuck or retry endlessly.</div>
+      <div class="metric">100k+ rows</div>
+      <div class="metric-label">cleaned and validated, caught a 14% metric discrepancy before leadership saw it</div>
+      <div class="title">Huawei - Globacom Data Team</div>
+      <div class="desc">Built dashboards and automated reporting for a telecom's data team.
+        Found and fixed a 14% error in a key user metric before anyone else noticed.</div>
       <div class="go"><a class="stretch" href="/cv/">View on CV &rarr;</a></div>
     </div>
 
@@ -145,11 +132,9 @@
   <h2>Before this</h2>
   <ul class="exp">
     <li><strong>Turing</strong> <span class="when">Google Gemini evaluation programme</span><br>
-      Judging AI output has no single right answer, so the real test is whether two people would
-      score the same response the same way. I rated Gemini answers against a written rubric,
-      wrote tricky questions to find where the rubric failed, and wrote down the rules so a second
-      person would agree. Eighty hours of work that taught me how to turn vague quality into
-      something you can check.</li>
+      I checked answers from a smart program to see if they were correct. I wrote tricky
+      questions to find when it got confused. I also wrote down rules so other checkers
+      would agree with me.</li>
   </ul>
 
   <h2>How I work</h2>
@@ -166,13 +151,13 @@
 
   <h2>Get in touch</h2>
   <div class="endcta">
-    <a class="cta" href="mailto:alabitaiwo625@gmail.com">Email me</a>
+    <a class="cta" href="mailto:newalabitaiwo625@gmail.com">Email me</a>
     <a class="cta cta-ghost" href="/cv/">View CV</a>
     <a class="cta cta-ghost" href="/assets/Taiwo_Alabi_CV.pdf" target="_blank" rel="noopener">
       Download CV <span class="cta-sub">PDF</span></a>
   </div>
   <nav class="meta" aria-label="Contact">
-    <a href="mailto:alabitaiwo625@gmail.com">alabitaiwo625@gmail.com</a>
+    <a href="mailto:newalabitaiwo625@gmail.com">newalabitaiwo625@gmail.com</a>
     <span aria-hidden="true">|</span>
     <a href="https://www.linkedin.com/in/tami-alabi/">LinkedIn</a>
     <span aria-hidden="true">|</span>
