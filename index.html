@@ -48,16 +48,15 @@
     </div>
   </header>
 
-  <p style="margin-top:var(--space-10);max-width:var(--content-max);color:var(--text-2)">
-    Four ideas run through every project below. First, build AI the way you build any software -
-    with clear structure and tested parts. Second, check that the system actually does what it claims.
-    Third, question the model itself and how you measure it. Fourth, question the machines it runs on.
-    Every model has a cutoff point for when it is sure enough. Where you set that cutoff is a
-    <strong>business decision, not a technical one</strong>. Sending a support ticket to the wrong team
-    costs ten minutes. Missing a line in a patient's file costs far more. Every project below answers
-    the same question: <strong>which mistake can we afford?</strong></p>
+  <div style="margin-top:var(--space-10);display:flex;flex-wrap:wrap;gap:var(--space-8) var(--space-10)">
+    <div><div style="font-size:var(--text-2xl);font-weight:700;color:var(--accent)">100,000+</div><div style="font-size:var(--text-sm);color:var(--text-3)">rows cleaned and validated</div></div>
+    <div><div style="font-size:var(--text-2xl);font-weight:700;color:var(--accent)">14%</div><div style="font-size:var(--text-sm);color:var(--text-3)">data discrepancy found and fixed</div></div>
+    <div><div style="font-size:var(--text-2xl);font-weight:700;color:var(--accent)">15 hrs/week</div><div style="font-size:var(--text-sm);color:var(--text-3)">manual reporting automated away</div></div>
+    <div><div style="font-size:var(--text-2xl);font-weight:700;color:var(--accent)">440+</div><div style="font-size:var(--text-sm);color:var(--text-3)">UATs designed and executed</div></div>
+    <div><div style="font-size:var(--text-2xl);font-weight:700;color:var(--accent)">LLM eval</div><div style="font-size:var(--text-sm);color:var(--text-3)">Google Gemini evaluation programme</div></div>
+  </div>
 
-  <h2>Work</h2>
+  <h2 style="margin-top:var(--space-10)">Work</h2>
 
   <div class="grid">
   <!-- CARDS:START -->
@@ -91,6 +90,15 @@
     <div class="cardlinks"><a href="https://github.com/iamtamilore/customer-care-automation">Code</a></div></div>
 
   <!-- CARDS:END -->
+
+    <div class="card" id="image-qa">
+      <div class="metric">90% accuracy</div>
+      <div class="metric-label">zero false acceptance, tuned cutoff instead of the model's default</div>
+      <div class="title">Automated QA Gate for AI Imagery</div>
+      <div class="desc">Computer vision pipeline that catches defects in AI-generated product
+        images before they reach a client.</div>
+      <div class="go"><a class="stretch" href="/cv/">View on CV &rarr;</a></div>
+    <div class="cardlinks"><a href="https://github.com/iamtamilore/campaign-image-qa">Code</a></div></div>
 
     <div class="card" id="huawei">
       <div class="metric">100k+ rows</div>
