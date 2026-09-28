@@ -280,6 +280,19 @@ a:hover {
   transform: none;
 }
 
+/* Homepage "View CV" bridge: a quiet cue that this link leads to the
+   differently-styled /cv/ page. Scoped, doesn't touch the shared .cta rule. */
+.cta-cv-bridge {
+  background: #5B9BD5 !important;
+  border-color: #5B9BD5 !important;
+  color: #1a1816 !important;
+}
+
+.cta-cv-bridge:hover {
+  background: #4f8fc9 !important;
+  border-color: #4f8fc9 !important;
+}
+
 /* Live badge */
 .live {
   display: inline-block;
