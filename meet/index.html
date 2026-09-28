@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Taiwo Alabi</title>
+<meta name="description" content="Taiwo Alabi — data governance, AI, and a receptionist's sense of what actually breaks.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231a1816'/><text y='72' x='50' font-size='62' text-anchor='middle' fill='%235B9BD5' font-family='sans-serif' font-weight='bold'>T</text></svg>">
+<style>
+  :root {
+    --bg: #0f0e0c;
+    --text: #e8e4de;
+    --text-2: #b8b3ab;
+    --blue: #5B9BD5;
+    --border: #2b2620;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Quicksand', system-ui, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 20px;
+  }
+  .card {
+    width: 100%;
+    max-width: 420px;
+  }
+  .photo {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: 50% 20%;
+    border: 2px solid var(--blue);
+    display: block;
+    margin: 0 0 10px;
+  }
+  h1 {
+    font-size: clamp(24px, 7vw, 28px);
+    font-weight: 700;
+    margin: 0 0 2px;
+    color: var(--text);
+  }
+  .tagline {
+    font-size: 13.5px;
+    color: var(--blue);
+    font-weight: 600;
+    margin: 0 0 14px;
+  }
+  .now {
+    font-size: 13.5px;
+    line-height: 1.45;
+    color: var(--text-2);
+    margin: 0 0 14px;
+  }
+  .now strong { color: var(--text); font-weight: 600; }
+  .proof {
+    border-left: 2px solid var(--blue);
+    padding: 1px 0 1px 12px;
+    margin: 0 0 16px;
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--text-2);
+  }
+  h2 {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--blue);
+    font-weight: 700;
+    margin: 0 0 8px;
+  }
+  ul.work {
+    list-style: none;
+    margin: 0 0 16px;
+    padding: 0;
+  }
+  ul.work li {
+    padding: 7px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  ul.work li:last-child { border-bottom: none; }
+  ul.work a {
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  ul.work a:hover, ul.work a:focus { color: var(--blue); }
+  ul.work .desc { color: var(--text-2); display: block; margin-top: 1px; }
+  ul.work .live-link {
+    display: inline-block;
+    margin-top: 4px;
+    color: var(--blue);
+    text-decoration: underline;
+    font-weight: 600;
+    font-size: 12.5px;
+  }
+  .cta {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .cta a {
+    flex: 1;
+    text-align: center;
+    padding: 11px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .cta .primary {
+    background: var(--blue);
+    color: #14100c;
+  }
+  .cta .ghost {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  footer {
+    margin-top: 16px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-2);
+  }
+  footer a { color: var(--text-2); text-decoration: underline; }
+  footer a:hover, footer a:focus { color: var(--blue); }
+</style>
+</head>
+<body>
+<div class="card">
+  <img class="photo" src="/assets/img/taiwo.jpg" alt="Taiwo Alabi">
+  <h1>Taiwo Alabi</h1>
+  <p class="tagline">Data Governance &amp; AI</p>
+
+  <p class="now">Currently a part-time <strong>Receptionist</strong> at Temple Bar Townhouse, finishing an
+  <strong>MSc in Artificial Intelligence</strong> at National College of Ireland. Previously worked in
+  data governance on a telecom migration at Huawei &middot; Globacom.</p>
+
+  <p class="proof">Found a reporting gap that had been sending the wrong subscriber numbers upstream
+  for months, and fixed it.</p>
+
+  <h2>Live work</h2>
+  <ul class="work">
+    <li>
+      <a href="/p/termsguard/">TermsGuard AI</a>
+      <span class="desc">Reads privacy policies and flags risky clauses, grounded in the exact rule text.</span>
+      <a class="live-link" href="https://newtazer-terms-guard-ai.hf.space" target="_blank" rel="noopener">Try it live &rarr;</a>
+    </li>
+    <li>
+      <a href="/p/clinical-rag/">Smart Medical Records</a>
+      <span class="desc">Retrieval over patient notes that surfaces critical history, scoped so nothing crosses between patients.</span>
+    </li>
+    <li>
+      <a href="/p/care-agent/">Care Agent</a>
+      <span class="desc">Automated ticket triage for a mobile network's customer care, with a human fallback below confidence.</span>
+    </li>
+  </ul>
+
+  <div class="cta">
+    <a class="primary" href="/cv/">View full CV</a>
+    <a class="ghost" href="mailto:alabitaiwo625@gmail.com">Email me</a>
+  </div>
+
+  <footer>
+    <a href="/">iamtamilore.github.io</a> &middot; <a href="https://www.linkedin.com/in/tami-alabi/">LinkedIn</a>
+  </footer>
+</div>
+</body>
+</html>
