@@ -8,9 +8,10 @@
 <script>document.documentElement.setAttribute("data-theme",localStorage.getItem("tw-theme")||"")</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="/assets/css/design-system.css">
 <style>
-.cv-page { color: var(--text); font-family: var(--font); line-height: 1.5; }
+.cv-page { color: var(--text); font-family: 'Quicksand', var(--font); line-height: 1.5; }
 .cv-wrap { max-width: 860px; margin: 0 auto; padding: var(--space-6) var(--space-4); }
 .cv-topbar { display: flex; justify-content: space-between; align-items: center; padding: var(--space-4) 0; margin-bottom: var(--space-6); border-bottom: 1px solid var(--border); }
 .cv-topbar a { color: var(--text-3); font-size: var(--text-sm); text-decoration: none; border-bottom: none; }
@@ -19,10 +20,10 @@
 .cv-h1 { font-size: var(--text-3xl); font-weight: 700; line-height: 1.1; margin-bottom: var(--space-2); }
 .cv-identity { font-size: var(--text-base); color: var(--text-2); margin-bottom: var(--space-4); line-height: 1.3; }
 .cv-meta { display: flex; gap: var(--space-3); flex-wrap: wrap; font-size: var(--text-sm); color: var(--text-3); }
-.cv-meta a { color: var(--accent); text-decoration: none; border-bottom: none; }
+.cv-meta a { color: #5B9BD5; text-decoration: none; border-bottom: none; }
 .cv-meta a:hover { text-decoration: underline; }
 .cv-section { margin-bottom: var(--space-10); }
-.cv-sec-title { font-size: var(--text-2xl); font-weight: 700; margin-bottom: var(--space-6); padding-bottom: var(--space-3); border-bottom: 1px solid var(--border); }
+.cv-sec-title { font-size: var(--text-2xl); font-weight: 700; color: #5B9BD5; margin-bottom: var(--space-6); padding-bottom: var(--space-3); border-bottom: 1px solid var(--border); }
 .cv-body-text { font-size: var(--text-sm); color: var(--text-2); line-height: 1.6; max-width: none; }
 .cv-body-text p { margin-bottom: var(--space-4); }
 .cv-body-text strong { color: var(--text); font-weight: 600; }
@@ -33,31 +34,17 @@
 .cv-entry-role { font-size: var(--text-sm); font-weight: 600; color: var(--text-2); margin-bottom: var(--space-3); }
 .cv-entry-body { font-size: var(--text-sm); color: var(--text-2); line-height: 1.6; }
 .cv-entry-body p { margin-bottom: var(--space-3); }
-.cv-project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--space-4); }
-.cv-project-card { background: var(--bg-2); border: 1px solid var(--border); border-radius: 0; padding: var(--space-5); display: flex; flex-direction: column; gap: var(--space-3); transition: all var(--motion-duration) var(--motion-ease); }
-.cv-project-card:hover { border-color: var(--accent); box-shadow: none; transform: translateY(-2px); }
-.cv-project-metric { font-family: var(--font-mono); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: var(--space-1); }
-.cv-project-label { font-size: var(--text-xs); color: var(--text-3); line-height: 1.4; margin-bottom: var(--space-2); font-style: italic; }
-.cv-project-title { font-size: var(--text-base); font-weight: 700; color: var(--text); margin-bottom: var(--space-2); line-height: 1.1; }
-.cv-project-desc { font-size: var(--text-sm); color: var(--text-2); line-height: 1.6; flex: 1; }
-.cv-project-desc p { margin-bottom: var(--space-3); }
-.cv-project-desc p:last-child { margin-bottom: 0; }
-.cv-project-links { margin-top: auto; padding-top: var(--space-3); border-top: 1px solid var(--border); display: flex; gap: var(--space-3); flex-wrap: wrap; font-size: var(--text-xs); }
-.cv-project-links a { color: var(--text-3); text-decoration: none; border-bottom: none; }
-.cv-project-links a:hover { color: var(--accent); }
-.cv-project-cta { margin-top: var(--space-3); }
-.cv-skill-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-4); margin-top: var(--space-4); }
-.cv-skill-block { background: var(--bg-2); border: 1px solid var(--border); border-radius: 0; padding: var(--space-4); }
-.cv-skill-cat { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-3); margin-bottom: var(--space-2); font-weight: 600; }
-.cv-skill-list { font-size: var(--text-sm); color: var(--text-2); line-height: 1.6; margin: 0; }
+.cv-entry-links { margin-top: var(--space-3); display: flex; gap: var(--space-3); flex-wrap: wrap; font-size: var(--text-xs); }
+.cv-entry-links a { color: var(--text-3); text-decoration: none; border-bottom: none; }
+.cv-entry-links a:hover { color: #5B9BD5; }
+.cv-skills-table { width: 100%; border-collapse: collapse; margin-top: var(--space-4); font-size: var(--text-sm); color: var(--text-2); }
+.cv-skills-table td { padding: var(--space-2) var(--space-3) var(--space-2) 0; border: none; vertical-align: top; }
 .cv-footer { margin-top: var(--space-12); padding-top: var(--space-6); border-top: 1px solid var(--border); text-align: center; color: var(--text-3); font-size: var(--text-xs); }
 .util { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; gap: var(--space-4); padding: var(--space-3) var(--space-4); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.08em; background: var(--bg); border-bottom: 1px solid var(--border-2); backdrop-filter: blur(12px); }
 .util a { color: var(--text-3); text-decoration: none; border-bottom: none; }
 .util a:hover { color: var(--text); }
 @media (max-width: 640px) {
   .cv-entry-header { flex-direction: column; gap: var(--space-1); }
-  .cv-project-grid { grid-template-columns: 1fr; }
-  .cv-skill-grid { grid-template-columns: 1fr; }
   .cv-h1 { font-size: var(--text-2xl); }
 }
 </style>
@@ -92,127 +79,129 @@
   <section class="cv-section">
     <h2 class="cv-sec-title">Professional Summary</h2>
     <div class="cv-body-text">
-      <p>Data governance and analytics specialist with hands-on experience in data quality, data classification and controls testing at a telecom operator. Audited <strong>100k+ records</strong> for quality and compliance. Supported a validated customer data migration with <strong>440+ User Acceptance Testing (UAT)</strong> cases. Delivered operational reporting dashboards tracking <strong>30+ Key Performance Indicators (KPIs)</strong>. Currently completing an MSc in Artificial Intelligence at National College of Ireland.</p>
+      <p>A reliable and detail-focused person with experience in data quality, classification, and controls testing at a telecom operator. Comfortable auditing records, validating data migrations, and building reporting dashboards. With my experience and ongoing MSc in Artificial Intelligence, I am ready to contribute effectively to a data governance team.</p>
     </div>
   </section>
   <section class="cv-section">
     <h2 class="cv-sec-title">Education</h2>
     <div class="cv-entry-body">
-      <p><strong>National College of Ireland, Dublin</strong> <span class="cv-entry-when" style="display:inline">Jan 2026 - Expected Jan 2027</span><br>MSc Artificial Intelligence (part time).</p>
-      <p style="margin-top:var(--space-4)"><strong>Afe Babalola University, Lagos</strong> <span class="cv-entry-when" style="display:inline">Sep 2021 - Jun 2025</span><br>BSc Computer Science, Second Class Honours, Upper Division.</p>
+      <p><strong>National College of Ireland, Dublin</strong> <span class="cv-entry-when" style="display:inline">Jan 2026 - Expected Jan 2027</span><br>MSc. Artificial Intelligence.</p>
+      <p style="margin-top:var(--space-4)"><strong>Afe Babalola University, Lagos</strong> <span class="cv-entry-when" style="display:inline">Sep 2021 - Jun 2025</span><br>BSc. Computer Science.</p>
     </div>
   </section>
   <section class="cv-section">
     <h2 class="cv-sec-title">Experience</h2>
     <article class="cv-entry">
       <div class="cv-entry-header">
-        <div class="cv-entry-org">Huawei Technologies - Globacom Telecommunications Department, Lagos</div>
-        <div class="cv-entry-when">Mar 2025 - Dec 2025</div>
+        <div class="cv-entry-org">Receptionist (Part-time)</div>
+        <div class="cv-entry-when">Sep 2026 - Present</div>
       </div>
-      <div class="cv-entry-role">Data Specialist</div>
+      <div class="cv-entry-role">Temple Bar Townhouse - Dublin, Ireland</div>
       <div class="cv-entry-body">
         <ul style="margin:0;padding-left:1.1em">
-          <li>Promoted from Data Analyst Intern after the internship was extended by the team.</li>
-          <li>Supported a customer data migration with the solutions architect, classifying records by type and sensitivity.</li>
-          <li>Designed <strong>440+ test cases</strong> with the test team to validate migration integrity before cutover.</li>
-          <li>Documented data handling rules and GDPR-aligned data cataloguing for migrated datasets.</li>
-          <li>Profiled, cleaned and validated <strong>100k+ user engagement rows</strong> in SQL and fixed a <strong>14% MAU reporting discrepancy</strong>.</li>
-          <li>Gathered stakeholder requirements and turned them into governed, reusable datasets.</li>
-          <li>Owned <strong>Power BI</strong> reports, dashboards and workspaces.</li>
-          <li>Built <strong>SSRS and Tableau</strong> dashboards tracking <strong>30+ KPIs</strong> for departmental operations.</li>
-          <li>Automated daily CRM data extraction in Python and saved around <strong>15 hours</strong> of manual reporting weekly.</li>
-          <li>Designed database tables from <strong>20+ business requirements</strong> to support new software systems.</li>
+          <li>Welcomed guests and assisted with check-in and room arrangements.</li>
+          <li>Managed reservations and bookings through Guestline, Expedia, and Booking.com.</li>
+          <li>Collected and processed guest payments.</li>
+          <li>Responded to guest requests and helped resolve issues politely.</li>
+          <li>Communicated with guests and team members to support smooth hotel operations.</li>
+          <li>Supported general reception duties and other tasks as needed.</li>
         </ul>
       </div>
     </article>
-  </section>
-
-  <section class="cv-section">
-    <h2 class="cv-sec-title">Selected Projects</h2>
-    <p class="cv-body-text" style="margin-bottom:var(--space-6)">Every project below links to its full write-up, architecture diagrams, and source code. Click through, read the failure modes, then use the nav to return here.</p>
-    <div class="cv-project-grid">
-      <div class="cv-project-card">
-        <div class="cv-project-metric">scoped</div>
-        <div class="cv-project-label">locked to one patient before searching, not filtered after. Tested against 30 adversarial probes, zero leaks</div>
-        <div class="cv-project-title">Smart Medical Records Engine</div>
-        <div class="cv-project-desc">
-          <p>Retrieval system over patient notes that surfaces critical history like prior allergies in seconds.</p>
-          <p>Enforced patient scoping at the schema level and tested it against <strong>30 adversarial probes</strong> to check for zero leaks. Kept the system on-premise so data never leaves the hospital.</p>
+    <article class="cv-entry">
+      <div class="cv-entry-header">
+        <div class="cv-entry-org">Data Specialist</div>
+        <div class="cv-entry-when">Mar 2025 - Dec 2025</div>
+      </div>
+      <div class="cv-entry-role">Huawei Technologies - Globacom Telecommunications Department, Lagos</div>
+      <div class="cv-entry-body">
+        <ul style="margin:0;padding-left:1.1em">
+          <li>Promoted from intern after the team extended the role.</li>
+          <li>Supported a customer data migration with the solutions architect.</li>
+          <li>Designed test cases with the test team to validate migration integrity.</li>
+          <li>Documented data handling rules and privacy-aligned cataloguing.</li>
+          <li>Profiled and validated user engagement data, resolving a reporting discrepancy.</li>
+          <li>Gathered stakeholder requirements and built governed, reusable datasets.</li>
+          <li>Owned reporting dashboards and workspaces.</li>
+          <li>Built dashboards tracking departmental performance.</li>
+          <li>Automated daily data extraction tasks, reducing manual reporting effort.</li>
+          <li>Designed database tables to support new software requirements.</li>
+        </ul>
+      </div>
+    </article>
+    <article class="cv-entry">
+      <div class="cv-entry-header">
+        <div class="cv-entry-org">Customer Care Process Automation</div>
+      </div>
+      <div class="cv-entry-role">Python and text classification tools</div>
+      <div class="cv-entry-body">
+        <ul style="margin:0;padding-left:1.1em">
+          <li>Automated ticket triage for a mobile network's customer care using text classification.</li>
+          <li>Built an escalation gate so uncertain tickets route to a person instead of a guess.</li>
+          <li>Mapped the existing process before automating, replacing manual steps.</li>
+        </ul>
+        <div class="cv-entry-links">
+          <a href="/p/care-agent/">Write-up</a>
+          <a href="/assets/docs/care_agent_writeup.pdf" target="_blank" rel="noopener">PDF</a>
+          <a href="https://github.com/iamtamilore/customer-care-automation" target="_blank" rel="noopener">Code</a>
         </div>
-        <div class="cv-project-links">
+      </div>
+    </article>
+    <article class="cv-entry">
+      <div class="cv-entry-header">
+        <div class="cv-entry-org">Smart Medical Records Engine</div>
+      </div>
+      <div class="cv-entry-role">Database and retrieval tools</div>
+      <div class="cv-entry-body">
+        <ul style="margin:0;padding-left:1.1em">
+          <li>Built a retrieval system over patient notes that surfaces critical history.</li>
+          <li>Enforced patient scoping so records stay separated by patient.</li>
+          <li>Logged every access and stripped personal information before processing.</li>
+        </ul>
+        <div class="cv-entry-links">
           <a href="/p/clinical-rag/">Write-up</a>
           <a href="/assets/docs/clinical_rag_writeup.pdf" target="_blank" rel="noopener">PDF</a>
           <a href="/assets/img/rag_architecture.jpg" target="_blank" rel="noopener">Architecture</a>
           <a href="/assets/img/rag_data_model.jpg" target="_blank" rel="noopener">Data model</a>
           <a href="https://github.com/iamtamilore/agentic_rag_fastapi" target="_blank" rel="noopener">Code</a>
         </div>
-        <div class="cv-project-cta"><a class="cta cta-ghost" href="/p/clinical-rag/" style="width:100%;justify-content:center">Read project &rarr;</a></div>
       </div>
-      <div class="cv-project-card">
-        <div class="cv-project-metric">grounded</div>
-        <div class="cv-project-label">flags risky clauses citing exact GDPR articles from a 4,527-chunk index</div>
-        <div class="cv-project-title">TermsGuard AI <span class="live">Live</span></div>
-        <div class="cv-project-desc">
-          <p><em>Contributed the retrieval pipeline, GDPR grounding, rule guards and latency reduction to a four-person team project.</em></p>
-          <p>Flags risky clauses in privacy policies grounded in exact source text and cites GDPR articles from a 4,527-chunk index. Cut analysis time from <strong>28 seconds to under 10 seconds</strong> and fixed how the system handles negation, such as "we do not sell your data".</p>
-        </div>
-        <div class="cv-project-links">
+    </article>
+    <article class="cv-entry">
+      <div class="cv-entry-header">
+        <div class="cv-entry-org">TermsGuard AI <span class="live">Live</span></div>
+      </div>
+      <div class="cv-entry-role">Text analysis and search tools</div>
+      <div class="cv-entry-body">
+        <ul style="margin:0;padding-left:1.1em">
+          <li>Contributed the retrieval pipeline and rule guards to a team project.</li>
+          <li>Flags risky clauses in privacy policies grounded in exact source text.</li>
+          <li>Reduced analysis time and improved how the system handles negation.</li>
+        </ul>
+        <div class="cv-entry-links">
           <a href="https://newtazer-terms-guard-ai.hf.space" target="_blank" rel="noopener">Live demo</a>
           <a href="/p/termsguard/">Write-up</a>
           <a href="/assets/docs/termsguard_writeup.pdf" target="_blank" rel="noopener">PDF</a>
           <a href="/assets/img/tg_architecture.jpg" target="_blank" rel="noopener">Architecture</a>
           <a href="https://github.com/iamtamilore/terms-guard-ai" target="_blank" rel="noopener">Code</a>
         </div>
-        <div class="cv-project-cta"><a class="cta cta-ghost" href="/p/termsguard/" style="width:100%;justify-content:center">Read project &rarr;</a></div>
       </div>
-      <div class="cv-project-card">
-        <div class="cv-project-metric">escalates</div>
-        <div class="cv-project-label">routes to a human below 0.55 confidence instead of guessing</div>
-        <div class="cv-project-title">Customer Care Process Automation</div>
-        <div class="cv-project-desc">
-          <p>Automated ticket triage for a mobile network's customer care using text classification to route complaints to five teams at <strong>95.2%</strong> on held-out tickets.</p>
-          <p>Built an escalation gate so tickets scoring under <strong>0.55 confidence</strong> route to a human instead of a guess. Mapped the existing process in BPMN before automating, replacing two manual processes.</p>
-        </div>
-        <div class="cv-project-links">
-          <a href="/p/care-agent/">Write-up</a>
-          <a href="/assets/docs/care_agent_writeup.pdf" target="_blank" rel="noopener">PDF</a>
-          <a href="https://github.com/iamtamilore/customer-care-automation" target="_blank" rel="noopener">Code</a>
-        </div>
-        <div class="cv-project-cta"><a class="cta cta-ghost" href="/p/care-agent/" style="width:100%;justify-content:center">Read project &rarr;</a></div>
-      </div>
-    </div>
-    <p class="cv-body-text" style="margin-top:var(--space-6);color:var(--text-3);font-style:italic;">Every project above follows the same rules: establish the baseline first, name the affordable error, draw before coding, freeze the pipeline, version everything, and state what breaks.</p>
+    </article>
   </section>
-
   <section class="cv-section">
     <h2 class="cv-sec-title">Skills</h2>
-    <p class="cv-body-text" style="margin-bottom:var(--space-4)">These are the tools and systems I work with. A recruiter scanning for a specific name should find it here.</p>
-    <div class="cv-skill-grid">
-      <div class="cv-skill-block">
-        <div class="cv-skill-cat">Data Governance</div>
-        <p class="cv-skill-list">Data classification, data lineage documentation, GDPR data cataloguing, data quality audits, UAT and controls testing, requirements analysis</p>
-      </div>
-      <div class="cv-skill-block">
-        <div class="cv-skill-cat">Telecom Analytics</div>
-        <p class="cv-skill-list">Subscriber metrics (Monthly Active Users, or MAU), operational KPI reporting, CRM analytics, process modelling using BPMN (Business Process Model and Notation), ticket triage automation</p>
-      </div>
-      <div class="cv-skill-block">
-        <div class="cv-skill-cat">Reporting Tools</div>
-        <p class="cv-skill-list">Power BI, SSRS (SQL Server Reporting Services), Tableau, Microsoft Word, Outlook, Excel</p>
-      </div>
-      <div class="cv-skill-block">
-        <div class="cv-skill-cat">Data Engineering</div>
-        <p class="cv-skill-list">SQL, Python ETL (Extract, Transform, Load) automation, PostgreSQL/pgvector, Hadoop HDFS/HBase, GaussDB, BigQuery, Docker, Kubernetes, FastAPI, Flask</p>
-      </div>
-      <div class="cv-skill-block">
-        <div class="cv-skill-cat">AI/ML Systems</div>
-        <p class="cv-skill-list">RAG (Retrieval-Augmented Generation) pipelines, pgvector, FAISS, LangGraph, LLM evaluation, model evaluation with ROC (Receiver Operating Characteristic) and calibration, scikit-learn, TensorFlow, Keras</p>
-      </div>
-      <div class="cv-skill-block">
-        <div class="cv-skill-cat">Languages Spoken</div>
-        <p class="cv-skill-list">English (Native)</p>
-      </div>
-    </div>
+    <table class="cv-skills-table">
+      <tr><td>Data classification</td><td>Data quality auditing</td></tr>
+      <tr><td>Migration validation</td><td>Privacy cataloguing</td></tr>
+      <tr><td>Requirements analysis</td><td>Process documentation</td></tr>
+      <tr><td>Database querying</td><td>Dashboard building</td></tr>
+      <tr><td>Automation scripting</td><td>Customer analytics</td></tr>
+      <tr><td>Ticket triage systems</td><td></td></tr>
+    </table>
+  </section>
+  <section class="cv-section">
+    <h2 class="cv-sec-title">Languages</h2>
+    <div class="cv-body-text"><p>English</p></div>
   </section>
   <section class="cv-section">
     <h2 class="cv-sec-title">Get in touch</h2>
