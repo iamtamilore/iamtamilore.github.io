@@ -64,28 +64,32 @@
 
     <div class="card" id="termsguard">
       <div class="metric">grounded</div>
-      <div class="metric-label">points to the exact rule text, so nothing is made up</div>
+      <div class="metric-label">every flag cites the GDPR article it came from, so nothing is invented</div>
       <div class="title">TermsGuard AI <span class="live">Live</span></div>
-      <div class="desc">Reads privacy policies and flags risky clauses, grounded in the exact rule text.</div>
+      <div class="desc">Cosine similarity alone marks "we do not sell your data" as a violation,
+        because the model can barely tell "sell" from "do not sell" apart. Rule
+        guards sit on top of the score, not instead of it.</div>
       <div class="go"><a class="stretch" href="/p/termsguard/">Read it &rarr;</a></div>
       <a class="cta" style="position:relative;z-index:2" href="https://newtazer-terms-guard-ai.hf.space" target="_blank" rel="noopener">Try the live demo</a>
     <div class="cardlinks"><a href="https://github.com/iamtamilore/terms-guard-ai">Code</a></div></div>
 
     <div class="card" id="clinical-rag">
       <div class="metric">scoped</div>
-      <div class="metric-label">tried 30 ways to leak data, none worked</div>
+      <div class="metric-label">per patient before ranking, not filtered after. Tried 30 ways to leak data, 0 worked</div>
       <div class="title">Smart Medical Records</div>
-      <div class="desc">Retrieval system over patient notes that surfaces critical history
-        like prior allergies in seconds, with zero data leaks across 30 adversarial probes.</div>
+      <div class="desc">A general vector search over a hospital corpus will eventually surface
+        the wrong patient. Scoping happens at the query layer, not as a filter
+        afterwards. Tried thirty ways to leak another patient's data. None worked.</div>
       <div class="go"><a class="stretch" href="/p/clinical-rag/">Read it &rarr;</a></div>
     <div class="cardlinks"><a href="https://github.com/iamtamilore/agentic_rag_fastapi">Code</a></div></div>
 
     <div class="card" id="care-agent">
       <div class="metric">escalates</div>
-      <div class="metric-label">hands off to a person instead of guessing</div>
+      <div class="metric-label">below 0.55 a human decides. 95.2% on the 40 of 42 it routed</div>
       <div class="title">Care Agent</div>
-      <div class="desc">Automated ticket triage for a mobile network's customer care using
-        text classification to route complaints to five teams at 95.2% accuracy.</div>
+      <div class="desc">The decision was the gate, not the classifier. Below 0.55 it escalates to
+        a human rather than forcing a label, and I report the lower automation
+        rate that produces.</div>
       <div class="go"><a class="stretch" href="/p/care-agent/">Read it &rarr;</a></div>
     <div class="cardlinks"><a href="https://github.com/iamtamilore/customer-care-automation">Code</a></div></div>
 
@@ -140,13 +144,13 @@
 
   <h2>Get in touch</h2>
   <div class="endcta">
-    <a class="cta" href="mailto:alabitaiwo625@gmail.com">Email me</a>
+    <a class="cta" href="mailto:newalabitaiwo625@gmail.com">Email me</a>
     <a class="cta cta-ghost" href="/cv/">View CV</a>
     <a class="cta cta-ghost" href="/assets/Taiwo_Alabi_CV.pdf" target="_blank" rel="noopener">
       Download CV <span class="cta-sub">PDF</span></a>
   </div>
   <nav class="meta" aria-label="Contact">
-    <a href="mailto:alabitaiwo625@gmail.com">alabitaiwo625@gmail.com</a>
+    <a href="mailto:newalabitaiwo625@gmail.com">newalabitaiwo625@gmail.com</a>
     <span aria-hidden="true">|</span>
     <a href="https://www.linkedin.com/in/tami-alabi/">LinkedIn</a>
     <span aria-hidden="true">|</span>
@@ -163,7 +167,7 @@
       <a href="/bank/">bank</a>
       <a href="/atoms/">atoms</a>
     </div>
-    <div style="margin-top:var(--space-2);font-size:var(--text-xs);color:var(--text-3)">Last updated 28 September 2026</div>
+    <div style="margin-top:var(--space-2);font-size:var(--text-xs);color:var(--text-3)">Last updated 14 October 2026</div>
   </footer>
 
 </div>
