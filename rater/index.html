@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garment OCR Rater — Item 1/80</title>
+    <link rel="stylesheet" href="rater.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="topbar">
+                <span id="rater-label" class="rater-pill">Rater: —</span>
+                <span id="progress" class="progress-pill">0 / 80 rated</span>
+            </div>
+            <h1 id="title">Item 1 of 80</h1>
+            <p id="meta" class="meta">brief · condition · replicate</p>
+        </header>
+
+        <main>
+            <figure class="image-wrap">
+                <img id="garment" src="" alt="Garment image">
+            </figure>
+
+            <section class="ocr-block">
+                <h2>Automated OCR result</h2>
+                <div class="ocr-row">
+                    <div class="ocr-stat">
+                        <div class="ocr-label">Auto accuracy</div>
+                        <div class="ocr-value" id="ocr-accuracy">—</div>
+                    </div>
+                    <div class="ocr-stat">
+                        <div class="ocr-label">Target wordmark</div>
+                        <div class="ocr-value" id="target-wordmark">—</div>
+                    </div>
+                </div>
+                <details>
+                    <summary>Detected text</summary>
+                    <pre id="ocr-text"></pre>
+                </details>
+            </section>
+
+            <section class="judgement">
+                <h2>Your judgement</h2>
+                <p class="judgement-hint">Is the automated OCR result correct for this image?</p>
+                <div class="judgement-buttons">
+                    <button id="btn-correct" class="jbtn jbtn-yes">OCR correct</button>
+                    <button id="btn-incorrect" class="jbtn jbtn-no">OCR incorrect</button>
+                    <button id="btn-skip" class="jbtn jbtn-skip">Skip</button>
+                </div>
+            </section>
+
+            <nav class="nav-row">
+                <button id="btn-prev" class="navbtn">← Previous</button>
+                <span id="idx-display" class="idx-display">1 / 80</span>
+                <button id="btn-next" class="navbtn">Next →</button>
+            </nav>
+        </main>
+
+        <footer>
+            <div class="export-row">
+                <button id="btn-export" class="export-btn">Download my ratings (JSON)</button>
+                <button id="btn-reset" class="reset-btn">Reset my progress</button>
+            </div>
+            <p class="footer-note">
+                Ratings live in your browser only. Use "Download my ratings" when done,
+                then send the file back. Bookmark this URL to resume across sessions.
+            </p>
+        </footer>
+    </div>
+    <script src="rater.js"></script>
+</body>
+</html>
