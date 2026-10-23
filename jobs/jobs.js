@@ -228,6 +228,87 @@
     });
   }
 
+
+  /* ---------- open roles (researched, with provenance) ---------- */
+
+  var OPEN = window.OPEN_ROLES || { jobs: [], closed_do_not_apply: [] };
+  var CONF_LABEL = {
+    'seen-on-own-dashboard': 'seen on own dashboard',
+    'unverified': 'unverified',
+    'rolling-unconfirmed': 'rolling, unconfirmed'
+  };
+
+  function renderOpen() {
+    var host = $('open-list');
+    if (!host) return;
+    var todayD = today();
+    var list = (OPEN.jobs || []).slice().sort(function (a, b) {
+      if (!a.deadline) return 1;
+      if (!b.deadline) return -1;
+      return a.deadline.localeCompare(b.deadline);
+    });
+
+    $('open-count').textContent = list.length + ' open';
+
+    if (!list.length) {
+      host.innerHTML = '<div class="empty">No researched roles loaded.</div>';
+      return;
+    }
+
+    host.innerHTML = list.map(function (j) {
+      var d = j.deadline ? daysBetween(todayD, j.deadline) : null;
+      var when;
+      if (d === null) when = '<span class="soon-when soon-ok">no date found</span>';
+      else if (d < 0) when = '<span class="soon-when">closed ' + Math.abs(d) + 'd ago</span>';
+      else when = '<span class="soon-when' + (d > 7 ? ' soon-ok' : '') + '">' +
+        (d === 0 ? 'closes TODAY' : d + ' day' + (d === 1 ? '' : 's')) + '</span>';
+
+      var fitCls = j.fit === 'high' ? 'badge-advance' : (j.fit === 'medium' ? 'badge-call' : '');
+      return '<div class="job">' +
+        '<div class="job-top">' +
+          '<div><span class="job-co">' + esc(j.company) + '</span>' +
+            '<div class="job-ro">' + esc(j.role) + '</div></div>' +
+          '<div style="display:flex;gap:6px;flex-wrap:wrap">' +
+            (j.already_applied ? '<span class="badge">already applied</span>' : '') +
+            (fitCls ? '<span class="badge ' + fitCls + '">' + esc(j.fit) + ' fit</span>' : '') +
+            when +
+          '</div>' +
+        '</div>' +
+        '<div class="job-meta">' + esc(j.location || '') + ' · via ' + esc(j.source || '?') +
+          ' · deadline ' + esc(j.deadline || 'not found') +
+          ' · source of date: <strong>' + esc(CONF_LABEL[j.deadline_conf] || j.deadline_conf || 'unknown') + '</strong></div>' +
+        (j.why ? '<div class="job-why">' + esc(j.why) + '</div>' : '') +
+        '<div class="job-actions">' +
+          (j.url ? '<a href="' + esc(j.url) + '" target="_blank" rel="noopener">open listing</a>' : '') +
+          '<button data-act="prefill" data-co="' + esc(j.company) + '" data-ro="' + esc(j.role) + '" data-loc="' + esc(j.location) + '">log this one</button>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  function renderClosed() {
+    var host = $('closed-list');
+    if (!host) return;
+    var list = (OPEN.closed_do_not_apply || []).slice().sort(function (a, b) {
+      return (b.closed || '').localeCompare(a.closed || '');
+    });
+    host.innerHTML = list.map(function (j) {
+      return '<div class="fit-row"><span class="fit-co"><strong>' + esc(j.company) + '</strong> · ' + esc(j.role) + '</span>' +
+        '<div class="fit-tag">closed ' + esc(j.closed) + '</div></div>';
+    }).join('');
+  }
+
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('button[data-act="prefill"]');
+    if (!b) return;
+    $('f-company').value = b.dataset.co || '';
+    $('f-role').value = b.dataset.ro || '';
+    $('f-location').value = b.dataset.loc || '';
+    $('f-date').value = today();
+    $('log-form').scrollIntoView({ block: 'center' });
+    $('f-why').focus();
+  });
+
   /* ---------- events ---------- */
 
   $('log-form').addEventListener('submit', function (e) {
@@ -339,7 +420,7 @@
     if (keep) sel.value = keep;
   }
 
-  function renderAll() { renderFunnel(); renderLedger(); renderSoon(); renderFit(); refreshOutcomeSelect(); }
+  function renderAll() { renderFunnel(); renderLedger(); renderSoon(); renderFit(); renderOpen(); renderClosed(); refreshOutcomeSelect(); }
 
   (function theme() {
     var K = 'tw-theme', R = document.documentElement;

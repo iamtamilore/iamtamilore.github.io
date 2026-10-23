@@ -142,6 +142,28 @@
     <p class="panel-sub">State lives in this browser only. Export before you clear it, or before switching devices.</p>
   </section>
 
+
+  <!-- ============ OPEN ROLES, researched 23 Oct 2026 ============ -->
+  <section class="panel" id="open-panel">
+    <div class="panel-head">
+      <h2>Open and worth a look</h2>
+      <span class="badge" id="open-count">0</span>
+    </div>
+    <p class="panel-sub">Researched 23 October 2026. Every row says where its date came from. A date marked
+      <em>unverified</em> came from web research and the URL was reachable, which proves the page exists and not that the
+      date is right. Open it before you plan around it. Deadlines shown as <em>seen on own dashboard</em> are the ones you
+      read yourself, which is the stronger source.</p>
+    <div id="open-list"></div>
+  </section>
+
+  <!-- ============ CLOSED ============ -->
+  <section class="panel" id="closed-panel">
+    <h2>Already closed</h2>
+    <p class="panel-sub">Recorded so the same door is not knocked on twice. Four of these were good fits and are gone for
+      this cycle, which is the real argument for checking the calendar rather than working from memory.</p>
+    <div id="closed-list"></div>
+  </section>
+
   <!-- ============ FIT WATCH ============ -->
   <section class="panel">
     <h2>Fit watch</h2>
@@ -154,6 +176,7 @@
 
 <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">&#9681;</button>
 <script src="jobs.js"></script>
+<script src="open-roles.js"></script>
 <script>
 window.JOBS_CATALOG = [
  {

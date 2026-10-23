@@ -1,0 +1,162 @@
+{
+  "_meta": {
+    "compiled": "2026-10-23",
+    "today": "2026-10-23",
+    "sources": {
+      "ta": "Seen by Taiwo on his own GradIreland dashboard, 23 Oct 2026. Primary.",
+      "sonar": "Live web research via ask.py/sonar, 23 Oct 2026. URL checked HTTP 200; the DEADLINE itself is only as good as the source and is marked.",
+      "both": "Corroborated by both."
+    },
+    "honesty_note": "A deadline marked 'unverified' is not a fact. A 200 on the URL proves the page exists, not that the date is right. Anything unverified is click-through-required before you plan around it."
+  },
+  "jobs": [
+    {
+      "company": "Stryker",
+      "role": "R&D Software Engineering Graduate Program (Sept 2027 intake)",
+      "location": "Cork",
+      "deadline": "2026-10-24",
+      "deadline_src": "sonar",
+      "deadline_conf": "unverified",
+      "url": "https://careers.stryker.com/r-d-software-engineering-graduate-program-september-2027/job/5A4464A6EB34988086F170005CA7C7F4",
+      "source": "Indeed",
+      "why": "Graduate SWE programme. Cork, not Dublin, so confirm it converts to a CSEP before you invest a day in it.",
+      "fit": "medium"
+    },
+    {
+      "company": "Accenture",
+      "role": "AI & Data Graduate Programme FY28",
+      "location": "Dublin",
+      "deadline": "2026-10-25",
+      "deadline_src": "ta",
+      "deadline_conf": "seen-on-own-dashboard",
+      "url": "https://accenture.pinpointhq.com/graduate-programmes-ireland",
+      "source": "GradIreland",
+      "why": "Direct AI-and-data graduate stream in Dublin. Sonar flagged the deadline unverified; your own dashboard shows it 2 days out, which is the stronger source.",
+      "fit": "high"
+    },
+    {
+      "company": "Musgrave",
+      "role": "AI Graduate Programme",
+      "location": "Dublin",
+      "deadline": "2026-10-26",
+      "deadline_src": "sonar",
+      "deadline_conf": "unverified",
+      "url": "https://www.musgravegroup.com/careers",
+      "source": "GradIreland",
+      "why": "Already in your applied list. Confirm the status rather than sending a second application.",
+      "fit": "high",
+      "already_applied": true
+    },
+    {
+      "company": "Central Bank of Ireland",
+      "role": "Graduate Programme 2027, Stream 1: AI, Analytics & Data",
+      "location": "Dublin",
+      "deadline": "2026-10-30",
+      "deadline_src": "sonar",
+      "deadline_conf": "unverified",
+      "url": "https://www.centralbank.ie/careers/graduate-entry-level-candidates",
+      "source": "Company site",
+      "why": "NEW, and the strongest single find. A named AI and analytics stream at the Central Bank in Dublin. This is the profile your CV actually matches.",
+      "fit": "high"
+    },
+    {
+      "company": "daa",
+      "role": "Technology & Data Innovation Graduate Pathways",
+      "location": "Dublin",
+      "deadline": "2026-10-30",
+      "deadline_src": "ta",
+      "deadline_conf": "seen-on-own-dashboard",
+      "url": "https://www.daa.ie/careers",
+      "source": "GradIreland",
+      "why": "Already applied to the daa Business Graduate Pathways. This is the technology and data strand, which is a different posting.",
+      "fit": "high"
+    },
+    {
+      "company": "EirGrid",
+      "role": "Graduate Opportunities 2027, all disciplines",
+      "location": "Dublin",
+      "deadline": "2026-10-30",
+      "deadline_src": "ta",
+      "deadline_conf": "seen-on-own-dashboard",
+      "url": "https://www.eirgrid.ie/careers",
+      "source": "GradIreland",
+      "why": "Critical infrastructure operator. Energy grid data has the same lineage and quality problems you worked on at Globacom.",
+      "fit": "medium"
+    },
+    {
+      "company": "Tesco Group",
+      "role": "Online Graduate Programme",
+      "location": "Dublin",
+      "deadline": "2026-10-31",
+      "deadline_src": "ta",
+      "deadline_conf": "seen-on-own-dashboard",
+      "url": "https://www.tesco.com/careers",
+      "source": "GradIreland",
+      "why": "Large graduate scheme. Confirm it has a data or technology stream rather than pure supply chain.",
+      "fit": "medium"
+    },
+    {
+      "company": "IT Development Programme",
+      "role": "ITDP, AI-Native Software Engineer",
+      "location": "Limerick",
+      "deadline": "2026-11-01",
+      "deadline_src": "sonar",
+      "deadline_conf": "unverified",
+      "url": "https://www.iagora.com/work/en/offer/graduate-programme-ireland-it/6463056",
+      "source": "Third party board",
+      "why": "Third-party listing rather than the company's own page, so treat the date as soft. Limerick, which is a viable CSEP location.",
+      "fit": "high"
+    },
+    {
+      "company": "Atlantic Simulation & Training Technologies (ASTech)",
+      "role": "Software Engineer",
+      "location": "Ireland",
+      "deadline": "2026-11-06",
+      "deadline_src": "ta",
+      "deadline_conf": "seen-on-own-dashboard",
+      "url": "https://gradireland.com/",
+      "source": "GradIreland",
+      "why": "Simulation and training software. Check the experience requirement, because 'Software Engineer' with no 'Graduate' in the title often still means entry.",
+      "fit": "medium"
+    },
+    {
+      "company": "Unnamed, via GradIreland",
+      "role": "Data and Analytics Graduate Programme, Ireland",
+      "location": "Dublin",
+      "deadline": "2026-11-15",
+      "deadline_src": "sonar",
+      "deadline_conf": "unverified",
+      "url": "https://gradireland.com/jobs/data-and-analytics-graduate-programme-ireland-253587",
+      "source": "GradIreland",
+      "why": "Sonar returned the listing without naming the employer. Open it before spending time, and if the employer is not one you want, skip it.",
+      "fit": "unknown"
+    },
+    {
+      "company": "AIB",
+      "role": "Finance Data Analyst Graduate Programme 2027",
+      "location": "Dublin",
+      "deadline": "",
+      "deadline_src": "sonar",
+      "deadline_conf": "rolling-unconfirmed",
+      "url": "https://careers.aib.ie/",
+      "source": "Company site",
+      "why": "You already applied to AIB's Enterprise Delivery Graduate Programme. This is the data strand, different posting. Sonar could not confirm the closing date.",
+      "fit": "medium"
+    }
+  ],
+  "closed_do_not_apply": [
+    { "company": "EY Ireland", "role": "AI & Data Graduate Programme 2027", "closed": "2026-10-21" },
+    { "company": "Kerry Group", "role": "Graduate Programme 2027, ICT", "closed": "2026-10-15" },
+    { "company": "ptsb", "role": "Technology, Data & Analytics Graduate Programmes 2027", "closed": "2026-10-18" },
+    { "company": "ptsb", "role": "People, Governance and Operations Graduate Programmes 2027", "closed": "2026-10-18" },
+    { "company": "IT Development Programme", "role": "ITDP 2027, Software", "closed": "2026-10-19" },
+    { "company": "IT Development Programme", "role": "ITDP 2027, Data & Analytics", "closed": "2026-10-19" },
+    { "company": "Google Ireland", "role": "Software Engineering Graduate", "closed": "2026-09-23" },
+    { "company": "Meta Ireland", "role": "Security Engineering Graduate", "closed": "2026-09-25" },
+    { "company": "RSM Ireland", "role": "2027 Graduate Programme", "closed": "2026-09-30" },
+    { "company": "BDO Ireland", "role": "Risk & Advisory Graduate Programme", "closed": "2026-10-09" },
+    { "company": "Allianz", "role": "Data Analytics Graduate Programme", "closed": "2026-10-11" },
+    { "company": "Version 1", "role": "Software Engineer, Early Careers", "closed": "2026-09-14" },
+    { "company": "Grant Thornton", "role": "2027 Advisory Graduate Programme", "closed": "2026-10-22" }
+  ]
+}
