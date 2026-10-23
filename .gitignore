@@ -13,3 +13,12 @@
 atoms/reels_db.sqlite
 *.sqlite
 atoms/frames
+
+# Rater tooling. Both files stay local on purpose.
+# PRIVATE_unblinding_map.json maps opaque item ids back to condition and
+# replicate. Committing it to a public repo would unblind the study to anyone
+# who opens the file, which invalidates every rating collected.
+rater/assets/PRIVATE_unblinding_map.json
+# Holds the per-rater invite tokens. Committing it means anyone reading the repo
+# can submit ratings as any rater.
+rater/raters_log.csv

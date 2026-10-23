@@ -1,224 +1,426 @@
-/* Rater UI - pure client-side. No backend.
+/* Rater interface logic. No backend, no network calls except items.json.
  *
- * URL parameters:
- *   ?rater=A&token=xyz   - identifies this rater; stored in localStorage after first load
+ * Implements RATER_RUBRIC.md exactly, in the rubric's own order:
+ *   Q1 visibility gate (yes / partly / no)  -- gates everything after it
+ *   Q2 hood state   (up / down / no hood present / cannot determine)
+ *   Q3 metal eyelets (yes / no / cannot determine)  -- presence only
+ *   Q4 drawcord toggle count (0 / 1 / 2 / 3 / 4+ / cannot tell)  -- exact numbers
+ *   Q5 collar inner trim (red / other colour / none visible / cannot tell)
+ *   Q6 free text, revealed ONLY after q1-q5 are locked
  *
- * State stored in localStorage under key 'rater-state-<rater_id>':
- *   { rater_id, token, current_idx, answers: { item_id: 'correct'|'incorrect'|'skipped' } }
+ * Two protocol details that are easy to get wrong and are enforced here:
+ *   1. Free text is shown only after the ratings above are locked, so it cannot
+ *      become a post-hoc justification for a rating already given.
+ *   2. Free text is REQUIRED when visibility is partly or no, when any answer is
+ *      cannot determine, when the toggle count is 0 or 4+, and on a
+ *      pre-specified random 20% of ordinary items.
  *
- * Export: downloads a JSON file with all answers + metadata, named after the rater id.
+ * BLINDING: items.json carries no condition, no replicate, no brief id. Item ids
+ * are opaque and derived from shuffled position. Image filenames are opaque.
+ * Nothing here derives, prints, or sorts by condition.
  */
 
-(function() {
-    'use strict';
+(function () {
+  'use strict';
 
-    const PARAMS = new URLSearchParams(window.location.search);
-    const RATER_ID = PARAMS.get('rater') || 'A';
-    const TOKEN = PARAMS.get('token') || '';
+  var params = new URLSearchParams(window.location.search);
+  var RATER_ID = params.get('rater') || 'anonymous';
+  var TOKEN = params.get('token') || '';
+  var STATE_KEY = 'garment-rating/v3:' + RATER_ID;
 
-    const STATE_KEY = `rater-state-${RATER_ID}`;
-    const ITEMS_URL = 'assets/items.json';
+  var QUESTIONS = ['q1', 'q2', 'q3', 'q4', 'q5'];
 
-    let ITEMS = [];
-    let STATE = {
-        rater_id: RATER_ID,
-        token: TOKEN,
-        current_idx: 0,
-        answers: {}
+  // Same seed as the shuffled presentation, so the 20% sample is identical for
+  // every rater. Change it only alongside items.json.
+  var SEED = 20261023;
+  var FREE_TEXT_SAMPLE_RATE = 0.20;
+
+  var ITEMS = [];
+  var STATE = { rater_id: RATER_ID, token: TOKEN, current_idx: 0, answers: {} };
+
+  var $ = function (id) { return document.getElementById(id); };
+  var elImg = $('garment');
+  var elScroll = $('stage-scroll');
+  var elPill = $('rater-pill');
+  var elProg = $('progress-pill');
+  var elFreePill = $('free-pill');
+  var elIdx = $('idx-display');
+  var elPrev = $('btn-prev');
+  var elNext = $('btn-next');
+  var elExport = $('btn-export');
+  var elReset = $('btn-reset');
+  var elDetail = $('detail-block');
+  var elQ6 = $('q6-block');
+  var elFreeText = $('free-text');
+  var elFreeCount = $('free-count');
+  var elSkipNote = $('skip-note');
+  var elSkipText = $('skip-text');
+
+  /* ---------- the 20% sample, decided by opaque item id not by condition ---------- */
+
+  function isSampled(id) {
+    var h = 0;
+    for (var i = 0; i < id.length; i++) {
+      h = ((h << 5) - h + id.charCodeAt(i)) | 0;
+    }
+    return Math.abs(h) % 100 < FREE_TEXT_SAMPLE_RATE * 100;
+  }
+
+  /* ---------- free text requirement ---------- */
+
+  function freeTextRequired(ans) {
+    if (!ans || !ans.q1) return false;
+    if (ans.q1 === 'no' || ans.q1 === 'partly') return true;
+    if (ans.q2 === 'cannot_determine') return true;
+    if (ans.q3 === 'cannot_determine') return true;
+    if (ans.q4 === 'cannot_determine') return true;
+    if (ans.q4 === '0' || ans.q4 === '4plus') return true;
+    if (ans.q5 === 'cannot_determine') return true;
+    return false;
+  }
+
+  function isLocked(id) {
+    var a = STATE.answers[id];
+    return !!(a && a.locked);
+  }
+
+  function wordCount(s) {
+    var t = String(s || '').trim();
+    return t ? t.split(/\s+/).length : 0;
+  }
+
+  function countsComplete() {
+    return ITEMS.filter(function (it) {
+      var a = STATE.answers[it.id];
+      if (!a || !a.responses || !a.responses.q1) return false;
+      if (a.responses.q1 === 'no') return a.locked === true;
+      return QUESTIONS.every(function (q) { return a.responses[q]; }) && a.locked === true;
+    }).length;
+  }
+
+  function pendingFreeText() {
+    return ITEMS.filter(function (it) {
+      var a = STATE.answers[it.id];
+      if (!a || !a.responses || !a.responses.q1 || a.locked) return false;
+      var need = freeTextRequired(a.responses) || isSampled(it.id);
+      return need && !a.free_text;
+    }).length;
+  }
+
+  /* ---------- persistence ---------- */
+
+  function load() {
+    try {
+      var raw = localStorage.getItem(STATE_KEY);
+      if (!raw) return;
+      var saved = JSON.parse(raw);
+      STATE.current_idx = Number(saved.current_idx) || 0;
+      STATE.answers = saved.answers && typeof saved.answers === 'object' ? saved.answers : {};
+    } catch (e) {
+      console.warn('could not restore rater state', e);
+    }
+  }
+
+  function save() {
+    try {
+      localStorage.setItem(STATE_KEY, JSON.stringify(STATE));
+    } catch (e) {
+      console.warn('could not save rater state', e);
+    }
+  }
+
+  function answerFor(id) {
+    if (!STATE.answers[id]) {
+      STATE.answers[id] = { responses: {}, locked: false, free_text: null, order_index: null };
+    }
+    return STATE.answers[id];
+  }
+
+  /* ---------- render ---------- */
+
+  function clampIdx(i) {
+    if (i < 0) return 0;
+    if (i > ITEMS.length - 1) return ITEMS.length - 1;
+    return i;
+  }
+
+  function render() {
+    STATE.current_idx = clampIdx(STATE.current_idx);
+    var i = STATE.current_idx;
+    var item = ITEMS[i];
+    if (!item) return;
+
+    document.title = 'Garment rating, item ' + (i + 1) + ' of ' + ITEMS.length;
+
+    var next = new Image();
+    next.onload = function () { elImg.src = item.image; elImg.alt = 'Garment image ' + item.id; };
+    next.onerror = function () { elImg.src = item.image; };
+    next.src = item.image;
+    resetZoom();
+
+    var ans = STATE.answers[item.id];
+    var r = (ans && ans.responses) || {};
+    var locked = !!(ans && ans.locked);
+
+    // Q1 always visible: it gates everything after it.
+    paint('q1', r.q1);
+    $('q1-note').hidden = !r.q1 || r.q1 === 'yes';
+
+    var skipDetails = r.q1 === 'no';
+    elDetail.hidden = skipDetails;
+    elQ6.hidden = true;
+
+    QUESTIONS.slice(1).forEach(function (q) {
+      paint(q, r[q]);
+    });
+
+    if (skipDetails) {
+      elSkipNote.hidden = false;
+      elSkipText.value = (ans && ans.free_text) || '';
+    } else {
+      elSkipNote.hidden = true;
+      elSkipText.value = '';
+    }
+
+    // Free text opens only once the ratings above are locked.
+    var showFree = false;
+    if (r.q1 === 'no') {
+      showFree = !locked;
+    } else if (r.q1 && QUESTIONS.every(function (q) { return r[q]; })) {
+      showFree = !locked;
+    }
+    if (showFree) {
+      elQ6.hidden = skipDetails;
+      if (!skipDetails) {
+        elFreeText.value = (ans && ans.free_text) || '';
+        updateWordCount(elFreeText.value);
+      }
+    } else {
+      elFreeText.value = (ans && ans.free_text) || '';
+    }
+
+    elIdx.textContent = (i + 1) + ' / ' + ITEMS.length;
+    elProg.textContent = countsComplete() + ' of ' + ITEMS.length + ' complete';
+    var pend = pendingFreeText();
+    elFreePill.textContent = pend ? ('free text: ' + pend + ' required') : 'free text: none outstanding';
+
+    elPrev.disabled = (i === 0);
+    elNext.disabled = (i === ITEMS.length - 1);
+    elExport.disabled = countsComplete() === 0;
+  }
+
+  function paint(q, value) {
+    var group = document.querySelector('.opts[data-q="' + q + '"]');
+    if (!group) return;
+    group.querySelectorAll('.opt').forEach(function (b) {
+      b.setAttribute('aria-pressed', b.dataset.v === value ? 'true' : 'false');
+    });
+  }
+
+  function updateWordCount(v) {
+    var n = wordCount(v);
+    elFreeCount.textContent = n + (n === 1 ? ' word' : ' words');
+    if (n === 0) { elFreeCount.className = 'free-count'; return; }
+    if (n < 5) { elFreeCount.className = 'free-count'; return; }
+    if (n <= 25) { elFreeCount.className = 'free-count ok'; return; }
+    elFreeCount.className = 'free-count over';
+  }
+
+  /* ---------- actions ---------- */
+
+  function setVerdict(q, v) {
+    var item = ITEMS[STATE.current_idx];
+    if (!item) return;
+    var ans = answerFor(item.id);
+    if (ans.locked) return;               // locked means locked
+    ans.responses[q] = ans.responses[q] === v ? undefined : v;
+    if (ans.responses[q] === undefined) delete ans.responses[q];
+    save();
+    render();
+  }
+
+  function lock() {
+    var item = ITEMS[STATE.current_idx];
+    if (!item) return;
+    var ans = answerFor(item.id);
+    var r = ans.responses;
+    var skipDetails = r.q1 === 'no';
+    var text = skipDetails ? elSkipText.value : elFreeText.value;
+
+    if (!skipDetails) {
+      var missing = QUESTIONS.filter(function (q) { return !r[q]; });
+      if (missing.length) {
+        alert('Still unanswered: ' + missing.join(', ').replace('q', 'Q'));
+        return;
+      }
+    }
+
+    var need = skipDetails || freeTextRequired(r) || isSampled(item.id);
+    if (need && wordCount(text) === 0) {
+      alert('This item needs the short note. Name what you saw, or what stopped you judging.');
+      elSkipText.focus();
+      return;
+    }
+
+    ans.free_text = text.trim() || null;
+    ans.locked = true;
+    ans.locked_at = new Date().toISOString();
+    save();
+    if (STATE.current_idx < ITEMS.length - 1) goto(STATE.current_idx + 1);
+    else render();
+  }
+
+  function goto(i) {
+    STATE.current_idx = clampIdx(i);
+    save();
+    render();
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }
+
+  function exportJson() {
+    var ratings = ITEMS.map(function (it) {
+      var a = STATE.answers[it.id];
+      var r = (a && a.responses) || {};
+      var required = freeTextRequired(r);
+      return {
+        item_id: it.id,
+        q1_visibility: r.q1 || null,
+        q2_hood_state: r.q2 || null,
+        q3_metal_eyelets: r.q3 || null,
+        q4_drawcord_toggles: r.q4 || null,
+        q5_collar_inner_trim: r.q5 || null,
+        free_text: (a && a.free_text) || null,
+        free_text_required: required,
+        free_text_sampled: isSampled(it.id),
+        locked: !!(a && a.locked),
+        locked_at: (a && a.locked_at) || null,
+        auto_ocr_accuracy: it.ocr_accuracy,
+        target_wordmark: it.target_wordmark,
+        auto_ocr_text: it.ocr_detected_text
+      };
+    });
+    var out = {
+      schema: 'garment-construction-rating/v3',
+      rater_id: STATE.rater_id,
+      exported_at: new Date().toISOString(),
+      total_items: ITEMS.length,
+      complete_items: countsComplete(),
+      outstanding_free_text: pendingFreeText(),
+      presentation: { masked: true, order: 'fixed-shuffled', seed: SEED, free_text_sample_rate: FREE_TEXT_SAMPLE_RATE },
+      rubric_version: 'RATER_RUBRIC.md as frozen for this run',
+      ratings: ratings
     };
+    var blob = new Blob([JSON.stringify(out, null, 2)], { type: 'application/json' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'ratings_' + STATE.rater_id + '_' + out.exported_at.replace(/[:.]/g, '-') + '.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
 
-    // ---- DOM refs ----
-    const elTitle = document.getElementById('title');
-    const elMeta = document.getElementById('meta');
-    const elImg = document.getElementById('garment');
-    const elOcrAcc = document.getElementById('ocr-accuracy');
-    const elOcrText = document.getElementById('ocr-text');
-    const elTargetWm = document.getElementById('target-wordmark');
-    const elRaterLabel = document.getElementById('rater-label');
-    const elProgress = document.getElementById('progress');
-    const elIdxDisplay = document.getElementById('idx-display');
-    const elBtnCorrect = document.getElementById('btn-correct');
-    const elBtnIncorrect = document.getElementById('btn-incorrect');
-    const elBtnSkip = document.getElementById('btn-skip');
-    const elBtnPrev = document.getElementById('btn-prev');
-    const elBtnNext = document.getElementById('btn-next');
-    const elBtnExport = document.getElementById('btn-export');
-    const elBtnReset = document.getElementById('btn-reset');
+  function reset() {
+    if (!confirm('Clear every rating stored in this browser for rater ' + STATE.rater_id + '? This cannot be undone.')) return;
+    localStorage.removeItem(STATE_KEY);
+    STATE = { rater_id: RATER_ID, token: TOKEN, current_idx: 0, answers: {} };
+    save();
+    render();
+  }
 
-    // ---- State ----
-    function loadState() {
-        try {
-            const raw = localStorage.getItem(STATE_KEY);
-            if (raw) {
-                const saved = JSON.parse(raw);
-                STATE.current_idx = saved.current_idx || 0;
-                STATE.answers = saved.answers || {};
-            }
-        } catch (e) {
-            console.warn('Failed to load state from localStorage:', e);
-        }
+  /* ---------- zoom and pan ---------- */
+
+  function resetZoom() {
+    elImg.classList.remove('zoomed');
+    elScroll.scrollTop = 0;
+    elScroll.scrollLeft = 0;
+  }
+
+  var drag = null;
+  elScroll.addEventListener('mousedown', function (e) {
+    if (!elImg.classList.contains('zoomed')) return;
+    drag = { x: e.clientX, y: e.clientY, sl: elScroll.scrollLeft, st: elScroll.scrollTop };
+    elScroll.classList.add('dragging');
+  });
+  window.addEventListener('mousemove', function (e) {
+    if (!drag) return;
+    elScroll.scrollLeft = drag.sl - (e.clientX - drag.x);
+    elScroll.scrollTop = drag.st - (e.clientY - drag.y);
+  });
+  window.addEventListener('mouseup', function () {
+    drag = null;
+    elScroll.classList.remove('dragging');
+  });
+
+  /* ---------- wiring ---------- */
+
+  document.querySelectorAll('.opts[data-q]').forEach(function (group) {
+    var q = group.dataset.q;
+    group.querySelectorAll('.opt').forEach(function (btn) {
+      btn.addEventListener('click', function () { setVerdict(q, btn.dataset.v); });
+    });
+  });
+
+  $('zoom-in').addEventListener('click', function () { elImg.classList.add('zoomed'); });
+  $('zoom-out').addEventListener('click', function () { resetZoom(); });
+  $('zoom-reset').addEventListener('click', function () { resetZoom(); });
+  $('btn-lock').addEventListener('click', lock);
+  $('btn-skip-lock').addEventListener('click', lock);
+  elPrev.addEventListener('click', function () { goto(STATE.current_idx - 1); });
+  elNext.addEventListener('click', function () { goto(STATE.current_idx + 1); });
+  elExport.addEventListener('click', exportJson);
+  elReset.addEventListener('click', reset);
+
+  elFreeText.addEventListener('input', function () { updateWordCount(elFreeText.value); });
+
+  document.addEventListener('keydown', function (e) {
+    var t = e.target;
+    if (t && /input|textarea|select/i.test(t.tagName)) return;
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.key === 'ArrowRight') { goto(STATE.current_idx + 1); e.preventDefault(); }
+    else if (e.key === 'ArrowLeft') { goto(STATE.current_idx - 1); e.preventDefault(); }
+  });
+
+  (function theme() {
+    var K = 'tw-theme', R = document.documentElement;
+    function apply(t) {
+      if (t === 'dark') R.setAttribute('data-theme', 'dark');
+      else if (t === 'light') R.setAttribute('data-theme', 'light');
+      else R.removeAttribute('data-theme');
     }
-
-    function saveState() {
-        try {
-            localStorage.setItem(STATE_KEY, JSON.stringify(STATE));
-        } catch (e) {
-            console.warn('Failed to save state to localStorage:', e);
-        }
+    var tt = document.getElementById('themeToggle');
+    if (tt) {
+      tt.addEventListener('click', function () {
+        var cur = R.getAttribute('data-theme');
+        var next = cur === 'dark' ? 'light' : cur === 'light' ? '' : 'dark';
+        apply(next);
+        if (next) localStorage.setItem(K, next); else localStorage.removeItem(K);
+      });
     }
+    var stored = localStorage.getItem(K);
+    if (stored) apply(stored);
+  })();
 
-    function countAnswered() {
-        return Object.values(STATE.answers).filter(a => a === 'correct' || a === 'incorrect').length;
-    }
+  /* ---------- boot ---------- */
 
-    // ---- Rendering ----
-    function render() {
-        const i = STATE.current_idx;
-        if (i < 0) STATE.current_idx = 0;
-        if (i >= ITEMS.length) STATE.current_idx = ITEMS.length - 1;
-
-        const item = ITEMS[STATE.current_idx];
-        if (!item) return;
-
-        document.title = `Garment OCR Rater — Item ${i + 1}/${ITEMS.length}`;
-        elTitle.textContent = `Item ${i + 1} of ${ITEMS.length}`;
-        elMeta.textContent = `brief=${item.brief}  ·  condition=${item.condition} (${item.condition_name})  ·  replicate=${String(item.replicate).padStart(2, '0')}`;
-        elImg.src = item.image;
-        elImg.alt = `${item.brief} condition ${item.condition} replicate ${item.replicate}`;
-
-        // ocr_accuracy may be null in scores.csv for some rows; show as —
-        if (item.ocr_accuracy === null || item.ocr_accuracy === undefined) {
-            elOcrAcc.textContent = '—';
-        } else {
-            elOcrAcc.textContent = (item.ocr_accuracy * 100).toFixed(1) + '%';
-        }
-        elTargetWm.textContent = item.target_wordmark || '—';
-        elOcrText.textContent = item.ocr_detected_text || '(no text detected)';
-
-        // judgement state
-        const cur = STATE.answers[item.id];
-        setJudgementActive(cur);
-
-        // progress + nav
-        const done = countAnswered();
-        elProgress.textContent = `${done} / ${ITEMS.length} rated`;
-        elIdxDisplay.textContent = `${i + 1} / ${ITEMS.length}`;
-        elBtnPrev.disabled = (i === 0);
-        elBtnNext.disabled = (i === ITEMS.length - 1);
-        elBtnExport.disabled = (done === 0);
-    }
-
-    function setJudgementActive(value) {
-        elBtnCorrect.classList.toggle('selected', value === 'correct');
-        elBtnIncorrect.classList.toggle('selected', value === 'incorrect');
-        elBtnSkip.classList.toggle('selected', value === 'skipped');
-    }
-
-    // ---- Actions ----
-    function recordAnswer(verdict) {
-        const item = ITEMS[STATE.current_idx];
-        if (!item) return;
-        if (verdict === null) {
-            delete STATE.answers[item.id];
-        } else {
-            STATE.answers[item.id] = verdict;
-        }
-        saveState();
-        render();
-    }
-
-    function goto(idx) {
-        STATE.current_idx = idx;
-        saveState();
-        render();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function downloadJson() {
-        const out = {
-            rater_id: STATE.rater_id,
-            token: STATE.token,
-            brief: 'P1',
-            exported_at: new Date().toISOString(),
-            total_items: ITEMS.length,
-            answered: countAnswered(),
-            answers: STATE.answers,
-            // include the items metadata for traceability
-            items_metadata: ITEMS.map(it => ({
-                id: it.id,
-                condition: it.condition,
-                replicate: it.replicate,
-                ocr_accuracy: it.ocr_accuracy,
-                auto_verdict: STATE.answers[it.id] || null
-            }))
-        };
-        const blob = new Blob([JSON.stringify(out, null, 2)], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `ratings_${STATE.rater_id}_${out.exported_at.replace(/[:.]/g, '-')}.json`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-    }
-
-    function resetProgress() {
-        if (!confirm(`Reset all of rater ${STATE.rater_id}'s progress? This clears localStorage for this rater only.`)) return;
-        localStorage.removeItem(STATE_KEY);
-        STATE = {
-            rater_id: RATER_ID,
-            token: TOKEN,
-            current_idx: 0,
-            answers: {}
-        };
-        saveState();
-        render();
-    }
-
-    // ---- Wiring ----
-    elBtnCorrect.addEventListener('click', () => recordAnswer('correct'));
-    elBtnIncorrect.addEventListener('click', () => recordAnswer('incorrect'));
-    elBtnSkip.addEventListener('click', () => recordAnswer('skipped'));
-
-    // Click a selected button to un-rate it
-    [elBtnCorrect, elBtnIncorrect].forEach(btn => {
-        btn.addEventListener('dblclick', () => recordAnswer(null));
+  fetch('assets/items.json')
+    .then(function (r) {
+      if (!r.ok) throw new Error('items.json returned ' + r.status);
+      return r.json();
+    })
+    .then(function (data) {
+      ITEMS = data.items || [];
+      if (!ITEMS.length) throw new Error('no items in items.json');
+      load();
+      elPill.textContent = 'rater ' + STATE.rater_id + (TOKEN ? ' · verified link' : '');
+      render();
+    })
+    .catch(function (err) {
+      document.querySelector('main').innerHTML =
+        '<p style="text-align:center;color:var(--error);padding:var(--space-12) 0">' +
+        'Could not load the item list (' + err.message + ').<br><br>' +
+        'Open this from <code>iamtamilore.github.io/rater/</code> rather than a saved copy.</p>';
     });
 
-    elBtnPrev.addEventListener('click', () => goto(STATE.current_idx - 1));
-    elBtnNext.addEventListener('click', () => goto(STATE.current_idx + 1));
-    elBtnExport.addEventListener('click', downloadJson);
-    elBtnReset.addEventListener('click', resetProgress);
-
-    document.addEventListener('keydown', (e) => {
-        // Don't intercept while typing in inputs (there aren't any here, but be safe)
-        if (e.target && /input|textarea/i.test(e.target.tagName)) return;
-        if (e.key === 'ArrowRight' || e.key === 'j') goto(STATE.current_idx + 1);
-        else if (e.key === 'ArrowLeft' || e.key === 'k') goto(STATE.current_idx - 1);
-        else if (e.key === '1' || e.key === 'y') recordAnswer('correct');
-        else if (e.key === '2' || e.key === 'n') recordAnswer('incorrect');
-        else if (e.key === '3' || e.key === 's') recordAnswer('skipped');
-    });
-
-    // ---- Boot ----
-    fetch(ITEMS_URL)
-        .then(r => {
-            if (!r.ok) throw new Error('items.json HTTP ' + r.status);
-            return r.json();
-        })
-        .then(data => {
-            ITEMS = data.items || [];
-            if (ITEMS.length === 0) {
-                document.querySelector('main').innerHTML = '<p style="text-align:center;color:#888;padding:40px">No items loaded.</p>';
-                return;
-            }
-            loadState();
-            elRaterLabel.textContent = `Rater: ${RATER_ID}${TOKEN ? ' · token set' : ''}`;
-            render();
-        })
-        .catch(err => {
-            document.querySelector('main').innerHTML =
-                `<p style="text-align:center;color:#dc3545;padding:40px">Failed to load items.json: ${err.message}<br><br>Check that you opened this from the github.io site root.</p>`;
-        });
 })();

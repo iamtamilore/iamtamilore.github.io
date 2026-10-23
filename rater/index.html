@@ -1,73 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Garment OCR Rater — Item 1/80</title>
-    <link rel="stylesheet" href="rater.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Garment rating, item 1 of 80</title>
+<meta name="description" content="Rating interface for a garment construction detail study. 80 images, one at a time.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="/assets/css/design-system.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230f0e0c'/><text y='72' x='50' font-size='62' text-anchor='middle' fill='%23c45a1f' font-family='sans-serif' font-weight='bold'>T</text></svg>">
+<link rel="stylesheet" href="rater.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="topbar">
-                <span id="rater-label" class="rater-pill">Rater: —</span>
-                <span id="progress" class="progress-pill">0 / 80 rated</span>
-            </div>
-            <h1 id="title">Item 1 of 80</h1>
-            <p id="meta" class="meta">brief · condition · replicate</p>
-        </header>
 
-        <main>
-            <figure class="image-wrap">
-                <img id="garment" src="" alt="Garment image">
-            </figure>
+<nav class="util" aria-label="Site">
+  <a href="/">portfolio</a>
+  <a href="/tools/">tools</a>
+</nav>
 
-            <section class="ocr-block">
-                <h2>Automated OCR result</h2>
-                <div class="ocr-row">
-                    <div class="ocr-stat">
-                        <div class="ocr-label">Auto accuracy</div>
-                        <div class="ocr-value" id="ocr-accuracy">—</div>
-                    </div>
-                    <div class="ocr-stat">
-                        <div class="ocr-label">Target wordmark</div>
-                        <div class="ocr-value" id="target-wordmark">—</div>
-                    </div>
-                </div>
-                <details>
-                    <summary>Detected text</summary>
-                    <pre id="ocr-text"></pre>
-                </details>
-            </section>
+<div class="rate-wrap">
 
-            <section class="judgement">
-                <h2>Your judgement</h2>
-                <p class="judgement-hint">Is the automated OCR result correct for this image?</p>
-                <div class="judgement-buttons">
-                    <button id="btn-correct" class="jbtn jbtn-yes">OCR correct</button>
-                    <button id="btn-incorrect" class="jbtn jbtn-no">OCR incorrect</button>
-                    <button id="btn-skip" class="jbtn jbtn-skip">Skip</button>
-                </div>
-            </section>
-
-            <nav class="nav-row">
-                <button id="btn-prev" class="navbtn">← Previous</button>
-                <span id="idx-display" class="idx-display">1 / 80</span>
-                <button id="btn-next" class="navbtn">Next →</button>
-            </nav>
-        </main>
-
-        <footer>
-            <div class="export-row">
-                <button id="btn-export" class="export-btn">Download my ratings (JSON)</button>
-                <button id="btn-reset" class="reset-btn">Reset my progress</button>
-            </div>
-            <p class="footer-note">
-                Ratings live in your browser only. Use "Download my ratings" when done,
-                then send the file back. Bookmark this URL to resume across sessions.
-            </p>
-        </footer>
+  <header class="rate-head">
+    <div class="rate-topline">
+      <span class="pill" id="rater-pill">rater, loading</span>
+      <span class="pill" id="progress-pill">0 of 80 complete</span>
+      <span class="pill pill-quiet" id="free-pill">free text: 0 required</span>
     </div>
-    <script src="rater.js"></script>
+    <h1 class="rate-h1">Judge what the picture shows</h1>
+    <p class="rate-sub">Eighty garment images, one at a time. Answer only what you can see in this frame.
+      Describe the construction, not whether you like it.</p>
+  </header>
+
+  <main>
+    <figure class="stage">
+      <div class="stage-zoom">
+        <button class="zoom-btn" id="zoom-in" type="button" title="Zoom in" aria-label="Zoom in">+</button>
+        <button class="zoom-btn" id="zoom-out" type="button" title="Zoom out" aria-label="Zoom out">&minus;</button>
+        <button class="zoom-btn" id="zoom-reset" type="button" title="Fit to frame" aria-label="Fit to frame">fit</button>
+      </div>
+      <div class="stage-scroll" id="stage-scroll">
+        <img id="garment" alt="Garment image under review" width="1254" height="1254">
+      </div>
+      <figcaption class="stage-cap">Small detail? Zoom in. Scroll or drag to pan.</figcaption>
+    </figure>
+
+    <section class="panel" id="q1-block">
+      <div class="q-head">
+        <span class="q-num">1</span>
+        <span class="q-ask">Is the collar region clear enough in this image to judge how the hood and collar are built?</span>
+      </div>
+      <div class="opts opts-3" data-q="q1" role="group" aria-label="Visibility">
+        <button class="opt" data-v="yes" type="button">yes</button>
+        <button class="opt" data-v="partly" type="button">partly</button>
+        <button class="opt" data-v="no" type="button">no</button>
+      </div>
+      <p class="q-note" id="q1-note">If <b>no</b>, the rest is skipped and only the note below is asked.</p>
+    </section>
+
+    <div id="detail-block">
+
+      <section class="panel" id="q2-block">
+        <div class="q-head">
+          <span class="q-num">2</span>
+          <span class="q-ask">Where is the hood?</span>
+        </div>
+        <div class="opts opts-4" data-q="q2" role="group" aria-label="Hood state">
+          <button class="opt" data-v="up" type="button">up</button>
+          <button class="opt" data-v="down" type="button">down</button>
+          <button class="opt" data-v="no_hood_present" type="button">no hood present</button>
+          <button class="opt" data-v="cannot_determine" type="button">cannot determine</button>
+        </div>
+        <details class="defn">
+          <summary>what counts as up, and what counts as down</summary>
+          <p><b>up</b> is raised around or behind the head with a visible <b>face opening</b>, a cavity you could put a head through.<br>
+             <b>down</b> is folded behind the neck, or a stand collar band with no cavity. A thick roll of fabric at the back of the neck is <b>down</b>.<br>
+             Apply it literally.</p>
+        </details>
+      </section>
+
+      <section class="panel" id="q3-block">
+        <div class="q-head">
+          <span class="q-num">3</span>
+          <span class="q-ask">Are metal eyelets, the small round metal rings set into the fabric, visible in the collar or hood edge?</span>
+        </div>
+        <div class="opts opts-3" data-q="q3" role="group" aria-label="Eyelets">
+          <button class="opt" data-v="yes" type="button">yes</button>
+          <button class="opt" data-v="no" type="button">no</button>
+          <button class="opt" data-v="cannot_determine" type="button">cannot determine</button>
+        </div>
+        <p class="q-note">Presence only. Counting is not required here.</p>
+      </section>
+
+      <section class="panel" id="q4-block">
+        <div class="q-head">
+          <span class="q-num">4</span>
+          <span class="q-ask">How many drawcord toggles can you see? Those are the small barrel-shaped cord stoppers.</span>
+        </div>
+        <div class="opts opts-6" data-q="q4" role="group" aria-label="Toggle count">
+          <button class="opt" data-v="0" type="button">0</button>
+          <button class="opt" data-v="1" type="button">1</button>
+          <button class="opt" data-v="2" type="button">2</button>
+          <button class="opt" data-v="3" type="button">3</button>
+          <button class="opt" data-v="4plus" type="button">4 or more</button>
+          <button class="opt" data-v="cannot_determine" type="button">cannot tell</button>
+        </div>
+        <p class="q-note">Count the toggles only. Not the cord, not the eyelets. Exact numbers, no grouping.</p>
+      </section>
+
+      <section class="panel" id="q5-block">
+        <div class="q-head">
+          <span class="q-num">5</span>
+          <span class="q-ask">Looking at the inside edge of the collar, is there a contrasting coloured binding or trim?</span>
+        </div>
+        <div class="opts opts-4" data-q="q5" role="group" aria-label="Collar trim">
+          <button class="opt" data-v="red" type="button">red</button>
+          <button class="opt" data-v="other_colour" type="button">other colour</button>
+          <button class="opt" data-v="none_visible" type="button">none visible</button>
+          <button class="opt" data-v="cannot_determine" type="button">cannot tell</button>
+        </div>
+        <p class="q-note">If <b>other colour</b>, name the colour in the note below.</p>
+      </section>
+
+    </div>
+
+    <section class="panel panel-lock" id="q6-block" hidden>
+      <div class="q-head">
+        <span class="q-num">6</span>
+        <span class="q-ask">In one short phrase, name the visible detail that decided your answer.</span>
+      </div>
+      <p class="q-note">5 to 25 words. Only what is in the picture. If something stopped you judging reliably, say what.
+        For example: <i>clear face opening, cord ends hanging at chest</i>. Not useful: <i>looks fine</i>.</p>
+      <textarea id="free-text" rows="3" placeholder="what decided it, or what blocked you"></textarea>
+      <div class="free-actions">
+        <button class="fbtn fbtn-main" id="btn-lock" type="button">Lock this item</button>
+        <span class="free-count" id="free-count">0 words</span>
+      </div>
+    </section>
+
+    <div class="skip-note" id="skip-note" hidden>
+      <p>Visibility answered <b>no</b>, so the detail questions are skipped for this item.
+        Add the note below and lock it.</p>
+      <textarea id="skip-text" rows="3" placeholder="what blocked the view"></textarea>
+      <div class="free-actions">
+        <button class="fbtn fbtn-main" id="btn-skip-lock" type="button">Lock this item</button>
+      </div>
+    </div>
+
+    <nav class="pager">
+      <button class="pbtn" id="btn-prev" type="button">&larr; Previous</button>
+      <span class="pnum" id="idx-display">1 / 80</span>
+      <button class="pbtn" id="btn-next" type="button">Next &rarr;</button>
+    </nav>
+  </main>
+
+  <footer class="rate-foot">
+    <div class="foot-actions">
+      <button class="fbtn fbtn-main" id="btn-export" type="button" disabled>Download my ratings</button>
+      <button class="fbtn" id="btn-reset" type="button">Reset my progress</button>
+    </div>
+    <p class="foot-note">
+      Everything stays in this browser. Nothing is sent anywhere until you download the file.
+      Bookmark this page: it carries your rater id and is how you return to where you stopped.
+    </p>
+    <p class="foot-legal">
+      Garment construction detail study. Conditions, item order and filenames are masked from this interface.
+      <a href="/tools/">About the tooling</a>
+    </p>
+  </footer>
+
+</div>
+
+<button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">◐</button>
+<script src="rater.js"></script>
 </body>
 </html>
