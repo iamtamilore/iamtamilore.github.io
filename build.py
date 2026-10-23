@@ -76,7 +76,7 @@ PROJECTS = [
          desc="Catches the moment an AI-generated model stops being the same person. "
               "F1 0.90, zero false positives.",
          card="image_qa.jpg",
-         published=False,
+         published=True,
          blurb="which error to make",
          cmetric="benchmarked", clabel="against pixel difference at F1 0.59 and kNN at 0.26. Reached 0.90",
          cdesc="Catches the moment an AI-generated model stops being the same person.\n"

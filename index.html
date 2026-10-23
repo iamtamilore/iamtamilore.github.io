@@ -4,16 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Taiwo Alabi | AI systems that show their receipts</title>
-<meta name="description" content="MSc Artificial Intelligence, NCI Dublin. Four AI systems built around one question: what happens when the answer is wrong, and who notices.">
+<meta name="description" content="MSc Artificial Intelligence, NCI Dublin. Four AI systems, one question: what happens when the answer is wrong, and who notices. 1,447 logged generation calls, published.">
 <script>document.documentElement.setAttribute("data-theme",localStorage.getItem("tw-theme")||"")</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
 <link rel="stylesheet" href="/assets/css/design-system.css">
-<link rel="stylesheet" href="/assets/css/landing.css">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231a1816'/><text y='72' x='50' font-size='62' text-anchor='middle' fill='%23c45a1f' font-family='sans-serif' font-weight='bold'>T</text></svg>">
+<link rel="stylesheet" href="/assets/css/mark-zero.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23100f0c'/><text y='73' x='50' font-size='64' text-anchor='middle' fill='%23ff6b32' font-family='monospace'>T</text></svg>">
 <meta property="og:title" content="Taiwo Alabi | AI systems that show their receipts">
-<meta property="og:description" content="Four AI systems built around one question: what happens when the answer is wrong, and who notices.">
+<meta property="og:description" content="Four AI systems, one question: what happens when the answer is wrong, and who notices.">
 <meta property="og:image" content="https://iamtamilore.github.io/assets/img/banner.jpg">
 <meta property="og:url" content="https://iamtamilore.github.io/">
 <meta property="og:type" content="website">
@@ -22,225 +22,280 @@
 <body>
 
 <nav class="util" aria-label="Site">
-  <a href="/">home</a>
+  <a href="/" aria-current="page">index</a>
   <a href="/cv/">cv</a>
+  <a href="/how/">how</a>
+  <a href="/provenance/">logs</a>
   <a href="/tools/">tools</a>
-  <a href="/how/">how I make it</a>
-  <a href="/provenance/">provenance</a>
-  <a href="/study/eeai/">study</a>
   <a href="/jobs/">jobs</a>
 </nav>
 
 <div class="wrap">
 
   <header>
-    <div class="hero">
-      <img class="hero-photo" src="/assets/img/taiwo.jpg"
-           alt="Taiwo Alabi" width="720" height="900">
-      <div>
-        <div class="eyebrow">Dublin, Ireland</div>
-        <h1 class="claim-display">I make AI output <b>verifiable</b> before it ships</h1>
-        <p class="identity"><strong>Taiwo Alabi</strong> &middot; MSc Artificial Intelligence at National
-          College of Ireland, finishing January 2027. Four systems built around one question: what happens
-          when the answer is wrong, and who notices.</p>
-        <p class="proof">Every project below states the failure it defends against, before the thing it does.</p>
-        <div class="endcta" style="margin:0 0 var(--space-6)">
-          <a class="cta cta-cv-bridge" href="/cv/">View CV</a>
-          <a class="cta cta-ghost" href="/assets/Taiwo_Alabi_CV.pdf" target="_blank" rel="noopener">Download PDF</a>
-        </div>
+    <p style="font-family:var(--font-mono);font-size:0.74rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);margin:var(--space-8) 0 var(--space-5)">
+      Dublin, Ireland &nbsp;·&nbsp; MSc Artificial Intelligence, NCI &nbsp;·&nbsp; graduating January 2027
+    </p>
+
+    <h1 class="display">I make AI output <em>verifiable</em> before it ships.</h1>
+
+    <p class="lede">
+      Every system below names the failure it defends against before the thing it adds. That order
+      is the argument, and it is the reason this site has a log page instead of a testimonials section.
+    </p>
+
+    <p style="margin:var(--space-6) 0 var(--space-8)">
+      <a class="cta" href="/cv/">See the CV</a>
+      <a class="cta cta-ghost" href="/how/">How I build things</a>
+      <a class="cta cta-ghost" href="/provenance/">The raw logs</a>
+    </p>
+
+    <!-- the numbers are the loudest thing on the page -->
+    <div class="figure">
+      <div class="fig">
+        <span class="n">1,447</span>
+        <span class="k">generation calls logged, prompts and costs included</span>
+      </div>
+      <div class="fig">
+        <span class="n">4</span>
+        <span class="k">systems shipped, one live on the public internet</span>
+      </div>
+      <div class="fig accent">
+        <span class="n">0.90</span>
+        <span class="k">F1 on the image QA gate, at precision 1.00</span>
+      </div>
+      <div class="fig">
+        <span class="n">400M</span>
+        <span class="k">telecom records a day, at Huawei</span>
       </div>
     </div>
   </header>
 
-  <h2 style="margin-top:var(--space-10)">The four systems</h2>
-  <p style="max-width:var(--content-max);color:var(--text-3);font-size:var(--text-sm);margin-top:calc(var(--space-3) * -1)">
-    Each card leads with the defect, not the feature. That order is the whole argument.</p>
+  <div class="shead">
+    <span class="idx">01</span>
+    <h2>The four systems</h2>
+    <span class="note">Each line starts with the defect, not the feature.</span>
+  </div>
 
-  <div class="grid">
-  <!-- CARDS:START -->
+  <div class="entries">
 
-    <div class="card" id="termsguard">
-      <div class="metric">grounded</div>
-      <div class="metric-label">every flag cites the GDPR article it came from, so nothing is invented</div>
-      <div class="title">TermsGuard AI <span class="live">Live</span></div>
-      <div class="desc">Cosine similarity alone marks "we do not sell your data" as a violation,
-        because the model can barely tell "sell" from "do not sell" apart. Rule
-        guards sit on top of the score, not instead of it.</div>
-      <div class="go"><a class="stretch" href="/p/termsguard/">Read it &rarr;</a></div>
-      <a class="cta" style="position:relative;z-index:2" href="https://newtazer-terms-guard-ai.hf.space" target="_blank" rel="noopener">Paste a policy, see what it flags</a>
-    <div class="cardlinks"><a href="https://github.com/iamtamilore/terms-guard-ai">Code</a></div></div>
+    <article class="entry">
+      <div>
+        <div class="metric">grounded</div>
+        <span class="metric-note">every flag cites the GDPR article it came from, so nothing is invented</span>
+      </div>
+      <div>
+        <h3 class="name">TermsGuard AI <span class="tag">live</span></h3>
+        <p class="desc">
+          Cosine similarity alone marks "we do not sell your data" as a violation, because the model
+          can barely tell "sell" from "do not sell" apart. Rule guards sit on top of the score, not
+          instead of it. 87% F1, latency cut from 28 seconds to under 10.
+        </p>
+        <a class="go" href="/p/termsguard/">Read it &rarr;</a>
+        <a class="go" href="https://newtazer-terms-guard-ai.hf.space" target="_blank" rel="noopener">Run it live &rarr;</a>
+        <a class="code" href="https://github.com/iamtamilore/terms-guard-ai" target="_blank" rel="noopener">code</a>
+      </div>
+    </article>
 
-    <div class="card" id="clinical-rag">
-      <div class="metric">scoped</div>
-      <div class="metric-label">per patient before ranking, not filtered after. Tried 30 ways to leak data, 0 worked</div>
-      <div class="title">Smart Medical Records</div>
-      <div class="desc">A general vector search over a hospital corpus will eventually surface the
-        wrong patient. Scoping happens at the query layer, not as a filter
-        afterwards. Tried thirty ways to leak another patient's data. None worked.</div>
-      <div class="go"><a class="stretch" href="/p/clinical-rag/">Read it &rarr;</a></div>
-    <div class="cardlinks"><a href="https://github.com/iamtamilore/agentic_rag_fastapi">Code</a></div></div>
+    <article class="entry">
+      <div>
+        <div class="metric">scoped</div>
+        <span class="metric-note">per patient before ranking, not filtered after. Tried 30 ways to leak data, 0 worked</span>
+      </div>
+      <div>
+        <h3 class="name">Smart Medical Records</h3>
+        <p class="desc">
+          A general vector search over a hospital corpus will eventually surface the wrong patient.
+          Scoping happens at the query layer, not as a filter applied afterwards. FastAPI,
+          PostgreSQL with pgvector, a self-hosted Llama 3.1, four Docker services.
+        </p>
+        <a class="go" href="/p/clinical-rag/">Read it &rarr;</a>
+        <a class="code" href="https://github.com/iamtamilore/agentic_rag_fastapi" target="_blank" rel="noopener">code</a>
+      </div>
+    </article>
 
-    <div class="card" id="care-agent">
-      <div class="metric">escalates</div>
-      <div class="metric-label">below 0.55 a human decides, and I report the lower automation rate that produces</div>
-      <div class="title">Care Agent</div>
-      <div class="desc">The decision was the gate, not the classifier. Below 0.55 it escalates to
-        a human rather than forcing a label, and the coverage it gives up is stated
-        rather than buried.</div>
-      <div class="go"><a class="stretch" href="/p/care-agent/">Read it &rarr;</a></div>
-    <div class="cardlinks"><a href="https://github.com/iamtamilore/customer-care-automation">Code</a></div></div>
+    <article class="entry">
+      <div>
+        <div class="metric">escalates</div>
+        <span class="metric-note">below 0.55 a human decides, and I report the lower automation rate that produces</span>
+      </div>
+      <div>
+        <h3 class="name">Care Agent</h3>
+        <p class="desc">
+          The decision was the gate, not the classifier. Below 0.55 confidence it escalates to a human
+          rather than forcing a label, and the coverage it gives up is stated rather than buried.
+          Modelled in BPMN 2.0 before any code.
+        </p>
+        <a class="go" href="/p/care-agent/">Read it &rarr;</a>
+        <a class="code" href="https://github.com/iamtamilore/customer-care-automation" target="_blank" rel="noopener">code</a>
+      </div>
+    </article>
 
-    <div class="card" id="image-qa">
-      <div class="metric">zero false alarms</div>
-      <div class="metric-label">a rejected good image costs one retry. An accepted bad one reaches the client.</div>
-      <div class="title">Image QA Gate</div>
-      <div class="desc">Pixel difference scored F1 0.59 and kNN 0.26 before the Siamese network
-        reached 0.90 at precision 1.00. The gap between those three is the result.
-        The cutoff moved off the model's default 0.5 to 0.4821, tuned on validation only.</div>
-      <div class="go"><a class="stretch" href="/p/image-qa/">Read it &rarr;</a></div>
-    <div class="cardlinks"><a href="https://github.com/iamtamilore/campaign-image-qa">Code</a></div></div>
+    <article class="entry">
+      <div>
+        <div class="metric">zero false alarms</div>
+        <span class="metric-note">a rejected good image costs one retry. An accepted bad one reaches the client</span>
+      </div>
+      <div>
+        <h3 class="name">Image QA Gate</h3>
+        <p class="desc">
+          Pixel difference scored F1 0.59 and kNN 0.26 before the Siamese network reached 0.90 at
+          precision 1.00. The gap between those three is the result. The cutoff moved off the model's
+          default 0.5 to 0.4821, tuned on validation data only.
+        </p>
+        <a class="go" href="/p/image-qa/">Read it &rarr;</a>
+        <a class="code" href="https://github.com/iamtamilore/campaign-image-qa" target="_blank" rel="noopener">code</a>
+      </div>
+    </article>
 
-  <!-- CARDS:END -->
-
-    <div class="card" id="huawei">
-      <div class="metric">400 million a day</div>
-      <div class="metric-label">and the migration split records by type, with 440+ UAT cases before cutover</div>
-      <div class="title">Huawei, Globacom data team</div>
-      <div class="desc">Telecom mediation moves call records to fourteen downstream consumers.
-        The constraint was never throughput, it was trust: a bad deploy means a
-        customer is billed twice. Profiled and validated 100k+ rows and found a
-        14% reporting discrepancy nobody had seen.</div>
-      <div class="go"><a class="stretch" href="/cv/">On the CV &rarr;</a></div>
-    </div>
+    <article class="entry">
+      <div>
+        <div class="metric">400 million a day</div>
+        <span class="metric-note">and the migration split records by type, with 440+ UAT cases before cutover</span>
+      </div>
+      <div>
+        <h3 class="name">Huawei, Globacom data team</h3>
+        <p class="desc">
+          Telecom mediation moves call records to fourteen downstream consumers. The constraint was
+          never throughput, it was trust: a bad deploy means a customer is billed twice. Profiled
+          and validated 100k+ rows and found a 14% reporting discrepancy nobody had seen.
+        </p>
+        <a class="go" href="/cv/">On the CV &rarr;</a>
+      </div>
+    </article>
 
   </div>
 
-  <h2>The one thing I could not get anyone else to show me</h2>
-  <div class="card" id="rater" style="border-left:3px solid var(--accent)">
-    <div class="metric">blind, seeded, human-rated</div>
-    <div class="metric-label">80 generated garments, 4 conditions, rated by people who cannot see which condition produced what</div>
-    <div class="desc" style="max-width:66ch">
-      Everyone building on image models shows you the good outputs. So I ran the opposite test.
-      Eighty garment images across four generation conditions, presented to human raters in a
-      seeded shuffle, with condition and filenames masked and a frozen rubric written before
-      anyone rated anything. The rubric gates on one question first: is this image clear enough
-      to judge at all. If the answer is no, the rest is skipped rather than guessed.
-    </div>
-    <div class="desc" style="max-width:66ch;margin-top:var(--space-3)">
-      The interesting part is not the score. It is that an automatic OCR score and a human
-      judgement disagree often enough to matter, and that the only way to find out which one is
-      right is to ask a person who cannot see the pipeline.
-    </div>
-    <div class="go"><a class="stretch" href="/tools/">The tooling behind it &rarr;</a></div>
+  <div class="shead">
+    <span class="idx">02</span>
+    <h2>The thing nobody else publishes</h2>
+    <span class="note">A blinded evaluation, run on my own output.</span>
   </div>
 
-  <h2>How I work</h2>
-  <ol class="commitments">
-    <li><strong>Establish the baseline before training anything.</strong> A model that cannot beat a simple guess does not deserve to exist. Pixel difference at 0.59 was the number that made 0.90 mean something.</li>
-    <li><strong>Name the error you can afford before choosing a threshold.</strong> Rejecting a good image costs one retry; accepting a bad one sends it to the client. That asymmetry is why the cutoff is 0.4821 and not 0.5.</li>
-    <li><strong>Model the process in BPMN before writing code.</strong> The automation should replace what actually happens, not what you think happens.</li>
-    <li><strong>Freeze the preprocessing with the model</strong> so training and serving cannot silently disagree about what a column means.</li>
-    <li><strong>Blind the evaluation.</strong> If the people rating the output can see which condition produced it, the measurement is decoration.</li>
-    <li><strong>State what breaks, in writing, next to what works.</strong> Every project page says what can go wrong before it says what works.</li>
-  </ol>
-
-  <h2>Log</h2>
-  <p style="max-width:var(--content-max);color:var(--text-3);font-size:var(--text-sm)">
-    What I am building and what I am measuring.</p>
-
-  <div class="grid">
-    <div class="card" id="how-card">
-      <div class="metric">8 steps, all of them shown</div>
-      <div class="metric-label">one short video, from an empty folder to a finished file</div>
-      <div class="title">How I make an episode</div>
-      <div class="desc">The script, the timings, the pictures, the ones I threw away and the cost
-        of each step, with the four finished videos embedded above it. Written so anyone can
-        follow it. If you came here to hire someone, that page says more about how I work than
-        the CV does. Channel: Zenpaitv.</div>
-      <div class="go"><a class="stretch" href="/how/">Blueprint, frames and clips &rarr;</a></div>
-    </div>
-
-    <div class="card" id="provenance-card">
-      <div class="metric">1,447 calls</div>
-      <div class="metric-label">every generation call with its model, prompt, cost and verdict</div>
-      <div class="title">Provenance</div>
-      <div class="desc">The raw run log behind the garment study, published including the
-        failures. 347 YouTube subscribers and a 1,200 view best video, stated plainly,
-        rather than dressed up as something it is not.</div>
-      <div class="go"><a class="stretch" href="/provenance/">Open it &rarr;</a></div>
-    </div>
-
-    <div class="card" id="tools">
-      <div class="metric">tools</div>
-      <div class="metric-label">every URL from the experiments, in one place</div>
-      <div class="title">Tools hub</div>
-      <div class="desc">The rating instrument, the image generation harness, and the job tracker
-        that records what came back rather than only what was sent.</div>
-      <div class="go"><a class="stretch" href="/tools/">Open it &rarr;</a></div>
-    </div>
-
-    <div class="card" id="study">
-      <div class="metric">study tracker</div>
-      <div class="metric-label">Engineering &amp; Evaluating AI Systems, H9EEAI</div>
-      <div class="title">Study Tracker</div>
-      <div class="desc">Eight weeks of coursework with an audio player, keyboard shortcuts,
-        and progress tracking. Built to listen while commuting and mark done while reviewing.</div>
-      <div class="go"><a class="stretch" href="/study/eeai/">Open it &rarr;</a></div>
-    </div>
-
-    <div class="card" id="jobs">
-      <div class="metric">job tracker</div>
-      <div class="metric-label">a funnel, not a counter</div>
-      <div class="title">Job Tracker</div>
-      <div class="desc">361 applications sent, and not one recorded outcome until this month.
-        It now tracks response rate and conversion between stages, because sending is not an
-        outcome and only the reply tells you whether the CV is the problem.</div>
-      <div class="go"><a class="stretch" href="/jobs/">Open it &rarr;</a></div>
-    </div>
+  <div class="entries">
+    <article class="entry">
+      <div>
+        <div class="metric">blind, seeded, human-rated</div>
+        <span class="metric-note">80 generated garments, 4 conditions, rated by people who cannot see which condition produced what</span>
+      </div>
+      <div>
+        <h3 class="name">80 images, four conditions, a frozen rubric</h3>
+        <p class="desc">
+          Everyone building on image models shows you the good outputs. So I ran the opposite test.
+          Eighty garment images across four generation conditions, presented to human raters in a
+          seeded shuffle, with condition and filenames masked and the rubric frozen before anyone
+          rated anything. The rubric gates on one question first: is this image clear enough to
+          judge at all. If the answer is no, the rest is skipped rather than guessed.
+        </p>
+        <p class="desc">
+          The interesting part is not the score. It is that an automatic OCR score and a human
+          judgement disagree often enough to matter, and the only way to find out which one is right
+          is to ask a person who cannot see the pipeline.
+        </p>
+        <a class="go" href="/tools/">The instrument &rarr;</a>
+        <a class="go" href="/provenance/">Every call behind it &rarr;</a>
+      </div>
+    </article>
   </div>
 
-  <h2>Get in touch</h2>
-  <div class="endcta">
+  <div class="shead">
+    <span class="idx">03</span>
+    <h2>What I refuse to claim</h2>
+    <span class="note">Stated here because it belongs here, not in a footnote.</span>
+  </div>
+
+  <div class="prose">
+    <p>
+      <strong>The channel is 347 subscribers with a best video of 1,200 views.</strong> That is a
+      start, not a hit. I publish it because the pipeline behind it is the thing that scales, and
+      because a supplier who quotes me a bigger number than that is telling you something.
+    </p>
+    <p>
+      <strong>Credits are recorded on only 371 of those 1,447 calls</strong>, because the provider
+      returns a cost on only some of them. The rest are unknown, not free.
+    </p>
+    <p>
+      <strong>The CV says the ticket router was tested on 4,000 unseen tickets.</strong> The data
+      file holds 210 and 42 are held out. The honest figure is 40 of 42. I have been told about the
+      gap twice and left it, so it is written down here rather than buried.
+    </p>
+  </div>
+
+  <div class="shead">
+    <span class="idx">04</span>
+    <h2>Elsewhere</h2>
+  </div>
+
+  <div class="entries">
+    <a class="entry" href="/how/" style="text-decoration:none;color:inherit">
+      <div><div class="metric">8 stages</div><span class="metric-note">one episode, from an empty folder to a finished file</span></div>
+      <div>
+        <h3 class="name">How I make an episode</h3>
+        <p class="desc">The blueprint, 25 real frames, and the four published videos. Written so a
+          stranger can follow it and a hiring manager can check it.</p>
+        <span class="go">Walk through it &rarr;</span>
+      </div>
+    </a>
+    <a class="entry" href="/jobs/" style="text-decoration:none;color:inherit">
+      <div><div class="metric">0 of 361</div><span class="metric-note">outcomes recorded, until this month</span></div>
+      <div>
+        <h3 class="name">Job tracker</h3>
+        <p class="desc">361 applications sent and not one recorded outcome until now. It tracks
+          response rate and conversion between stages, because sending is not an outcome.</p>
+        <span class="go">Open it &rarr;</span>
+      </div>
+    </a>
+    <a class="entry" href="/study/eeai/" style="text-decoration:none;color:inherit">
+      <div><div class="metric">8 weeks</div><span class="metric-note">Engineering and Evaluating AI Systems</span></div>
+      <div>
+        <h3 class="name">Study tracker</h3>
+        <p class="desc">Coursework with an audio player, keyboard shortcuts and progress tracking.
+          Built to listen while commuting and mark done while reviewing.</p>
+        <span class="go">Open it &rarr;</span>
+      </div>
+    </a>
+  </div>
+
+  <h2 class="shead" style="margin-top:var(--space-12)"><span class="idx">05</span><h2>Get in touch</h2></h2>
+
+  <p style="margin-bottom:var(--space-5)">
     <a class="cta" href="mailto:newalabitaiwo625@gmail.com">Email me</a>
-    <a class="cta cta-ghost" href="/cv/">View CV</a>
-    <a class="cta cta-ghost" href="/assets/Taiwo_Alabi_CV.pdf" target="_blank" rel="noopener">
-      Download CV <span class="cta-sub">PDF</span></a>
-  </div>
+    <a class="cta cta-ghost" href="/assets/Taiwo_Alabi_CV.pdf" target="_blank" rel="noopener">CV as PDF</a>
+  </p>
+
   <nav class="meta" aria-label="Contact">
     <a href="mailto:newalabitaiwo625@gmail.com">newalabitaiwo625@gmail.com</a>
-    <span aria-hidden="true">|</span>
-    <a href="https://www.linkedin.com/in/tami-alabi/">LinkedIn</a>
-    <span aria-hidden="true">|</span>
-    <a href="https://github.com/iamtamilore">GitHub</a>
-    <span aria-hidden="true">|</span>
-    <a href="https://wa.me/353870042838?text=Hi%20Taiwo%2C%20I%20saw%20your%20portfolio">WhatsApp +353 87 004 2838</a>
+    <a href="https://www.linkedin.com/in/tami-alabi/">linkedin.com/in/tami-alabi</a>
+    <a href="https://github.com/iamtamilore">github.com/iamtamilore</a>
+    <a href="https://wa.me/353870042838?text=Hi%20Taiwo%2C%20I%20saw%20your%20portfolio">+353 87 004 2838</a>
   </nav>
 
   <footer>
-    <div>Taiwo Alabi &middot; Dublin, Ireland</div>
+    <div>Taiwo Alabi &nbsp;·&nbsp; Dublin, Ireland</div>
     <div class="util-footer">
+      <a href="/cv/">cv</a>
+      <a href="/how/">how</a>
+      <a href="/provenance/">logs</a>
       <a href="/tools/">tools</a>
-      <a href="/study/eeai/">study</a>
       <a href="/jobs/">jobs</a>
-      <a href="/bank/">bank</a>
-      <a href="/atoms/">atoms</a>
+      <a href="/study/eeai/">study</a>
     </div>
-    <div style="margin-top:var(--space-2);font-size:var(--text-xs);color:var(--text-3)">Last updated 23 October 2026</div>
+    <div style="margin-top:var(--space-3)">Last updated 23 October 2026</div>
   </footer>
 
 </div>
 
-<button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">&#9681;</button>
+<button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">◐</button>
 
 <script>
-(function() {
+(function () {
   var K = "tw-theme", R = document.documentElement;
   function apply(t) {
     if (t === "dark") R.setAttribute("data-theme", "dark");
     else if (t === "light") R.setAttribute("data-theme", "light");
     else R.removeAttribute("data-theme");
   }
-  document.getElementById("themeToggle").addEventListener("click", function() {
+  document.getElementById("themeToggle").addEventListener("click", function () {
     var cur = R.getAttribute("data-theme");
     var next = cur === "dark" ? "light" : cur === "light" ? "" : "dark";
     apply(next);
