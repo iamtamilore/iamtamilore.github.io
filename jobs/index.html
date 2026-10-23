@@ -4,506 +4,999 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Applications | Taiwo Alabi</title>
-<meta name="description" content="Job application tracker: one urgent role at a time, tap to apply, tap to mark done.">
+<meta name="description" content="Graduate job tracker: record what was sent, record what came back, and measure the response rate.">
 <script>document.documentElement.setAttribute("data-theme",localStorage.getItem("tw-theme")||"g5")</script>
-<link rel="stylesheet" href="/assets/css/style.css">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230f0e0c'/><text y='72' x='50' font-size='62' text-anchor='middle' fill='%23FF7A3D' font-family='sans-serif' font-weight='bold'>T</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="/assets/css/design-system.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230f0e0c'/><text y='72' x='50' font-size='62' text-anchor='middle' fill='%23c45a1f' font-family='sans-serif' font-weight='bold'>T</text></svg>">
 <meta name="robots" content="noindex">
-<style>
-  .jobs-wrap { max-width: 640px; margin: 0 auto; padding: 0 var(--pad) 70px; }
-  .progress-line { font-size: 13.5px; color: var(--muted); margin: 14px 0 4px; }
-  .progress-line strong { color: var(--accent); }
-  .progress-bar { height: 4px; background: var(--line); border-radius: 999px; overflow: hidden; margin-bottom: 18px; }
-  .progress-bar .fill { height: 100%; background: var(--accent); }
-
-  .tabs { display: flex; gap: 6px; border-bottom: 1px solid var(--line); margin-bottom: 18px; }
-  .tab-btn {
-    flex: 1; background: none; border: none; color: var(--muted); font-size: 14px;
-    padding: 10px 4px; border-bottom: 2px solid transparent; -webkit-tap-highlight-color: transparent;
-  }
-  .tab-btn.active { color: var(--text); border-bottom-color: var(--accent); font-weight: 600; }
-  .tab-panel { display: none; }
-  .tab-panel.active { display: block; }
-
-  .top-card {
-    background: var(--panel); border: 1px solid var(--accent-dim); border-radius: 14px;
-    padding: 22px; margin-bottom: 22px;
-  }
-  .top-label { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
-  .top-card .company { font-size: 20px; font-weight: 700; color: var(--text); }
-  .top-card .role { font-size: 15.5px; color: var(--text); margin-top: 3px; }
-  .meta-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; font-size: 12.5px; color: var(--muted); }
-  .pill { border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; }
-  .pill.deadline { color: var(--accent); border-color: var(--accent-dim); }
-  .why { font-size: 14px; color: var(--muted); margin-top: 14px; line-height: 1.5; }
-  .apply-btn {
-    display: block; text-align: center; margin-top: 16px; padding: 15px;
-    background: var(--accent); color: #16140f; font-weight: 700; font-size: 16px;
-    border-radius: 10px; text-decoration: none;
-  }
-  .apply-btn:active { background: #ff8b55; }
-  .action-row { display: flex; gap: 10px; margin-top: 12px; }
-  .act-btn {
-    flex: 1; padding: 13px; border-radius: 10px; border: 1px solid var(--line);
-    background: none; color: var(--text); font-size: 14.5px; font-weight: 600;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .act-btn.applied { border-color: #3f9e5a; color: #6fce8a; }
-  .act-btn.snooze { color: var(--muted); }
-  .clicks-note { font-size: 12px; color: var(--muted-2); margin-top: 10px; text-align: right; }
-  .done-msg { text-align: center; color: var(--muted); padding: 30px 0; font-size: 15px; }
-
-  .tier-heading { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted-2); margin: 20px 0 8px; }
-  .tier-heading:first-child { margin-top: 0; }
-  .job-row {
-    padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 14px;
-  }
-  .job-row .row-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
-  .job-row a.row-link { color: var(--text); flex: 1; }
-  .job-row a.row-link:hover { color: var(--accent); }
-  .job-row .row-role { color: var(--muted); font-size: 12.5px; display: block; margin-top: 2px; }
-  .job-row .row-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
-  .status-tag { font-size: 11px; padding: 2px 7px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted-2); white-space: nowrap; }
-  .row-btn { background: none; border: 1px solid var(--line); color: var(--muted); border-radius: 999px; font-size: 11px; padding: 4px 10px; white-space: nowrap; }
-  .row-btn.applied { border-color: #3f9e5a; color: #6fce8a; }
-  .row-btn.snoozed { border-color: var(--accent-dim); color: var(--accent); }
-  .row-note {
-    width: 100%; margin-top: 8px; background: var(--ink-2); border: 1px solid var(--line);
-    border-radius: 8px; color: var(--text); font-size: 13px; padding: 8px 10px; box-sizing: border-box;
-  }
-  .note-toggle { background: none; border: none; color: var(--muted-2); font-size: 12px; padding: 2px 4px; }
-
-  .applied-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line); }
-  .applied-row .ar-company { color: var(--text); font-weight: 600; font-size: 14.5px; }
-  .applied-row .ar-role { color: var(--muted); font-size: 12.5px; }
-  .applied-row .ar-when { color: var(--muted-2); font-size: 11.5px; margin-top: 2px; }
-  .undo-btn { background: none; border: 1px solid var(--line); color: var(--muted); border-radius: 999px; font-size: 12px; padding: 5px 12px; flex-shrink: 0; }
-  .empty-note { color: var(--muted-2); font-size: 13.5px; padding: 20px 0; text-align: center; }
-
-  .sync-note { font-size: 12px; color: var(--muted-2); text-align: center; margin-top: 30px; }
-</style>
+<link rel="stylesheet" href="jobs.css">
 </head>
 <body>
 
-<nav class="util" aria-label="Personal">
-  <a href="/">home</a>
-  <a href="/study/eeai/">study</a>
-  <a href="/bank-pwa/">bank</a>
+<nav class="util" aria-label="Site">
+  <a href="/">portfolio</a>
+  <a href="/cv/">cv</a>
+  <a href="/tools/">tools</a>
+  <a href="/jobs/" aria-current="page">jobs</a>
 </nav>
 
 <div class="jobs-wrap">
-  <header style="margin-top:10px;">
-    <hr class="rule">
-    <h1 style="font-size:26px;">Applications</h1>
-    <p class="lede" style="font-size:14.5px;">One role at a time. Tap the link, then mark it.</p>
+
+  <header class="jh">
+    <h1>Applications</h1>
+    <p class="jh-sub">Sending an application is not an outcome. Record what came back, and the rate tells you whether
+      the CV is the problem or the targeting is.</p>
   </header>
 
-  <div class="progress-line" id="progress-line">Loading&hellip;</div>
-  <div class="progress-bar"><div class="fill" id="progress-fill" style="width:0%"></div></div>
+  <!-- ============ THE FUNNEL ============ -->
+  <section class="funnel" id="funnel">
+    <div class="fstep"><div class="fv" id="f-applied">0</div><div class="fl">applied</div></div>
+    <div class="farrow">&rarr;</div>
+    <div class="fstep"><div class="fv" id="f-ack">0</div><div class="fl">any response</div></div>
+    <div class="farrow">&rarr;</div>
+    <div class="fstep"><div class="fv" id="f-screen">0</div><div class="fl">screening call</div></div>
+    <div class="farrow">&rarr;</div>
+    <div class="fstep"><div class="fv" id="f-interview">0</div><div class="fl">interview</div></div>
+    <div class="farrow">&rarr;</div>
+    <div class="fstep fstep-win"><div class="fv" id="f-offer">0</div><div class="fl">offer</div></div>
+  </section>
 
-  <div class="tabs">
-    <button class="tab-btn active" data-tab="triage">Triage</button>
-    <button class="tab-btn" data-tab="applied">Applied</button>
-    <button class="tab-btn" data-tab="all">All</button>
-  </div>
+  <section class="rates" id="rates">
+    <div class="rate"><span class="rv" id="r-ack">&mdash;</span><span class="rl">response rate</span></div>
+    <div class="rate"><span class="rv" id="r-screen">&mdash;</span><span class="rl">response &rarr; call</span></div>
+    <div class="rate"><span class="rv" id="r-interview">&mdash;</span><span class="rl">call &rarr; interview</span></div>
+    <div class="rate"><span class="rv" id="r-final">&mdash;</span><span class="rl">application &rarr; offer</span></div>
+    <div class="rate"><span class="rv" id="r-aging">&mdash;</span><span class="rl">awaiting a verdict</span></div>
+  </section>
+  <p class="rates-note" id="rates-note">A rate on fewer than 10 applications is noise, not a signal.</p>
 
-  <div class="tab-panel active" id="panel-triage">
-    <div class="top-label">Apply to this next</div>
-    <div id="top-card-slot"><div class="top-card"><p class="why">Loading&hellip;</p></div></div>
-    <div class="top-label" style="margin-top:6px;">Up next, in order</div>
-    <div id="triage-list"></div>
-  </div>
-
-  <div class="tab-panel" id="panel-applied">
-    <div id="applied-list"></div>
-  </div>
-
-  <div class="tab-panel" id="panel-all">
-    <div id="all-list"></div>
-  </div>
-
-  <p class="sync-note">Status syncs across devices. 48 roles, verified and deduplicated 11 Aug 2026.</p>
-</div>
-
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-import {
-  getFirestore, collection, getDocs, doc, setDoc, increment, serverTimestamp
-} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyATvu15lb1mVBtNzWdZxVuoDB4yQixYRTw",
-  authDomain: "taiwo-job-tracker.firebaseapp.com",
-  projectId: "taiwo-job-tracker",
-  storageBucket: "taiwo-job-tracker.firebasestorage.app",
-  messagingSenderId: "156903040786",
-  appId: "1:156903040786:web:df6ff5db17fb5f0a64f5cb"
-};
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-// Static catalog: verified 11 Aug 2026 from four AI research reports, deduplicated.
-// deadline_date is set only where a real hard date was confirmed live; otherwise null.
-const CATALOG = [
-{"id":"dmi-graduate-ai-ml-engineer","company":"Digital Manufacturing Ireland (DMI)","role":"Graduate ML/AI Engineer","location":"Limerick","url":"https://gradireland.com/jobs/graduate-ai-engineer-234357","deadline":"Rolling","deadline_date":null,"tier":"TIER1","status":"live","why_it_fits":"DMI wants RAG pipelines, LLM assistants, vector DBs and EU AI Act/GDPR governance for manufacturing - maps almost directly onto TermsGuard AI and the Clinical RAG engine, plus the Huawei 400M-record migration shows industrial-scale data experience.","sector":"Manufacturing/IoT"},
-{"id":"vodafone-discover-graduate-programme","company":"Vodafone Ireland","role":"Discover Graduate Programme - Technology/Data streams","location":"Dublin","url":"https://careers.vodafone.com/ireland/","deadline":"Monitor for late vacancies (main 2026 intake likely filled)","deadline_date":null,"tier":"TIER1","status":"monitor_only","why_it_fits":"Technology/Data streams want AI, ML and data engineering skills - a direct match for the Huawei CDR migration and Gemini RLHF work, but the main intake is likely already filled by August.","sector":"Telecom"},
-{"id":"verizon-graduate-network-engineer-ultra-long-haul","company":"Verizon","role":"Graduate Network Engineer - Ultra Long Haul Center Engineering","location":"Limerick (Hybrid)","url":"https://mycareer.verizon.com/jobs/r-1098801/graduate-network-engineer-ultra-long-haul-center-engineering/","deadline":"31 August 2026","deadline_date":"2026-08-31","tier":"TIER1","status":"live","why_it_fits":"Verizon explicitly lists proficiency with AI tools as a desired skill - the Huawei telecom CDR/billing background plus Gemini RLHF quality work transfer directly.","sector":"Telecom"},
-{"id":"verizon-business-systems-graduate-app-support","company":"Verizon","role":"Business Systems Graduate - App Support","location":"Limerick (Hybrid)","url":"https://mycareer.verizon.com/jobs/r-1097953/business-systems-graduate-app-support/","deadline":"Rolling","deadline_date":null,"tier":"TIER2","status":"live","why_it_fits":"Data analysis, UAT testing, application support and training delivery - directly matches the 440+ UAT cases at Huawei and the Gemini data-quality analyst background.","sector":"Telecom"},
-{"id":"cubic-graduate-technology-programme","company":"Cubic Telecom (Cubic³)","role":"Graduate Technology Programme 2026","location":"Dublin (Sandyford, onsite)","url":"https://www.cubic3.com/blog/cubic%C2%B3-graduate-technology-programme-2026/","deadline":"Check portal directly","deadline_date":null,"tier":"TIER1","status":"live","why_it_fits":"Irish-founded, SoftBank-backed connected-vehicle telecom scale-up; Huawei network data background, Kubernetes/Docker deployment and self-directed RAG projects map to their builder-mindset bar.","sector":"Telecom"},
-{"id":"cubic-telecom-associate-software-developer","company":"Cubic Telecom","role":"Associate Software Developer","location":"Dublin","url":"https://jobs.workable.com/company/7wXgZt6H9fEitHuLQT2SbW/jobs-at-cubic-telecom","deadline":"Check portal directly","deadline_date":null,"tier":"TIER2","status":"live","why_it_fits":"IoT connectivity for connected vehicles; telecom billing-scale data experience from Huawei is structurally similar to their telemetry pipelines.","sector":"Telecom"},
-{"id":"cubic-telecom-data-engineer","company":"Cubic Telecom","role":"Data Engineer","location":"Dublin","url":"https://builtindublin.ie/","deadline":"Check portal directly","deadline_date":null,"tier":"TIER1","status":"live","why_it_fits":"Cubic Telecom needs data engineers for connected mobility pipelines; PostgreSQL/pgvector experience from the Medical Records Engine plus Kubernetes cert match directly.","sector":"Telecom"},
-{"id":"cubic-telecom-sim-engineer-i","company":"Cubic Telecom","role":"SIM Engineer I","location":"Dublin","url":"https://builtindublin.ie/job/senior-sim-engineer/2983272","deadline":"Rolling","deadline_date":null,"tier":"TIER3","status":"live","why_it_fits":"Entry-level SIM/eSIM role; Python/SQL scripting would let you automate SIM provisioning and lifecycle tasks beyond a typical hardware-only hire.","sector":"Telecom"},
-{"id":"eir-multiple-technical-roles","company":"eir","role":"Multiple Technical Roles (Network Engineer, Telecoms Specialist, SOC Analyst, Firewall Engineer)","location":"Dublin/Belfast","url":"https://jobs.eir.care/jobs","deadline":"Rolling, some close mid-August 2026","deadline_date":null,"tier":"TIER2","status":"live","why_it_fits":"Direct hires: Huawei telecom infrastructure background and Kubernetes cert are directly relevant to network engineering and SOC roles.","sector":"Telecom"},
-{"id":"eir-devops-expert-contract","company":"eir business talent","role":"DevOps Expert (Contract)","location":"Dublin","url":"https://eirbusinesstalent.ie/job-search/","deadline":"Check portal directly","deadline_date":null,"tier":"TIER3","status":"live","why_it_fits":"Kubernetes cert plus Flask/FastAPI deployment via Docker/GKE matches eir's need for automated CI/CD to minimise network downtime.","sector":"Telecom"},
-{"id":"eir-data-integrity-specialist","company":"eir business talent","role":"Data Integrity Specialist","location":"Waterford (Hybrid, 12-month contract)","url":"https://www.irishjobs.ie/job/data-integrity-specialist/eir-business-talent-job107695257","deadline":"Rolling","deadline_date":null,"tier":"TIER3","status":"live","why_it_fits":"Gemini AI-quality background and Huawei UAT design give an analytical framework for spotting data anomalies in telecom billing data.","sector":"Telecom"},
-{"id":"nbi-sdet-integration-engineer","company":"National Broadband Ireland (NBI)","role":"SDET / IT OE Integration Engineer","location":"Dublin","url":"https://nbi.ie/careers/current-vacancies/","deadline":"Check portal directly","deadline_date":null,"tier":"TIER2","status":"live","why_it_fits":"440+ UAT cases at Huawei is directly relevant rigorous-testing experience for national fibre rollout software QA.","sector":"Telecom"},
-{"id":"ericsson-ireland-general-portal","company":"Ericsson","role":"General direct-hire graduate/early-career roles (Ireland)","location":"Athlone/Dublin","url":"https://www.ericsson.com/en/careers/global-locations/ireland","deadline":"Check portal directly","deadline_date":null,"tier":"TIER2","status":"live","why_it_fits":"Huawei brand recognition and telecom-scale data experience are relevant across Ericsson's open Ireland roles.","sector":"Telecom"},
-{"id":"ericsson-msc-applied-swe-athlone","company":"Ericsson (via TUS Athlone)","role":"Sponsored MSc in Applied Software Engineering + permanent job route","location":"Athlone","url":"https://ictskillnet.ie/courses/msc-in-applied-software-engineering/","deadline":"Monitor for reopening ~2027 (2026 closed)","deadline_date":null,"tier":"TIER3","status":"monitor_only","why_it_fits":"Free MSc plus guaranteed permanent job route; confirmed closed for 2026, worth revisiting for 2027.","sector":"Telecom"},
-{"id":"ibm-ireland-early-career-ai","company":"IBM Ireland","role":"Entry-level AI/Software Engineering roles + AI & Analytics Associate","location":"Dublin/Cork/Waterford","url":"https://www.ibm.com/careers/software-engineering","deadline":"Check portal directly","deadline_date":null,"tier":"TIER2","status":"live","why_it_fits":"IBM Dublin is investing heavily in Generative AI; RAG systems and LLM evaluation (Gemini RLHF) fit the AI & Analytics Associate profile well.","sector":"Cloud/Big Tech"},
-{"id":"aws-graduate-data-engineer-cloud-sde","company":"Amazon / AWS","role":"Graduate Data Engineer / SDE / Cloud Engineer","location":"Dublin","url":"https://www.amazon.jobs/jobs/10449992","deadline":"Rolling","deadline_date":null,"tier":"TIER1","status":"live","why_it_fits":"The 400M-daily-CDR Hadoop/HBase migration at Huawei is direct proof of planetary-scale data logistics understanding; Kubernetes/Docker/GKE experience matches infra requirements.","sector":"Cloud/Big Tech"},
-{"id":"google-dublin-early-career-infrastructure","company":"Google Dublin","role":"Early-career Networking / AI & ML Software Engineering / Infrastructure","location":"Dublin","url":"https://techsysinfra.google/jointheteam/","deadline":"Check portal directly","deadline_date":null,"tier":"TIER2","status":"live","why_it_fits":"Google's Technical Infrastructure team lists AI & ML Software Engineering and Networking as early-career paths; Gemini RLHF background gives direct insider familiarity.","sector":"Cloud/Big Tech"},
-{"id":"intel-ireland-graduate-schemes","company":"Intel Ireland","role":"Graduate Schemes (Engineering, Cybersecurity, Data Science & AI, PM)","location":"Leixlip","url":"https://intel.wd1.myworkdayjobs.com/External/","deadline":"Check portal directly (peaks autumn/spring)","deadline_date":null,"tier":"TIER2","status":"live","why_it_fits":"Data Science & AI graduate stream at a major fab; industrial-scale data pipeline experience is relevant to semiconductor manufacturing analytics.","sector":"Manufacturing/IoT"},
-{"id":"nokia-ireland-positions","company":"Nokia","role":"General open positions + NextGEN graduate community","location":"Ireland (various)","url":"https://www.nokia.com/careers/","deadline":"Check portal directly","deadline_date":null,"tier":"TIER3","status":"live","why_it_fits":"Telecom equipment manufacturer with early-career programmes; Huawei telecom background is a natural domain match.","sector":"Telecom"},
-{"id":"hpe-juniper-networking-galway","company":"HPE + Juniper Networking","role":"AI-driven networking roles","location":"Galway/Dublin","url":"https://careers.hpe.com/juniper","deadline":"Check portal directly","deadline_date":null,"tier":"TIER3","status":"live","why_it_fits":"New convergence of AI + networking post HPE-Juniper acquisition; Kubernetes/Docker and telecom data background are relevant.","sector":"Telecom"},
-{"id":"enea-software-dublin","company":"ENEA Software","role":"Core Network / Telecom Software (monitor - nothing open now)","location":"Dublin","url":"https://careers.enea.com/jobs","deadline":"No dev roles visible now; monitor","deadline_date":null,"tier":"TIER3","status":"monitor_only","why_it_fits":"Swedish telecom/cybersecurity software firm with a Dublin office; worth monitoring given the direct sector match.","sector":"Telecom"},
-{"id":"amdocs-dublin","company":"Amdocs","role":"Software engineering/testing roles","location":"Dublin","url":"https://jobs.amdocs.com/careers","deadline":"Check portal directly","deadline_date":null,"tier":"TIER3","status":"live","why_it_fits":"Telecom software giant (billing/CRM/OSS-BSS); Huawei CDR/billing data experience is a strong domain match.","sector":"Telecom"},
-{"id":"three-ireland-technology-graduate-programme","company":"Three Ireland","role":"Graduate Programme - Technology stream","location":"Dublin/Limerick","url":"https://www.three.ie/careers.html","deadline":"Monitor for 2027 (2025 deadline passed)","deadline_date":null,"tier":"TIER3","status":"monitor_only","why_it_fits":"Three carries more mobile data than any other Irish operator; telecom data background is a natural fit, but no confirmed live role.","sector":"Telecom"},
-{"id":"fdm-group-software-engineering-graduate-dublin","company":"FDM Group","role":"Software Engineering Graduate Programme","location":"Dublin","url":"https://careers.fdmgroup.com/vacancies/2213/software-engineering-graduate-programme--dublin.html","deadline":"Rolling","deadline_date":null,"tier":"TIER3","status":"live","why_it_fits":"Consultancy/placement route into major corporates (often telecoms and banks); reasonable fallback given a broad software/data skillset.","sector":"Consulting"},
-{"id":"version1-early-careers-programme-dublin","company":"Version 1","role":"Early Careers Programme","location":"Dublin","url":"https://www.version1.com/careers/early-careers/","deadline":"Rolling","deadline_date":null,"tier":"TIER3","status":"live","why_it_fits":"21-month consultant training programme (Cisco CyberOps, Azure, ISTQB); broad enough to leverage the Docker/Kubernetes and data engineering background.","sector":"Consulting"},
-{"id":"ucd-ceadar-graduate-data-scientist","company":"UCD CeADAR (Ireland's Centre for Applied AI)","role":"Graduate Data Scientist","location":"Dublin (Belfield)","url":"https://universityvacancies.com/university-college-dublin/graduate-data-scientist-ucd-school-of-computer-science-ceadar-fixed-term-post-until-31-january-2027-initially","deadline":"Deadline was 5 Aug 2026, likely closed - monitor for reopening","deadline_date":null,"tier":"TIER1","status":"monitor_only","why_it_fits":"Ireland's national centre for applied AI research; RAG systems, LLM deployment and PII redaction experience are directly relevant.","sector":"Public Sector/Utilities"},
-{"id":"microsoft-technology-consultant-graduate-dublin","company":"Microsoft","role":"Technology Consultant - Aspire Graduate Programme","location":"Dublin (hybrid)","url":"https://careers.microsoft.com/v2/global/en/recentgraduate","deadline":"Rolling (Aspire starts Sept/Oct 2026)","deadline_date":null,"tier":"TIER2","status":"live","why_it_fits":"1+ year structured learning journey building AI/ML exposure; Gemini RLHF experience gives insider knowledge of LLM evaluation most graduates lack.","sector":"Cloud/Big Tech"},
-{"id":"kerry-group-graduate-ict-stream","company":"Kerry Group","role":"Graduate Programme - ICT Stream","location":"Naas, Co. Kildare","url":"https://www.kerry.com/careers/graduates","deadline":"Check portal directly","deadline_date":null,"tier":"TIER3","status":"live","why_it_fits":"Food manufacturing is a major Industry 4.0 vertical; manufacturing-AI skills can be pitched as digital transformation capability.","sector":"AgriTech"},
-{"id":"tesco-ireland-supply-chain-graduate-scheme","company":"Tesco Ireland","role":"Supply Chain Graduate Scheme","location":"Dublin (Hybrid)","url":"https://careers.tesco.com/en_GB/careers/JobDetail/RoI-Supply-Chain-Graduate-Scheme-Tesco-Ireland/149810","deadline":"2026 deadline passed (23 Dec 2025) - monitor for 2027","deadline_date":null,"tier":"TIER2","status":"monitor_only","why_it_fits":"Retail-scale demand forecasting aligns with the AI agent routing (95.2% accuracy) and predictive analytics background.","sector":"Logistics"},
-{"id":"eirgrid-graduate-data-analytics-stream","company":"EirGrid Group","role":"Graduate Development Programme - Data Analytics Stream","location":"Dublin (Docklands)","url":"https://www.eirgrid.ie/careers","deadline":"Status unconfirmed - monitor for September opening","deadline_date":null,"tier":"TIER3","status":"monitor_only","why_it_fits":"Grid operations data and renewable forecasting are a reasonable match for time-series/anomaly-detection skills.","sector":"Public Sector/Utilities"},
-{"id":"esb-graduate-it-stream","company":"ESB","role":"Graduate Development Programme - IT Stream","location":"Dublin (multi-site)","url":"https://www.esb.ie/careers","deadline":"Likely closed for 2026 - monitor for Sept opening (2027 start)","deadline_date":null,"tier":"TIER3","status":"monitor_only","why_it_fits":"IT stream sits under ESB's CIO digital-transformation/data/AI function; telecom-scale data experience is relevant to utility transformation.","sector":"Public Sector/Utilities"},
-{"id":"experian-graduate-data-analyst","company":"Experian","role":"Graduate Data Analyst","location":"Dublin HQ (verify Ireland openings)","url":"https://www.experian.com/careers/early-careers/uk-ireland","deadline":"2026 closed - monitor for 2027 (opens Autumn)","deadline_date":null,"tier":"TIER3","status":"monitor_only","why_it_fits":"Predictive modelling and data extraction in Python/R/SQL match the stack directly, but the 2026 cycle is closed.","sector":"Financial Services"},
-{"id":"bank-of-ireland-data-technology-change-graduate","company":"Bank of Ireland","role":"Data, Technology & Change Graduate Programme","location":"Dublin (Hybrid)","url":"https://careers.bankofireland.com/graduates","deadline":"2026 closed - monitor for 2027 (opens Sept/Oct)","deadline_date":null,"tier":"TIER3","status":"monitor_only","why_it_fits":"Rotations across Data Science/Visualisation/Engineering match the Hadoop/HBase/PostgreSQL/pgvector background.","sector":"Financial Services"},
-{"id":"central-bank-ireland-graduate-data-analytics-stream","company":"Central Bank of Ireland","role":"Graduate Data Engineer / Data & Analytics Stream","location":"Dublin (Docklands)","url":"https://www.centralbank.ie/careers/graduate-entry-level-candidates","deadline":"2026 closed (Oct start) - monitor for 2027","deadline_date":null,"tier":"TIER2","status":"monitor_only","why_it_fits":"Regulatory/financial data pipeline work matches Hadoop/HBase/PostgreSQL experience with regulated data (TermsGuard, Clinical RAG).","sector":"Financial Services"},
-{"id":"ptsb-graduate-talent-programme-central-data-office","company":"Permanent TSB (PTSB)","role":"Graduate Talent Programme - Central Data Office","location":"Dublin","url":"https://www.ptsb.ie/about-us/careers/graduate-talent-programme/","deadline":"Check portal directly","deadline_date":null,"tier":"TIER3","status":"live","why_it_fits":"Rotations in Data Analytics/Architecture/Governance map across end-to-end data engineering and governance experience.","sector":"Financial Services"},
-{"id":"salesforce-new-graduate-data-science-dublin","company":"Salesforce","role":"New Graduate - Data Science","location":"Dublin","url":"https://www.salesforce.com/company/careers/university/new-grads/","deadline":"Check portal directly","deadline_date":null,"tier":"TIER2","status":"live","why_it_fits":"Salesforce's Agentforce AI platform is a major 2026 initiative; AI agent development and LLM evaluation map directly to their AI-first strategy.","sector":"Cloud/Big Tech"},
-{"id":"marine-institute-data-roles","company":"Marine Institute Ireland","role":"HEO Data Analyst (2026 Bursary, ML/AI) / Graduate Data Engineer","location":"Oranmore, Galway / Newport, Mayo","url":"https://www.marine.ie","deadline":"2026 Bursary closed (27 Feb) - monitor for permanent roles","deadline_date":null,"tier":"TIER3","status":"monitor_only","why_it_fits":"Niche public-sector data-science path in marine/environmental data with low competition from typical tech graduates.","sector":"AgriTech"},
-{"id":"teagasc-data-agritech-roles","company":"Teagasc","role":"Research Technologist - Digital Livestock Imaging","location":"Moorepark, Fermoy, Cork","url":"https://www.teagasc.ie/about/opportunities/current-vacancies/","deadline":"31 August 2026","deadline_date":"2026-08-31","tier":"TIER1","status":"live","why_it_fits":"Teagasc's AgNav platform needs rigorous backend infrastructure for sensor/imaging data; the cost-of-being-wrong AI-quality philosophy applies directly to livestock-monitoring false-positive risk.","sector":"AgriTech"},
-{"id":"kepak-data-analyst-graduate-programme-2026","company":"Kepak Group","role":"Data Analyst Graduate Programme 2026","location":"Dublin","url":"https://ie.linkedin.com/jobs/view/kepak-data-analyst-graduate-programme-2026-ireland-at-kepak-group-4311122379","deadline":"7 September 2026","deadline_date":"2026-09-07","tier":"TIER1","status":"live","why_it_fits":"Two-year graduate scheme in data analytics for food/agri; data engineering (Hadoop, SQL), dashboarding and UAT/BPMN collaboration map directly.","sector":"AgriTech"},
-{"id":"fortray-graduate-data-analyst-remote","company":"Fortray Global Service Limited","role":"Data and AI Analyst","location":"Dublin","url":"https://fortrayglobalservices.teamtailor.com/jobs/6716812-data-and-ai-analyst","deadline":"Rolling","deadline_date":null,"tier":"TIER3","status":"live","why_it_fits":"Python, SQL and data visualization core role; telecom-scale data and RLHF experience show ability to handle high-volume datasets.","sector":"Other"},
-{"id":"analog-devices-graduate-ml-ai-engineer-limerick","company":"Analog Devices","role":"Graduate ML/AI Engineer","location":"Limerick","url":"https://www.analog.com/en/careers/ai-careers.html","deadline":"Check portal directly","deadline_date":null,"tier":"TIER2","status":"live","why_it_fits":"Manufacturing analytics and ML model development in Limerick; industrial data pipeline and process automation (BPMN, UAT) experience is directly relevant.","sector":"Manufacturing/IoT"},
-{"id":"aerogen-graduate-data-ai-analyst-galway","company":"Aerogen","role":"Data Analyst / Data & AI Analyst","location":"Galway","url":"https://www.aerogen.com/careers-/career-search-results~career-detail~data-analyst-ireland~va959","deadline":"Rolling","deadline_date":null,"tier":"TIER2","status":"live","why_it_fits":"HealthTech medical-device company; Clinical RAG (pgvector, GDPR/PII redaction) experience is a direct differentiator for compliant medical-device AI.","sector":"HealthTech/Pharma"},
-{"id":"primark-graduate-data-scientist-dublin","company":"Primark","role":"Data Scientist (Graduate/Early Career)","location":"Dublin","url":"https://careers.primark.com/en/job/dublin/data-scientist/8171/98736442800","deadline":"Rolling","deadline_date":null,"tier":"TIER3","status":"live","why_it_fits":"Retail analytics needing Python/SQL and customer data experience; RLHF personalization work is relevant to recommendation-system-style retail analytics.","sector":"Other"},
-{"id":"ntma-graduate-data-analyst-dublin","company":"National Treasury Management Agency (NTMA)","role":"Data Analyst, Data Services Unit (State Claims Agency)","location":"Dublin","url":"https://www.ntma.ie/about-the-ntma/careers","deadline":"14 August 2026","deadline_date":"2026-08-14","tier":"TIER3","status":"live","why_it_fits":"Data engineering, analytics and reporting for a state financial agency; regulatory-compliance experience (TermsGuard) is directly applicable.","sector":"Financial Services"},
-{"id":"techworks-marine-graduate-data-engineer","company":"TechWorks Marine","role":"Graduate Data Engineer","location":"Dublin","url":"https://techworks.ie/jobs/","deadline":"30 Apr 2026 passed - monitor, or email jobs@techworks.ie","deadline_date":null,"tier":"TIER3","status":"monitor_only","why_it_fits":"Marine/environmental sensor-data engineering; environmental data and regulatory-compliance experience are relevant.","sector":"AgriTech"},
-{"id":"origin-enterprises-graduate-data-analyst","company":"Origin Enterprises","role":"Graduate Data Analyst","location":"Dublin","url":"https://originenterprises.com/careers/","deadline":"Check portal directly","deadline_date":null,"tier":"TIER3","status":"live","why_it_fits":"AgriTech supply-chain analytics/reporting role; data engineering and process-automation experience are valuable.","sector":"AgriTech"},
-{"id":"state-agencies-graduate-data-analyst","company":"State Agencies (CSO, EPA, Ordnance Survey, RSA)","role":"Graduate Data Analyst (general public sector)","location":"Dublin","url":"https://www.cso.ie/en/aboutus/careers/csograduateprogramme/","deadline":"Check portal directly","deadline_date":null,"tier":"TIER3","status":"live","why_it_fits":"Broad public-sector data analytics demand; regulatory-compliance and process-automation experience is a general fit.","sector":"Public Sector/Utilities"},
-{"id":"air-it-ai-engineer-graduate","company":"Air IT","role":"AI Engineer Graduate","location":"Ireland/UK (Nottingham hybrid, per source)","url":"https://www.brightnetwork.co.uk/graduate-jobs/air-it/ai-engineer-graduate-2026","deadline":"Monitor for reopening ~January 2027","deadline_date":null,"tier":"TIER3","status":"monitor_only","why_it_fits":"AI engineering graduate role with a now-passed Jan 2026 deadline; worth monitoring given the direct title match.","sector":"Other"},
-{"id":"allianz-data-analytics-graduate-programme","company":"Allianz","role":"Data Analytics Graduate Programme","location":"Dublin","url":"https://gradireland.com/jobs/data-analytics-graduate-programme-237687","deadline":"11 Oct 2026","deadline_date":"2026-10-11","tier":"TIER1","status":"live","why_it_fits":"Explicitly accepts a 2:1 achieved or expected in AI/Data Science/CS; data insights, transformation and AI/automation interest map directly onto TermsGuard AI and the Clinical RAG engine.","sector":"Financial Services"},
-{"id":"grant-thornton-2027-advisory-ai-data-technology","company":"Grant Thornton","role":"2027 Advisory Graduate Programme - AI, Data & Technology stream","location":"Dublin","url":"https://gradireland.com/jobs/2027-advisory-graduate-programme-dublin-237679","deadline":"22 Oct 2026","deadline_date":"2026-10-22","tier":"TIER1","status":"live","why_it_fits":"Responsible AI, data governance and technology implementation stream; on-track 2.1 accepted and start date (1 Oct 2027) falls safely after MSc completion.","sector":"Consulting"},
-{"id":"bdo-risk-advisory-graduate-2027","company":"BDO Ireland","role":"Risk & Advisory Graduate Programme 2027","location":"Dublin","url":"https://gradireland.com/jobs/risk-advisory-graduate-programme-2027-bdo-ireland-llp-dublin-236933","deadline":"9 Oct 2026","deadline_date":"2026-10-09","tier":"TIER2","status":"live","why_it_fits":"IT audit, systems/controls and technology-focused risk work draws directly on TermsGuard AI's GDPR grounding and the Gemini evaluation contract work.","sector":"Consulting"},
-{"id":"sig-software-developer-graduate-2027","company":"Susquehanna International Group (SIG)","role":"Software Developer Graduate: September 2027 Dublin","location":"Dublin","url":"https://careers.sig.com/","deadline":"Open, per source","deadline_date":null,"tier":"TIER2","status":"live","why_it_fits":"Object-oriented development plus large-scale data processing; Python/SQL and RAG pipeline design are a solid baseline even though the core domain is quantitative finance.","sector":"Financial Services"},
-{"id":"rsm-ireland-graduate-programme-2027","company":"RSM Ireland","role":"2027 RSM Ireland Graduate Programme","location":"Dublin","url":"https://gradireland.com/jobs/2027-rsm-ireland-graduate-programme-237693","deadline":"30 Sep 2026","deadline_date":"2026-09-30","tier":"TIER3","status":"live","why_it_fits":"Broader consulting programme with a technology/data management thread; predicted 2.1 accepted, no discipline restriction, but less AI-specific than the Tier 1 options above.","sector":"Consulting"},
-{"id":"daa-business-pathways-graduate","company":"daa","role":"Business Pathways Graduate Programme","location":"Dublin","url":"https://gradireland.com/jobs/business-pathways-graduate-programme-235247","deadline":"30 Nov 2026","deadline_date":"2026-11-30","tier":"TIER3","status":"live","why_it_fits":"Digital innovation, automation and data-driven decision-making; accepts a 2.1 or expected in any discipline, easing the part-time MSc timeline concern.","sector":"Public Sector/Utilities"},
-{"id":"accenture-data-ai-software-engineering-graduate-2027","company":"Accenture","role":"Data and AI / Software Engineering Graduate Programme 2027","location":"Dublin","url":"https://www.accenture.com/ie-en/careers","deadline":"Open for 2026/2027 intake, per source - verify directly","deadline_date":null,"tier":"TIER1","status":"live","why_it_fits":"Dedicated Data and AI stream alongside Software Engineering; matches the RAG/LLM evaluation and privacy-compliance project work closely.","sector":"Consulting"},
-{"id":"aib-enterprise-delivery-technology-graduate-2027","company":"AIB (Allied Irish Banks)","role":"Enterprise Delivery / Technology Graduate Programme","location":"Dublin","url":"https://jobs.aib.ie/","deadline":"2026 openings confirmed - 2027 cycle unconfirmed, monitor directly","deadline_date":null,"tier":"TIER2","status":"monitor_only","why_it_fits":"Rotational digital transformation and enterprise delivery programme; comparable to the Bank of Ireland entry already tracked here.","sector":"Financial Services"},
-{"id":"sogeti-ireland-graduate-programme-2027","company":"Sogeti Ireland","role":"Graduate Programme 2027","location":"Dublin","url":"https://www.sogeti.ie/","deadline":"Register interest only, per source","deadline_date":null,"tier":"TIER3","status":"monitor_only","why_it_fits":"General IT services graduate intake; broader fit than a direct AI/data match, worth a register-of-interest.","sector":"Consulting"},
-{"id":"vodafone-summer-internship","company":"Vodafone Ireland","role":"Summer Internship Programme","location":"Dublin","url":"https://careers.vodafone.com/ireland/","deadline":"Summer intake, per source","deadline_date":null,"tier":"TIER2","status":"live","why_it_fits":"Paid internship distinct from the Discover Graduate Programme entry above - fits inside the Stamp 2 term-time hour cap as a bridge before the January 2027 graduation.","sector":"Telecom"},
-{"id":"anthropic-fellows-program","company":"Anthropic","role":"Fellows Program / Claude Corps","location":"Unconfirmed - London/US per one source, Dublin per another","url":"https://www.anthropic.com/fellows","deadline":"Rolling, per one source","deadline_date":null,"tier":"TIER3","status":"monitor_only","why_it_fits":"UNVERIFIED AND CONTRADICTORY: one research pass claims rolling Dublin-compatible applications with a Jan 2027 cohort; another claims no Dublin footprint at all and recommends removal. Verify directly on anthropic.com before relying on this.","sector":"Other"},
-{"id":"fidelity-leap-technology-graduate","company":"Fidelity Investments","role":"Fidelity LEAP - Technology Graduate Programme","location":"Dublin","url":"https://jobs.fidelity.com/","deadline":"Registering interest, formal apps expected late summer/autumn 2026","deadline_date":null,"tier":"TIER1","status":"monitor_only","why_it_fits":"Explicitly promotes AI-native development; claimed requirement is degree completion by Sept 2027, matching the January 2027 finish. Note: source flags Fidelity may not sponsor visas - clarify Stamp 1G status directly with recruiters.","sector":"Financial Services"},
-{"id":"workday-generation-workday-graduate-swe","company":"Workday","role":"Generation Workday - Graduate Software Engineer (incl. Agentic AI & API Platform)","location":"Dublin","url":"https://workday.wd5.myworkdayjobs.com/Workday","deadline":"Open for Class of 2026/2027, per source","deadline_date":null,"tier":"TIER1","status":"live","why_it_fits":"Processes sensitive HR/financial data at scale; the GDPR privacy-policy checker and privacy-safe medical record retrieval project are a strong direct match for their compliance-aware engineering culture.","sector":"Cloud/Big Tech"},
-{"id":"stripe-software-engineer-new-grad-dublin","company":"Stripe","role":"Software Engineer, New Grad (Dublin HQ)","location":"Dublin","url":"https://stripe.com/jobs","deadline":"Periodic windows, per source","deadline_date":null,"tier":"TIER2","status":"live","why_it_fits":"Strong shipped-software bar; the Huawei internship, Turing contract QA work and independently shipped RAG/QA-gate projects show the practical experience Stripe looks for beyond theory, though some listings may want 2+ years' experience.","sector":"Cloud/Big Tech"},
-{"id":"scotiabank-tilt-technology-graduate","company":"Scotiabank","role":"TILT Technology New Graduate Development Program","location":"Dublin","url":"https://www.scotiabank.com/careers/","deadline":"Open, per source","deadline_date":null,"tier":"TIER2","status":"live","why_it_fits":"Rotational technology/data track at a global bank; the privacy-safe retrieval architecture work fits the compliance-heavy data environment.","sector":"Financial Services"},
-{"id":"pfizer-digital-rotational-programme","company":"Pfizer","role":"Digital Rotational Program / Graduate Recruitment (Grange Castle/Kildare/Cork)","location":"Dublin/Kildare/Cork","url":"https://www.pfizer.ie/career/graduate-programme","deadline":"2027 cohort apps typically open Autumn 2026, per source","deadline_date":null,"tier":"TIER1","status":"live","why_it_fits":"2-source convergence. Digital/data rotational track in a highly regulated environment - direct match for the privacy-safe medical record retrieval project. Rotation length (~23-24mo) reportedly overlaps well with Stamp 1G.","sector":"HealthTech/Pharma"},
-{"id":"sysco-ireland-business-graduate-data","company":"Sysco Ireland","role":"Business Graduate Programme (Data/Software track)","location":"Dublin","url":"https://www.irishjobs.ie/","deadline":"Sept 2027 start, per source","deadline_date":null,"tier":"TIER2","status":"live","why_it_fits":"Logistics/supply-chain data analytics; Sept 2027 start falls safely after MSc completion, per source, so no visa conflict.","sector":"Logistics"},
-{"id":"kpmg-ireland-graduate-2027","company":"KPMG Ireland","role":"Graduate Programme 2027 (Platform X / AI / Consulting streams)","location":"Dublin","url":"https://kpmg.com/ie/en/careers.html","deadline":"Open, per source","deadline_date":null,"tier":"TIER2","status":"live","why_it_fits":"AI/technology risk consulting stream; the Gemini evaluation contract work and GDPR checker are a direct narrative fit for algorithm auditing and AI risk work.","sector":"Consulting"},
-{"id":"ericsson-ireland-software-engineer-ai","company":"Ericsson Ireland","role":"Software Engineer (Big Data/AI focus)","location":"Ireland (R&D)","url":"https://jobs.ericsson.com/","deadline":"Rolling, per source","deadline_date":null,"tier":"TIER2","status":"live","why_it_fits":"Telecom R&D in big data/AI - the Huawei/Globacom telecom data background transfers directly. Rolling hire means timing the application for a Dec 2026/Jan 2027 start matters.","sector":"Telecom"},
-{"id":"google-ireland-swe-graduate","company":"Google Ireland","role":"Software Engineering Graduate","location":"Dublin","url":"https://careers.google.com/","deadline":"23 Sept 2026, per source","deadline_date":"2026-09-23","tier":"TIER2","status":"live","why_it_fits":"Direct Gemini-evaluation experience is a strong hook. AMBIGUITY FLAG: listing tagged \"Class of 2026\" per source - a Jan 2027 completion may or may not clear an automated filter, confirm with recruiter directly.","sector":"Cloud/Big Tech"},
-{"id":"meta-ireland-security-engineering-graduate","company":"Meta Ireland","role":"Security Engineering Graduate","location":"Dublin","url":"https://www.metacareers.com/","deadline":"25 Sept 2026, per source","deadline_date":"2026-09-25","tier":"TIER2","status":"live","why_it_fits":"GDPR checker and privacy-safe medical retrieval work map directly onto security/compliance engineering. AMBIGUITY FLAG: also tagged \"Class of 2026\" per source, same caveat as Google above.","sector":"Cloud/Big Tech"},
-{"id":"tines-ai-data-systems-roles","company":"Tines","role":"Junior/Entry-Level Software Engineer or Product Data Analyst","location":"Dublin","url":"https://www.tines.com/careers","deadline":"Rolling, per source","deadline_date":null,"tier":"TIER2","status":"live","why_it_fits":"Irish security-workflow-automation scale-up; GDPR checker and QA-gate projects map directly onto their AI-safe workflow orchestration focus. Rolling/immediate-hire risk - time application for late 2026.","sector":"Other"},
-{"id":"version1-early-careers-academy","company":"Version 1","role":"Software Engineer - Early Careers Academy","location":"Dublin","url":"https://www.version1.com/careers/","deadline":"14 Sept 2026, per source","deadline_date":"2026-09-14","tier":"TIER3","status":"live","why_it_fits":"Established Irish consultancy with structured onboarding. AMBIGUITY/RISK FLAG: tagged \"Class of 2026\" with an autumn 2026 induction per source - verify whether a Spring 2027 cohort exists before applying.","sector":"Consulting"},
-{"id":"wayflyer-software-engineer","company":"Wayflyer","role":"Frontend/Software Engineer (entry to mid-level)","location":"Dublin","url":"https://www.wayflyer.com/careers","deadline":"Rolling, per source","deadline_date":null,"tier":"TIER3","status":"live","why_it_fits":"Irish fintech scale-up, revenue-based financing built on data-driven underwriting. Rolling/immediate-hire risk, same as Tines - time application for late 2026.","sector":"Financial Services"},
-{"id":"stryker-digital-solutions-coop-2027","company":"Stryker","role":"Digital Solutions - Advanced Operations Co-op Placement 2027","location":"Carrigtwohill, Cork","url":"https://careers.stryker.com/","deadline":"Rolling, per source","deadline_date":null,"tier":"TIER3","status":"monitor_only","why_it_fits":"MedTech digital operations/robotics data work; the QA-gate project is a reasonable analogy. VISA RISK: titled a \"placement\"/co-op, which often requires immediate start - confirm timing before applying.","sector":"HealthTech/Pharma"},
-{"id":"mastercard-senior-ai-engineer","company":"Mastercard","role":"AI Engineer / Launch Program (early-career, titled \"Senior\" per source's convention)","location":"Leixlip, Co. Kildare","url":"https://careers.mastercard.com/","deadline":"Rolling, per source","deadline_date":null,"tier":"TIER1","status":"live","why_it_fits":"2-source convergence. Production AI systems, distributed systems - direct match for RAG pipeline and LLM evaluation background. Note: \"Senior\" in the title is reported as a leveling convention, not literal seniority - verify directly.","sector":"Financial Services"},
-{"id":"roche-ireland-internship-graduate","company":"Roche","role":"Internship / Graduate Recruitment Programme","location":"Dublin","url":"https://careers.roche.com/","deadline":"Not stated, per source","deadline_date":null,"tier":"TIER3","status":"monitor_only","why_it_fits":"Pharma data/technology work, comparable to Pfizer above. Start-date flexibility for a Jan 2027 finish unconfirmed - verify directly.","sector":"HealthTech/Pharma"},
-{"id":"abbvie-sci-tech-graduate","company":"AbbVie","role":"Sci-Tech Graduate Roles","location":"Ireland","url":"https://www.abbvie.com/careers.html","deadline":"Snapshot from May 2026, per source - verify current cycle","deadline_date":null,"tier":"TIER3","status":"monitor_only","why_it_fits":"Pharma sci-tech graduate hiring; specific role details unconfirmed by source, worth checking their careers portal directly.","sector":"HealthTech/Pharma"},
-{"id":"virgin-media-ireland-tech-innovation","company":"Virgin Media Ireland","role":"Technology & Innovation department roles (general vacancies)","location":"Dublin","url":"https://www.virginmedia.ie/careers","deadline":"Rolling, general vacancies","deadline_date":null,"tier":"TIER3","status":"live","why_it_fits":"Not a branded grad scheme - standard entry-level tech vacancies, which per source tend to have more start-date flexibility than fixed cohorts.","sector":"Telecom"},
-{"id":"pure-telecom-it-engineer-developer","company":"Pure Telecom","role":"IT Engineer/Developer","location":"Dublin","url":"https://www.puretelecom.com/careers/","deadline":"Open, per source","deadline_date":null,"tier":"TIER3","status":"live","why_it_fits":"Standard entry-level IT role at a growing Irish telecom (reported 30 new jobs from a EUR2m investment) - likely more start-date flexible than a formal grad scheme.","sector":"Telecom"},
-{"id":"digiweb-software-engineer-developer","company":"Digiweb","role":"Software Engineer / Developer","location":"Ireland","url":"https://digiweb.com/careers/","deadline":"Check portal directly","deadline_date":null,"tier":"TIER3","status":"monitor_only","why_it_fits":"Irish telecom with an education-reimbursement benefit per source, suggesting openness to students. No specific open role confirmed - requires a direct portal check.","sector":"Telecom"},
-{"id":"simplestudy-ai-startup-roles","company":"SimpleStudy","role":"AI/Product/Engineering roles (consumer AI platform for students)","location":"Ireland (per source)","url":"https://wellfound.com/","deadline":"Rolling, per source","deadline_date":null,"tier":"TIER3","status":"live","why_it_fits":"VC-backed AI startup; small team size per source means titles are fluid and practical AI-building experience (RAG, LLM eval) likely counts more than a title match.","sector":"Other"},
-{"id":"coder-agentic-engineering","company":"Coder","role":"Agentic Engineering roles","location":"Ireland (per source)","url":"https://wellfound.com/","deadline":"Rolling, per source","deadline_date":null,"tier":"TIER3","status":"live","why_it_fits":"Agentic-AI startup per source; values technical depth in AI/software over formal titles.","sector":"Other"},
-{"id":"everlance-data-scientist-remote","company":"Everlance","role":"Data Scientist (remote-first, Ireland-tagged)","location":"Remote (Ireland)","url":"https://wellfound.com/","deadline":"Rolling, per source","deadline_date":null,"tier":"TIER2","status":"live","why_it_fits":"Remote-first company hiring a Data Scientist with an Ireland location tag per source - remote-first roles tend to have the most start-date flexibility of anything on this list.","sector":"Other"},
-{"id":"ibm-ireland-entry-level-programs","company":"IBM Ireland","role":"Entry-Level Programs (tech/software/consulting)","location":"Dublin","url":"https://www.ibm.com/careers","deadline":"Ongoing, per source","deadline_date":null,"tier":"TIER3","status":"live","why_it_fits":"General entry-level portal per source, no specific role confirmed - worth a direct portal check for AI/data-specific openings.","sector":"Cloud/Big Tech"},
-{"id":"three-ireland-graduate-programme-VISA-CONFLICT","company":"Three Ireland","role":"Graduate Programme","location":"Dublin","url":"https://www.three.ie/careers","deadline":"Closed 28 Nov 2025 per one source for a Sept 2026 start","deadline_date":null,"tier":"TIER3","status":"monitor_only","why_it_fits":"VISA CONFLICT FLAGGED: per source, this cohort starts Sept 2026, before the Jan 2027 graduation - would breach the Stamp 2 20hr/week cap. Only pursue if a later cohort is confirmed.","sector":"Telecom"}
-];
-
-const TIER_ORDER = { TIER1: 0, TIER2: 1, TIER3: 2 };
-const POST_STATUS_ORDER = { live: 0, monitor_only: 1 }; // posting liveness, from the catalog itself
-
-// Per-job application state, keyed by job id, synced via Firestore.
-// appStatus: "new" | "viewed" | "snoozed" | "applied"
-let appState = {};
-
-async function loadState() {
-  const snap = await getDocs(collection(db, "applications"));
-  snap.forEach(d => { appState[d.id] = d.data(); });
-}
-
-function stateFor(id) {
-  return appState[id] || { appStatus: "new", clicks: 0, notes: "" };
-}
-
-function daysUntil(dateStr) {
-  if (!dateStr) return Infinity;
-  const today = new Date(); today.setHours(0,0,0,0);
-  const target = new Date(dateStr + "T00:00:00");
-  return Math.round((target - today) / 86400000);
-}
-
-function sortByUrgency(list) {
-  return list.slice().sort((a, b) => {
-    const da = daysUntil(a.deadline_date), db_ = daysUntil(b.deadline_date);
-    const aHard = a.deadline_date && da >= 0, bHard = b.deadline_date && db_ >= 0;
-    if (aHard && bHard && da !== db_) return da - db_;
-    if (aHard !== bHard) return aHard ? -1 : 1;
-    if (TIER_ORDER[a.tier] !== TIER_ORDER[b.tier]) return TIER_ORDER[a.tier] - TIER_ORDER[b.tier];
-    if (POST_STATUS_ORDER[a.status] !== POST_STATUS_ORDER[b.status]) return POST_STATUS_ORDER[a.status] - POST_STATUS_ORDER[b.status];
-    return stateFor(a.id).clicks - stateFor(b.id).clicks;
-  });
-}
-
-function triageCandidates() {
-  return sortByUrgency(CATALOG.filter(j => {
-    const s = stateFor(j.id).appStatus;
-    return s === "new" || s === "viewed" || !s;
-  }));
-}
-
-async function writeState(id, patch) {
-  const ref = doc(db, "applications", id);
-  appState[id] = { ...stateFor(id), ...patch };
-  const firestorePatch = { ...patch };
-  if ("clicksIncrement" in firestorePatch) {
-    delete firestorePatch.clicksIncrement;
-    firestorePatch.clicks = increment(1);
-  }
-  await setDoc(ref, firestorePatch, { merge: true });
-}
-
-async function recordClick(id) {
-  const prev = stateFor(id);
-  const patch = { clicksIncrement: true, lastVisited: serverTimestamp() };
-  if (prev.appStatus === "new" || !prev.appStatus) patch.appStatus = "viewed";
-  appState[id] = { ...prev, clicks: (prev.clicks || 0) + 1 };
-  await writeState(id, patch);
-}
-
-async function setAppStatus(id, appStatus) {
-  const patch = { appStatus };
-  patch.appliedAt = appStatus === "applied" ? serverTimestamp() : (stateFor(id).appliedAt ?? null);
-  await writeState(id, patch);
-  renderAll();
-}
-
-async function saveNote(id, notes) {
-  await writeState(id, { notes });
-}
-
-function progressCounts() {
-  const total = CATALOG.length;
-  const applied = CATALOG.filter(j => stateFor(j.id).appStatus === "applied").length;
-  const urgent = CATALOG.filter(j => {
-    const s = stateFor(j.id).appStatus;
-    if (s === "applied" || s === "snoozed") return false;
-    const d = daysUntil(j.deadline_date);
-    return j.deadline_date && d >= 0 && d <= 7;
-  }).length;
-  return { total, applied, urgent };
-}
-
-function renderProgress() {
-  const { total, applied, urgent } = progressCounts();
-  document.getElementById("progress-line").innerHTML =
-    `<strong>${applied}/${total}</strong> applied${urgent ? ` &middot; <strong>${urgent}</strong> urgent (due within 7 days)` : ""}`;
-  document.getElementById("progress-fill").style.width = total ? `${(applied / total) * 100}%` : "0%";
-}
-
-function renderTopCard() {
-  const slot = document.getElementById("top-card-slot");
-  const candidates = triageCandidates();
-  const job = candidates[0];
-  if (!job) {
-    slot.innerHTML = '<div class="top-card"><p class="done-msg">Nothing left to triage &mdash; check Snoozed roles in the All tab, or you are caught up.</p></div>';
-    return;
-  }
-  const st = stateFor(job.id);
-  slot.innerHTML = `
-    <div class="top-card">
-      <div class="company">${job.company}</div>
-      <div class="role">${job.role}</div>
-      <div class="meta-row">
-        <span class="pill">${job.location}</span>
-        <span class="pill deadline">${job.deadline}</span>
-        <span class="pill">${job.tier}</span>
+  <!-- ============ LOG AN APPLICATION ============ -->
+  <section class="panel">
+    <h2>Log an application</h2>
+    <form id="log-form" autocomplete="off">
+      <div class="frow">
+        <label>Company<input id="f-company" required placeholder="Accenture"></label>
+        <label>Role<input id="f-role" required placeholder="AI &amp; Data Graduate FY28"></label>
       </div>
-      <p class="why">${job.why_it_fits}</p>
-      <a class="apply-btn" href="${job.url}" target="_blank" rel="noopener" id="apply-link">Open application &rarr;</a>
-      <div class="action-row">
-        <button class="act-btn snooze" id="btn-snooze">Snooze</button>
-        <button class="act-btn applied" id="btn-applied">Applied &#10003;</button>
+      <div class="frow">
+        <label>Where<input id="f-location" placeholder="Dublin"></label>
+        <label>Source<select id="f-source">
+          <option>GradIreland</option><option>LinkedIn</option><option>Indeed</option>
+          <option>Company site</option><option>Referral</option><option>Networking</option>
+        </select></label>
       </div>
-      ${st.clicks ? `<div class="clicks-note">opened ${st.clicks} time${st.clicks === 1 ? "" : "s"}</div>` : ""}
+      <div class="frow">
+        <label>Link<input id="f-url" type="url" placeholder="https://..."></label>
+        <label>Deadline<input id="f-deadline" type="date"></label>
+      </div>
+      <div class="frow">
+        <label>Which CV<select id="f-cv">
+          <option value="ai">AI Systems / Data Scientist (current)</option>
+          <option value="dg">Data Governance &amp; Telecom</option>
+          <option value="other">Something else</option>
+        </select></label>
+        <label>Sent on<input id="f-date" type="date" required></label>
+      </div>
+      <label>Why this one<span class="hint">the sentence you would say out loud. If you cannot write one, that is the answer</span>
+        <textarea id="f-why" rows="2" placeholder="They want RAG and evaluation; TermsGuard and the Clinical RAG engine are exactly that"></textarea></label>
+      <div class="submit-row">
+        <button class="btn-primary" type="submit">Log it</button>
+        <span class="btn-note" id="log-note"></span>
+      </div>
+    </form>
+  </section>
+
+  <!-- ============ LOG AN OUTCOME ============ -->
+  <section class="panel">
+    <h2>Record what came back</h2>
+    <p class="panel-sub">This is the part the old tracker never did. A rejection, a silent no, or a screening call, logged the
+      day you hear it.</p>
+    <div class="frow">
+      <label>Application<select id="o-app"><option value="">choose&hellip;</option></select></label>
+      <label>Outcome<select id="o-status">
+        <option value="silent">no response</option>
+        <option value="rejected">rejected</option>
+        <option value="screening">screening call booked</option>
+        <option value="assessment">online assessment</option>
+        <option value="interview">interview</option>
+        <option value="offer">offer</option>
+      </select></label>
     </div>
-  `;
-  document.getElementById("apply-link").addEventListener("click", () => recordClick(job.id));
-  document.getElementById("btn-applied").addEventListener("click", () => setAppStatus(job.id, "applied"));
-  document.getElementById("btn-snooze").addEventListener("click", () => setAppStatus(job.id, "snoozed"));
-}
+    <div class="frow">
+      <label>When<input id="o-date" type="date" required></label>
+      <label>Note<span class="hint">the one thing that would have changed the outcome</span>
+        <input id="o-note" placeholder="no visa line on the CV, probably"></label>
+    </div>
+    <div class="submit-row">
+      <button class="btn-primary" type="button" id="o-save">Save outcome</button>
+      <span class="btn-note" id="o-note-msg"></span>
+    </div>
+  </section>
 
-function renderTriageList() {
-  const wrap = document.getElementById("triage-list");
-  const candidates = triageCandidates().slice(1); // everything after the top card
-  if (!candidates.length) {
-    wrap.innerHTML = '<p class="empty-note">Nothing else queued right now.</p>';
-    return;
-  }
-  wrap.innerHTML = candidates.map(j => jobRowHtml(j)).join("");
-  wireJobRows(wrap);
-}
+  <!-- ============ CLOSING SOON ============ -->
+  <section class="panel" id="soon-panel" hidden>
+    <h2>Closing soon</h2>
+    <div id="soon-list"></div>
+  </section>
 
-function renderAppliedList() {
-  const wrap = document.getElementById("applied-list");
-  const applied = CATALOG.filter(j => stateFor(j.id).appStatus === "applied");
-  if (!applied.length) {
-    wrap.innerHTML = '<p class="empty-note">Nothing marked applied yet. Anything you mark here can always be undone.</p>';
-    return;
-  }
-  applied.sort((a, b) => {
-    const ta = stateFor(a.id).appliedAt?.toMillis?.() || 0;
-    const tb = stateFor(b.id).appliedAt?.toMillis?.() || 0;
-    return tb - ta;
-  });
-  wrap.innerHTML = applied.map(j => {
-    const st = stateFor(j.id);
-    const when = st.appliedAt?.toDate ? st.appliedAt.toDate().toLocaleDateString(undefined, { day: "numeric", month: "short" }) : "recently";
-    return `
-      <div class="applied-row">
-        <div>
-          <div class="ar-company">${j.company}</div>
-          <div class="ar-role">${j.role}</div>
-          <div class="ar-when">applied ${when}</div>
-        </div>
-        <button class="undo-btn" data-id="${j.id}">Undo</button>
-      </div>`;
-  }).join("");
-  wrap.querySelectorAll(".undo-btn").forEach(btn => btn.addEventListener("click", () => setAppStatus(btn.dataset.id, "viewed")));
-}
-
-function jobRowHtml(j) {
-  const st = stateFor(j.id);
-  const applied = st.appStatus === "applied";
-  const snoozed = st.appStatus === "snoozed";
-  return `
-    <div class="job-row" data-id="${j.id}">
-      <div class="row-top">
-        <a href="${j.url}" target="_blank" rel="noopener" class="row-link" data-id="${j.id}">
-          ${j.company}<span class="row-role">${j.role} &middot; ${j.deadline}</span>
-        </a>
-        <div class="row-right">
-          ${st.clicks ? `<span class="status-tag">${st.clicks}x</span>` : ""}
-          <button class="row-btn ${applied ? "applied" : ""} ${snoozed ? "snoozed" : ""}" data-id="${j.id}" data-action="toggle-applied">
-            ${applied ? "Applied" : snoozed ? "Snoozed" : "Mark applied"}
-          </button>
-        </div>
+  <!-- ============ LEDGER ============ -->
+  <section class="panel">
+    <div class="panel-head">
+      <h2>Ledger</h2>
+      <div class="filters">
+        <button class="fbtn active" data-f="all">all</button>
+        <button class="fbtn" data-f="open">open</button>
+        <button class="fbtn" data-f="responded">responded</button>
+        <button class="fbtn" data-f="stale">awaiting 14d+</button>
       </div>
-      <button class="note-toggle" data-id="${j.id}" data-action="toggle-note">${st.notes ? "&#9998; note" : "+ note"}</button>
-      <div style="display:none;" data-id="${j.id}" data-role="note-wrap">
-        <textarea class="row-note" rows="2" placeholder="e.g. needs cover letter tailored to telco CDR scale" data-id="${j.id}">${st.notes || ""}</textarea>
-      </div>
-    </div>`;
-}
+    </div>
+    <div id="ledger"></div>
+    <div class="export-row">
+      <button class="fbtn" id="btn-csv">Export CSV</button>
+      <button class="fbtn" id="btn-json">Export JSON</button>
+      <button class="fbtn fbtn-danger" id="btn-clear">Clear all</button>
+    </div>
+    <p class="panel-sub">State lives in this browser only. Export before you clear it, or before switching devices.</p>
+  </section>
 
-function wireJobRows(wrap) {
-  wrap.querySelectorAll(".row-link").forEach(a => a.addEventListener("click", () => recordClick(a.dataset.id)));
-  wrap.querySelectorAll('[data-action="toggle-applied"]').forEach(btn => btn.addEventListener("click", () => {
-    const id = btn.dataset.id;
-    const cur = stateFor(id).appStatus;
-    setAppStatus(id, cur === "applied" ? "viewed" : "applied");
-  }));
-  wrap.querySelectorAll('[data-action="toggle-note"]').forEach(btn => btn.addEventListener("click", () => {
-    const row = wrap.querySelector(`[data-role="note-wrap"][data-id="${btn.dataset.id}"]`);
-    row.style.display = row.style.display === "none" ? "block" : "none";
-  }));
-  wrap.querySelectorAll(".row-note").forEach(ta => ta.addEventListener("blur", () => saveNote(ta.dataset.id, ta.value)));
-}
+  <!-- ============ FIT WATCH ============ -->
+  <section class="panel">
+    <h2>Fit watch</h2>
+    <p class="panel-sub">Roles close without warning, and the ones that close first are often the best fit. This list is
+      what your saved-and-forgotten applications looked like: gone, and gone quietly.</p>
+    <div id="fit-list"></div>
+  </section>
 
-function renderAllList() {
-  const wrap = document.getElementById("all-list");
-  const byTier = { TIER1: [], TIER2: [], TIER3: [] };
-  const snoozed = [];
-  CATALOG.forEach(j => {
-    if (stateFor(j.id).appStatus === "snoozed") snoozed.push(j);
-    else byTier[j.tier].push(j);
-  });
-  const labels = { TIER1: "Tier 1 - apply first", TIER2: "Tier 2 - strong match", TIER3: "Tier 3 - worth monitoring" };
-  let html = "";
-  for (const tier of ["TIER1", "TIER2", "TIER3"]) {
-    html += `<div class="tier-heading">${labels[tier]}</div>`;
-    html += sortByUrgency(byTier[tier]).map(j => jobRowHtml(j)).join("");
-  }
-  if (snoozed.length) {
-    html += `<div class="tier-heading">Snoozed</div>`;
-    html += sortByUrgency(snoozed).map(j => jobRowHtml(j)).join("");
-  }
-  wrap.innerHTML = html;
-  wireJobRows(wrap);
-}
-
-function renderAll() {
-  renderProgress();
-  renderTopCard();
-  renderTriageList();
-  renderAppliedList();
-  renderAllList();
-}
-
-document.querySelectorAll(".tab-btn").forEach(btn => btn.addEventListener("click", () => {
-  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-  document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
-  btn.classList.add("active");
-  document.getElementById(`panel-${btn.dataset.tab}`).classList.add("active");
-}));
-
-(async function init() {
-  try {
-    await loadState();
-  } catch (e) {
-    console.error("Firestore load failed, showing catalog with local-only state.", e);
-  }
-  renderAll();
-})();
-</script>
-
-<div class="theme-picker" role="group" aria-label="colour theme">
-  <button type="button" class="theme-dot" data-set-theme="g5" style="--sw:#ff7a3d" title="G5 Tri-X" aria-pressed="true"></button>
-  <button type="button" class="theme-dot" data-set-theme="teal" style="--sw:#3fc2b4" title="Teal &amp; Orange" aria-pressed="false"></button>
-  <button type="button" class="theme-dot" data-set-theme="contact" style="--sw:#b8541f" title="Contact Sheet" aria-pressed="false"></button>
-  <button type="button" class="theme-dot" data-set-theme="cyano" style="--sw:#175a9c" title="Cyanotype" aria-pressed="false"></button>
 </div>
+
+<button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">&#9681;</button>
+<script src="jobs.js"></script>
 <script>
-(function () {
-  var K = "tw-theme", R = document.documentElement;
-  function M() {
-    var c = R.getAttribute("data-theme") || "g5";
-    var d = document.querySelectorAll("[data-set-theme]");
-    for (var i = 0; i < d.length; i++) {
-      d[i].setAttribute("aria-pressed", d[i].getAttribute("data-set-theme") === c ? "true" : "false");
-    }
-  }
-  document.addEventListener("click", function (e) {
-    var b = e.target.closest ? e.target.closest("[data-set-theme]") : null;
-    if (!b) return;
-    var t = b.getAttribute("data-set-theme");
-    R.setAttribute("data-theme", t);
-    localStorage.setItem(K, t);
-    M();
-  });
-  M();
-})();
+window.JOBS_CATALOG = [
+ {
+  "id": "dmi-graduate-ai-ml-engineer",
+  "company": "Digital Manufacturing Ireland (DMI)",
+  "role": "Graduate ML/AI Engineer",
+  "location": "Limerick",
+  "url": "https://gradireland.com/jobs/graduate-ai-engineer-234357",
+  "deadline": "Rolling",
+  "deadline_date": null,
+  "why": "DMI wants RAG pipelines, LLM assistants, vector DBs and EU AI Act/GDPR governance for manufacturing - maps almost directly onto TermsGuard AI and the Clinical RAG engine, plus the Huawei 400M-record m"
+ },
+ {
+  "id": "vodafone-discover-graduate-programme",
+  "company": "Vodafone Ireland",
+  "role": "Discover Graduate Programme - Technology/Data streams",
+  "location": "Dublin",
+  "url": "https://careers.vodafone.com/ireland/",
+  "deadline": "Monitor for late vacancies (main 2026 intake likely filled)",
+  "deadline_date": null,
+  "why": "Technology/Data streams want AI, ML and data engineering skills - a direct match for the Huawei CDR migration and Gemini RLHF work, but the main intake is likely already filled by August."
+ },
+ {
+  "id": "verizon-graduate-network-engineer-ultra-long-haul",
+  "company": "Verizon",
+  "role": "Graduate Network Engineer - Ultra Long Haul Center Engineering",
+  "location": "Limerick (Hybrid)",
+  "url": "https://mycareer.verizon.com/jobs/r-1098801/graduate-network-engineer-ultra-long-haul-center-engineering/",
+  "deadline": "31 August 2026",
+  "deadline_date": "2026-08-31",
+  "why": "Verizon explicitly lists proficiency with AI tools as a desired skill - the Huawei telecom CDR/billing background plus Gemini RLHF quality work transfer directly."
+ },
+ {
+  "id": "verizon-business-systems-graduate-app-support",
+  "company": "Verizon",
+  "role": "Business Systems Graduate - App Support",
+  "location": "Limerick (Hybrid)",
+  "url": "https://mycareer.verizon.com/jobs/r-1097953/business-systems-graduate-app-support/",
+  "deadline": "Rolling",
+  "deadline_date": null,
+  "why": "Data analysis, UAT testing, application support and training delivery - directly matches the 440+ UAT cases at Huawei and the Gemini data-quality analyst background."
+ },
+ {
+  "id": "cubic-graduate-technology-programme",
+  "company": "Cubic Telecom (Cubic\u00b3)",
+  "role": "Graduate Technology Programme 2026",
+  "location": "Dublin (Sandyford, onsite)",
+  "url": "https://www.cubic3.com/blog/cubic%C2%B3-graduate-technology-programme-2026/",
+  "deadline": "Check portal directly",
+  "deadline_date": null,
+  "why": "Irish-founded, SoftBank-backed connected-vehicle telecom scale-up; Huawei network data background, Kubernetes/Docker deployment and self-directed RAG projects map to their builder-mindset bar."
+ },
+ {
+  "id": "cubic-telecom-associate-software-developer",
+  "company": "Cubic Telecom",
+  "role": "Associate Software Developer",
+  "location": "Dublin",
+  "url": "https://jobs.workable.com/company/7wXgZt6H9fEitHuLQT2SbW/jobs-at-cubic-telecom",
+  "deadline": "Check portal directly",
+  "deadline_date": null,
+  "why": "IoT connectivity for connected vehicles; telecom billing-scale data experience from Huawei is structurally similar to their telemetry pipelines."
+ },
+ {
+  "id": "cubic-telecom-data-engineer",
+  "company": "Cubic Telecom",
+  "role": "Data Engineer",
+  "location": "Dublin",
+  "url": "https://builtindublin.ie/",
+  "deadline": "Check portal directly",
+  "deadline_date": null,
+  "why": "Cubic Telecom needs data engineers for connected mobility pipelines; PostgreSQL/pgvector experience from the Medical Records Engine plus Kubernetes cert match directly."
+ },
+ {
+  "id": "cubic-telecom-sim-engineer-i",
+  "company": "Cubic Telecom",
+  "role": "SIM Engineer I",
+  "location": "Dublin",
+  "url": "https://builtindublin.ie/job/senior-sim-engineer/2983272",
+  "deadline": "Rolling",
+  "deadline_date": null,
+  "why": "Entry-level SIM/eSIM role; Python/SQL scripting would let you automate SIM provisioning and lifecycle tasks beyond a typical hardware-only hire."
+ },
+ {
+  "id": "eir-multiple-technical-roles",
+  "company": "eir",
+  "role": "Multiple Technical Roles (Network Engineer, Telecoms Specialist, SOC Analyst, Firewall Engineer)",
+  "location": "Dublin/Belfast",
+  "url": "https://jobs.eir.care/jobs",
+  "deadline": "Rolling, some close mid-August 2026",
+  "deadline_date": null,
+  "why": "Direct hires: Huawei telecom infrastructure background and Kubernetes cert are directly relevant to network engineering and SOC roles."
+ },
+ {
+  "id": "eir-devops-expert-contract",
+  "company": "eir business talent",
+  "role": "DevOps Expert (Contract)",
+  "location": "Dublin",
+  "url": "https://eirbusinesstalent.ie/job-search/",
+  "deadline": "Check portal directly",
+  "deadline_date": null,
+  "why": "Kubernetes cert plus Flask/FastAPI deployment via Docker/GKE matches eir's need for automated CI/CD to minimise network downtime."
+ },
+ {
+  "id": "eir-data-integrity-specialist",
+  "company": "eir business talent",
+  "role": "Data Integrity Specialist",
+  "location": "Waterford (Hybrid, 12-month contract)",
+  "url": "https://www.irishjobs.ie/job/data-integrity-specialist/eir-business-talent-job107695257",
+  "deadline": "Rolling",
+  "deadline_date": null,
+  "why": "Gemini AI-quality background and Huawei UAT design give an analytical framework for spotting data anomalies in telecom billing data."
+ },
+ {
+  "id": "nbi-sdet-integration-engineer",
+  "company": "National Broadband Ireland (NBI)",
+  "role": "SDET / IT OE Integration Engineer",
+  "location": "Dublin",
+  "url": "https://nbi.ie/careers/current-vacancies/",
+  "deadline": "Check portal directly",
+  "deadline_date": null,
+  "why": "440+ UAT cases at Huawei is directly relevant rigorous-testing experience for national fibre rollout software QA."
+ },
+ {
+  "id": "ericsson-ireland-general-portal",
+  "company": "Ericsson",
+  "role": "General direct-hire graduate/early-career roles (Ireland)",
+  "location": "Athlone/Dublin",
+  "url": "https://www.ericsson.com/en/careers/global-locations/ireland",
+  "deadline": "Check portal directly",
+  "deadline_date": null,
+  "why": "Huawei brand recognition and telecom-scale data experience are relevant across Ericsson's open Ireland roles."
+ },
+ {
+  "id": "ericsson-msc-applied-swe-athlone",
+  "company": "Ericsson (via TUS Athlone)",
+  "role": "Sponsored MSc in Applied Software Engineering + permanent job route",
+  "location": "Athlone",
+  "url": "https://ictskillnet.ie/courses/msc-in-applied-software-engineering/",
+  "deadline": "Monitor for reopening ~2027 (2026 closed)",
+  "deadline_date": null,
+  "why": "Free MSc plus guaranteed permanent job route; confirmed closed for 2026, worth revisiting for 2027."
+ },
+ {
+  "id": "ibm-ireland-early-career-ai",
+  "company": "IBM Ireland",
+  "role": "Entry-level AI/Software Engineering roles + AI & Analytics Associate",
+  "location": "Dublin/Cork/Waterford",
+  "url": "https://www.ibm.com/careers/software-engineering",
+  "deadline": "Check portal directly",
+  "deadline_date": null,
+  "why": "IBM Dublin is investing heavily in Generative AI; RAG systems and LLM evaluation (Gemini RLHF) fit the AI & Analytics Associate profile well."
+ },
+ {
+  "id": "aws-graduate-data-engineer-cloud-sde",
+  "company": "Amazon / AWS",
+  "role": "Graduate Data Engineer / SDE / Cloud Engineer",
+  "location": "Dublin",
+  "url": "https://www.amazon.jobs/jobs/10449992",
+  "deadline": "Rolling",
+  "deadline_date": null,
+  "why": "The 400M-daily-CDR Hadoop/HBase migration at Huawei is direct proof of planetary-scale data logistics understanding; Kubernetes/Docker/GKE experience matches infra requirements."
+ },
+ {
+  "id": "google-dublin-early-career-infrastructure",
+  "company": "Google Dublin",
+  "role": "Early-career Networking / AI & ML Software Engineering / Infrastructure",
+  "location": "Dublin",
+  "url": "https://techsysinfra.google/jointheteam/",
+  "deadline": "Check portal directly",
+  "deadline_date": null,
+  "why": "Google's Technical Infrastructure team lists AI & ML Software Engineering and Networking as early-career paths; Gemini RLHF background gives direct insider familiarity."
+ },
+ {
+  "id": "intel-ireland-graduate-schemes",
+  "company": "Intel Ireland",
+  "role": "Graduate Schemes (Engineering, Cybersecurity, Data Science & AI, PM)",
+  "location": "Leixlip",
+  "url": "https://intel.wd1.myworkdayjobs.com/External/",
+  "deadline": "Check portal directly (peaks autumn/spring)",
+  "deadline_date": null,
+  "why": "Data Science & AI graduate stream at a major fab; industrial-scale data pipeline experience is relevant to semiconductor manufacturing analytics."
+ },
+ {
+  "id": "nokia-ireland-positions",
+  "company": "Nokia",
+  "role": "General open positions + NextGEN graduate community",
+  "location": "Ireland (various)",
+  "url": "https://www.nokia.com/careers/",
+  "deadline": "Check portal directly",
+  "deadline_date": null,
+  "why": "Telecom equipment manufacturer with early-career programmes; Huawei telecom background is a natural domain match."
+ },
+ {
+  "id": "hpe-juniper-networking-galway",
+  "company": "HPE + Juniper Networking",
+  "role": "AI-driven networking roles",
+  "location": "Galway/Dublin",
+  "url": "https://careers.hpe.com/juniper",
+  "deadline": "Check portal directly",
+  "deadline_date": null,
+  "why": "New convergence of AI + networking post HPE-Juniper acquisition; Kubernetes/Docker and telecom data background are relevant."
+ },
+ {
+  "id": "enea-software-dublin",
+  "company": "ENEA Software",
+  "role": "Core Network / Telecom Software (monitor - nothing open now)",
+  "location": "Dublin",
+  "url": "https://careers.enea.com/jobs",
+  "deadline": "No dev roles visible now; monitor",
+  "deadline_date": null,
+  "why": "Swedish telecom/cybersecurity software firm with a Dublin office; worth monitoring given the direct sector match."
+ },
+ {
+  "id": "amdocs-dublin",
+  "company": "Amdocs",
+  "role": "Software engineering/testing roles",
+  "location": "Dublin",
+  "url": "https://jobs.amdocs.com/careers",
+  "deadline": "Check portal directly",
+  "deadline_date": null,
+  "why": "Telecom software giant (billing/CRM/OSS-BSS); Huawei CDR/billing data experience is a strong domain match."
+ },
+ {
+  "id": "three-ireland-technology-graduate-programme",
+  "company": "Three Ireland",
+  "role": "Graduate Programme - Technology stream",
+  "location": "Dublin/Limerick",
+  "url": "https://www.three.ie/careers.html",
+  "deadline": "Monitor for 2027 (2025 deadline passed)",
+  "deadline_date": null,
+  "why": "Three carries more mobile data than any other Irish operator; telecom data background is a natural fit, but no confirmed live role."
+ },
+ {
+  "id": "fdm-group-software-engineering-graduate-dublin",
+  "company": "FDM Group",
+  "role": "Software Engineering Graduate Programme",
+  "location": "Dublin",
+  "url": "https://careers.fdmgroup.com/vacancies/2213/software-engineering-graduate-programme--dublin.html",
+  "deadline": "Rolling",
+  "deadline_date": null,
+  "why": "Consultancy/placement route into major corporates (often telecoms and banks); reasonable fallback given a broad software/data skillset."
+ },
+ {
+  "id": "version1-early-careers-programme-dublin",
+  "company": "Version 1",
+  "role": "Early Careers Programme",
+  "location": "Dublin",
+  "url": "https://www.version1.com/careers/early-careers/",
+  "deadline": "Rolling",
+  "deadline_date": null,
+  "why": "21-month consultant training programme (Cisco CyberOps, Azure, ISTQB); broad enough to leverage the Docker/Kubernetes and data engineering background."
+ },
+ {
+  "id": "ucd-ceadar-graduate-data-scientist",
+  "company": "UCD CeADAR (Ireland's Centre for Applied AI)",
+  "role": "Graduate Data Scientist",
+  "location": "Dublin (Belfield)",
+  "url": "https://universityvacancies.com/university-college-dublin/graduate-data-scientist-ucd-school-of-computer-science-ceadar-fixed-term-post-until-31-january-2027-initially",
+  "deadline": "Deadline was 5 Aug 2026, likely closed - monitor for reopening",
+  "deadline_date": null,
+  "why": "Ireland's national centre for applied AI research; RAG systems, LLM deployment and PII redaction experience are directly relevant."
+ },
+ {
+  "id": "microsoft-technology-consultant-graduate-dublin",
+  "company": "Microsoft",
+  "role": "Technology Consultant - Aspire Graduate Programme",
+  "location": "Dublin (hybrid)",
+  "url": "https://careers.microsoft.com/v2/global/en/recentgraduate",
+  "deadline": "Rolling (Aspire starts Sept/Oct 2026)",
+  "deadline_date": null,
+  "why": "1+ year structured learning journey building AI/ML exposure; Gemini RLHF experience gives insider knowledge of LLM evaluation most graduates lack."
+ },
+ {
+  "id": "kerry-group-graduate-ict-stream",
+  "company": "Kerry Group",
+  "role": "Graduate Programme - ICT Stream",
+  "location": "Naas, Co. Kildare",
+  "url": "https://www.kerry.com/careers/graduates",
+  "deadline": "Check portal directly",
+  "deadline_date": null,
+  "why": "Food manufacturing is a major Industry 4.0 vertical; manufacturing-AI skills can be pitched as digital transformation capability."
+ },
+ {
+  "id": "tesco-ireland-supply-chain-graduate-scheme",
+  "company": "Tesco Ireland",
+  "role": "Supply Chain Graduate Scheme",
+  "location": "Dublin (Hybrid)",
+  "url": "https://careers.tesco.com/en_GB/careers/JobDetail/RoI-Supply-Chain-Graduate-Scheme-Tesco-Ireland/149810",
+  "deadline": "2026 deadline passed (23 Dec 2025) - monitor for 2027",
+  "deadline_date": null,
+  "why": "Retail-scale demand forecasting aligns with the AI agent routing (95.2% accuracy) and predictive analytics background."
+ },
+ {
+  "id": "eirgrid-graduate-data-analytics-stream",
+  "company": "EirGrid Group",
+  "role": "Graduate Development Programme - Data Analytics Stream",
+  "location": "Dublin (Docklands)",
+  "url": "https://www.eirgrid.ie/careers",
+  "deadline": "Status unconfirmed - monitor for September opening",
+  "deadline_date": null,
+  "why": "Grid operations data and renewable forecasting are a reasonable match for time-series/anomaly-detection skills."
+ },
+ {
+  "id": "esb-graduate-it-stream",
+  "company": "ESB",
+  "role": "Graduate Development Programme - IT Stream",
+  "location": "Dublin (multi-site)",
+  "url": "https://www.esb.ie/careers",
+  "deadline": "Likely closed for 2026 - monitor for Sept opening (2027 start)",
+  "deadline_date": null,
+  "why": "IT stream sits under ESB's CIO digital-transformation/data/AI function; telecom-scale data experience is relevant to utility transformation."
+ },
+ {
+  "id": "experian-graduate-data-analyst",
+  "company": "Experian",
+  "role": "Graduate Data Analyst",
+  "location": "Dublin HQ (verify Ireland openings)",
+  "url": "https://www.experian.com/careers/early-careers/uk-ireland",
+  "deadline": "2026 closed - monitor for 2027 (opens Autumn)",
+  "deadline_date": null,
+  "why": "Predictive modelling and data extraction in Python/R/SQL match the stack directly, but the 2026 cycle is closed."
+ },
+ {
+  "id": "bank-of-ireland-data-technology-change-graduate",
+  "company": "Bank of Ireland",
+  "role": "Data, Technology & Change Graduate Programme",
+  "location": "Dublin (Hybrid)",
+  "url": "https://careers.bankofireland.com/graduates",
+  "deadline": "2026 closed - monitor for 2027 (opens Sept/Oct)",
+  "deadline_date": null,
+  "why": "Rotations across Data Science/Visualisation/Engineering match the Hadoop/HBase/PostgreSQL/pgvector background."
+ },
+ {
+  "id": "central-bank-ireland-graduate-data-analytics-stream",
+  "company": "Central Bank of Ireland",
+  "role": "Graduate Data Engineer / Data & Analytics Stream",
+  "location": "Dublin (Docklands)",
+  "url": "https://www.centralbank.ie/careers/graduate-entry-level-candidates",
+  "deadline": "2026 closed (Oct start) - monitor for 2027",
+  "deadline_date": null,
+  "why": "Regulatory/financial data pipeline work matches Hadoop/HBase/PostgreSQL experience with regulated data (TermsGuard, Clinical RAG)."
+ },
+ {
+  "id": "ptsb-graduate-talent-programme-central-data-office",
+  "company": "Permanent TSB (PTSB)",
+  "role": "Graduate Talent Programme - Central Data Office",
+  "location": "Dublin",
+  "url": "https://www.ptsb.ie/about-us/careers/graduate-talent-programme/",
+  "deadline": "Check portal directly",
+  "deadline_date": null,
+  "why": "Rotations in Data Analytics/Architecture/Governance map across end-to-end data engineering and governance experience."
+ },
+ {
+  "id": "salesforce-new-graduate-data-science-dublin",
+  "company": "Salesforce",
+  "role": "New Graduate - Data Science",
+  "location": "Dublin",
+  "url": "https://www.salesforce.com/company/careers/university/new-grads/",
+  "deadline": "Check portal directly",
+  "deadline_date": null,
+  "why": "Salesforce's Agentforce AI platform is a major 2026 initiative; AI agent development and LLM evaluation map directly to their AI-first strategy."
+ },
+ {
+  "id": "marine-institute-data-roles",
+  "company": "Marine Institute Ireland",
+  "role": "HEO Data Analyst (2026 Bursary, ML/AI) / Graduate Data Engineer",
+  "location": "Oranmore, Galway / Newport, Mayo",
+  "url": "https://www.marine.ie",
+  "deadline": "2026 Bursary closed (27 Feb) - monitor for permanent roles",
+  "deadline_date": null,
+  "why": "Niche public-sector data-science path in marine/environmental data with low competition from typical tech graduates."
+ },
+ {
+  "id": "teagasc-data-agritech-roles",
+  "company": "Teagasc",
+  "role": "Research Technologist - Digital Livestock Imaging",
+  "location": "Moorepark, Fermoy, Cork",
+  "url": "https://www.teagasc.ie/about/opportunities/current-vacancies/",
+  "deadline": "31 August 2026",
+  "deadline_date": "2026-08-31",
+  "why": "Teagasc's AgNav platform needs rigorous backend infrastructure for sensor/imaging data; the cost-of-being-wrong AI-quality philosophy applies directly to livestock-monitoring false-positive risk."
+ },
+ {
+  "id": "kepak-data-analyst-graduate-programme-2026",
+  "company": "Kepak Group",
+  "role": "Data Analyst Graduate Programme 2026",
+  "location": "Dublin",
+  "url": "https://ie.linkedin.com/jobs/view/kepak-data-analyst-graduate-programme-2026-ireland-at-kepak-group-4311122379",
+  "deadline": "7 September 2026",
+  "deadline_date": "2026-09-07",
+  "why": "Two-year graduate scheme in data analytics for food/agri; data engineering (Hadoop, SQL), dashboarding and UAT/BPMN collaboration map directly."
+ },
+ {
+  "id": "fortray-graduate-data-analyst-remote",
+  "company": "Fortray Global Service Limited",
+  "role": "Data and AI Analyst",
+  "location": "Dublin",
+  "url": "https://fortrayglobalservices.teamtailor.com/jobs/6716812-data-and-ai-analyst",
+  "deadline": "Rolling",
+  "deadline_date": null,
+  "why": "Python, SQL and data visualization core role; telecom-scale data and RLHF experience show ability to handle high-volume datasets."
+ },
+ {
+  "id": "analog-devices-graduate-ml-ai-engineer-limerick",
+  "company": "Analog Devices",
+  "role": "Graduate ML/AI Engineer",
+  "location": "Limerick",
+  "url": "https://www.analog.com/en/careers/ai-careers.html",
+  "deadline": "Check portal directly",
+  "deadline_date": null,
+  "why": "Manufacturing analytics and ML model development in Limerick; industrial data pipeline and process automation (BPMN, UAT) experience is directly relevant."
+ },
+ {
+  "id": "aerogen-graduate-data-ai-analyst-galway",
+  "company": "Aerogen",
+  "role": "Data Analyst / Data & AI Analyst",
+  "location": "Galway",
+  "url": "https://www.aerogen.com/careers-/career-search-results~career-detail~data-analyst-ireland~va959",
+  "deadline": "Rolling",
+  "deadline_date": null,
+  "why": "HealthTech medical-device company; Clinical RAG (pgvector, GDPR/PII redaction) experience is a direct differentiator for compliant medical-device AI."
+ },
+ {
+  "id": "primark-graduate-data-scientist-dublin",
+  "company": "Primark",
+  "role": "Data Scientist (Graduate/Early Career)",
+  "location": "Dublin",
+  "url": "https://careers.primark.com/en/job/dublin/data-scientist/8171/98736442800",
+  "deadline": "Rolling",
+  "deadline_date": null,
+  "why": "Retail analytics needing Python/SQL and customer data experience; RLHF personalization work is relevant to recommendation-system-style retail analytics."
+ },
+ {
+  "id": "ntma-graduate-data-analyst-dublin",
+  "company": "National Treasury Management Agency (NTMA)",
+  "role": "Data Analyst, Data Services Unit (State Claims Agency)",
+  "location": "Dublin",
+  "url": "https://www.ntma.ie/about-the-ntma/careers",
+  "deadline": "14 August 2026",
+  "deadline_date": "2026-08-14",
+  "why": "Data engineering, analytics and reporting for a state financial agency; regulatory-compliance experience (TermsGuard) is directly applicable."
+ },
+ {
+  "id": "techworks-marine-graduate-data-engineer",
+  "company": "TechWorks Marine",
+  "role": "Graduate Data Engineer",
+  "location": "Dublin",
+  "url": "https://techworks.ie/jobs/",
+  "deadline": "30 Apr 2026 passed - monitor, or email jobs@techworks.ie",
+  "deadline_date": null,
+  "why": "Marine/environmental sensor-data engineering; environmental data and regulatory-compliance experience are relevant."
+ },
+ {
+  "id": "origin-enterprises-graduate-data-analyst",
+  "company": "Origin Enterprises",
+  "role": "Graduate Data Analyst",
+  "location": "Dublin",
+  "url": "https://originenterprises.com/careers/",
+  "deadline": "Check portal directly",
+  "deadline_date": null,
+  "why": "AgriTech supply-chain analytics/reporting role; data engineering and process-automation experience are valuable."
+ },
+ {
+  "id": "state-agencies-graduate-data-analyst",
+  "company": "State Agencies (CSO, EPA, Ordnance Survey, RSA)",
+  "role": "Graduate Data Analyst (general public sector)",
+  "location": "Dublin",
+  "url": "https://www.cso.ie/en/aboutus/careers/csograduateprogramme/",
+  "deadline": "Check portal directly",
+  "deadline_date": null,
+  "why": "Broad public-sector data analytics demand; regulatory-compliance and process-automation experience is a general fit."
+ },
+ {
+  "id": "air-it-ai-engineer-graduate",
+  "company": "Air IT",
+  "role": "AI Engineer Graduate",
+  "location": "Ireland/UK (Nottingham hybrid, per source)",
+  "url": "https://www.brightnetwork.co.uk/graduate-jobs/air-it/ai-engineer-graduate-2026",
+  "deadline": "Monitor for reopening ~January 2027",
+  "deadline_date": null,
+  "why": "AI engineering graduate role with a now-passed Jan 2026 deadline; worth monitoring given the direct title match."
+ },
+ {
+  "id": "allianz-data-analytics-graduate-programme",
+  "company": "Allianz",
+  "role": "Data Analytics Graduate Programme",
+  "location": "Dublin",
+  "url": "https://gradireland.com/jobs/data-analytics-graduate-programme-237687",
+  "deadline": "11 Oct 2026",
+  "deadline_date": "2026-10-11",
+  "why": "Explicitly accepts a 2:1 achieved or expected in AI/Data Science/CS; data insights, transformation and AI/automation interest map directly onto TermsGuard AI and the Clinical RAG engine."
+ },
+ {
+  "id": "grant-thornton-2027-advisory-ai-data-technology",
+  "company": "Grant Thornton",
+  "role": "2027 Advisory Graduate Programme - AI, Data & Technology stream",
+  "location": "Dublin",
+  "url": "https://gradireland.com/jobs/2027-advisory-graduate-programme-dublin-237679",
+  "deadline": "22 Oct 2026",
+  "deadline_date": "2026-10-22",
+  "why": "Responsible AI, data governance and technology implementation stream; on-track 2.1 accepted and start date (1 Oct 2027) falls safely after MSc completion."
+ },
+ {
+  "id": "bdo-risk-advisory-graduate-2027",
+  "company": "BDO Ireland",
+  "role": "Risk & Advisory Graduate Programme 2027",
+  "location": "Dublin",
+  "url": "https://gradireland.com/jobs/risk-advisory-graduate-programme-2027-bdo-ireland-llp-dublin-236933",
+  "deadline": "9 Oct 2026",
+  "deadline_date": "2026-10-09",
+  "why": "IT audit, systems/controls and technology-focused risk work draws directly on TermsGuard AI's GDPR grounding and the Gemini evaluation contract work."
+ },
+ {
+  "id": "sig-software-developer-graduate-2027",
+  "company": "Susquehanna International Group (SIG)",
+  "role": "Software Developer Graduate: September 2027 Dublin",
+  "location": "Dublin",
+  "url": "https://careers.sig.com/",
+  "deadline": "Open, per source",
+  "deadline_date": null,
+  "why": "Object-oriented development plus large-scale data processing; Python/SQL and RAG pipeline design are a solid baseline even though the core domain is quantitative finance."
+ },
+ {
+  "id": "rsm-ireland-graduate-programme-2027",
+  "company": "RSM Ireland",
+  "role": "2027 RSM Ireland Graduate Programme",
+  "location": "Dublin",
+  "url": "https://gradireland.com/jobs/2027-rsm-ireland-graduate-programme-237693",
+  "deadline": "30 Sep 2026",
+  "deadline_date": "2026-09-30",
+  "why": "Broader consulting programme with a technology/data management thread; predicted 2.1 accepted, no discipline restriction, but less AI-specific than the Tier 1 options above."
+ },
+ {
+  "id": "daa-business-pathways-graduate",
+  "company": "daa",
+  "role": "Business Pathways Graduate Programme",
+  "location": "Dublin",
+  "url": "https://gradireland.com/jobs/business-pathways-graduate-programme-235247",
+  "deadline": "30 Nov 2026",
+  "deadline_date": "2026-11-30",
+  "why": "Digital innovation, automation and data-driven decision-making; accepts a 2.1 or expected in any discipline, easing the part-time MSc timeline concern."
+ },
+ {
+  "id": "accenture-data-ai-software-engineering-graduate-2027",
+  "company": "Accenture",
+  "role": "Data and AI / Software Engineering Graduate Programme 2027",
+  "location": "Dublin",
+  "url": "https://www.accenture.com/ie-en/careers",
+  "deadline": "Open for 2026/2027 intake, per source - verify directly",
+  "deadline_date": null,
+  "why": "Dedicated Data and AI stream alongside Software Engineering; matches the RAG/LLM evaluation and privacy-compliance project work closely."
+ },
+ {
+  "id": "aib-enterprise-delivery-technology-graduate-2027",
+  "company": "AIB (Allied Irish Banks)",
+  "role": "Enterprise Delivery / Technology Graduate Programme",
+  "location": "Dublin",
+  "url": "https://jobs.aib.ie/",
+  "deadline": "2026 openings confirmed - 2027 cycle unconfirmed, monitor directly",
+  "deadline_date": null,
+  "why": "Rotational digital transformation and enterprise delivery programme; comparable to the Bank of Ireland entry already tracked here."
+ },
+ {
+  "id": "sogeti-ireland-graduate-programme-2027",
+  "company": "Sogeti Ireland",
+  "role": "Graduate Programme 2027",
+  "location": "Dublin",
+  "url": "https://www.sogeti.ie/",
+  "deadline": "Register interest only, per source",
+  "deadline_date": null,
+  "why": "General IT services graduate intake; broader fit than a direct AI/data match, worth a register-of-interest."
+ },
+ {
+  "id": "vodafone-summer-internship",
+  "company": "Vodafone Ireland",
+  "role": "Summer Internship Programme",
+  "location": "Dublin",
+  "url": "https://careers.vodafone.com/ireland/",
+  "deadline": "Summer intake, per source",
+  "deadline_date": null,
+  "why": "Paid internship distinct from the Discover Graduate Programme entry above - fits inside the Stamp 2 term-time hour cap as a bridge before the January 2027 graduation."
+ },
+ {
+  "id": "anthropic-fellows-program",
+  "company": "Anthropic",
+  "role": "Fellows Program / Claude Corps",
+  "location": "Unconfirmed - London/US per one source, Dublin per another",
+  "url": "https://www.anthropic.com/fellows",
+  "deadline": "Rolling, per one source",
+  "deadline_date": null,
+  "why": "UNVERIFIED AND CONTRADICTORY: one research pass claims rolling Dublin-compatible applications with a Jan 2027 cohort; another claims no Dublin footprint at all and recommends removal. Verify directly "
+ },
+ {
+  "id": "fidelity-leap-technology-graduate",
+  "company": "Fidelity Investments",
+  "role": "Fidelity LEAP - Technology Graduate Programme",
+  "location": "Dublin",
+  "url": "https://jobs.fidelity.com/",
+  "deadline": "Registering interest, formal apps expected late summer/autumn 2026",
+  "deadline_date": null,
+  "why": "Explicitly promotes AI-native development; claimed requirement is degree completion by Sept 2027, matching the January 2027 finish. Note: source flags Fidelity may not sponsor visas - clarify Stamp 1G"
+ },
+ {
+  "id": "workday-generation-workday-graduate-swe",
+  "company": "Workday",
+  "role": "Generation Workday - Graduate Software Engineer (incl. Agentic AI & API Platform)",
+  "location": "Dublin",
+  "url": "https://workday.wd5.myworkdayjobs.com/Workday",
+  "deadline": "Open for Class of 2026/2027, per source",
+  "deadline_date": null,
+  "why": "Processes sensitive HR/financial data at scale; the GDPR privacy-policy checker and privacy-safe medical record retrieval project are a strong direct match for their compliance-aware engineering cultu"
+ },
+ {
+  "id": "stripe-software-engineer-new-grad-dublin",
+  "company": "Stripe",
+  "role": "Software Engineer, New Grad (Dublin HQ)",
+  "location": "Dublin",
+  "url": "https://stripe.com/jobs",
+  "deadline": "Periodic windows, per source",
+  "deadline_date": null,
+  "why": "Strong shipped-software bar; the Huawei internship, Turing contract QA work and independently shipped RAG/QA-gate projects show the practical experience Stripe looks for beyond theory, though some lis"
+ },
+ {
+  "id": "scotiabank-tilt-technology-graduate",
+  "company": "Scotiabank",
+  "role": "TILT Technology New Graduate Development Program",
+  "location": "Dublin",
+  "url": "https://www.scotiabank.com/careers/",
+  "deadline": "Open, per source",
+  "deadline_date": null,
+  "why": "Rotational technology/data track at a global bank; the privacy-safe retrieval architecture work fits the compliance-heavy data environment."
+ },
+ {
+  "id": "pfizer-digital-rotational-programme",
+  "company": "Pfizer",
+  "role": "Digital Rotational Program / Graduate Recruitment (Grange Castle/Kildare/Cork)",
+  "location": "Dublin/Kildare/Cork",
+  "url": "https://www.pfizer.ie/career/graduate-programme",
+  "deadline": "2027 cohort apps typically open Autumn 2026, per source",
+  "deadline_date": null,
+  "why": "2-source convergence. Digital/data rotational track in a highly regulated environment - direct match for the privacy-safe medical record retrieval project. Rotation length (~23-24mo) reportedly overla"
+ },
+ {
+  "id": "sysco-ireland-business-graduate-data",
+  "company": "Sysco Ireland",
+  "role": "Business Graduate Programme (Data/Software track)",
+  "location": "Dublin",
+  "url": "https://www.irishjobs.ie/",
+  "deadline": "Sept 2027 start, per source",
+  "deadline_date": null,
+  "why": "Logistics/supply-chain data analytics; Sept 2027 start falls safely after MSc completion, per source, so no visa conflict."
+ },
+ {
+  "id": "kpmg-ireland-graduate-2027",
+  "company": "KPMG Ireland",
+  "role": "Graduate Programme 2027 (Platform X / AI / Consulting streams)",
+  "location": "Dublin",
+  "url": "https://kpmg.com/ie/en/careers.html",
+  "deadline": "Open, per source",
+  "deadline_date": null,
+  "why": "AI/technology risk consulting stream; the Gemini evaluation contract work and GDPR checker are a direct narrative fit for algorithm auditing and AI risk work."
+ },
+ {
+  "id": "ericsson-ireland-software-engineer-ai",
+  "company": "Ericsson Ireland",
+  "role": "Software Engineer (Big Data/AI focus)",
+  "location": "Ireland (R&D)",
+  "url": "https://jobs.ericsson.com/",
+  "deadline": "Rolling, per source",
+  "deadline_date": null,
+  "why": "Telecom R&D in big data/AI - the Huawei/Globacom telecom data background transfers directly. Rolling hire means timing the application for a Dec 2026/Jan 2027 start matters."
+ },
+ {
+  "id": "google-ireland-swe-graduate",
+  "company": "Google Ireland",
+  "role": "Software Engineering Graduate",
+  "location": "Dublin",
+  "url": "https://careers.google.com/",
+  "deadline": "23 Sept 2026, per source",
+  "deadline_date": "2026-09-23",
+  "why": "Direct Gemini-evaluation experience is a strong hook. AMBIGUITY FLAG: listing tagged \"Class of 2026\" per source - a Jan 2027 completion may or may not clear an automated filter, confirm with recruiter"
+ },
+ {
+  "id": "meta-ireland-security-engineering-graduate",
+  "company": "Meta Ireland",
+  "role": "Security Engineering Graduate",
+  "location": "Dublin",
+  "url": "https://www.metacareers.com/",
+  "deadline": "25 Sept 2026, per source",
+  "deadline_date": "2026-09-25",
+  "why": "GDPR checker and privacy-safe medical retrieval work map directly onto security/compliance engineering. AMBIGUITY FLAG: also tagged \"Class of 2026\" per source, same caveat as Google above."
+ },
+ {
+  "id": "tines-ai-data-systems-roles",
+  "company": "Tines",
+  "role": "Junior/Entry-Level Software Engineer or Product Data Analyst",
+  "location": "Dublin",
+  "url": "https://www.tines.com/careers",
+  "deadline": "Rolling, per source",
+  "deadline_date": null,
+  "why": "Irish security-workflow-automation scale-up; GDPR checker and QA-gate projects map directly onto their AI-safe workflow orchestration focus. Rolling/immediate-hire risk - time application for late 202"
+ },
+ {
+  "id": "version1-early-careers-academy",
+  "company": "Version 1",
+  "role": "Software Engineer - Early Careers Academy",
+  "location": "Dublin",
+  "url": "https://www.version1.com/careers/",
+  "deadline": "14 Sept 2026, per source",
+  "deadline_date": "2026-09-14",
+  "why": "Established Irish consultancy with structured onboarding. AMBIGUITY/RISK FLAG: tagged \"Class of 2026\" with an autumn 2026 induction per source - verify whether a Spring 2027 cohort exists before apply"
+ },
+ {
+  "id": "wayflyer-software-engineer",
+  "company": "Wayflyer",
+  "role": "Frontend/Software Engineer (entry to mid-level)",
+  "location": "Dublin",
+  "url": "https://www.wayflyer.com/careers",
+  "deadline": "Rolling, per source",
+  "deadline_date": null,
+  "why": "Irish fintech scale-up, revenue-based financing built on data-driven underwriting. Rolling/immediate-hire risk, same as Tines - time application for late 2026."
+ },
+ {
+  "id": "stryker-digital-solutions-coop-2027",
+  "company": "Stryker",
+  "role": "Digital Solutions - Advanced Operations Co-op Placement 2027",
+  "location": "Carrigtwohill, Cork",
+  "url": "https://careers.stryker.com/",
+  "deadline": "Rolling, per source",
+  "deadline_date": null,
+  "why": "MedTech digital operations/robotics data work; the QA-gate project is a reasonable analogy. VISA RISK: titled a \"placement\"/co-op, which often requires immediate start - confirm timing before applying"
+ },
+ {
+  "id": "mastercard-senior-ai-engineer",
+  "company": "Mastercard",
+  "role": "AI Engineer / Launch Program (early-career, titled \"Senior\" per source's convention)",
+  "location": "Leixlip, Co. Kildare",
+  "url": "https://careers.mastercard.com/",
+  "deadline": "Rolling, per source",
+  "deadline_date": null,
+  "why": "2-source convergence. Production AI systems, distributed systems - direct match for RAG pipeline and LLM evaluation background. Note: \"Senior\" in the title is reported as a leveling convention, not li"
+ },
+ {
+  "id": "roche-ireland-internship-graduate",
+  "company": "Roche",
+  "role": "Internship / Graduate Recruitment Programme",
+  "location": "Dublin",
+  "url": "https://careers.roche.com/",
+  "deadline": "Not stated, per source",
+  "deadline_date": null,
+  "why": "Pharma data/technology work, comparable to Pfizer above. Start-date flexibility for a Jan 2027 finish unconfirmed - verify directly."
+ },
+ {
+  "id": "abbvie-sci-tech-graduate",
+  "company": "AbbVie",
+  "role": "Sci-Tech Graduate Roles",
+  "location": "Ireland",
+  "url": "https://www.abbvie.com/careers.html",
+  "deadline": "Snapshot from May 2026, per source - verify current cycle",
+  "deadline_date": null,
+  "why": "Pharma sci-tech graduate hiring; specific role details unconfirmed by source, worth checking their careers portal directly."
+ },
+ {
+  "id": "virgin-media-ireland-tech-innovation",
+  "company": "Virgin Media Ireland",
+  "role": "Technology & Innovation department roles (general vacancies)",
+  "location": "Dublin",
+  "url": "https://www.virginmedia.ie/careers",
+  "deadline": "Rolling, general vacancies",
+  "deadline_date": null,
+  "why": "Not a branded grad scheme - standard entry-level tech vacancies, which per source tend to have more start-date flexibility than fixed cohorts."
+ },
+ {
+  "id": "pure-telecom-it-engineer-developer",
+  "company": "Pure Telecom",
+  "role": "IT Engineer/Developer",
+  "location": "Dublin",
+  "url": "https://www.puretelecom.com/careers/",
+  "deadline": "Open, per source",
+  "deadline_date": null,
+  "why": "Standard entry-level IT role at a growing Irish telecom (reported 30 new jobs from a EUR2m investment) - likely more start-date flexible than a formal grad scheme."
+ },
+ {
+  "id": "digiweb-software-engineer-developer",
+  "company": "Digiweb",
+  "role": "Software Engineer / Developer",
+  "location": "Ireland",
+  "url": "https://digiweb.com/careers/",
+  "deadline": "Check portal directly",
+  "deadline_date": null,
+  "why": "Irish telecom with an education-reimbursement benefit per source, suggesting openness to students. No specific open role confirmed - requires a direct portal check."
+ },
+ {
+  "id": "simplestudy-ai-startup-roles",
+  "company": "SimpleStudy",
+  "role": "AI/Product/Engineering roles (consumer AI platform for students)",
+  "location": "Ireland (per source)",
+  "url": "https://wellfound.com/",
+  "deadline": "Rolling, per source",
+  "deadline_date": null,
+  "why": "VC-backed AI startup; small team size per source means titles are fluid and practical AI-building experience (RAG, LLM eval) likely counts more than a title match."
+ },
+ {
+  "id": "coder-agentic-engineering",
+  "company": "Coder",
+  "role": "Agentic Engineering roles",
+  "location": "Ireland (per source)",
+  "url": "https://wellfound.com/",
+  "deadline": "Rolling, per source",
+  "deadline_date": null,
+  "why": "Agentic-AI startup per source; values technical depth in AI/software over formal titles."
+ },
+ {
+  "id": "everlance-data-scientist-remote",
+  "company": "Everlance",
+  "role": "Data Scientist (remote-first, Ireland-tagged)",
+  "location": "Remote (Ireland)",
+  "url": "https://wellfound.com/",
+  "deadline": "Rolling, per source",
+  "deadline_date": null,
+  "why": "Remote-first company hiring a Data Scientist with an Ireland location tag per source - remote-first roles tend to have the most start-date flexibility of anything on this list."
+ },
+ {
+  "id": "ibm-ireland-entry-level-programs",
+  "company": "IBM Ireland",
+  "role": "Entry-Level Programs (tech/software/consulting)",
+  "location": "Dublin",
+  "url": "https://www.ibm.com/careers",
+  "deadline": "Ongoing, per source",
+  "deadline_date": null,
+  "why": "General entry-level portal per source, no specific role confirmed - worth a direct portal check for AI/data-specific openings."
+ },
+ {
+  "id": "three-ireland-graduate-programme-VISA-CONFLICT",
+  "company": "Three Ireland",
+  "role": "Graduate Programme",
+  "location": "Dublin",
+  "url": "https://www.three.ie/careers",
+  "deadline": "Closed 28 Nov 2025 per one source for a Sept 2026 start",
+  "deadline_date": null,
+  "why": "VISA CONFLICT FLAGGED: per source, this cohort starts Sept 2026, before the Jan 2027 graduation - would breach the Stamp 2 20hr/week cap. Only pursue if a later cohort is confirmed."
+ }
+];
 </script>
 </body>
 </html>

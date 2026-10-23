@@ -1,0 +1,268 @@
+/* Jobs page. Site design system, one accent.
+ *
+ * The one rule this page exists to enforce: an application is not an outcome.
+ * The funnel at the top is the whole reason for the rebuild, because the old
+ * tracker logged 361 sends and zero replies, which looks like activity and is
+ * actually blindness.
+ */
+
+.jobs-wrap {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: calc(56px + env(safe-area-inset-top, 0px)) var(--edge) var(--space-12);
+}
+
+.jh { margin-bottom: var(--space-8); }
+.jh h1 { font-size: var(--text-2xl); font-weight: 700; margin: 0 0 var(--space-3); }
+.jh-sub { font-size: var(--text-sm); color: var(--text-2); max-width: 64ch; margin: 0; line-height: 1.6; }
+
+/* ---- the funnel ---- */
+
+.funnel {
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+  flex-wrap: wrap;
+}
+
+.fstep {
+  flex: 1 1 120px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: var(--space-4) var(--space-3);
+  text-align: center;
+}
+
+.fstep-win { border-color: var(--accent); }
+
+.fv {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  font-family: var(--font-mono);
+  line-height: 1;
+  color: var(--text);
+}
+
+.fstep-win .fv { color: var(--accent); }
+
+.fl {
+  font-size: var(--text-xs);
+  color: var(--text-3);
+  margin-top: var(--space-2);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.farrow { align-self: center; color: var(--text-3); font-size: var(--text-sm); }
+
+.rates {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-2);
+}
+
+.rate {
+  flex: 1 1 130px;
+  border-left: 2px solid var(--border-2);
+  padding-left: var(--space-3);
+}
+
+.rv { display: block; font-size: var(--text-lg); font-weight: 600; font-family: var(--font-mono); color: var(--text); }
+.rl { display: block; font-size: var(--text-xs); color: var(--text-3); margin-top: 2px; }
+
+.rates-note { font-size: var(--text-xs); color: var(--text-3); margin: 0 0 var(--space-8); }
+
+/* ---- panels and forms ---- */
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: var(--space-6);
+  margin-bottom: var(--space-5);
+}
+
+.panel h2 { font-size: var(--text-lg); font-weight: 600; margin: 0 0 var(--space-4); }
+
+.panel-sub {
+  font-size: var(--text-xs);
+  color: var(--text-3);
+  margin: 0 0 var(--space-4);
+  max-width: 68ch;
+  line-height: 1.6;
+}
+
+.panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-4);
+}
+.panel-head h2 { margin: 0; }
+
+.frow { display: flex; gap: var(--space-3); flex-wrap: wrap; margin-bottom: var(--space-3); }
+.frow > label { flex: 1 1 220px; }
+
+label {
+  display: block;
+  font-size: var(--text-xs);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-3);
+}
+
+.hint {
+  display: block;
+  font-family: var(--font);
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: var(--text-xs);
+  color: var(--text-3);
+  margin-top: 3px;
+}
+
+input, select, textarea {
+  width: 100%;
+  margin-top: var(--space-2);
+  padding: var(--space-3);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-family: var(--font);
+  font-size: 16px;              /* below 16px iOS zooms on focus */
+  color: var(--text);
+  transition: border-color var(--motion-duration) var(--motion-ease);
+}
+
+textarea { resize: vertical; line-height: 1.5; }
+input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent); }
+
+.submit-row { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; margin-top: var(--space-4); }
+.btn-note { font-size: var(--text-xs); color: var(--text-3); }
+
+/* ---- buttons ---- */
+
+.btn-primary {
+  padding: var(--space-3) var(--space-6);
+  background: var(--accent);
+  color: var(--bg);
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  font-family: var(--font);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  cursor: pointer;
+}
+.btn-primary:hover { background: var(--accent-2); border-color: var(--accent-2); }
+
+.fbtn {
+  padding: var(--space-2) var(--space-4);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-family: var(--font);
+  font-size: var(--text-xs);
+  color: var(--text-2);
+  cursor: pointer;
+}
+.fbtn:hover { border-color: var(--text-3); color: var(--text); }
+.fbtn.active { border-color: var(--accent); color: var(--accent); }
+.fbtn-danger:hover { border-color: var(--error); color: var(--error); }
+
+.filters { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+.export-row { display: flex; gap: var(--space-2); margin-top: var(--space-5); flex-wrap: wrap; }
+
+/* ---- ledger ---- */
+
+.job {
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.job-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.job-co { font-size: var(--text-base); font-weight: 600; color: var(--text); }
+.job-ro { font-size: var(--text-sm); color: var(--text-2); }
+.job-meta { font-size: var(--text-xs); color: var(--text-3); margin-top: var(--space-2); font-family: var(--font-mono); }
+.job-why { font-size: var(--text-xs); color: var(--text-2); margin-top: var(--space-2); max-width: 72ch; line-height: 1.55; }
+
+.badge {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 20px;
+  font-size: var(--text-xs);
+  font-family: var(--font-mono);
+  border: 1px solid var(--border);
+  color: var(--text-3);
+  white-space: nowrap;
+}
+
+/* STATUS COLOURS ARE FUNCTIONAL. The reader already knows these. */
+.badge-open    { border-color: var(--text-3); color: var(--text-2); }
+.badge-silent  { border-color: var(--warn); color: var(--warn); }
+.badge-reject  { border-color: var(--error); color: var(--error); }
+.badge-call    { border-color: var(--accent); color: var(--accent); }
+.badge-advance { border-color: var(--live); color: var(--live); font-weight: 600; }
+.badge-win     { background: var(--live); color: #fff; border-color: var(--live); font-weight: 600; }
+.badge-expired { background: var(--error-bg); color: var(--error); border-color: var(--error); }
+
+.job-actions { display: flex; gap: var(--space-2); margin-top: var(--space-3); flex-wrap: wrap; }
+.job-actions a, .job-actions button {
+  font-size: var(--text-xs);
+  padding: 6px 12px;
+  border-radius: 5px;
+  border: 1px solid var(--border);
+  background: none;
+  color: var(--text-2);
+  text-decoration: none;
+  cursor: pointer;
+  font-family: var(--font);
+}
+.job-actions a:hover, .job-actions button:hover { border-color: var(--accent); color: var(--accent); }
+
+.empty { padding: var(--space-8) 0; text-align: center; color: var(--text-3); font-size: var(--text-sm); }
+
+/* ---- closing soon ---- */
+
+.soon-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.soon-row:last-child { border-bottom: none; }
+.soon-when { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--error); white-space: nowrap; }
+.soon-when.soon-ok { color: var(--text-3); }
+
+/* ---- fit watch ---- */
+
+.fit-row { padding: var(--space-3) 0; border-bottom: 1px solid var(--border); font-size: var(--text-sm); }
+.fit-row:last-child { border-bottom: none; }
+.fit-co { color: var(--text-2); }
+.fit-tag { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-3); margin-top: 3px; }
+
+@media (max-width: 700px) {
+  .farrow { display: none; }
+  .fstep { flex: 1 1 44%; }
+  .panel { padding: var(--space-4); }
+  .jh h1 { font-size: var(--text-xl); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .fstep { transition: border-color var(--motion-duration) var(--motion-ease); }
+}
