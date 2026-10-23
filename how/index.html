@@ -62,7 +62,13 @@ pre.prompt { font-family: var(--font-mono); font-size: var(--text-xs); color: va
 .clip h3 { font-size: var(--text-base); font-weight:600; margin:0 0 var(--space-2); }
 .clip .v { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-3); }
 .clip .slot { font-size: var(--text-xs); color: var(--warn); margin-top: var(--space-2); }
-.clip video { width:100%; max-width:320px; border-radius:8px; margin-top: var(--space-3); display:block; }
+.clip-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr)); gap: var(--space-4); }
+.clip-grid .clip { margin-bottom:0; }
+.shorts { position:relative; width:100%; padding-bottom:177.78%; height:0; border-radius:8px;
+  overflow:hidden; background: var(--bg-3); margin-top: var(--space-3); border:1px solid var(--border); }
+.shorts iframe { position:absolute; top:0; left:0; width:100%; height:100%; border:0; }
+.clip-head { display:flex; justify-content:space-between; align-items:baseline; gap: var(--space-2); flex-wrap:wrap; }
+.clip-head .v { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-3); white-space:nowrap; }
 
 table.stats { width:100%; border-collapse:collapse; font-size: var(--text-sm); margin-bottom: var(--space-4); }
 table.stats td { padding: var(--space-2) var(--space-3) var(--space-2) 0; border:none; vertical-align:top; }
@@ -253,14 +259,21 @@ table.stats td:last-child { color: var(--text-2); font-family: var(--font-mono);
     '<p class="step-why">These are the four published videos. The view counts are the real ones, ' +
     'including the one that barely worked. Watch them, then decide whether the process above is ' +
     'worth commissioning.</p>' +
-    (D.clip_slots || []).map(function (c) {
-      return '<div class="clip"><h3>' + esc(c.title) + '</h3>' +
-        '<div class="v">' + esc(c.views) + ' views</div>' +
-        (c.url
-          ? '<p style="margin:var(--space-3) 0 0"><a class="cta" href="' + esc(c.url) + '" target="_blank" rel="noopener">Watch on YouTube</a></p>'
-          : '<div class="slot">Clip link slot: awaiting the live URL from Taiwo.</div>') +
+    '<div class="clip-grid">' + (D.clip_slots || []).map(function (c) {
+      return '<div class="clip">' +
+        '<div class="clip-head"><h3>' + esc(c.title) + '</h3><span class="v">' + esc(c.views) + ' views</span></div>' +
+        (c.id
+          ? '<div class="shorts"><iframe src="https://www.youtube.com/embed/' + esc(c.id) +
+            '?autoplay=0&mute=1&controls=1&rel=0" title="' + esc(c.title) +
+            '" loading="lazy" allowfullscreen allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe></div>'
+          : '<div class="slot">Clip link slot: awaiting the live URL.</div>') +
+        (c.note ? '<div style="font-size:var(--text-xs);color:var(--text-3);margin-top:var(--space-3);line-height:1.5">' + esc(c.note) + '</div>' : '') +
+        (c.url ? '<p style="margin:var(--space-3) 0 0"><a href="' + esc(c.url) + '" target="_blank" rel="noopener" style="font-size:var(--text-xs);color:var(--accent)">Open on YouTube &rarr;</a></p>' : '') +
       '</div>';
-    }).join('') + '</section>';
+    }).join('') + '</div>' +
+    (D.channel ? '<p style="font-size:var(--text-xs);color:var(--text-3);margin:var(--space-5) 0 0">Channel: <strong>' +
+      esc(D.channel.name) + '</strong> (' + esc(D.channel.handle) + '). ' + esc(D.channel.note) + '</p>' : '') +
+    '</section>';
 
   $('root').innerHTML = out;
 
