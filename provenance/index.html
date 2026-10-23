@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Provenance | Taiwo Alabi</title>
+<meta name="description" content="Every generation call behind the garment wordmark study: model, prompt, parameters, cost, and what a human decided about it. Including the failures.">
+<script>document.documentElement.setAttribute("data-theme",localStorage.getItem("tw-theme")||"")</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="/assets/css/design-system.css">
+<link rel="stylesheet" href="/assets/css/landing.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231a1816'/><text y='72' x='50' font-size='62' text-anchor='middle' fill='%23c45a1f' font-family='sans-serif' font-weight='bold'>T</text></svg>">
+<style>
+.pv-wrap { max-width: 1060px; margin: 0 auto; padding: calc(56px + env(safe-area-inset-top,0px)) var(--edge) var(--space-12); }
+.pv-h1 { font-size: var(--text-2xl); font-weight: 700; margin: 0 0 var(--space-3); line-height:1.15; max-width:22ch; }
+.pv-lede { font-size: var(--text-sm); color: var(--text-2); max-width: 68ch; line-height:1.65; margin:0 0 var(--space-8); }
+
+.correction { border:1px solid var(--warn); background: color-mix(in srgb, var(--warn) 8%, transparent);
+  border-radius: 10px; padding: var(--space-5) var(--space-6); margin: 0 0 var(--space-8); }
+.correction h2 { font-size: var(--text-lg); font-weight:700; margin:0 0 var(--space-3); color: var(--warn); }
+.correction p { font-size: var(--text-sm); color: var(--text-2); margin:0 0 var(--space-3); line-height:1.6; max-width:74ch; }
+.correction p:last-child { margin-bottom:0; }
+.correction table { width:100%; border-collapse: collapse; font-size: var(--text-sm); margin-top: var(--space-3); }
+.correction td { padding: var(--space-2) var(--space-3) var(--space-2) 0; border:none; }
+.correction td:first-child { color: var(--text-3); white-space:nowrap; }
+.correction td:nth-child(2) { font-family: var(--font-mono); color: var(--text); }
+
+.stats { display:grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: var(--space-3); margin-bottom: var(--space-8); }
+.stat { background: var(--surface); border:1px solid var(--border); border-radius:10px; padding: var(--space-4) var(--space-3); text-align:center; }
+.stat .v { font-family: var(--font-mono); font-size: var(--text-xl); font-weight:700; line-height:1; }
+.stat .l { font-size: var(--text-xs); color: var(--text-3); margin-top: var(--space-2); text-transform:uppercase; letter-spacing:.05em; }
+.stat.fail .v { color: var(--error); }
+
+.h2 { font-size: var(--text-xl); font-weight:700; margin: var(--space-10) 0 var(--space-3); }
+.h2sub { font-size: var(--text-sm); color: var(--text-3); max-width:70ch; margin:0 0 var(--space-5); line-height:1.6; }
+
+.ctl { display:flex; gap: var(--space-2); flex-wrap:wrap; margin-bottom: var(--space-4); align-items:center; }
+.fbtn { padding: var(--space-2) var(--space-4); background:transparent; border:1px solid var(--border);
+  border-radius:6px; font-family: var(--font); font-size: var(--text-xs); color: var(--text-2); cursor:pointer; }
+.fbtn:hover { border-color: var(--text-3); color: var(--text); }
+.fbtn.on { border-color: var(--accent); color: var(--accent); }
+.ctl-note { font-size: var(--text-xs); color: var(--text-3); margin-left:auto; }
+
+.rcpt { border:1px solid var(--border); border-radius:10px; background: var(--surface); margin-bottom: var(--space-2); overflow:hidden; }
+.rcpt summary { cursor:pointer; padding: var(--space-3) var(--space-4); display:flex; gap: var(--space-3);
+  align-items:baseline; flex-wrap:wrap; font-size: var(--text-sm); list-style:none; }
+.rcpt summary::-webkit-details-marker { display:none; }
+.rcpt summary::before { content:"+"; font-family: var(--font-mono); color: var(--text-3); }
+.rcpt[open] summary::before { content:"\2212"; }
+.tid { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-3); }
+.mname { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text); }
+.bdg { font-family: var(--font-mono); font-size: var(--text-xs); padding: 2px 8px; border-radius:20px; border:1px solid var(--border); color:var(--text-3); }
+.bdg.A { border-color:#5b9bd5; color:#5b9bd5 } .bdg.B { border-color:#2a7a3a; color:#2a7a3a }
+.bdg.C { border-color:#b35900; color:#b35900 } .bdg.D { border-color:#a02a2a; color:#a02a2a }
+.bdg.fail { border-color: var(--error); color: var(--error); }
+.bdg.ok { border-color: var(--live); color: var(--live); }
+.rcpt-body { padding: 0 var(--space-4) var(--space-4) var(--space-8); border-top:1px solid var(--border); padding-top: var(--space-3); }
+.kv { display:grid; grid-template-columns: 130px 1fr; gap: var(--space-1) var(--space-3); font-size: var(--text-xs); margin-bottom: var(--space-3); }
+.kv dt { color: var(--text-3); font-family: var(--font-mono); }
+.kv dd { margin:0; color: var(--text-2); font-family: var(--font-mono); word-break: break-all; }
+.pr { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-2);
+  background: var(--bg); border:1px solid var(--border); border-radius:6px; padding: var(--space-3);
+  white-space: pre-wrap; word-break: break-word; max-height: 190px; overflow:auto; margin:0 0 var(--space-3); }
+.empty { padding: var(--space-10) 0; text-align:center; color: var(--text-3); font-size: var(--text-sm); }
+.pv-foot { border-top:1px solid var(--border); padding-top: var(--space-5); margin-top: var(--space-8); font-size: var(--text-xs); color: var(--text-3); }
+</style>
+</head>
+<body>
+
+<nav class="util" aria-label="Site">
+  <a href="/">portfolio</a>
+  <a href="/cv/">cv</a>
+  <a href="/tools/">tools</a>
+  <a href="/provenance/" aria-current="page">provenance</a>
+</nav>
+
+<div class="pv-wrap">
+
+  <h1 class="pv-h1">Every image shows its own receipt</h1>
+  <p class="pv-lede">
+    This is the raw record of the garment wordmark study: each generation call with the model that
+    made it, the prompt that was sent, the references attached, the credits it cost, how long it took,
+    and what a person decided about the result. It is the part of the work most projects leave out.
+  </p>
+
+  <section class="correction">
+    <h2>First, the honest numbers</h2>
+    <p>
+      I wanted to publish this as a museum of my most viral episodes. I cannot, because the numbers do
+      not say that. Here is what the channel actually is, measured, not estimated.
+    </p>
+    <table>
+      <tr><td>YouTube subscribers</td><td>347</td></tr>
+      <tr><td>Videos published</td><td>4</td></tr>
+      <tr><td>Views, last 30 days</td><td>5,871</td></tr>
+      <tr><td>Best single video</td><td>1,200 views</td></tr>
+      <tr><td>Second best</td><td>438</td></tr>
+      <tr><td>Third</td><td>24</td></tr>
+      <tr><td>Two others</td><td>under 10</td></tr>
+    </table>
+    <p>
+      A thousand views is a start, not a success, and calling it a hit would be the same mistake as
+      putting a role on a CV that was never held. So this page leads with the study and the record
+      instead, which is the part that is genuinely unusual.
+    </p>
+  </section>
+
+  <div class="stats" id="stats"></div>
+
+  <h2 class="h2">What a receipt contains</h2>
+  <p class="h2sub">
+    Four records joined by a single task id: what was requested, what came back, what I decided, and
+    what the quality gate measured. If any of those are missing for a call, the row says so rather than
+    showing a zero.
+  </p>
+  <div class="kv" style="grid-template-columns: 150px 1fr">
+    <dt>request</dt><dd>model, full prompt, condition, reference URLs, job type</dd>
+    <dt>result</dt><dd>state, credits consumed, duration, output hash, fail reason</dd>
+    <dt>review</dt><dd>the human keep or reject decision and the reason</dd>
+    <dt>qa</dt><dd>embedding similarity, colour distance, OCR confidence, gate pass</dd>
+  </div>
+
+  <h2 class="h2">The record</h2>
+  <p class="h2sub">
+    Filter by condition or by what happened. The failures are left in deliberately, because a ledger
+    with no failures in it is a marketing page rather than a record.
+  </p>
+
+  <div class="ctl">
+    <button class="fbtn on" data-f="all">all <span id="n-all"></span></button>
+    <button class="fbtn" data-f="failed">failed <span id="n-failed"></span></button>
+    <button class="fbtn" data-f="A">condition A</button>
+    <button class="fbtn" data-f="B">condition B</button>
+    <button class="fbtn" data-f="C">condition C</button>
+    <button class="fbtn" data-f="D">condition D</button>
+    <span class="ctl-note" id="shown"></span>
+  </div>
+
+  <div id="list"></div>
+
+  <p class="pv-foot">
+    Sourced from the study's own append-only run log. Nothing here was summarised by hand.
+    <a href="/tools/">See the tooling</a> &middot; <a href="/">Back to the portfolio</a>
+  </p>
+
+</div>
+
+<button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">&#9681;</button>
+
+<script src="data.js"></script>
+<script>
+(function () {
+  'use strict';
+  var D = window.PV_DATA || { summary: {}, receipts: [] };
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+    return ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' })[c]; }); };
+  var fmt = function (n) { return Number(n || 0).toLocaleString(); };
+
+  var s = D.summary;
+  var failedCount = (D.receipts || []).filter(function (r) {
+    return r.state && r.state !== 'success' && r.state !== 'completed';
+  }).length;
+
+  $('stats').innerHTML = [
+    [fmt(s.total_calls), 'calls logged'],
+    [fmt(s.credits_total), 'credits spent'],
+    [fmt(s.calls_with_cost_recorded), 'calls costed'],
+    [fmt(Math.round((s.seconds_total||0)/60)) + 'm', 'wall time'],
+    [fmt(failedCount), 'failed'],
+    [fmt(Object.keys(s.models||{}).length), 'models used']
+  ].map(function (p) {
+    return '<div class="stat' + (p[0] === fmt(failedCount) ? ' fail' : '') + '">' +
+      '<div class="v">' + p[0] + '</div><div class="l">' + p[1] + '</div></div>';
+  }).join('');
+
+  $('n-all').textContent = ' ' + fmt((D.receipts||[]).length);
+  $('n-failed').textContent = ' ' + failedCount;
+
+  var filter = 'all';
+  function matches(r) {
+    if (filter === 'all') return true;
+    if (filter === 'failed') return r.state && r.state !== 'success' && r.state !== 'completed';
+    return r.condition === filter;
+  }
+
+  function row(r) {
+    var bad = r.state && r.state !== 'success' && r.state !== 'completed';
+    var qa = r.qa || {};
+    var qaLine = Object.keys(qa).filter(function (k) { return qa[k] !== null && qa[k] !== undefined; })
+      .map(function (k) { return k + '=' + qa[k]; }).join('  ');
+    return '<details class="rcpt">' +
+      '<summary>' +
+        '<span class="mname">' + esc(r.model || 'unknown model') + '</span>' +
+        (r.condition ? '<span class="bdg ' + esc(r.condition) + '">condition ' + esc(r.condition) + '</span>' : '') +
+        (bad ? '<span class="bdg fail">' + esc(r.state) + '</span>' : '<span class="bdg ok">' + esc(r.state || 'logged') + '</span>') +
+        (r.credits ? '<span class="bdg">' + esc(r.credits) + ' cr</span>' : '') +
+        (r.duration_s ? '<span class="bdg">' + Math.round(r.duration_s) + 's</span>' : '') +
+        '<span class="tid">' + esc(r.task_id) + '</span>' +
+      '</summary>' +
+      '<div class="rcpt-body">' +
+        '<dl class="kv">' +
+          '<dt>job type</dt><dd>' + esc(r.job || '-') + '</dd>' +
+          '<dt>timestamp</dt><dd>' + esc(r.ts || '-') + '</dd>' +
+          '<dt>references</dt><dd>' + (r.refs || 0) + '</dd>' +
+          '<dt>output hash</dt><dd>' + esc(r.output_hash || '-') + '</dd>' +
+          (r.fail ? '<dt>fail reason</dt><dd>' + esc(r.fail) + '</dd>' : '') +
+          (r.review ? '<dt>review</dt><dd>' + esc(r.review) + '</dd>' : '') +
+          (qaLine ? '<dt>qa</dt><dd>' + esc(qaLine) + '</dd>' : '') +
+        '</dl>' +
+        (r.prompt ? '<div class="pr">' + esc(r.prompt) + '</div>' : '') +
+      '</div>' +
+    '</details>';
+  }
+
+  function render() {
+    var list = (D.receipts || []).filter(matches);
+    var cap = 120;
+    $('shown').textContent = list.length + ' of ' + (D.receipts||[]).length + ' shown'
+      + (list.length > cap ? ', first ' + cap : '');
+    $('list').innerHTML = list.length
+      ? list.slice(0, cap).map(row).join('')
+      : '<div class="empty">Nothing matches that filter.</div>';
+  }
+
+  document.querySelectorAll('.ctl .fbtn').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('.ctl .fbtn').forEach(function (x) { x.classList.remove('on'); });
+      b.classList.add('on');
+      filter = b.dataset.f;
+      render();
+    });
+  });
+
+  (function theme() {
+    var K='tw-theme', R=document.documentElement;
+    function apply(t){ if(t==='dark')R.setAttribute('data-theme','dark'); else if(t==='light')R.setAttribute('data-theme','light'); else R.removeAttribute('data-theme'); }
+    var tt=$('themeToggle');
+    if(tt) tt.addEventListener('click',function(){ var c=R.getAttribute('data-theme');
+      var n=c==='dark'?'light':c==='light'?'':'dark'; apply(n);
+      if(n)localStorage.setItem(K,n); else localStorage.removeItem(K); });
+    var st=localStorage.getItem(K); if(st) apply(st);
+  })();
+
+  render();
+})();
+</script>
+</body>
+</html>
