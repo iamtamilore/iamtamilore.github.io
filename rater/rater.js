@@ -152,10 +152,21 @@
 
     document.title = 'Garment rating, item ' + (i + 1) + ' of ' + ITEMS.length;
 
-    var next = new Image();
-    next.onload = function () { elImg.src = item.image; elImg.alt = 'Garment image ' + item.id; };
-    next.onerror = function () { elImg.src = item.image; };
-    next.src = item.image;
+    // srcset hands the browser the 768px file for phones and the full 1254px PNG
+    // for desktop and for zoom. Both candidates are declared and the browser
+    // picks by viewport and DPR, so the full-resolution artefact is never
+    // degraded and a phone never downloads a 1.9MB file.
+    //
+    // There is deliberately NO separate preload Image() here. Preloading the
+    // full-size file would make every phone download all 1.9MB, which is the
+    // exact cost this change exists to remove. Assigning srcset directly makes
+    // the browser fetch exactly one candidate.
+    var small = 'assets/img-sm/' + item.id + '.jpg';
+    var full = 'assets/img/' + item.id + '.png';
+    elImg.srcset = small + ' 768w, ' + full + ' 1254w';
+    elImg.sizes = '(max-width: 700px) 100vw, 1000px';
+    elImg.src = full;            // fallback for a browser that ignores srcset
+    elImg.alt = 'Garment image ' + item.id;
     resetZoom();
 
     var ans = STATE.answers[item.id];
