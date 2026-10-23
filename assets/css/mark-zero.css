@@ -441,3 +441,54 @@ footer {
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
 }
+/* ---------- masthead: the portrait is a plate, not a circular hero ---------- */
+
+.masthead {
+  display: grid;
+  grid-template-columns: 210px minmax(0, 1fr);
+  gap: var(--space-8);
+  align-items: start;
+  padding-top: var(--space-8);
+}
+
+.masthead-text { min-width: 0; }
+
+.stamp {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin: 0 0 var(--space-5);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--rule);
+}
+
+/* No rounded frame, no shadow. A hairline and a caption, like a plate in a
+   printed report. Greyscale is deliberate: the accent is the only colour on
+   the page and it belongs to the numbers, not to a photograph. */
+.plate { margin: 0; }
+
+.plate img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: grayscale(1) contrast(1.06);
+  border: 1px solid var(--rule);
+}
+
+.plate:hover img { filter: grayscale(0.4) contrast(1.06); }
+
+.plate figcaption {
+  margin-top: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+@media (max-width: 820px) {
+  .masthead { grid-template-columns: 1fr; gap: var(--space-5); }
+  .plate { max-width: 190px; }
+}
