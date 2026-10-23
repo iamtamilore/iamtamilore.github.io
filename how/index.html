@@ -75,6 +75,27 @@ table.stats td { padding: var(--space-2) var(--space-3) var(--space-2) 0; border
 table.stats td:first-child { color: var(--text-3); white-space:nowrap; width:34%; }
 table.stats td:last-child { color: var(--text-2); font-family: var(--font-mono); font-size: var(--text-xs); }
 
+.bp-order { display:flex; flex-wrap:wrap; gap: var(--space-2); margin-bottom: var(--space-5); }
+.bp-order span { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-2);
+  background: var(--bg-2); border:1px solid var(--border); border-radius:5px; padding: 5px 10px; }
+.bp-order span.arrow { background:none; border:none; color: var(--text-3); padding: 5px 2px; }
+
+.bp-stage { border:1px solid var(--border); border-radius:10px; background: var(--surface);
+  padding: var(--space-5); margin-bottom: var(--space-3); }
+.bp-stage h3 { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--accent);
+  margin:0 0 var(--space-2); letter-spacing:0.04em; }
+.bp-stage .what { font-size: var(--text-sm); color: var(--text); margin:0 0 var(--space-2); font-weight:500; }
+.bp-stage .detail { font-size: var(--text-sm); color: var(--text-2); margin:0 0 var(--space-3); line-height:1.6; max-width:72ch; }
+.bp-stage .fails { font-size: var(--text-xs); color: var(--error); line-height:1.55; max-width:74ch; }
+.bp-stage .fails b { color: var(--error); font-family: var(--font-mono); font-weight:600; }
+
+.gw { border:1px dashed var(--border-2); border-radius:10px; padding: var(--space-5); background: transparent; }
+.gw h3 { font-size: var(--text-base); font-weight:600; margin:0 0 var(--space-3); }
+.gw ol { margin:0 0 var(--space-3); padding-left: 1.2em; font-size: var(--text-sm); color: var(--text-2); }
+.gw li { margin-bottom: var(--space-3); line-height:1.6; }
+.gw li strong { color: var(--text); font-weight:600; }
+.gw p { font-size: var(--text-xs); color: var(--text-3); line-height:1.6; margin:0; }
+
 .foot { border-top:1px solid var(--border); padding-top: var(--space-6); margin-top: var(--space-8); }
 @media (max-width:700px){ .beat{flex-direction:column;gap:2px} .beat .bt{flex:none} }
 </style>
@@ -252,6 +273,37 @@ table.stats td:last-child { color: var(--text-2); font-family: var(--font-mono);
       })() : '') +
       '</section>';
   });
+
+  // The blueprint: the real pipeline, published
+  var B = D.blueprint;
+  if (B) {
+    out += '<section class="step"><div class="step-n"><span class="n">The blueprint</span>' +
+      '<h2>The whole machine, in eight stages</h2></div>' +
+      '<p class="step-why">' + esc(B.note) + '</p>' +
+      '<div class="bp-order">' + B.order.map(function (s, i) {
+        return (i ? '<span class="arrow">&rarr;</span>' : '') + '<span>' + esc(s) + '</span>';
+      }).join('') + '</div>' +
+      B.stages.map(function (s) {
+        return '<div class="bp-stage"><h3>' + esc(s.s) + '</h3>' +
+          '<p class="what">' + esc(s.what) + '</p>' +
+          '<p class="detail">' + esc(s.detail) + '</p>' +
+          '<p class="fails"><b>What goes wrong:</b> ' + esc(s.fails) + '</p></div>';
+      }).join('') +
+      '<div class="gw" style="margin-top:var(--space-6)"><h3>An independent recipe, for contrast</h3>' +
+      '<p style="margin-bottom:var(--space-3)">' + esc(B.gateway_note) + '</p>' +
+      '<ol>' +
+        '<li><strong>Script to timed beats.</strong> A language model, JSON output. Input: the text, a 60 second cap, and a speaking rate budget. Fails when the word count overruns the readable duration and the pacing gets crushed.</li>' +
+        '<li><strong>Beats to per-shot search queries.</strong> A language model expands each beat into tag style queries. Fails when a character name trips a search filter and returns cosplay photos instead of animation.</li>' +
+        '<li><strong>Results to selected frames.</strong> An aesthetic predictor plus a human filter. Fails when a landscape source image is cropped to vertical and loses the face.</li>' +
+        '<li><strong>Frames to narration.</strong> A text to speech voice. Fails when the generated audio is longer than the beat window and overlaps the next shot.</li>' +
+        '<li><strong>Assembled video.</strong> Command line video tooling. Fails on a sample rate mismatch, which drifts the audio and desyncs the last frames.</li>' +
+        '<li><strong>Final check.</strong> Automated detection plus a human watching it on a phone. Fails when captions run under the platform buttons.</li>' +
+      '</ol>' +
+      '<p>Read the two side by side. The independent recipe invents six tools it cannot know about. ' +
+      'Mine names the stage that actually breaks and what it costs. A generic recipe tells you what a ' +
+      'pipeline roughly looks like. A real one tells you where it has already broken.</p>' +
+      '</div></section>';
+  }
 
   // clip slots: placeholders until Taiwo supplies the live links
   out += '<section class="step"><div class="step-n"><span class="n">The episodes</span>' +

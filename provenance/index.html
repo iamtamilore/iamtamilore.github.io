@@ -64,6 +64,30 @@
   background: var(--bg); border:1px solid var(--border); border-radius:6px; padding: var(--space-3);
   white-space: pre-wrap; word-break: break-word; max-height: 190px; overflow:auto; margin:0 0 var(--space-3); }
 .empty { padding: var(--space-10) 0; text-align:center; color: var(--text-3); font-size: var(--text-sm); }
+
+/* gallery */
+.gal { display:grid; grid-template-columns: repeat(auto-fill, minmax(132px,1fr)); gap: var(--space-2); }
+.gal figure { margin:0; cursor:zoom-in; }
+.gal img { width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:6px;
+  border:1px solid var(--border); background: var(--bg); display:block;
+  transition: border-color var(--motion-duration) var(--motion-ease); }
+.gal figure:hover img { border-color: var(--accent); }
+.gal figcaption { font-family: var(--font-mono); font-size:0.6rem; color: var(--text-3);
+  margin-top:3px; text-align:center; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.gal .failcard { display:flex; align-items:center; justify-content:center; aspect-ratio:1/1;
+  border:1px dashed var(--error); border-radius:6px; background: var(--bg);
+  color: var(--error); font-family: var(--font-mono); font-size:0.62rem; text-align:center; padding:4px; }
+
+.lightbox { position:fixed; inset:0; background: rgba(0,0,0,0.92); display:none;
+  align-items:center; justify-content:center; z-index:200; padding: var(--space-4); cursor:zoom-out; }
+.lightbox.on { display:flex; }
+.lightbox-inner { max-width:1100px; width:100%; max-height:92vh; overflow:auto; }
+.lightbox img { width:100%; max-height:62vh; object-fit:contain; display:block;
+  margin:0 auto var(--space-4); background:#111; border-radius:8px; }
+.lightbox .lb-meta { font-family: var(--font-mono); font-size: var(--text-xs); color:#ddd; }
+.lightbox pre.prompt { color:#ddd; background:#1a1a1a; border-color:#333; margin-top: var(--space-3); }
+.lightbox .lb-close { position:absolute; top:14px; right:16px; color:#fff; font-size:26px;
+  background:none; border:none; cursor:pointer; line-height:1; }
 .pv-foot { border-top:1px solid var(--border); padding-top: var(--space-5); margin-top: var(--space-8); font-size: var(--text-xs); color: var(--text-3); }
 </style>
 </head>
@@ -123,10 +147,11 @@
     <dt>qa</dt><dd>embedding similarity, colour distance, OCR confidence, gate pass</dd>
   </div>
 
-  <h2 class="h2">The record</h2>
+  <h2 class="h2">The pictures, and the receipt behind each one</h2>
   <p class="h2sub">
-    Filter by condition or by what happened. The failures are left in deliberately, because a ledger
-    with no failures in it is a marketing page rather than a record.
+    Every thumbnail below is the actual file that call produced, not a stand in. Tap any one to
+    see the prompt that made it, what it cost, how long it took, and what the quality gate measured.
+    A receipt with nothing attached is a claim. This is the evidence.
   </p>
 
   <div class="ctl">
@@ -139,7 +164,13 @@
     <span class="ctl-note" id="shown"></span>
   </div>
 
-  <div id="list"></div>
+  <div class="gal" id="gallery"></div>
+
+  <details style="margin:var(--space-8) 0 0">
+    <summary style="cursor:pointer;font-size:var(--text-sm);color:var(--text-2)">
+      Show the full text ledger instead (all 1,447 calls)</summary>
+    <div id="list" style="margin-top:var(--space-4)"></div>
+  </details>
 
   <p class="pv-foot">
     Sourced from the study's own append-only run log. Nothing here was summarised by hand.
@@ -216,7 +247,49 @@
     '</details>';
   }
 
+  function openLightbox(r) {
+    var qa = r.qa || {};
+    var qaLine = Object.keys(qa).filter(function (k) { return qa[k] !== null && qa[k] !== undefined; })
+      .map(function (k) { return k + ' = ' + qa[k]; }).join('   ');
+    $('lb-inner').innerHTML =
+      '<img src="' + esc(r.thumb) + '" alt="Generated output for ' + esc(r.task_id) + '">' +
+      '<div class="lb-meta">' +
+        '<div>model &nbsp;&nbsp;' + esc(r.model || '-') + '</div>' +
+        '<div>task &nbsp;&nbsp;' + esc(r.task_id) + '</div>' +
+        (r.condition ? '<div>condition &nbsp;' + esc(r.condition) + '</div>' : '') +
+        '<div>state &nbsp;&nbsp;&nbsp;' + esc(r.state || '-') + '</div>' +
+        (r.credits ? '<div>credits &nbsp;' + esc(r.credits) + '</div>' : '') +
+        (r.duration_s ? '<div>duration ' + Math.round(r.duration_s) + 's</div>' : '') +
+        (r.output_hash ? '<div>hash &nbsp;&nbsp;&nbsp;&nbsp;' + esc(r.output_hash) + '</div>' : '') +
+        (qaLine ? '<div>qa &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + esc(qaLine) + '</div>' : '') +
+      '</div>' +
+      (r.prompt ? '<div class="pr">' + esc(r.prompt) + '</div>' : '');
+    $('lb').classList.add('on');
+  }
+
+  function renderGallery() {
+    var list = (D.receipts || []).filter(function (r) { return r.thumb; }).filter(matches);
+    $('gallery').innerHTML = list.map(function (r, i) {
+      var cond = r.condition ? 'cond ' + r.condition : (r.model || '');
+      return '<figure data-i="' + i + '"><img loading="lazy" src="' + esc(r.thumb) +
+        '" alt="' + esc((r.model || 'output') + ' ' + cond) + '">' +
+        '<figcaption>' + esc(cond) + '</figcaption></figure>';
+    }).join('');
+    $('gallery')._rows = list;
+  }
+
+  $('gallery').addEventListener('click', function (e) {
+    var f = e.target.closest('figure');
+    if (!f) return;
+    var rows = $('gallery')._rows || [];
+    var r = rows[Number(f.dataset.i)];
+    if (r) openLightbox(r);
+  });
+  $('lb').addEventListener('click', function () { $('lb').classList.remove('on'); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') $('lb').classList.remove('on'); });
+
   function render() {
+    renderGallery();
     var list = (D.receipts || []).filter(matches);
     var cap = 120;
     $('shown').textContent = list.length + ' of ' + (D.receipts||[]).length + ' shown'
@@ -248,5 +321,10 @@
   render();
 })();
 </script>
+
+<div class="lightbox" id="lb" role="dialog" aria-modal="true" aria-label="Receipt detail">
+  <button class="lb-close" id="lb-close" aria-label="Close">&times;</button>
+  <div class="lightbox-inner" id="lb-inner"></div>
+</div>
 </body>
 </html>
