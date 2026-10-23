@@ -231,7 +231,11 @@
 
   /* ---------- open roles (researched, with provenance) ---------- */
 
-  var OPEN = window.OPEN_ROLES || { jobs: [], closed_do_not_apply: [] };
+  // Read lazily, never captured at load time. A previous version read this once
+  // at parse time, so if open-roles.js happened to load after jobs.js the roles
+  // silently rendered as zero with no error anywhere. Verified that failure mode.
+  var OPEN_EMPTY = { jobs: [], closed_do_not_apply: [] };
+  function openData() { return window.OPEN_ROLES || OPEN_EMPTY; }
   var CONF_LABEL = {
     'seen-on-own-dashboard': 'seen on own dashboard',
     'unverified': 'unverified',
@@ -242,7 +246,7 @@
     var host = $('open-list');
     if (!host) return;
     var todayD = today();
-    var list = (OPEN.jobs || []).slice().sort(function (a, b) {
+    var list = (openData().jobs || []).slice().sort(function (a, b) {
       if (!a.deadline) return 1;
       if (!b.deadline) return -1;
       return a.deadline.localeCompare(b.deadline);
@@ -289,7 +293,7 @@
   function renderClosed() {
     var host = $('closed-list');
     if (!host) return;
-    var list = (OPEN.closed_do_not_apply || []).slice().sort(function (a, b) {
+    var list = (openData().closed_do_not_apply || []).slice().sort(function (a, b) {
       return (b.closed || '').localeCompare(a.closed || '');
     });
     host.innerHTML = list.map(function (j) {
@@ -444,4 +448,10 @@
   $('o-date').value = today();
   load();
   renderAll();
+
+  // If the roles file arrives after this file has already run, the first render
+  // saw an empty object and silently showed zero. Re-render when it lands.
+  window.addEventListener('openroles:ready', renderAll);
+  // Belt and braces for a cached copy that was already loaded before this ran.
+  if (window.OPEN_ROLES && !(openData().jobs || []).length) renderAll();
 })();

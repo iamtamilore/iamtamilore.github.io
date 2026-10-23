@@ -167,3 +167,7 @@ window.OPEN_ROLES = {
     { "company": "Grant Thornton", "role": "2027 Advisory Graduate Programme", "closed": "2026-10-22" }
   ]
 };
+
+// Announce that the data has landed. jobs.js listens and re-renders, so the
+// two files no longer depend on which script tag the browser reaches first.
+window.dispatchEvent(new Event('openroles:ready'));
