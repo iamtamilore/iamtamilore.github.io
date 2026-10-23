@@ -358,11 +358,45 @@
 .foot-legal { font-size: var(--text-xs); color: var(--text-3); margin: 0; opacity: 0.8; }
 .foot-legal a { color: var(--text-3); }
 
+/* ---- phone ----
+ * Three things that were wrong on a real handset, caught by opening the page on
+ * one rather than by reading the CSS:
+ *   1. the zoom buttons were 30px, under the 44px touch minimum
+ *   2. the stage could take 66vh, leaving the questions below the fold on a short
+ *      screen, which is the opposite of what a rating session needs
+ *   3. the fixed util nav overlapped the pill row at the top
+ */
+
 @media (max-width: 700px) {
   .opts-4, .opts-6 { grid-template-columns: repeat(2, 1fr); }
   .rate-h1 { font-size: var(--text-xl); }
-  .stage-scroll { min-height: 32vh; }
   .panel { padding: var(--space-4); }
+
+  /* Keep at least one answer row above the fold. */
+  .stage-scroll { min-height: 26vh; max-height: 44vh; }
+  .stage-scroll img { max-height: 40vh; }
+  .stage-scroll img.zoomed { width: 300%; }
+
+  /* 44px minimum touch target. */
+  .zoom-btn { width: 44px; height: 44px; font-size: 0.95rem; }
+  .stage-zoom { top: var(--space-2); right: var(--space-2); gap: var(--space-2); }
+
+  .rate-wrap { padding-top: calc(64px + env(safe-area-inset-top, 0px)); }
+  .rate-topline { gap: var(--space-2); }
+  .pill { padding: 6px 11px; }
+
+  /* The pager sits above the footer actions on a phone, not below three panels. */
+  .pager { position: sticky; bottom: 0; background: var(--bg); padding: var(--space-3) 0; border-top: 1px solid var(--border); margin-bottom: var(--space-6); }
+  .pbtn { padding: var(--space-4) var(--space-5); }
+
+  /* Give the free-text field room for an actual sentence. */
+  #free-text, #skip-text { font-size: 16px; } /* below 16px iOS Safari zooms on focus */
+}
+
+/* Very short screens, landscape phones. Questions must stay reachable. */
+@media (max-height: 560px) {
+  .stage-scroll { min-height: 20vh; max-height: 34vh; }
+  .rate-sub { display: none; }
 }
 
 @media (prefers-reduced-motion: no-preference) {
