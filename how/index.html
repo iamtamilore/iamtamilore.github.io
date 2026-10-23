@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How I make an episode | Taiwo Alabi</title>
+<meta name="description" content="A 23-shot vertical anime episode, step by step, with every frame and every prompt visible. Built for brands who need short-form video they can actually check.">
+<script>document.documentElement.setAttribute("data-theme",localStorage.getItem("tw-theme")||"")</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="/assets/css/design-system.css">
+<link rel="stylesheet" href="/assets/css/landing.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231a1816'/><text y='72' x='50' font-size='62' text-anchor='middle' fill='%23c45a1f' font-family='sans-serif' font-weight='bold'>T</text></svg>">
+<style>
+.hw { max-width: 1000px; margin: 0 auto; padding: calc(56px + env(safe-area-inset-top,0px)) var(--edge) var(--space-12); }
+.h1 { font-size: var(--text-2xl); font-weight:700; margin:0 0 var(--space-3); line-height:1.15; max-width:24ch; }
+.lede { font-size: var(--text-sm); color: var(--text-2); max-width:66ch; line-height:1.65; margin:0 0 var(--space-8); }
+
+.hiring { border:1px solid var(--border-2); background: var(--surface); border-radius:10px;
+  padding: var(--space-6); margin:0 0 var(--space-6); }
+.hiring h2 { font-size: var(--text-lg); font-weight:700; margin:0 0 var(--space-4); }
+.hiring p { font-size: var(--text-sm); color: var(--text-2); margin:0 0 var(--space-3); line-height:1.65; max-width:72ch; }
+.hiring p:last-child { margin-bottom:0; }
+
+.promise { border:1px solid var(--accent); background: var(--accent-bg); border-radius:10px;
+  padding: var(--space-5) var(--space-6); margin:0 0 var(--space-8); }
+.promise h2 { font-size: var(--text-lg); font-weight:700; margin:0 0 var(--space-3); }
+.promise p { font-size: var(--text-sm); color: var(--text-2); margin:0 0 var(--space-3); line-height:1.6; max-width:72ch; }
+.promise p:last-child { margin-bottom:0; }
+
+.step { border-top:1px solid var(--border); padding-top: var(--space-6); margin-bottom: var(--space-8); }
+.step-n { display:flex; align-items:baseline; gap: var(--space-3); margin-bottom: var(--space-3); flex-wrap:wrap; }
+.step-n span.n { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--accent); font-weight:700; }
+.step-n h2 { font-size: var(--text-xl); font-weight:700; margin:0; }
+.step-why { font-size: var(--text-sm); color: var(--text-2); max-width:68ch; line-height:1.65; margin:0 0 var(--space-4); }
+.step-why b { color: var(--text); font-weight:600; }
+
+.plain { background: var(--bg-2); border-left:3px solid var(--accent); border-radius:0 6px 6px 0;
+  padding: var(--space-4) var(--space-5); margin:0 0 var(--space-4); font-size: var(--text-sm);
+  color: var(--text-2); line-height:1.65; max-width:70ch; }
+.plain b { color: var(--text); font-weight:600; }
+
+pre.prompt { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-2);
+  background: var(--bg); border:1px solid var(--border); border-radius:8px; padding: var(--space-4);
+  white-space: pre-wrap; word-break: break-word; margin:0 0 var(--space-4); line-height:1.6; }
+
+.grid3 { display:grid; grid-template-columns: repeat(auto-fill, minmax(120px,1fr)); gap: var(--space-2); margin-bottom: var(--space-4); }
+.grid3 figure { margin:0; }
+.grid3 img { width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:6px;
+  border:1px solid var(--border); background: var(--bg); display:block; }
+.grid3 figcaption { font-family: var(--font-mono); font-size: 0.62rem; color: var(--text-3); margin-top: 4px; text-align:center; }
+
+.beats { border:1px solid var(--border); border-radius:10px; background: var(--surface); overflow:hidden; margin-bottom: var(--space-4); }
+.beat { display:flex; gap: var(--space-3); padding: var(--space-3) var(--space-4); border-bottom:1px solid var(--border); font-size: var(--text-sm); }
+.beat:last-child { border-bottom:none; }
+.beat .bt { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-3); white-space:nowrap; flex:0 0 84px; }
+.beat .bl { color: var(--text-2); }
+
+.clip { border:1px dashed var(--border-2); border-radius:10px; padding: var(--space-5);
+  margin-bottom: var(--space-3); background: var(--surface); }
+.clip h3 { font-size: var(--text-base); font-weight:600; margin:0 0 var(--space-2); }
+.clip .v { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-3); }
+.clip .slot { font-size: var(--text-xs); color: var(--warn); margin-top: var(--space-2); }
+.clip video { width:100%; max-width:320px; border-radius:8px; margin-top: var(--space-3); display:block; }
+
+table.stats { width:100%; border-collapse:collapse; font-size: var(--text-sm); margin-bottom: var(--space-4); }
+table.stats td { padding: var(--space-2) var(--space-3) var(--space-2) 0; border:none; vertical-align:top; }
+table.stats td:first-child { color: var(--text-3); white-space:nowrap; width:34%; }
+table.stats td:last-child { color: var(--text-2); font-family: var(--font-mono); font-size: var(--text-xs); }
+
+.foot { border-top:1px solid var(--border); padding-top: var(--space-6); margin-top: var(--space-8); }
+@media (max-width:700px){ .beat{flex-direction:column;gap:2px} .beat .bt{flex:none} }
+</style>
+</head>
+<body>
+
+<nav class="util" aria-label="Site">
+  <a href="/">portfolio</a>
+  <a href="/cv/">cv</a>
+  <a href="/tools/">tools</a>
+  <a href="/how/" aria-current="page">how I make it</a>
+  <a href="/jobs/">jobs</a>
+</nav>
+
+<div class="hw">
+
+  <h1 class="h1">I can show you every step, not just the result</h1>
+  <p class="lede">
+    Here is one short video I made, from an empty folder to a finished file. The script, the timings,
+    the pictures, the ones I threw away, and the cost of each step are all left in. You do not have
+    to take my word for any of it.
+  </p>
+
+  <section class="hiring">
+    <h2>If you are here to hire someone, this is the part for you</h2>
+    <p>
+      The anime is the example. The thing worth looking at is how it was made.
+    </p>
+    <p>
+      I built the machine that runs this, and I kept every log it produced. Search, scoring,
+      selection, generation, assembly, and a check that catches what the other steps miss.
+      A model narrows the options. <b>I decide.</b> On this run I threw out roughly half the
+      pictures I had already picked, because looking at them properly showed they were wrong.
+    </p>
+    <p>
+      That habit is the whole pitch. I am not showing you that I can make a video. I am showing you
+      that I check my own work, throw away what does not pass, and leave the evidence where you
+      can audit it. Same rule on the four AI systems on my home page: every one names the failure
+      it defends against before the feature it adds.
+    </p>
+    <p>
+      <a class="cta cta-cv-bridge" href="/cv/">See the CV</a>
+      <a class="cta cta-ghost" href="/provenance/">See the raw logs</a>
+    </p>
+  </section>
+
+  <section class="promise">
+    <h2>If you are a brand looking to commission this</h2>
+    <p>
+      Short video is cheap to make and expensive to trust. Most suppliers send you the finished
+      file and ask you to believe the rest. This page does the opposite. You get every input, every
+      picture that was rejected, and every timing decision.
+    </p>
+    <p>
+      <b>You get the same log I keep for myself.</b> That is the difference between a supplier
+      telling you the work is good and being able to check that it is.
+    </p>
+  </section>
+
+  <div id="root"></div>
+
+  <div class="foot">
+    <p style="font-size:var(--text-sm);color:var(--text-2);max-width:66ch;line-height:1.65">
+      Real channel numbers, for calibration: 347 subscribers, 4 videos, best one 1,200 views.
+      Small, and stated rather than dressed up. The pipeline is what scales.
+    </p>
+    <p style="font-size:var(--text-sm);margin-top:var(--space-4)">
+      <a href="mailto:newalabitaiwo625@gmail.com" class="cta">Email me</a>
+      <a href="/provenance/" class="cta cta-ghost">Full run log</a>
+    </p>
+  </div>
+
+</div>
+
+<button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">&#9681;</button>
+
+<script src="data.js"></script>
+<script>
+(function () {
+  'use strict';
+  var D = window.HOW_DATA || {};
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+    return ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' })[c]; }); };
+
+  var ep = D.episode || {}, fmt = D.format || {}, src = D.sourcing || {};
+
+  var steps = [
+    {
+      n: 'Step 1', h: 'Decide the one thing the video argues',
+      why: 'Nothing gets made until there is one sentence the whole video has to earn. For this ' +
+           'one it is: <b>Tengen survived what killed Rengoku</b>. Every later choice has to serve ' +
+           'that sentence. Anything that does not help it gets cut.',
+      html: '<table class="stats">' +
+        '<tr><td>Show</td><td>' + esc((D.world||{}).franchise || '-') + '</td></tr>' +
+        '<tr><td>Who it is about</td><td>' + esc((D.world||{}).canon_subject || '-') + '</td></tr>' +
+        '<tr><td>Title</td><td>' + esc(ep.title || '-') + '</td></tr>' +
+        '<tr><td>Size and speed</td><td>' + esc(fmt.frame || '-') + ', ' + esc(fmt.fps || '-') + ' frames a second</td></tr>' +
+        '<tr><td>How cuts happen</td><td>Cuts follow the narration, not a fixed grid</td></tr>' +
+        '<tr><td>How many shots</td><td>' + esc(fmt.shot_count || '-') + '</td></tr>' +
+      '</table>'
+    },
+    {
+      n: 'Step 2', h: 'Write the script in short lines',
+      why: 'The script is split into short lines first. Each line gets its own time window. ' +
+           'The pictures then have to fit those windows. A beautiful shot that is too short to ' +
+           'read gets thrown away.',
+      beats: true
+    },
+    {
+      n: 'Step 3', h: 'Write down what each picture must show',
+      why: 'Every line of the script becomes a shopping list item: a plain description of the ' +
+           'picture needed for that moment. Each one gets its own set of search words.',
+      plain: 'That last detail is the most expensive mistake in this whole pipeline, and it is ' +
+             'completely boring. If every shot uses the same search words, the search step ' +
+             'downloads the same 50 pictures into every folder. Half the video ends up with nothing ' +
+             'to choose from, and the finished video quietly reuses the same few images again and ' +
+             'again. The fix is simple: write different search words for every shot.'
+    },
+    {
+      n: 'Step 4', h: 'Search, then pick',
+      why: 'Each shot pulls in about ' + esc(src.candidates_per_need || '50') + ' candidate pictures from ' +
+           esc((src.host || 'search')) + '. A model scores them. Then <b>a person looks at them</b>. ' +
+           'The score narrows the field. The person decides. That is the rule this whole site runs on.',
+      frames: true
+    },
+    {
+      n: 'Step 5', h: 'Throw half of them away',
+      why: 'On the real run behind this episode, roughly half the chosen pictures were rejected at ' +
+           'review and swapped for another. That is normal and it is the reason the finished video ' +
+           'has no obvious repeats in it.',
+      note: 'One rule I do not bend: a thumbnail under 400 pixels wide cannot be trusted to tell ' +
+            'me which character is in the picture. It has given me the wrong answer more than once. ' +
+            'Every rejection gets checked on the full size file before I believe it.'
+    },
+    {
+      n: 'Step 6', h: 'Record the voice, then cut to it',
+      why: 'The narration is made from the script, and the shots are cut to fit the audio rather ' +
+           'than the other way round. The cut follows the sentence, which is why the pacing works.'
+    },
+    {
+      n: 'Step 7', h: 'Put it together and watch it',
+      why: 'Everything is assembled into one vertical video. Then I watch the whole thing start to ' +
+           'finish before it goes anywhere. That step catches the mistakes no automatic check finds.'
+    },
+    {
+      n: 'Step 8', h: 'Publish it, and keep the receipts',
+      why: 'The log of every call stays. What it cost, how long it took, what got kept and what ' +
+           'got thrown out. That log is published in full on this site. For a brand, that log is ' +
+           'the actual product.'
+    }
+  ];
+
+  var out = '';
+  steps.forEach(function (s, i) {
+    out += '<section class="step">' +
+      '<div class="step-n"><span class="n">' + esc(s.n) + '</span><h2>' + esc(s.h) + '</h2></div>' +
+      '<p class="step-why">' + s.why + '</p>' +
+      (s.html || '') +
+      (s.plain ? '<p class="plain">' + s.plain + '</p>' : '') +
+      (s.note ? '<p class="plain">' + s.note + '</p>' : '') +
+      (s.beats ? (function () {
+        var b = D.beats || [];
+        return '<div class="beats">' + b.slice(0, 10).map(function (x) {
+          return '<div class="beat"><span class="bt">' + esc(x.t) + '</span><span class="bl">' + esc(x.line) + '</span></div>';
+        }).join('') + '</div>' +
+        '<p style="font-size:var(--text-xs);color:var(--text-3);margin:0">Showing 10 of ' + b.length +
+        ' beats. Every one carries its own timing window.</p>';
+      })() : '') +
+      (s.frames ? (function () {
+        var f = D.frames || [];
+        return '<div class="grid3">' + f.map(function (x) {
+          return '<figure><img loading="lazy" src="' + esc(x.file) + '" alt="Selected frame ' + x.n + '"><figcaption>' + x.n + '</figcaption></figure>';
+        }).join('') + '</div>';
+      })() : '') +
+      '</section>';
+  });
+
+  // clip slots: placeholders until Taiwo supplies the live links
+  out += '<section class="step"><div class="step-n"><span class="n">The episodes</span>' +
+    '<h2>Watch them, then judge the pipeline</h2></div>' +
+    '<p class="step-why">These are the four published videos. The view counts are the real ones, ' +
+    'including the one that barely worked. Watch them, then decide whether the process above is ' +
+    'worth commissioning.</p>' +
+    (D.clip_slots || []).map(function (c) {
+      return '<div class="clip"><h3>' + esc(c.title) + '</h3>' +
+        '<div class="v">' + esc(c.views) + ' views</div>' +
+        (c.url
+          ? '<p style="margin:var(--space-3) 0 0"><a class="cta" href="' + esc(c.url) + '" target="_blank" rel="noopener">Watch on YouTube</a></p>'
+          : '<div class="slot">Clip link slot: awaiting the live URL from Taiwo.</div>') +
+      '</div>';
+    }).join('') + '</section>';
+
+  $('root').innerHTML = out;
+
+  (function theme() {
+    var K='tw-theme', R=document.documentElement;
+    function apply(t){ if(t==='dark')R.setAttribute('data-theme','dark'); else if(t==='light')R.setAttribute('data-theme','light'); else R.removeAttribute('data-theme'); }
+    var tt=$('themeToggle');
+    if(tt) tt.addEventListener('click',function(){ var c=R.getAttribute('data-theme');
+      var n=c==='dark'?'light':c==='light'?'':'dark'; apply(n);
+      if(n)localStorage.setItem(K,n); else localStorage.removeItem(K); });
+    var st=localStorage.getItem(K); if(st) apply(st);
+  })();
+})();
+</script>
+</body>
+</html>
