@@ -22,6 +22,7 @@
 .cv-meta { display: flex; gap: var(--space-3); flex-wrap: wrap; font-size: var(--text-sm); color: var(--text-3); }
 .cv-meta a { color: #5B9BD5; text-decoration: none; border-bottom: none; }
 .cv-meta a:hover { text-decoration: underline; }
+.cv-permit { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-3); margin: 0 0 var(--space-4); }
 .cv-section { margin-bottom: var(--space-10); }
 .cv-sec-title { font-size: var(--text-2xl); font-weight: 700; color: #5B9BD5; margin-bottom: var(--space-6); padding-bottom: var(--space-3); border-bottom: 1px solid var(--border); }
 .cv-body-text { font-size: var(--text-sm); color: var(--text-2); line-height: 1.6; max-width: none; }
@@ -67,7 +68,7 @@
   </div>
   <header class="cv-header">
     <h1 class="cv-h1">Taiwo Alabi</h1>
-    <p class="cv-identity">AI systems engineering, with a telecom data background</p>
+    <p class="cv-identity">Data Governance &amp; Telecom Analytics</p>
     <div class="cv-meta">
       <a href="mailto:newalabitaiwo625@gmail.com">newalabitaiwo625@gmail.com</a>
       <span aria-hidden="true">&middot;</span>
@@ -83,7 +84,7 @@
   <section class="cv-section">
     <h2 class="cv-sec-title">Professional Summary</h2>
     <div class="cv-body-text">
-      <p>Builds AI systems around one question: what happens when the answer is wrong, and who notices. Four systems built end to end, each naming the failure it defends against before the feature it adds. Before that, Data Specialist at Huawei on Globacom telecom data, profiling 100k+ rows, writing 440+ UAT cases for a customer migration, and finding a 14% reporting discrepancy. MSc Artificial Intelligence, NCI (January 2027). Stamp 2, available to work 20 hours per week. English (native).</p>
+      <p>Data governance and analytics specialist with hands-on data quality, data classification, and controls testing experience in telecom at Huawei/Globacom. Audited 100k+ records. Supported a migration validated by 440+ UAT cases. Delivered dashboards tracking 30+ operational KPIs. MSc Artificial Intelligence, NCI (January 2027). English (native).</p>
     </div>
   </section>
   <section class="cv-section">
@@ -180,6 +181,26 @@
         </div>
       </div>
     </article>
+    <article class="cv-entry">
+      <div class="cv-entry-header">
+        <div class="cv-entry-org">Automated QA Gate for AI-Generated Imagery</div>
+      </div>
+      <div class="cv-entry-role">TensorFlow/Keras, ResNet50, scikit-learn</div>
+      <div class="cv-entry-body">
+        <ul style="margin:0;padding-left:1.1em">
+          <li>Similarity gate that blocks non-compliant AI product imagery before it reaches a client; precision 1.00 on sealed test pairs, F1 0.90.</li>
+          <li>Baselines measured first: pixel difference F1 0.59, kNN 0.26. The gap between the three is the result.</li>
+          <li>Acceptance cutoff moved off the model's default 0.5 to 0.4821, tuned on validation data only; that one change recovered all 8 misses with no new false alarms.</li>
+        </ul>
+        <div class="cv-entry-links">
+          <a href="/p/image-qa/">Write-up</a>
+          <a href="/assets/docs/image_qa_writeup.pdf" target="_blank" rel="noopener">PDF</a>
+          <a href="/assets/img/cm_siamese.jpg" target="_blank" rel="noopener">Confusion matrix</a>
+          <a href="/assets/img/architecture.jpg" target="_blank" rel="noopener">Architecture</a>
+          <a href="https://github.com/iamtamilore/campaign-image-qa" target="_blank" rel="noopener">Code</a>
+        </div>
+      </div>
+    </article>
   </section>
   <section class="cv-section">
     <h2 class="cv-sec-title">Skills</h2>
@@ -210,10 +231,11 @@
     <div class="cv-meta" style="margin-bottom:var(--space-4)">
       <a href="https://wa.me/353870042838?text=Hi%20Taiwo%2C%20I%20saw%20your%20portfolio">WhatsApp +353 87 004 2838</a>
     </div>
+    <p class="cv-permit">Stamp 2, available to work 20 hours per week. Critical Skills Employment Permit sponsorship required for full-time work.</p>
   </section>
   <footer class="cv-footer">
     <p>Taiwo Alabi &middot; Dublin, Ireland &middot; <a href="mailto:newalabitaiwo625@gmail.com" style="color:var(--text-muted);text-decoration:none">newalabitaiwo625@gmail.com</a></p>
-    <p style="margin-top:var(--space-2)">Last updated 14 October 2026</p>
+    <p style="margin-top:var(--space-2)">Last updated 24 October 2026</p>
     <p style="margin-top:var(--space-6);display:flex;align-items:center;justify-content:center;gap:var(--space-3);opacity:0.7">
       <img src="/assets/img/meet-qr.png" alt="QR to iamtamilore.github.io/meet" width="56" height="56">
       <span>After we've met, here's the quickest way to pick up where we left off: <a href="/meet/" style="color:#5B9BD5">iamtamilore.github.io/meet</a></span>
