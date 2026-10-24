@@ -168,7 +168,7 @@
 
   <details style="margin:var(--space-8) 0 0">
     <summary style="cursor:pointer;font-size:var(--text-sm);color:var(--text-2)">
-      Show the full text ledger instead (all 1,447 calls)</summary>
+      Show the text ledger instead (the 96 receipts published here, out of 1,447 logged tasks)</summary>
     <div id="list" style="margin-top:var(--space-4)"></div>
   </details>
 
@@ -180,6 +180,11 @@
 </div>
 
 <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">&#9681;</button>
+
+<div class="lightbox" id="lb" role="dialog" aria-modal="true" aria-label="Receipt detail">
+  <button class="lb-close" id="lb-close" aria-label="Close">&times;</button>
+  <div class="lightbox-inner" id="lb-inner"></div>
+</div>
 
 <script src="data.js"></script>
 <script>
@@ -322,9 +327,5 @@
 })();
 </script>
 
-<div class="lightbox" id="lb" role="dialog" aria-modal="true" aria-label="Receipt detail">
-  <button class="lb-close" id="lb-close" aria-label="Close">&times;</button>
-  <div class="lightbox-inner" id="lb-inner"></div>
-</div>
 </body>
 </html>
