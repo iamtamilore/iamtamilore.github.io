@@ -78,7 +78,7 @@
   border:1px dashed var(--error); border-radius:6px; background: var(--bg);
   color: var(--error); font-family: var(--font-mono); font-size:0.62rem; text-align:center; padding:4px; }
 
-.lightbox { position:fixed; inset:0; background: rgba(0,0,0,0.92); display:none;
+.lightbox { position:fixed; inset:0; background: #0b0b0b; display:none; overscroll-behavior: contain;
   align-items:center; justify-content:center; z-index:200; padding: var(--space-4); cursor:zoom-out; }
 .lightbox.on { display:flex; }
 .lightbox-inner { max-width:1100px; width:100%; max-height:92vh; overflow:auto; }
@@ -290,7 +290,10 @@
     var r = rows[Number(f.dataset.i)];
     if (r) openLightbox(r);
   });
-  $('lb').addEventListener('click', function () { $('lb').classList.remove('on'); });
+  $('lb').addEventListener('click', function (e) {
+    // Close only from the backdrop or the X, so touching the prompt to scroll or select it does not dismiss it.
+    if (e.target === $('lb') || e.target.id === 'lb-close') $('lb').classList.remove('on');
+  });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') $('lb').classList.remove('on'); });
 
   function render() {
