@@ -1,0 +1,164 @@
+/* ============================================================================
+   MARK ZERO, inner pages (24 October 2026).
+
+   The home page was rebuilt with no boxes, hairline rows, monospace numbers
+   and one accent. The CV, /how/, /provenance/, /jobs/ and /tools/ kept their
+   old local styles, so the site changed grammar between pages: rounded white
+   cards, a tinted rounded box, six centred stat tiles, pill filters, a filled
+   blue button beside an outlined one, and a blue on the CV that appears
+   nowhere else. Those are the shapes a visitor has already seen on a hundred
+   generated sites.
+
+   This file loads last and applies the same five rules to those pages:
+   no boxes, numbers lead, left aligned, one accent, hairlines for structure.
+   It touches presentation only. No text on any page is changed here.
+   ========================================================================== */
+
+/* ---------- CV: one ink, one accent, the site's own typeface ---------- */
+
+body.cv-page, body.cv-page * { font-family: var(--font); }
+body.cv-page .cv-entry-when, body.cv-page code, body.cv-page pre { font-family: var(--font-mono); }
+
+body .cv-sec-title {
+  color: var(--text);
+  font-size: var(--t1);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: var(--space-2);
+}
+
+body .cv-meta a,
+body.cv-page a {
+  color: var(--text);
+  border-bottom: 1px solid var(--rule);
+  text-decoration: none;
+}
+body .cv-meta a:hover,
+body.cv-page a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+body .cv-topbar a { border-bottom: none; }
+
+/* ---------- /how/: sections, not cards ---------- */
+
+body .hiring,
+body .promise,
+body .beats,
+body .bp-stage,
+body .gw,
+body .clip {
+  background: transparent;
+  border: none;
+  border-top: 1px solid var(--rule);
+  border-radius: 0;
+  padding-left: 0;
+  padding-right: 0;
+  box-shadow: none;
+}
+body .promise { border-top-color: var(--accent); }
+body .clip,
+body .gw { border-top-style: dashed; }
+body .beats { overflow: visible; }
+body .beats > * { border-radius: 0; }
+body .plain { background: transparent; border-radius: 0; }
+body .grid3 img,
+body .shorts { border-radius: 0; }
+
+/* two filled/outlined buttons become two plain links; the first is the one that matters */
+body a.cta,
+body a.cta-cv-bridge,
+body a.cta-ghost {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--rule);
+  border-radius: 0;
+  padding: 0 0 2px;
+  color: var(--text);
+  font-weight: 500;
+  box-shadow: none;
+  margin-right: var(--space-5);
+}
+body a.cta-cv-bridge,
+body a.cta.cta-cv-bridge {
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 1px solid var(--accent) !important;
+  color: var(--accent) !important;
+}
+body a.cta-cv-bridge:hover { background: transparent !important; border-bottom-color: var(--text) !important; color: var(--text) !important; }
+body a.cta:hover,
+body a.cta-ghost:hover { color: var(--accent); border-bottom-color: var(--accent); background: transparent; }
+
+/* ---------- /provenance/: instrument readout, not tiles ---------- */
+
+body .correction {
+  background: transparent;
+  border: none;
+  border-top: 1px solid var(--accent);
+  border-radius: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+body .correction h2 { color: var(--text); }
+
+body .stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6) var(--space-6);
+  border-top: 1px solid var(--rule);
+  padding-top: var(--space-5);
+}
+body .stat {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  text-align: left;
+}
+body .stat .v { font-size: clamp(1.7rem, 1rem + 2.6vw, 2.9rem); font-weight: 600; letter-spacing: -0.03em; }
+body .stat .l { margin-top: var(--space-2); }
+
+/* filters read as a row of words, the chosen one marked */
+body .fbtn {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid transparent;
+  border-radius: 0;
+  padding: 0 0 2px;
+  margin-right: var(--space-4);
+  color: var(--text-3);
+}
+body .fbtn:hover { color: var(--text); border-bottom-color: var(--rule); }
+body .fbtn.on { color: var(--accent); border-bottom-color: var(--accent); }
+
+body .rcpt {
+  background: transparent;
+  border: none;
+  border-top: 1px solid var(--rule-2);
+  border-radius: 0;
+  margin-bottom: 0;
+  overflow: visible;
+}
+body .bdg {
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  margin-right: var(--space-3);
+}
+body .gal figure,
+body .gal img { border-radius: 0; }
+
+/* the receipt lightbox keeps its prompt box dark and square */
+body .lightbox pre.prompt { border-radius: 0; }
+
+/* ---------- /jobs/ and /tools/: same restraint on whatever box is left ---------- */
+
+body .jobs-wrap [class*="card"],
+body .jobs-wrap [class*="panel"] {
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* the page nav keeps the home page's plain look, not the underlined body-link style */
+body nav.util a { border-bottom: none; }
