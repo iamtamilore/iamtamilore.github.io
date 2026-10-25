@@ -23,7 +23,7 @@
 </div>
 <div class="wrap">
 <hr class="rule"><h1 id="termsguard-ai">TermsGuard AI</h1>
-<p class="readtime">6 min read</p>
+<p class="readtime">7 min read</p>
 <p>Reads the small print and flags the parts that are unfair to you, in
 plain English.</p>
 <p>Cosine similarity alone marks "we do not sell your data" as a
@@ -44,24 +44,6 @@ href="https://newtazer-terms-guard-ai.hf.space">https://newtazer-terms-guard-ai.
 Source: <a
 href="https://github.com/iamtamilore/terms-guard-ai">https://github.com/iamtamilore/terms-guard-ai</a></p>
 <hr />
-<h2 id="terms-used-in-this-report">Terms used in this report</h2>
-<p>Quick definitions before the technical detail starts, so nothing
-below assumes you already know these:</p>
-<ul>
-<li><strong>Cosine similarity</strong> - a way of measuring how close
-two pieces of text are in meaning, not just how many words they
-share.</li>
-<li><strong>Embedding</strong> - turning a piece of text into a row of
-numbers, so a computer can compare meaning mathematically instead of
-just matching words.</li>
-<li><strong>FAISS index</strong> - a fast lookup table, built for
-searching millions of embeddings for the closest match almost
-instantly.</li>
-<li><strong>Negation</strong> - the word or phrase that flips a
-sentence's meaning, like turning "we sell your data" into "we do
-<em>not</em> sell your data".</li>
-</ul>
-<hr />
 <div class="toc"><h3 style="margin-top:0">Contents</h3><ol>
 <li><a href="#1-the-problem">The problem</a></li>
 <li><a href="#2-results">Results</a></li>
@@ -74,6 +56,8 @@ is not enough</a></li>
 <li><a href="#7-saying-how-sure-it-is">Saying how sure it is</a></li>
 <li><a href="#8-honest-limitations">Honest limitations</a></li>
 <li><a href="#9-run-it">Run it</a></li>
+<li><a href="#10-terms-used-in-this-report">Terms used in this
+report</a></li>
 </ol></div><div class="resources"><a class="cta" href="https://newtazer-terms-guard-ai.hf.space" target="_blank" rel="noopener">Try it</a><a href="/assets/docs/termsguard_writeup.pdf">Read the detail<span class="tag">pdf</span></a><a href="https://github.com/iamtamilore/terms-guard-ai">Check the code</a></div>
 <h2 id="1-the-problem">1. The problem</h2>
 <p>Reading every privacy policy an average internet user meets would
@@ -241,6 +225,25 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">ANTHROPIC_API_KEY</span><span class="op">=</span><span class="st">&quot;sk-ant-...&quot;</span></span></code></pre></div>
 <p>Stack: Python · Flask · sentence-transformers (MiniLM) · FAISS ·
 Anthropic API · Docker</p>
+<hr />
+<h2 id="10-terms-used-in-this-report">10. Terms used in this report</h2>
+<p>The terms below are defined the way this report uses them, for a
+reader who wants to check the reasoning rather than take it on
+trust.</p>
+<ul>
+<li><strong>Cosine similarity</strong> - a way of measuring how close
+two pieces of text are in meaning, not just how many words they
+share.</li>
+<li><strong>Embedding</strong> - turning a piece of text into a row of
+numbers, so a computer can compare meaning mathematically instead of
+just matching words.</li>
+<li><strong>FAISS index</strong> - a fast lookup table, built for
+searching millions of embeddings for the closest match almost
+instantly.</li>
+<li><strong>Negation</strong> - the word or phrase that flips a
+sentence's meaning, like turning "we sell your data" into "we do
+<em>not</em> sell your data".</li>
+</ul>
 
 <div class="lateral"><a class="latnav next" href="/p/clinical-rag/">Smart Medical Records &rarr;<span>wrong-patient retrieval</span></a></div>
 <div class="endnav">

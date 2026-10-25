@@ -40,31 +40,6 @@ Ireland · July to August 2026</p>
 evaluation design. A score with no baseline beside it is decoration, so
 this one carries two.</p>
 <hr />
-<h2 id="terms-used-in-this-report">Terms used in this report</h2>
-<p>Quick definitions before the technical detail starts, so nothing
-below assumes you already know these:</p>
-<ul>
-<li><strong>Precision</strong> - of the images the gate called "same
-person", how many actually were. This is the number I optimised for: a
-wrongly-accepted image reaches a client.</li>
-<li><strong>Recall</strong> - of the images that truly were the same
-person, how many the gate actually caught.</li>
-<li><strong>F1 score</strong> - one number blending precision and
-recall, so a model can't look good by being great at only one.</li>
-<li><strong>ROC-AUC</strong> - a single score for how well a model
-separates two classes overall. 1.00 is perfect, 0.5 is a coin flip.</li>
-<li><strong>Siamese network</strong> - two identical copies of the same
-model, run side by side on two images, then compared, so it's one ruler
-measuring both things.</li>
-<li><strong>Autoencoder</strong> - a model that learns to compress an
-image down to almost nothing, then rebuild it. Feed it something it's
-never seen the shape of, and the rebuild comes out visibly wrong. That
-failure is the alarm.</li>
-<li><strong>McNemar's test</strong> - a statistical check for whether
-two models genuinely differ, or just got lucky on this particular set of
-test images.</li>
-</ul>
-<hr />
 <div class="toc"><h3 style="margin-top:0">Contents</h3><ol>
 <li><a href="#1-the-problem">The problem</a></li>
 <li><a href="#2-results">Results</a></li>
@@ -76,6 +51,8 @@ test images.</li>
 expect</a></li>
 <li><a href="#8-honest-limitations">Honest limitations</a></li>
 <li><a href="#9-reproduce-it">Reproduce it</a></li>
+<li><a href="#10-terms-used-in-this-report">Terms used in this
+report</a></li>
 </ol></div><div class="resources"><a href="/assets/docs/image_qa_writeup.pdf">Read the detail<span class="tag">pdf</span></a><a href="https://github.com/iamtamilore/campaign-image-qa">Check the code</a></div>
 <h2 id="1-the-problem">1. The problem</h2>
 <p>A fashion brand needs thirty photographs of one model in one outfit,
@@ -301,6 +278,32 @@ writing this up.</p>
 against a person managing a few hundred a day.</p>
 <p>Stack: Python · TensorFlow/Keras · ResNet50 · scikit-learn · NumPy ·
 Matplotlib</p>
+<hr />
+<h2 id="10-terms-used-in-this-report">10. Terms used in this report</h2>
+<p>The terms below are defined the way this report uses them, for a
+reader who wants to check the reasoning rather than take it on
+trust.</p>
+<ul>
+<li><strong>Precision</strong> - of the images the gate called "same
+person", how many actually were. This is the number I optimised for: a
+wrongly-accepted image reaches a client.</li>
+<li><strong>Recall</strong> - of the images that truly were the same
+person, how many the gate actually caught.</li>
+<li><strong>F1 score</strong> - one number blending precision and
+recall, so a model can't look good by being great at only one.</li>
+<li><strong>ROC-AUC</strong> - a single score for how well a model
+separates two classes overall. 1.00 is perfect, 0.5 is a coin flip.</li>
+<li><strong>Siamese network</strong> - two identical copies of the same
+model, run side by side on two images, then compared, so it's one ruler
+measuring both things.</li>
+<li><strong>Autoencoder</strong> - a model that learns to compress an
+image down to almost nothing, then rebuild it. Feed it something it's
+never seen the shape of, and the rebuild comes out visibly wrong. That
+failure is the alarm.</li>
+<li><strong>McNemar's test</strong> - a statistical check for whether
+two models genuinely differ, or just got lucky on this particular set of
+test images.</li>
+</ul>
 
 <div class="lateral"><a class="latnav prev" href="/p/care-agent/">&larr; Care Agent<span>the confidence gate</span></a><a class="latnav next" href="/cv/">CV &rarr;<span>the short version</span></a></div>
 <div class="endnav">

@@ -40,29 +40,6 @@ does with the tickets it is unsure about is.</p>
 <p>Taiwo Alabi · MSc Artificial Intelligence, National College of
 Ireland</p>
 <hr />
-<h2 id="terms-used-in-this-report">Terms used in this report</h2>
-<p>Quick definitions before the technical detail starts, so nothing
-below assumes you already know these:</p>
-<ul>
-<li><strong>Precision</strong> - of the tickets the model sent to a
-category, how many actually belonged there. Low precision means it's
-wrong a lot when it says "this one".</li>
-<li><strong>Recall</strong> - of the tickets that truly belonged to a
-category, how many the model actually caught. Low recall means it misses
-real cases.</li>
-<li><strong>F1 score</strong> - one number that blends precision and
-recall, so a model can't look good by being great at only one of
-them.</li>
-<li><strong>TF-IDF</strong> - a way of scoring each word in a ticket by
-how much it tells you about the topic, turning text into numbers a model
-can use.</li>
-<li><strong>Naive Bayes</strong> - a simple, fast classifier that
-guesses a category based on which words showed up in similar tickets
-before.</li>
-<li><strong>BPMN 2.0</strong> - a standard way of drawing a business
-process as a flowchart, before automating any of it.</li>
-</ul>
-<hr />
 <div class="toc"><h3 style="margin-top:0">Contents</h3><ol>
 <li><a href="#1-the-problem">The problem</a></li>
 <li><a href="#2-results">Results</a></li>
@@ -76,6 +53,8 @@ decision that matters: when not to decide</a></li>
 rule-based validation</a></li>
 <li><a href="#8-honest-limitations">Honest limitations</a></li>
 <li><a href="#9-running-it">Running it</a></li>
+<li><a href="#10-terms-used-in-this-report">Terms used in this
+report</a></li>
 </ol></div><div class="resources"><a href="/assets/docs/care_agent_writeup.pdf">Read the detail<span class="tag">pdf</span></a><a href="https://github.com/iamtamilore/customer-care-automation">Check the code</a></div>
 <h2 id="1-the-problem">1. The problem</h2>
 <p>Hundreds of customer complaints sorted by hand every morning, on a
@@ -249,6 +228,30 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="
 <p>Seeded, so results reproduce on every run.</p>
 <p>Stack: Python · scikit-learn (TF-IDF, Naive Bayes) · pandas · BPMN
 2.0 · openpyxl · python-docx</p>
+<hr />
+<h2 id="10-terms-used-in-this-report">10. Terms used in this report</h2>
+<p>The terms below are defined the way this report uses them, for a
+reader who wants to check the reasoning rather than take it on
+trust.</p>
+<ul>
+<li><strong>Precision</strong> - of the tickets the model sent to a
+category, how many actually belonged there. Low precision means it's
+wrong a lot when it says "this one".</li>
+<li><strong>Recall</strong> - of the tickets that truly belonged to a
+category, how many the model actually caught. Low recall means it misses
+real cases.</li>
+<li><strong>F1 score</strong> - one number that blends precision and
+recall, so a model can't look good by being great at only one of
+them.</li>
+<li><strong>TF-IDF</strong> - a way of scoring each word in a ticket by
+how much it tells you about the topic, turning text into numbers a model
+can use.</li>
+<li><strong>Naive Bayes</strong> - a simple, fast classifier that
+guesses a category based on which words showed up in similar tickets
+before.</li>
+<li><strong>BPMN 2.0</strong> - a standard way of drawing a business
+process as a flowchart, before automating any of it.</li>
+</ul>
 
 <div class="lateral"><a class="latnav prev" href="/p/clinical-rag/">&larr; Smart Medical Records<span>wrong-patient retrieval</span></a><a class="latnav next" href="/p/image-qa/">Image QA Gate &rarr;<span>which error to make</span></a></div>
 <div class="endnav">
