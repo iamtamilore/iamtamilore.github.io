@@ -512,3 +512,136 @@ footer {
   .masthead { grid-template-columns: 1fr; gap: var(--space-5); }
   .plate { max-width: 190px; }
 }
+
+/* ---------- skim page: the 60-second read ---------- */
+
+.skim-grid {
+  border-top: 1px solid var(--rule-2);
+  margin-top: var(--space-6);
+}
+
+.skim-entry {
+  border-bottom: 1px solid var(--rule-2);
+  padding: var(--space-6) 0;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.skim-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.skim-head h2 {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.skim-private {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--text-3);
+}
+
+.skim-tag {
+  margin: 0;
+  font-size: var(--text-sm);
+}
+
+.skim-tag a { color: var(--accent); }
+
+.skim-line {
+  margin: 0;
+  font-size: var(--text-lg);
+  color: var(--text);
+  max-width: 62ch;
+}
+
+.skim-failure,
+.skim-headline,
+.skim-limit {
+  margin: 0;
+  max-width: 68ch;
+  color: var(--text-2);
+}
+
+.skim-failure strong,
+.skim-headline strong,
+.skim-limit strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.skim-limit {
+  color: var(--text-3);
+}
+
+.skim-stack {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.skim-stack code {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: var(--text-xs);
+  color: var(--text-3);
+  border: 1px solid var(--rule-2);
+  padding: 0.1em 0.5em;
+}
+
+.skim-links {
+  margin: 0;
+  font-size: var(--text-sm);
+}
+
+.skim-links a { color: var(--accent); }
+
+.skim-meta {
+  margin-top: var(--space-8);
+  max-width: 68ch;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.skim-meta h2 {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  margin: 0 0 var(--space-2);
+}
+
+.skim-meta p { margin: 0; color: var(--text-2); }
+
+.skim-meta strong { color: var(--text); font-weight: 600; }
+
+.skim-foot {
+  margin-top: var(--space-8);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--rule-2);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--text-3);
+}
+
+.skim-foot p { margin: 0; }
+
+.skim-credit {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+}
+
+.page-head { margin-top: var(--space-6); }
+
+.page-head .display { margin-bottom: var(--space-3); }
+
+.page-head .lede { max-width: 62ch; }

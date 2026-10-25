@@ -94,9 +94,13 @@ file, there is an answer.</li>
 </ul>
 <hr />
 <h2 id="3-how-it-works">3. How it works</h2>
-<figure><a href="/assets/img/rag_architecture.jpg" target="_blank" rel="noopener"><img src="/assets/img/rag_architecture.jpg" alt="Architecture" loading="lazy"></a><figcaption>Four Docker
-Compose services on one private network. Orange marks the controls that
-constrain what the system is allowed to do.</figcaption></figure>
+<p><img src="/assets/img/rag_architecture.jpg" alt="Architecture" /> *Four services and
+a single hard rule: the retrieval query carries the patient_id from the
+request, and the database filters on it before ranking. Skip that step
+and a search will return a different patient's note because it happens
+to be worded the same way.*<em>Four Docker Compose services on one
+private network. Orange marks the controls that constrain what the
+system is allowed to do.</em></p>
 <p>A question arrives at the service that handles requests. It passes
 the login check, gets turned into a row of numbers by
 <code>nomic-embed-text</code> (so it can be compared for meaning, not
@@ -134,9 +138,11 @@ looked at this, and when" is not deployable regardless of how well it
 retrieves.</p>
 <hr />
 <h2 id="6-the-data-model">6. The data model</h2>
-<figure><a href="/assets/img/rag_data_model.jpg" target="_blank" rel="noopener"><img src="/assets/img/rag_data_model.jpg" alt="Data model" loading="lazy"></a><figcaption>The
-<code>patient_id</code> foreign key on every embedded row is what
-enforces scoping at the database level.</figcaption></figure>
+<figure><a href="/assets/img/rag_data_model.jpg" target="_blank" rel="noopener"><img src="/assets/img/rag_data_model.jpg" alt="Data model" loading="lazy"></a><figcaption>The data model is
+the safety rail. Embeddings change when the model is updated. The
+patient_id column does not. Scoping happens at the database layer, not
+in application code, so the constraint cannot drift away from the
+search.</figcaption></figure>
 <p>Notes are stored in SOAP format, subjective / objective / assessment
 / plan, because that is how clinicians already write them. Matching the
 existing format matters more than choosing a neater one: it means

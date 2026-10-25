@@ -24,7 +24,7 @@
 <div class="wrap">
 <hr class="rule"><h1 id="automated-qa-gate-for-ai-generated-campaign-imagery">Automated
 QA Gate for AI-Generated Campaign Imagery</h1>
-<p class="readtime">7 min read</p>
+<p class="readtime">8 min read</p>
 <p>Catching identity drift and colour drift in generated fashion
 photography, before a client sees it.</p>
 <p>Taiwo Alabi · MSc Artificial Intelligence, National College of
@@ -146,17 +146,23 @@ the proposed model and still scores worst of the three, because it
 weighs all 128 dimensions equally, so background tint votes as loudly as
 jaw shape. Same information, no learning, and the score collapses. That
 gap is the argument for the design.</p>
-<figure><a href="/assets/img/cm_siamese.jpg" target="_blank" rel="noopener"><img src="/assets/img/cm_siamese.jpg" alt="Confusion matrix" loading="lazy"></a><figcaption>Siamese
-confusion matrix. TN 45, FP 0, FN 8, TP 37. The empty false-positive
-cell is the commercially important result.</figcaption></figure>
-<figure><a href="/assets/img/roc_curves.jpg" target="_blank" rel="noopener"><img src="/assets/img/roc_curves.jpg" alt="ROC curves" loading="lazy"></a><figcaption>ROC curve on the
-held-out test set.</figcaption></figure>
+<figure><a href="/assets/img/cm_siamese.jpg" target="_blank" rel="noopener"><img src="/assets/img/cm_siamese.jpg" alt="Confusion matrix" loading="lazy"></a><figcaption>45
+different-person pairs rejected, 37 same-person pairs accepted. The
+empty false-positive cell is what the project was tuned for: zero images
+called "same person" that were not. The 8 missed same-person pairs are
+in the false-negative figure.</figcaption></figure>
+<p><img src="/assets/img/roc_curves.jpg" alt="ROC curves" /> *The Siamese network
+reaches the top-left corner. AUC 1.000. The diagonal is what a random
+classifier would draw. The gap between the curve and the diagonal is
+what the project proves.*<em>ROC curve on the held-out test
+set.</em></p>
 <hr />
 <h2 id="3-how-the-system-works">3. How the system works</h2>
-<figure><a href="/assets/img/architecture.jpg" target="_blank" rel="noopener"><img src="/assets/img/architecture.jpg" alt="Architecture" loading="lazy"></a><figcaption>Orange marks
-the only trainable parts, roughly 262k parameters, about 1% of the
-network. Everything else is frozen. An image enters the campaign only if
-both branches clear it.</figcaption></figure>
+<figure><a href="/assets/img/architecture.jpg" target="_blank" rel="noopener"><img src="/assets/img/architecture.jpg" alt="Architecture" loading="lazy"></a><figcaption>Three branches.
+The Siamese network scores identity. The autoencoder scores grade fit on
+the same input. The pixel difference and kNN baselines run on the same
+test set and lose to both. Pass only if identity is high AND grade fit
+is below threshold.</figcaption></figure>
 <p>One image comes in. It is prepared once, then scored twice, and it
 passes only if both checks clear. The two faults are independent: an
 image can be exactly the right person in exactly the wrong light.</p>
@@ -196,9 +202,13 @@ lighting I care about.</p>
 <p>Feed it an image with the wrong colours and the redraw comes out
 badly wrong. The size of that failure is the alarm. It detects bad
 images without ever having seen one.</p>
-<figure><a href="/assets/img/grade_drift_examples.jpg" target="_blank" rel="noopener"><img src="/assets/img/grade_drift_examples.jpg" alt="Grade drift probes" loading="lazy"></a><figcaption>Both subjects at the same camera angle, so the only variable across
-each row is the distortion. Red frames mark the probes the gate should
-reject.</figcaption></figure>
+<p><img src="/assets/img/grade_drift_examples.jpg" alt="Grade drift probes" />
+*Generated campaign images where the model kept most of the brief and
+lost the details that matter: the face changed, the lighting drifted,
+the product colour shifted. These are the kind of images the gate is
+built to catch.*<em>Both subjects at the same camera angle, so the only
+variable across each row is the distortion. Red frames mark the probes
+the gate should reject.</em></p>
 <p>Good images reconstruct at 0.00374 mean squared error. Damaged ones
 at 0.00865, a factor of 2.3. Where the rejection line sits is a business
 decision, not a technical one:</p>
@@ -234,8 +244,10 @@ problem. This is a filter that flags images for a human, not a gate that
 rejects them unattended.</p>
 <hr />
 <h2 id="6-where-it-fails">6. Where it fails</h2>
-<figure><a href="/assets/img/fn_siamese.jpg" target="_blank" rel="noopener"><img src="/assets/img/fn_siamese.jpg" alt="False negatives" loading="lazy"></a><figcaption>All eight
-misses. Every one is a profile or back shot.</figcaption></figure>
+<figure><a href="/assets/img/fn_siamese.jpg" target="_blank" rel="noopener"><img src="/assets/img/fn_siamese.jpg" alt="False negatives" loading="lazy"></a><figcaption>The 8
+same-person pairs the gate missed. Different angle, different lighting,
+different hairstyle. The honest read is that 90 pairs is too few to
+claim the gap to the baselines is not luck.</figcaption></figure>
 <p>Every single error is the same error. All eight are same-subject
 pairs the model scored as different, and all eight are back or profile
 shots, the angles where least of the face is visible. The model was not

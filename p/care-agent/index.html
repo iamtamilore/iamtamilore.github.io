@@ -24,7 +24,7 @@
 <div class="wrap">
 <hr class="rule"><h1 id="customer-care-process-automation">Customer Care Process
 Automation</h1>
-<p class="readtime">6 min read</p>
+<p class="readtime">7 min read</p>
 <p>Two bots replacing two manual back-office jobs, with a rule about
 when not to decide.</p>
 <p><strong>What this evidences:</strong> critiquing model quality and
@@ -118,8 +118,14 @@ is what the agent does with the tickets it is not confident about, which
 is section 6.</p>
 <hr />
 <h2 id="3-the-process-before">3. The process, before</h2>
-<figure><a href="/assets/img/as_is.jpg" target="_blank" rel="noopener"><img src="/assets/img/as_is.jpg" alt="As-is process" loading="lazy"></a><figcaption>Every complaint read
-and routed by a person.</figcaption></figure>
+<figure><a href="/assets/img/as_is.jpg" target="_blank" rel="noopener"><img src="/assets/img/as_is.jpg" alt="As-is process" loading="lazy"></a><figcaption>Before the bot. Three
+lanes, one decision: a person reads the ticket and decides which of five
+back-end teams it belongs to. The bottleneck is the second swimlane, the
+manual decision.</figcaption></figure>
+<figure><a href="/assets/img/to_be.jpg" target="_blank" rel="noopener"><img src="/assets/img/to_be.jpg" alt="To-be process" loading="lazy"></a><figcaption>After the bot. The
+classifier proposes a team. The escalation gate, the diamond at 0.55
+confidence, is what the project is really about. Tickets scoring below
+the line go to a human instead of being forced through.</figcaption></figure>
 <p>I mapped out the existing process as a flowchart, using BPMN 2.0 (a
 standard way of drawing business processes), before writing any code.
 That order was deliberate: it meant the automation replaced a process I
@@ -128,8 +134,10 @@ what made the manual touchpoints explicit enough to decide which were
 worth automating.</p>
 <hr />
 <h2 id="4-the-process-after">4. The process, after</h2>
-<figure><a href="/assets/img/to_be.jpg" target="_blank" rel="noopener"><img src="/assets/img/to_be.jpg" alt="To-be process" loading="lazy"></a><figcaption>Two pools. Automated
-triage above, the daily customer report bot below.</figcaption></figure>
+<figure><a href="/assets/img/to_be.jpg" target="_blank" rel="noopener"><img src="/assets/img/to_be.jpg" alt="To-be process" loading="lazy"></a><figcaption>Two pools, two bots.
+The top pool is the classifier with the escalation gate. The bottom pool
+is the rule-based validation bot that runs the daily customer
+report.</figcaption></figure>
 <p>The redesign splits the work by the kind of decision each part
 requires. Field validation has known correct answers, so it goes to
 rules. Reading a complaint and inferring intent does not, so it goes to
@@ -148,15 +156,22 @@ training tickets instead of learning the pattern. It is also
 inspectable: I can see which words drive a routing decision, which
 matters when somebody asks why a ticket went where it did.</p>
 <p><img src="/assets/img/fig1_classification_report.png"
-alt="Classification report" /> <em>Per-class precision, recall and F1:
-precision is how often a category the model picked was actually right,
-recall is how many of the true cases for that category it actually
-caught, and F1 blends the two into one number.</em></p>
+alt="Classification report" /> *Precision, recall and F1 per category on
+the 42 held-out tickets. P_BILL is the weak class at 0.88. The other
+four categories are at 1.00. The weakness is visible in the confusion
+matrix that follows.*<em>Per-class precision, recall and F1: precision
+is how often a category the model picked was actually right, recall is
+how many of the true cases for that category it actually caught, and F1
+blends the two into one number.</em></p>
 <p>Reported per category rather than as a single figure, because a
 router that is strong on common categories and weak on rare ones is a
 different system from one that is evenly good, and an average hides that
 difference.</p>
-<figure><a href="/assets/img/fig2_confusion_matrix.jpg" target="_blank" rel="noopener"><img src="/assets/img/fig2_confusion_matrix.jpg" alt="Confusion matrix" loading="lazy"></a><figcaption>Where the classifier confuses one team with another.</figcaption></figure>
+<p><img src="/assets/img/fig2_confusion_matrix.jpg" alt="Confusion matrix" /> *Where
+the model loses. Two tickets, both P_BILL and REFUND, swap with each
+other. Every other prediction is on the diagonal. This is the failure
+mode the escalation gate is meant to absorb.*<em>Where the classifier
+confuses one team with another.</em></p>
 <p>The matrix shows where errors concentrate. Confusion between
 neighbouring categories is a routing problem worth fixing; errors
 scattered evenly would suggest the features themselves are too weak, and
@@ -165,8 +180,10 @@ that is not the pattern.</p>
 <h2 id="6-the-decision-that-matters-when-not-to-decide">6. The decision
 that matters: when not to decide</h2>
 <p><img src="/assets/img/fig4_confidence_scores.png"
-alt="Confidence distribution" /> <em>The escalation gate. Below 0.55,
-the ticket goes to a human.</em></p>
+alt="Confidence distribution" /> <em>Five tickets. Two of them (red, at
+0.37 and 0.41) fall under the 0.55 line and go to a human. Three of them
+(teal, above the line) get auto-routed. The bar chart is the escalation
+decision in its rawest form.</em></p>
 <p>A classifier will always return an answer. Asked to route a ticket it
 has never seen anything like, it will still pick the closest of the five
 categories and report a number. That is the failure mode worth designing
@@ -182,8 +199,12 @@ report a lower automation rate than a higher misroute rate</strong>.</p>
 <hr />
 <h2 id="7-the-second-bot-rule-based-validation">7. The second bot:
 rule-based validation</h2>
-<figure><a href="/assets/img/fig3_rpa_validation.jpg" target="_blank" rel="noopener"><img src="/assets/img/fig3_rpa_validation.jpg" alt="RPA validation" loading="lazy"></a><figcaption>The
-validator checking each record against its requirements.</figcaption></figure>
+<p><img src="/assets/img/fig3_rpa_validation.jpg" alt="RPA validation" /> *The
+second bot, the rule-based one, ran on 120 records and flagged 5. Each
+of the five exceptions is named in the right panel: bad date, unknown
+segment, bad MSISDN prefix, bad MSISDN digits, missing field. The 4%
+exception rate is what the bot costs the team in manual review.*<em>The
+validator checking each record against its requirements.</em></p>
 <p>The second automation produces the daily customer creation report: it
 reads the customer records, validates each field, writes the clean
 report to Excel and Word, and writes everything that failed validation
