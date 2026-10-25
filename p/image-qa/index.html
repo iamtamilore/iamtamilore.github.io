@@ -27,6 +27,13 @@ QA Gate for AI-Generated Campaign Imagery</h1>
 <p class="readtime">8 min read</p>
 <p>Catching identity drift and colour drift in generated fashion
 photography, before a client sees it.</p>
+<p>A quality gate that flags good images gets switched off inside a
+week, so the target was precision, not coverage: every image it called
+"same person" had to be the same person. A Siamese network over frozen
+ResNet50 features reached F1 0.90 at precision 1.00 on 90 sealed test
+pairs, against pixel difference at 0.59 and kNN at 0.26. Ninety pairs is
+too few to rule out luck as the explanation for the gap, and McNemar's
+test is underpowered to settle it.</p>
 <p>Taiwo Alabi · MSc Artificial Intelligence, National College of
 Ireland · July to August 2026</p>
 <p><strong>What this evidences:</strong> critiquing model quality and

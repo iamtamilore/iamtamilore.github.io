@@ -26,6 +26,13 @@
 <p class="readtime">6 min read</p>
 <p>Helps a doctor find the one thing in a patient file that matters,
 before the appointment ends.</p>
+<p>A doctor asks in plain English and gets the answer out of that
+patient's own notes. The retrieval query carries the patient_id, so the
+database filters by patient before it ranks by similarity, which is what
+stops a different patient's note surfacing because it happens to be
+worded the same way. Thirty adversarial probes designed to leak
+cross-patient data, zero leaked, and the whole system runs on the
+hospital's own machine so no patient record leaves it.</p>
 <p>Taiwo Alabi · MSc Artificial Intelligence, National College of
 Ireland</p>
 <p><strong>What this evidences:</strong> applying software architecture
