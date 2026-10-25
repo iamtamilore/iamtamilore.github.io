@@ -664,7 +664,38 @@ footer {
 }
 
 .page-head { margin-top: var(--space-6); }
-
 .page-head .display { margin-bottom: var(--space-3); }
 
 .page-head .lede { max-width: 62ch; }
+
+/* ---------- homepage: the keyword strip and the closing claim ---------- */
+
+/* Recruiters match on proper nouns. The homepage had four projects and a
+   Huawei card but no list of technologies, so a keyword scan found nothing. */
+.toolstack {
+  margin: var(--space-4) 0 0;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: var(--text-xs);
+  line-height: 1.9;
+  color: var(--text-3);
+  max-width: 70ch;
+}
+
+.toolstack-label {
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-right: 0.6em;
+}
+
+/* The last thing on the page is what a reader who scrolled all the way
+   carries out of it, so the strongest claim is repeated here. */
+.recency {
+  margin: 0 0 var(--space-5);
+  max-width: 58ch;
+  font-size: var(--text-lg);
+  line-height: 1.45;
+  color: var(--text);
+  border-left: 2px solid var(--accent);
+  padding-left: var(--space-4);
+}
