@@ -86,16 +86,16 @@
     <article class="entry">
       <div>
         <div class="metric">grounded</div>
-        <span class="metric-note">every flag cites the GDPR article it came from, so nothing is invented</span>
+        <span class="metric-note">every flag carries the context it was drawn from, so nothing is invented</span>
       </div>
       <div>
         <h3 class="name">TermsGuard AI <span class="tag">live</span></h3>
         <p class="desc">
-          Cosine similarity alone marks "we do not sell your data" as a violation, because the
-          model can barely tell "sell" from "do not sell" apart. Rule guards sit on top of the
-          score, not instead of it. 102 reference clauses, 4,527 chunks of context, latency cut
-          from 28 seconds to under 10. The previous build labelled clauses as model-verified
-          when no model had looked at them; the verifier now runs three routes with retry.
+          Reads the small print in privacy policies and flags the parts that are unfair to you.
+          Cosine similarity alone marks "we do not sell your data" as a violation, so rule guards
+          sit on top of the score and a model rules on what is left. 102 reference clauses.
+          The previous build labelled clauses as model-verified when no model had looked at them.
+          The verifier now runs three routes with retry.
         </p>
         <a class="go" href="/p/termsguard/">Read it &rarr;</a>
         <a class="go" href="https://newtazer-terms-guard-ai.hf.space" target="_blank" rel="noopener">Run it live &rarr;</a>
@@ -106,14 +106,15 @@
     <article class="entry">
       <div>
         <div class="metric">scoped</div>
-        <span class="metric-note">per patient before ranking, not filtered after. Tried 30 ways to leak data, 0 worked</span>
+        <span class="metric-note">per patient before ranking, not filtered after</span>
       </div>
       <div>
         <h3 class="name">Smart Medical Records</h3>
         <p class="desc">
-          A general vector search over a hospital corpus will eventually surface the wrong patient.
-          Scoping happens at the query layer, not as a filter applied afterwards. FastAPI,
-          PostgreSQL with pgvector, a self-hosted Llama 3.1, four Docker services.
+          A doctor asks in plain English and gets the answer out of that patient's own notes.
+          The search filters to one patient before it ranks by similarity, so a different
+          patient's note can never surface. Self-hosted on the hospital's own machine, so the
+          data never leaves. 30 adversarial probes, zero leaks.
         </p>
         <a class="go" href="/p/clinical-rag/">Read it &rarr;</a>
         <a class="code" href="https://github.com/iamtamilore/agentic_rag_fastapi" target="_blank" rel="noopener">code</a>
@@ -128,9 +129,10 @@
       <div>
         <h3 class="name">Care Agent</h3>
         <p class="desc">
-          The decision was the gate, not the classifier. Below 0.55 confidence it escalates to a human
-          rather than forcing a label, and the coverage it gives up is stated rather than buried.
-          Modelled in BPMN 2.0 before any code.
+          Two bots that took over two jobs I used to do by hand every morning at Huawei. One
+          reads complaints and decides which of five teams they belong to. Below 0.55 confidence
+          it hands the ticket to a human instead of forcing a label. 95.2% on 42 held-out
+          tickets. The process was mapped in BPMN before any code.
         </p>
         <a class="go" href="/p/care-agent/">Read it &rarr;</a>
         <a class="code" href="https://github.com/iamtamilore/customer-care-automation" target="_blank" rel="noopener">code</a>
@@ -139,15 +141,16 @@
 
     <article class="entry">
       <div>
-        <div class="metric">zero false alarms</div>
-        <span class="metric-note">a rejected good image costs one retry. An accepted bad one reaches the client</span>
+        <div class="metric">zero false acceptances</div>
+        <span class="metric-note">a wrongly accepted image reaches the client. A wrongly rejected one costs a retry</span>
       </div>
       <div>
         <h3 class="name">Image QA Gate</h3>
         <p class="desc">
-          Pixel difference scored F1 0.59 and kNN 0.26 before the Siamese network reached 0.90 at
-          precision 1.00. The gap between those three is the result. The cutoff moved off the model's
-          default 0.5 to 0.4821, tuned on validation data only.
+          Catches the moment an AI-generated model stops being the same person. A Siamese
+          network over frozen ResNet50 features, judged against two baselines: pixel difference
+          scored F1 0.59, kNN 0.26, the Siamese 0.90. 90 sealed test pairs. The cutoff was
+          tuned on validation data only, never on the test set.
         </p>
         <a class="go" href="/p/image-qa/">Read it &rarr;</a>
         <a class="code" href="https://github.com/iamtamilore/campaign-image-qa" target="_blank" rel="noopener">code</a>
