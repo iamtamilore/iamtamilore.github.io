@@ -563,6 +563,7 @@ footer {
 }
 
 .skim-failure,
+.skim-cost,
 .skim-headline,
 .skim-limit {
   margin: 0;
@@ -571,10 +572,17 @@ footer {
 }
 
 .skim-failure strong,
+.skim-cost strong,
 .skim-headline strong,
 .skim-limit strong {
   color: var(--text);
   font-weight: 600;
+}
+
+/* the cost line sits between the failure and the numbers, one step muted,
+   so it reads as context rather than as the claim */
+.skim-cost {
+  color: var(--text-3);
 }
 
 .skim-limit {
