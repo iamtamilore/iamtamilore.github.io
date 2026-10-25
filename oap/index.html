@@ -1571,9 +1571,9 @@ function changeLibraryPage(delta) {
 async function showDetail(id) {
     if (!backendAvailable) return;
     try {
-        const res = await fetch(`${API_BASE}/api/library?search=&page=1&per_page=1`);
-        const data = await res.json();
-        const item = data.items.find(i => i.id === id) || data.items[0];
+        const res = await fetch(`${API_BASE}/api/library/${id}`);
+        if (!res.ok) return;
+        const item = await res.json();
         if (!item) return;
 
         document.getElementById('modal-body').innerHTML = `

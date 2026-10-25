@@ -90,9 +90,11 @@
       <div>
         <h3 class="name">TermsGuard AI <span class="tag">live</span></h3>
         <p class="desc">
-          Cosine similarity alone marks "we do not sell your data" as a violation, because the model
-          can barely tell "sell" from "do not sell" apart. Rule guards sit on top of the score, not
-          instead of it. 87% F1, latency cut from 28 seconds to under 10.
+          Cosine similarity alone marks "we do not sell your data" as a violation, because the
+          model can barely tell "sell" from "do not sell" apart. Rule guards sit on top of the
+          score, not instead of it. 102 reference clauses, 4,527 chunks of context, latency cut
+          from 28 seconds to under 10. The previous build labelled clauses as model-verified
+          when no model had looked at them; the verifier now runs three routes with retry.
         </p>
         <a class="go" href="/p/termsguard/">Read it &rarr;</a>
         <a class="go" href="https://newtazer-terms-guard-ai.hf.space" target="_blank" rel="noopener">Run it live &rarr;</a>

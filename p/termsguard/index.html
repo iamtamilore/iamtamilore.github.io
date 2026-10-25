@@ -23,7 +23,7 @@
 </div>
 <div class="wrap">
 <hr class="rule"><h1 id="termsguard-ai">TermsGuard AI</h1>
-<p class="readtime">5 min read</p>
+<p class="readtime">6 min read</p>
 <p>Reads the small print and flags the parts that are unfair to you, in
 plain English.</p>
 <p><strong>What this evidences:</strong> critiquing model quality and
@@ -88,29 +88,39 @@ among forty that do not.</p>
 <tbody>
 <tr class="odd">
 <td>End-to-end latency</td>
-<td>28 seconds to under 10</td>
+<td>28 seconds to under 10 for short policies</td>
 </tr>
 <tr class="even">
-<td>Reference chunks indexed</td>
-<td>4,527</td>
+<td>Reference clauses</td>
+<td>102 hand-labelled, 52 fair and 50 unfair</td>
 </tr>
 <tr class="odd">
-<td>Labelled reference clauses</td>
-<td>205</td>
+<td>Reference chunks in retrieval index</td>
+<td>4,527</td>
+</tr>
+<tr class="even">
+<td>Clauses sent to the verification model per analysis</td>
+<td>up to 15</td>
 </tr>
 </tbody>
 </table></div>
-<p>The number I'd have led with here, an F1 score, described an earlier
-version of this system: local model-generated summaries, which were
-later found to sometimes invent things that were never in the source
-text. The pipeline has since been rebuilt around a harder guarantee
-instead of a measured one. The summary is now assembled by template from
-clauses that were actually matched and verified, not written by a model,
-so a fabricated legal citation is structurally impossible rather than
-just less likely. Less elegant output, a stronger claim.</p>
-<p>The latency line is the one an engineer will ask about. Retrieval was
-added to a pipeline that did not previously have it, which normally
-makes a system slower, not faster. It went the other way here.</p>
+<p>The previous build reported that the model had verified each clause,
+but the verifier had never actually run on the deployed service because
+the Anthropic key had no credit, the except block swallowed the 400
+error, and the app returned cosine scores while still reporting
+llm_verification_enabled true, so a clause was labelled "Checked by the
+model" when no model had looked at it. The fix added three routes for
+the verifier tried in order with retry and a fallback model, and the
+response now carries verification_source and verification_error so a
+silent fallback is impossible, verified by a regression suite of twelve
+inputs passing against the live build with the real model ruling. Two
+real bugs were only found because the verifier started running: a benign
+"refund policy" clause was flagged as an Art.82 violation, and a
+politely worded third-party analytics clause was read as compliant
+because asking permission was reasoning as lawful; the first is fixed by
+the prompt stating generic commercial statements are not GDPR clauses,
+and the second by the prompt stating that politeness does not change
+what a clause does.</p>
 <hr />
 <h2 id="3-how-it-works">3. How it works</h2>
 <figure><a href="/assets/img/tg_architecture.jpg" target="_blank" rel="noopener"><img src="/assets/img/tg_architecture.jpg" alt="Architecture" loading="lazy"></a><figcaption>Retrieval-augmented pipeline. Similarity proposes, rules and
@@ -187,17 +197,22 @@ uncertainty rather than hide it behind a single number.</p>
 <hr />
 <h2 id="8-honest-limitations">8. Honest limitations</h2>
 <ul>
-<li><strong>It is not legal advice</strong>, and the interface says so.
-It surfaces clauses worth reading properly; it does not tell you your
-rights.</li>
-<li>Grounded in GDPR only. A policy written for another jurisdiction
-gets judged against the wrong regulation, and the tool does not
-currently detect that mismatch.</li>
-<li>The reference corpus (205 clauses) is a working set, not a formal
-benchmark, and performance on unusual drafting styles is unmeasured. The
-F1 score from the original evaluation described the prior,
-model-generated summary stage. It is not a claim about the current
-template-based pipeline, which has no equivalent number yet.</li>
+<li>It is not legal advice. The page says so. It surfaces clauses worth
+reading properly; it does not tell you your rights.</li>
+<li>The 4,527 chunks in the retrieval index are reference material on
+data governance and EU GDPR, of which only about two percent cite a GDPR
+article at all. The retrieved passage is shown as context, not as the
+article text, because most of the corpus is course material, not the
+regulation.</li>
+<li>A 12-case regression suite was measured live on 25 October 2026
+against the deployed service with the real model ruling. One of the
+cases ("We offer a refund policy") used to be flagged as an Art.82
+violation by the cosine stage. The verifier correctly rejected it after
+the fix. The remaining cases in the suite pass for reasons the
+measurements cover: negation handled, French input left uncertain,
+run-on sentences below the minimum length, and so on.</li>
+<li>Politeness can read as consent. The prompt now states that the tone
+of a clause does not change what it does.</li>
 <li>This was a contributed project, not a solo build. My work was the
 retrieval pipeline, the grounding, the rule guards and the latency
 reduction.</li>

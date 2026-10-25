@@ -22,6 +22,50 @@
 
 <div class="rate-wrap">
 
+
+  <section class="brief" id="brief">
+    <div class="brief-head">
+      <span class="pill">How this works</span>
+      <span class="brief-time">about 12 minutes for all 80</span>
+    </div>
+    <p class="brief-lead">You are judging what a generated garment image actually shows, not whether it
+      looks good. Eighty images, one at a time. Nobody will see your answers and nobody will grade you.</p>
+    <div class="brief-grid">
+      <div>
+        <h3>Judge the picture, not the garment</h3>
+        <p>Ignore the fabric, the colour, the lighting and the styling. You are looking at construction:
+          the hood, the collar, the small metal hardware.</p>
+      </div>
+      <div>
+        <h3>Count exactly</h3>
+        <p>If you can see three toggles, say three. Binning counts into ranges hides exactly the
+          variation this study is measuring.</p>
+      </div>
+      <div>
+        <h3>Say when you cannot tell</h3>
+        <p>"Cannot determine" is a real answer and is treated as one. It is kept off the other scales on
+          purpose, because a guess is worse than a gap.</p>
+      </div>
+      <div>
+        <h3>Zoom in</h3>
+        <p>Eyelets and cord toggles are small. Use the <b>+</b> control and scroll or drag to look closely
+          before you answer.</p>
+      </div>
+    </div>
+    <div class="brief-gate">
+      <h3>Question 1 comes first, and it is a real gate</h3>
+      <p>If the collar area is too obscured or too small to judge, answer <b>no</b> and the rest is
+        skipped. That is not giving up. It is the most useful thing you can do, because a study that records
+        a judgement where there was no evidence is worse than one that records the gap.</p>
+    </div>
+    <div class="brief-foot">
+      <p>Your progress saves in this browser as you go. Bookmark this page, because it carries your
+        reference and is how you come back. When you finish all 80, click
+        <b>Download my ratings</b> and send the file back.</p>
+      <button class="brief-go" id="brief-go" type="button">Start, item 1 of 80</button>
+    </div>
+  </section>
+
   <header class="rate-head">
     <div class="rate-topline">
       <span class="pill" id="rater-pill">rater, loading</span>
@@ -33,7 +77,7 @@
       Describe the construction, not whether you like it.</p>
   </header>
 
-  <main>
+  <main id="work" hidden>
     <figure class="stage">
       <div class="stage-zoom">
         <button class="zoom-btn" id="zoom-in" type="button" title="Zoom in" aria-label="Zoom in">+</button>

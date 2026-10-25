@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Taiwo Alabi | Systems, Work, and Process</title>
+<meta name="description" content="I tune AI to the cost of being wrong. Built systems, evaluated models, published the failures.">
+<script>document.documentElement.setAttribute("data-theme",localStorage.getItem("tw-theme")||"")</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="/assets/css/design-system.css">
+<link rel="stylesheet" href="/assets/css/landing.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231a1816'/><text y='72' x='50' font-size='62' text-anchor='middle' fill='%23c45a1f' font-family='sans-serif' font-weight='bold'>T</text></svg>">
+<meta property="og:title" content="Taiwo Alabi | Systems, Work, and Process">
+<meta property="og:description" content="I tune AI to the cost of being wrong. Built systems, evaluated models, published the failures.">
+<meta property="og:image" content="https://iamtamilore.github.io/assets/img/banner.jpg">
+<meta property="og:url" content="https://iamtamilore.github.io/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+
+<nav class="util" aria-label="Personal">
+  <a href="/">home</a>
+  <a href="/cv/">cv</a>
+  <a href="/study/eeai/">study</a>
+  <a href="/jobs/">jobs</a>
+</nav>
+
+<div class="wrap">
+
+  <header>
+    <div class="hero">
+      <img class="hero-photo" src="/assets/img/taiwo.jpg"
+           alt="Taiwo Alabi" width="720" height="900">
+      <div>
+        <div class="eyebrow">Dublin, Ireland</div>
+        <h1 class="claim-display">I tune AI to <b>the cost of being wrong</b>.</h1>
+        <p class="identity"><strong>Taiwo Alabi</strong> &middot; Data Scientist.
+           MSc Artificial Intelligence, National College of Ireland.</p>
+        <p class="proof">I design them, evaluate them, and publish exactly where each one fails.</p>
+        <div class="endcta" style="margin:0 0 var(--space-6)">
+          <a class="cta" href="/cv/">View CV</a>
+          <a class="cta cta-ghost" href="/assets/Taiwo_Alabi_CV.pdf" target="_blank" rel="noopener">Download PDF</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="anchor">
+    <div class="anchor-num">400 million</div>
+    <div class="anchor-label">usage records a day, on the platform where I learned this</div>
+    <p>At Huawei, I worked on the system that moves phone usage records from the network
+       to every department that needs them - billing, audits, reports. It handled 400 million records a day.
+       When a storage system filled up or a connection dropped, we caught both problems in testing
+       before any customer noticed.</p>
+  </div>
+
+  <p style="margin-top:var(--space-10);max-width:var(--content-max);color:var(--text-2)">
+    Four ideas run through every project below. First, build AI the way you build any software - 
+    with clear structure and tested parts. Second, check that the system actually does what it claims.
+    Third, question the model itself and how you measure it. Fourth, question the machines it runs on.
+    Every model has a cutoff point for when it is sure enough. Where you set that cutoff is a
+    <strong>business decision, not a technical one</strong>. Sending a support ticket to the wrong team
+    costs ten minutes. Missing a line in a patient's file costs far more. Every project below answers
+    the same question: <strong>which mistake can we afford?</strong></p>
+
+  <h2>Work</h2>
+
+  <div class="grid">
+  <!-- CARDS:START -->
+
+    <div class="card" id="termsguard">
+      <div class="metric">grounded</div>
+      <div class="metric-label">every flag cites the GDPR article it came from, so nothing is invented</div>
+      <div class="title">TermsGuard AI <span class="live">Live</span></div>
+      <div class="desc">Cosine similarity alone marks "we do not sell your data" as a violation,
+        because the model can barely tell "sell" from "do not sell" apart. Rule
+        guards sit on top of the score, not instead of it.</div>
+      <div class="go"><a class="stretch" href="/p/termsguard/">Read it &rarr;</a></div>
+      <a class="cta" style="position:relative;z-index:2" href="https://newtazer-terms-guard-ai.hf.space" target="_blank" rel="noopener">Try the live demo</a>
+    <div class="cardlinks"><a href="https://github.com/iamtamilore/terms-guard-ai">Code</a></div></div>
+
+    <div class="card" id="clinical-rag">
+      <div class="metric">scoped</div>
+      <div class="metric-label">per patient before ranking, not filtered after. Tried 30 ways to leak data, 0 worked</div>
+      <div class="title">Smart Medical Records</div>
+      <div class="desc">A general vector search over a hospital corpus will eventually surface
+        the wrong patient. Scoping happens at the query layer, not as a filter
+        afterwards. Tried thirty ways to leak another patient's data. None worked.</div>
+      <div class="go"><a class="stretch" href="/p/clinical-rag/">Read it &rarr;</a></div>
+    <div class="cardlinks"><a href="https://github.com/iamtamilore/agentic_rag_fastapi">Code</a></div></div>
+
+    <div class="card" id="care-agent">
+      <div class="metric">escalates</div>
+      <div class="metric-label">below 0.55 a human decides. 95.2% on the 40 of 42 it routed</div>
+      <div class="title">Care Agent</div>
+      <div class="desc">The decision was the gate, not the classifier. Below 0.55 it escalates to
+        a human rather than forcing a label, and I report the lower automation
+        rate that produces.</div>
+      <div class="go"><a class="stretch" href="/p/care-agent/">Read it &rarr;</a></div>
+    <div class="cardlinks"><a href="https://github.com/iamtamilore/customer-care-automation">Code</a></div></div>
+
+  <!-- CARDS:END -->
+
+    <div class="card" id="huawei">
+      <div class="metric">400M/day</div>
+      <div class="metric-label">telecom mediation, 440 test cases, both failures caught in verification</div>
+      <div class="title">Huawei - Globacom Mediation</div>
+      <div class="desc">Designed and tested the connection between a phone company's call centre
+        and a bank's customer service line. When a caller fails authentication, the call goes to a person
+ - it does not get stuck or retry endlessly.</div>
+      <div class="go"><a class="stretch" href="/cv/">View on CV &rarr;</a></div>
+    </div>
+
+  </div>
+
+  <h2>Log</h2>
+  <p style="max-width:var(--content-max);color:var(--text-3);font-size:var(--text-sm)">
+    Process visibility: what I am learning and what I am pursuing.</p>
+
+  <div class="grid">
+
+    <div class="card" id="study">
+      <div class="metric">study tracker</div>
+      <div class="metric-label">Engineering & Evaluating AI Systems - H9EEAI</div>
+      <div class="title">Study Tracker</div>
+      <div class="desc">Eight weeks of coursework with audio player, keyboard shortcuts,
+        and progress tracking. Built to listen while commuting and mark done while reviewing.</div>
+      <div class="go"><a class="stretch" href="/study/eeai/">Open it &rarr;</a></div>
+    </div>
+
+    <div class="card" id="jobs">
+      <div class="metric">job tracker</div>
+      <div class="metric-label">Applications, interviews, and decisions in progress</div>
+      <div class="title">Job Tracker</div>
+      <div class="desc">A tracker for job applications that shows not just where I applied,
+        but what stage each is at and what I learned from the ones that did not work out.</div>
+      <div class="go"><a class="stretch" href="/jobs/">Open it &rarr;</a></div>
+    </div>
+
+  </div>
+
+  <h2>Before this</h2>
+  <ul class="exp">
+    <li><strong>Turing</strong> <span class="when">Google Gemini evaluation programme</span><br>
+      Judging AI output has no single right answer, so the real test is whether two people would
+      score the same response the same way. I rated Gemini answers against a written rubric,
+      wrote tricky questions to find where the rubric failed, and wrote down the rules so a second
+      person would agree. Eighty hours of work that taught me how to turn vague quality into
+      something you can check.</li>
+  </ul>
+
+  <h2>How I work</h2>
+  <p style="max-width:var(--content-max);color:var(--text-3);font-size:var(--text-sm);margin-bottom:var(--space-4)">
+    These are not aspirational. They are extracted from what actually happened in the projects above.</p>
+  <ol class="commitments">
+    <li><strong>Establish the baseline before training anything.</strong> A model that cannot beat a simple guess does not deserve to exist.</li>
+    <li><strong>Name the error you can afford before choosing a threshold.</strong> Rejecting a good image costs one retry; accepting a bad one sends it to the client.</li>
+    <li><strong>Model the process in BPMN before writing code.</strong> Draw the process on paper before coding it. The automation should replace what actually happens, not what you think happens.</li>
+    <li><strong>Freeze the preprocessing with the model</strong> so the way you prepare data in training stays the same in production.</li>
+    <li><strong>Version every artefact</strong> so you can roll back a bad release instead of spending hours figuring out what broke.</li>
+    <li><strong>State what breaks, in writing, next to what works.</strong> Every project page says what can go wrong before it says what works.</li>
+  </ol>
+
+  <h2>Get in touch</h2>
+  <div class="endcta">
+    <a class="cta" href="mailto:alabitaiwo625@gmail.com">Email me</a>
+    <a class="cta cta-ghost" href="/cv/">View CV</a>
+    <a class="cta cta-ghost" href="/assets/Taiwo_Alabi_CV.pdf" target="_blank" rel="noopener">
+      Download CV <span class="cta-sub">PDF</span></a>
+  </div>
+  <nav class="meta" aria-label="Contact">
+    <a href="mailto:alabitaiwo625@gmail.com">alabitaiwo625@gmail.com</a>
+    <span aria-hidden="true">|</span>
+    <a href="https://www.linkedin.com/in/tami-alabi/">LinkedIn</a>
+    <span aria-hidden="true">|</span>
+    <a href="https://github.com/iamtamilore">GitHub</a>
+    <span aria-hidden="true">|</span>
+    <a href="https://wa.me/353870042838?text=Hi%20Taiwo%2C%20I%20saw%20your%20portfolio">WhatsApp +353 87 004 2838</a>
+  </nav>
+
+  <footer>
+    <div>Taiwo Alabi &middot; Dublin, Ireland</div>
+    <div class="util-footer">
+      <a href="/study/eeai/">study</a>
+      <a href="/jobs/">jobs</a>
+      <a href="/bank/">bank</a>
+      <a href="/atoms/">atoms</a>
+    </div>
+    <div style="margin-top:var(--space-2);font-size:var(--text-xs);color:var(--text-3)">Last updated 23 August 2026</div>
+  </footer>
+
+</div>
+
+<button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">◐</button>
+
+<script>
+(function() {
+  var K = "tw-theme", R = document.documentElement;
+  function apply(t) {
+    if (t === "dark") R.setAttribute("data-theme", "dark");
+    else if (t === "light") R.setAttribute("data-theme", "light");
+    else R.removeAttribute("data-theme");
+  }
+  document.getElementById("themeToggle").addEventListener("click", function() {
+    var cur = R.getAttribute("data-theme");
+    var next = cur === "dark" ? "light" : cur === "light" ? "" : "dark";
+    apply(next);
+    if (next) localStorage.setItem(K, next); else localStorage.removeItem(K);
+  });
+  var stored = localStorage.getItem(K);
+  if (stored) apply(stored);
+})();
+</script>
+
+</body>
+</html>
