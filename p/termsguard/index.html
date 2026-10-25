@@ -123,8 +123,7 @@ and the second by the prompt stating that politeness does not change
 what a clause does.</p>
 <hr />
 <h2 id="3-how-it-works">3. How it works</h2>
-<figure><a href="/assets/img/tg_architecture.jpg" target="_blank" rel="noopener"><img src="/assets/img/tg_architecture.jpg" alt="Architecture" loading="lazy"></a><figcaption>Retrieval-augmented pipeline. Similarity proposes, rules and
-retrieval constrain, the LLM verifies.</figcaption></figure>
+<figure><a href="/assets/img/tg_architecture.png" target="_blank" rel="noopener"><img src="/assets/img/tg_architecture.png" alt="Architecture" loading="lazy"></a><figcaption>Retrieval-augmented pipeline. Similarity proposes, rule guards constrain, the verifier rules on borderline cases. Three routing paths try the verifier in order; verification_source and verification_error are surfaced so a silent fallback is impossible.</figcaption></figure>
 <p>Text is split into individual clauses and de-duplicated. Each clause
 is turned into a row of numbers by <code>all-MiniLM-L6-v2</code>, then
 compared by cosine similarity, a way of measuring how close two pieces
