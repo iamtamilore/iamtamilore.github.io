@@ -610,6 +610,21 @@ footer {
   gap: var(--space-3);
 }
 
+.skim-footnote {
+  margin-top: var(--space-8);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--rule-2);
+  max-width: 68ch;
+  font-size: var(--text-sm);
+  color: var(--text-3);
+}
+
+.skim-footnote p { margin: 0; }
+
+.skim-footnote strong { color: var(--text-2); font-weight: 600; }
+
+.skim-footnote a { color: var(--accent); }
+
 .skim-meta h2 {
   font-size: var(--text-lg);
   font-weight: 700;
