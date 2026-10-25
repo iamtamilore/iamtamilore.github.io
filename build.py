@@ -34,7 +34,7 @@ PROJECTS = [
          clive=True,
          ccta=("Try the live demo", "https://newtazer-terms-guard-ai.hf.space"),
          clinks=[("Code", "https://github.com/iamtamilore/terms-guard-ai")],
-         imgmap={"TermsGuard_architecture.png": "tg_architecture.jpg"}),
+         imgmap={"TermsGuard_architecture.png": "tg_architecture.png"}),
 
     dict(slug="clinical-rag", src=SRC / "clinicalrag/README.md",
          title="Smart Medical Records",
