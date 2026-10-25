@@ -190,7 +190,7 @@
         <ul style="margin:0;padding-left:1.1em">
           <li>Similarity gate that blocks non-compliant AI product imagery before it reaches a client; precision 1.00 on sealed test pairs, F1 0.90.</li>
           <li>Baselines measured first: pixel difference F1 0.59, kNN 0.26. The gap between the three is the result.</li>
-          <li>Acceptance cutoff moved off the model's default 0.5 to 0.4821, tuned on validation data only; that one change recovered all 8 misses with no new false alarms.</li>
+          <li>Acceptance cutoff moved off the model's default 0.5 to 0.4821, tuned on validation data only; that one change recovered all 8 misses and created no new false positives, where a false positive is an image wrongly accepted as the same person.</li>
         </ul>
         <div class="cv-entry-links">
           <a href="/p/image-qa/">Write-up</a>

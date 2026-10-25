@@ -90,7 +90,7 @@
   </header>
   <p class="skim-line">Catches the moment an AI-generated model stops being the same person.</p>
   <p class="skim-failure"><strong>Failure mode it prevents:</strong> a quality gate that cries wolf. A gate that flags good images gets switched off inside a week, and then it is protecting nobody.</p>
-  <p class="skim-cost"><strong>Cost of being wrong:</strong> the false alarm, not the miss. Zero false acceptances was the target, not a bonus.</p>
+  <p class="skim-cost"><strong>Cost of being wrong:</strong> the wrongly accepted image, not the missed one. Zero false acceptances was the target, not a bonus.</p>
   <p class="skim-headline"><strong>Headline:</strong> Siamese network over frozen ResNet50 features. F1 0.90, ROC-AUC 1.00, precision 1.00 on 90 sealed test pairs. Two baselines lose: pixel difference at F1 0.59, kNN at F1 0.26.</p>
   <p class="skim-limit"><strong>Honest limit:</strong> 90 pairs is too few to rule out luck as the explanation for the gap to the baselines. McNemar's test is underpowered.</p>
   <p class="skim-stack"><code>TensorFlow</code> <code>ResNet50</code> <code>Siamese networks</code></p>
