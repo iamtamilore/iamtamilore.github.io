@@ -91,7 +91,7 @@ among forty that do not.</p>
 <td>28 seconds to under 10</td>
 </tr>
 <tr class="even">
-<td>GDPR reference chunks indexed</td>
+<td>Reference chunks indexed</td>
 <td>4,527</td>
 </tr>
 <tr class="odd">
@@ -124,13 +124,13 @@ from a FAISS index (a fast lookup table built for exactly this kind of
 search), and Claude Haiku double-checks the flag before it is shown.</p>
 <hr />
 <h2 id="4-what-it-compares-against">4. What it compares against</h2>
-<p>The system carries 205 hand-labelled reference clauses: 105 examples
-of fair terms and 100 examples of unfair ones. A new clause is judged by
+<p>The system carries 102 hand-labelled reference clauses: 52 examples
+of fair terms and 50 examples of unfair ones. A new clause is judged by
 how close it sits to each set.</p>
-<p>Separately, a FAISS index holds 4,527 chunks of GDPR text. When a
-clause is flagged, retrieval pulls the most relevant articles, so the
-explanation cites the regulation rather than the model's impression of
-it.</p>
+<p>Separately, a FAISS index holds 4,527 chunks of reference material on
+data governance and GDPR. When a clause is flagged, retrieval pulls the
+passage closest to it, so the reader can see the context the flag was
+drawn from rather than taking the model's word.</p>
 <p>That split matters. The labelled clauses decide <em>whether</em>
 something is a problem. The GDPR corpus supplies <em>why</em>, and it is
 the second half that makes a flag worth acting on.</p>
