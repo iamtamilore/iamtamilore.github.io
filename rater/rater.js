@@ -136,6 +136,13 @@
     return STATE.answers[id];
   }
 
+  function hasAnyAnswers() {
+    return Object.keys(STATE.answers || {}).some(function (k) {
+      var a = STATE.answers[k];
+      return a && a.responses && Object.keys(a.responses).length > 0;
+    });
+  }
+
   /* ---------- render ---------- */
 
   function clampIdx(i) {
@@ -364,6 +371,45 @@
     elScroll.classList.remove('dragging');
   });
 
+  /* ---------- the brief screen and the start button ---------- */
+
+  // The brief screen explains the rubric before the rater sees the first image.
+  // #work carries the hidden attribute in index.html, so nothing about the
+  // rating area is visible until this handler removes it.
+  //
+  // This handler was MISSING. The button was wired to nothing in any version
+  // of this file, so the brief screen was a dead end: the rater could read the
+  // instructions, press Start, and nothing would happen. The rating area, the
+  // image and all five question panels stayed inside a display:none container
+  // for the whole session.
+  //
+  // It was not caught by experiment/check_rater.py, because that script
+  // verifies that clicking an option RECORDS an answer. A JS .click() on an
+  // element inside a hidden container still fires the handler, so the script
+  // saw 5 answered questions and reported all checks passed. The check proved
+  // the answer was recorded, not that a human could see the question.
+  //
+  // A visibility assertion belongs in the check, not just a click.
+
+  var elBrief = $('brief');
+  var elWork = $('work');
+  var elBriefGo = $('brief-go');
+
+  function startRating() {
+    if (elBrief) elBrief.hidden = true;
+    if (elWork) elWork.hidden = false;
+    render();
+    window.scrollTo(0, 0);
+  }
+
+  if (elBriefGo) {
+    elBriefGo.addEventListener('click', startRating);
+    // A rater who comes back to this page mid-session should land on the
+    // image, not on the brief they already read. Only do this once the item
+    // list has loaded, because render() needs ITEMS.
+    elBriefGo.dataset.pendingStart = '1';
+  }
+
   /* ---------- wiring ---------- */
 
   document.querySelectorAll('.opts[data-q]').forEach(function (group) {
@@ -425,6 +471,12 @@
       if (!ITEMS.length) throw new Error('no items in items.json');
       load();
       elPill.textContent = 'rater ' + STATE.rater_id + (TOKEN ? ' · verified link' : '');
+      // A rater who is part way through and comes back to the bookmarked URL
+      // should land on the image, not re-read the brief. The brief is only for
+      // a first visit, or for a rater with no answers saved yet.
+      if (elBriefGo && elBriefGo.dataset.pendingStart === '1' && hasAnyAnswers()) {
+        startRating();
+      }
       render();
     })
     .catch(function (err) {
