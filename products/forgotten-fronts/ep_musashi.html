@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EP_MUSASHI | Reverse-engineered | Taiwo Alabi</title>
+<meta name="description" content="The reverse-engineered forgotten_fronts episode: 19 shots, contact sheets, source-vs-claim audit, drift bug and its fix. Every artefact the brand would want to see.">
+<style>
+body { color: var(--text); font-family: 'Quicksand', var(--font); line-height: 1.5; }
+.wrap { max-width: 860px; margin: 0 auto; padding: var(--space-6) var(--space-4); }
+.topbar { display: flex; justify-content: space-between; align-items: center; padding: var(--space-4) 0; margin-bottom: var(--space-6); border-bottom: 1px solid var(--border); }
+.topbar a { color: var(--text-3); font-size: var(--text-sm); text-decoration: none; border-bottom: none; }
+h1 { font-size: var(--text-3xl); font-weight: 700; margin-bottom: var(--space-2); }
+h2 { font-size: var(--text-2xl); font-weight: 700; color: #5B9BD5; margin-top: var(--space-8); margin-bottom: var(--space-4); padding-bottom: var(--space-3); border-bottom: 1px solid var(--border); }
+h3 { font-size: var(--text-lg); font-weight: 700; color: var(--text); margin-top: var(--space-6); margin-bottom: var(--space-2); }
+p { font-size: var(--text-sm); color: var(--text-2); line-height: 1.6; margin-bottom: var(--space-3); }
+.muted { color: var(--text-3); font-size: var(--text-sm); margin-bottom: var(--space-4); }
+.tagline { font-size: var(--text-base); color: var(--text-2); margin-bottom: var(--space-6); }
+.contact-sheet { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--space-4); margin-bottom: var(--space-6); }
+.cs-cell { margin: 0; background: var(--surface-1); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.cs-cell img { width: 100%; aspect-ratio: 9/16; object-fit: cover; display: block; }
+.cs-cell figcaption { padding: var(--space-3); }
+.cs-cell .cs-t { display: block; font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-3); margin-top: var(--space-1); }
+.cs-cell .cs-line { display: block; font-size: var(--text-sm); color: var(--text); margin-top: var(--space-1); }
+.cs-cell strong { display: block; font-size: var(--text-sm); color: #5B9BD5; }
+.qa-table { width: 100%; border-collapse: collapse; margin: var(--space-3) 0; font-size: var(--text-sm); }
+.qa-table th, .qa-table td { padding: var(--space-2); text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+.qa-table th { color: var(--text-3); font-weight: 600; background: var(--surface-1); }
+.qa-table td { color: var(--text-2); }
+.qa-table tr.dropped { background: rgba(200, 60, 60, 0.06); }
+.verdict { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: var(--text-xs); font-weight: 600; }
+.verdict-ok { background: rgba(60, 160, 90, 0.18); color: #4a4; }
+.verdict-dropped { background: rgba(200, 60, 60, 0.18); color: #c54; }
+.cta { display: inline-block; padding: 10px 18px; border-radius: 999px; background: #5B9BD5; color: #0c1018 !important; font-weight: 700; text-decoration: none; border-bottom: none; margin-right: var(--space-3); }
+.cta.ghost { background: transparent; color: var(--text) !important; border: 1px solid var(--border); }
+code { font-family: var(--font-mono); font-size: 0.92em; padding: 1px 4px; background: var(--surface-1); border-radius: 3px; }
+.ep-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: var(--space-4); margin: var(--space-5) 0; }
+.ep-stat { padding: var(--space-4); background: var(--surface-1); border-radius: 8px; }
+.ep-stat .val { font-size: var(--text-2xl); font-weight: 700; color: #5B9BD5; display: block; margin-bottom: var(--space-1); }
+.ep-stat .lbl { color: var(--text-3); font-size: var(--text-sm); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <a href="/products/forgotten-fronts/">&larr; Forgotten Fronts channel</a>
+    <a href="/products/workflow/">Workflow &rarr;</a>
+  </div>
+
+  <header>
+    <h1>EP_MUSASHI — the reverse-engineered episode</h1>
+    <p class="tagline">The full source of one forgotten_fronts episode: the Wikipedia article, the 19-shot contact sheet, the audio, the claims audit, the drift bug and its fix. Every artefact the channel would want to see.</p>
+  </header>
+
+  <section>
+    <div class="ep-stats">
+      <div class="ep-stat"><span class="val">19</span><span class="lbl">shots</span></div>
+      <div class="ep-stat"><span class="val">40.1s</span><span class="lbl">duration</span></div>
+      <div class="ep-stat"><span class="val">1080x1920</span><span class="lbl">resolution</span></div>
+      <div class="ep-stat"><span class="val">33 / 16</span><span class="lbl">claims / dropped</span></div>
+      <div class="ep-stat"><span class="val">876</span><span class="lbl">24h views (YT)</span></div>
+    </div>
+  </section>
+
+  <section id="contact-sheet">
+    <h2>The contact sheet — every shot, the line, the timestamp</h2>
+    <p>This is what the audience sees, frame by frame. 19 stills from the Wikipedia article, each captioned with the line the narrator says during that shot and the timestamp window. The same JSON the build pipeline used to generate the MP4, rendered as a single page.</p>
+    <p class="muted">Image URLs point to the raw GitHub repo so the brand can verify each shot independently against the source.</p>
+    <div class="contact-sheet">
+<figure class="cs-cell">
+  <img src="https://github.com/iamtamilore/iamtamilore.github.io/raw/main/products/forgotten-fronts/ep_musashi/01.png" alt="Did you know why Miyamoto Musashi defeated Sasaki Kojiro with" loading="lazy">
+  <figcaption>
+    <strong>Need 1</strong>
+    <span class="cs-t">0.0 to 3.2s</span>
+    <span class="cs-line">Did you know why Miyamoto Musashi defeated Sasaki Kojiro with</span>
+  </figcaption>
+</figure>
+<figure class="cs-cell">
+  <img src="https://github.com/iamtamilore/iamtamilore.github.io/raw/main/products/forgotten-fronts/ep_musashi/02.png" alt="a wooden stick instead of steel?" loading="lazy">
+  <figcaption>
+    <strong>Need 2</strong>
+    <span class="cs-t">3.2 to 4.3s</span>
+    <span class="cs-line">a wooden stick instead of steel?</span>
+  </figcaption>
+</figure>
+<figure class="cs-cell">
+  <img src="https://github.com/iamtamilore/iamtamilore.github.io/raw/main/products/forgotten-fronts/ep_musashi/03.png" alt="In 1612," loading="lazy">
+  <figcaption>
+    <strong>Need 3</strong>
+    <span class="cs-t">4.3 to 5.9s</span>
+    <span class="cs-line">In 1612,</span>
+  </figcaption>
+</figure>
+<figure class="cs-cell">
+  <img src="https://github.com/iamtamilore/iamtamilore.github.io/raw/main/products/forgotten-fronts/ep_musashi/04.png" alt="Musashi asked Hosokawa Tatooki to organize a duel on April 13th" loading="lazy">
+  <figcaption>
+    <strong>Need 4</strong>
+    <span class="cs-t">5.9 to 9.4s</span>
+    <span class="cs-line">Musashi asked Hosokawa Tatooki to organize a duel on April 13th</span>
+  </figcaption>
+</figure>
+<figure class="cs-cell">
+  <img src="https://github.com/iamtamilore/iamtamilore.github.io/raw/main/products/forgotten-fronts/ep_musashi/05.png" alt="at Ganryu Island." loading="lazy">
+  <figcaption>
+    <strong>Need 5</strong>
+    <span class="cs-t">9.4 to 10.2s</span>
+    <span class="cs-line">at Ganryu Island.</span>
+  </figcaption>
+</figure>
+<figure class="cs-cell">
+  <img src="https://github.com/iamtamilore/iamtamilore.github.io/raw/main/products/forgotten-fronts/ep_musashi/06.png" alt="He knew Kojiro fought with a no -dachi," loading="lazy">
+  <figcaption>
+    <strong>Need 6</strong>
+    <span class="cs-t">10.2 to 12.2s</span>
+    <span class="cs-line">He knew Kojiro fought with a no -dachi,</span>
+  </figcaption>
+</figure>
+<figure class="cs-cell">
+  <img src="https://github.com/iamtamilore/iamtamilore.github.io/raw/main/products/forgotten-fronts/ep_musashi/07.png" alt="a sword with a long blade," loading="lazy">
+  <figcaption>
+    <strong>Need 7</strong>
+    <span class="cs-t">12.2 to 13.6s</span>
+    <span class="cs-line">a sword with a long blade,</span>
+  </figcaption>
+</figure>
+<figure class="cs-cell">
+  <img src="https://github.com/iamtamilore/iamtamilore.github.io/raw/main/products/forgotten-fronts/ep_musashi/08.png" alt="so Musashi carved an oar into a wooden bokeh during the boat journey to the" loading="lazy">
+  <figcaption>
+    <strong>Need 8</strong>
+    <span class="cs-t">13.6 to 17.2s</span>
+    <span class="cs-line">so Musashi carved an oar into a wooden bokeh during the boat journey to the</span>
+  </figcaption>
+</figure>
+<figure class="cs-cell">
+  <img src="https://github.com/iamtamilore/iamtamilore.github.io/raw/main/products/forgotten-fronts/ep_musashi/09.png" alt="He arrived late on purpose because he wanted Kojiro to lose his patience" loading="lazy">
+  <figcaption>
+    <strong>Need 9</strong>
+    <span class="cs-t">17.2 to 20.7s</span>
+    <span class="cs-line">He arrived late on purpose because he wanted Kojiro to lose his patience</span>
+  </figcaption>
+</figure>
+<figure class="cs-cell">
+  <img src="https://github.com/iamtamilore/iamtamilore.github.io/raw/main/products/forgotten-fronts/ep_musashi/10.png" alt="and taunt him while he stayed composed." loading="lazy">
+  <figcaption>
+    <strong>Need 10</strong>
+    <span class="cs-t">20.7 to 22.4s</span>
+    <span class="cs-line">and taunt him while he stayed composed.</span>
+  </figcaption>
+</figure>
+<figure class="cs-cell">
+  <img src="https://github.com/iamtamilore/iamtamilore.github.io/raw/main/products/forgotten-fronts/ep_musashi/11.png" alt="When the duel began," loading="lazy">
+  <figcaption>
+    <strong>Need 11</strong>
+    <span class="cs-t">22.4 to 23.5s</span>
+    <span class="cs-line">When the duel began,</span>
+  </figcaption>
+</figure>
+<figure class="cs-cell">
+  <img src="https://github.com/iamtamilore/iamtamilore.github.io/raw/main/products/forgotten-fronts/ep_musashi/12.png" alt="the swordsman was already compromised." loading="lazy">
+  <figcaption>
+    <strong>Need 12</strong>
+    <span class="cs-t">23.5 to 25.3s</span>
+    <span class="cs-line">the swordsman was already compromised.</span>
+  </figcaption>
+</figure>
+<figure class="cs-cell">
+  <img src="https://github.com/iamtamilore/iamtamilore.github.io/raw/main/products/forgotten-fronts/ep_musashi/13.png" alt="Musashi crushed his skull with a single vertical stroke using only" loading="lazy">
+  <figcaption>
+    <strong>Need 13</strong>
+    <span class="cs-t">25.3 to 28.8s</span>
+    <span class="cs-line">Musashi crushed his skull with a single vertical stroke using only</span>
+  </figcaption>
+</figure>
+<figure class="cs-cell">
+  <img src="https://github.com/iamtamilore/iamtamilore.github.io/raw/main/products/forgotten-fronts/ep_musashi/14.png" alt="wood." loading="lazy">
+  <figcaption>
+    <strong>Need 14</strong>
+    <span class="cs-t">28.8 to 29.1s</span>
+    <span class="cs-line">wood.</span>
+  </figcaption>
+</figure>
+<figure class="cs-cell">
+  <img src="https://github.com/iamtamilore/iamtamilore.github.io/raw/main/products/forgotten-fronts/ep_musashi/15.png" alt="Later he called Kojiro the strongest opponent he ever faced," loading="lazy">
+  <figcaption>
+    <strong>Need 15</strong>
+    <span class="cs-t">29.1 to 32.1s</span>
+    <span class="cs-line">Later he called Kojiro the strongest opponent he ever faced,</span>
+  </figcaption>
+</figure>
+<figure class="cs-cell">
+  <img src="https://github.com/iamtamilore/iamtamilore.github.io/raw/main/products/forgotten-fronts/ep_musashi/16.png" alt="despite remaining undefeated in 62 duels." loading="lazy">
+  <figcaption>
+    <strong>Need 16</strong>
+    <span class="cs-t">32.1 to 34.6s</span>
+    <span class="cs-line">despite remaining undefeated in 62 duels.</span>
+  </figcaption>
+</figure>
+<figure class="cs-cell">
+  <img src="https://github.com/iamtamilore/iamtamilore.github.io/raw/main/products/forgotten-fronts/ep_musashi/17.png" alt="But next time," loading="lazy">
+  <figcaption>
+    <strong>Need 17</strong>
+    <span class="cs-t">34.6 to 35.7s</span>
+    <span class="cs-line">But next time,</span>
+  </figcaption>
+</figure>
+<figure class="cs-cell">
+  <img src="https://github.com/iamtamilore/iamtamilore.github.io/raw/main/products/forgotten-fronts/ep_musashi/18.png" alt="how that improvisation became the foundation of the Niten Ichiru style" loading="lazy">
+  <figcaption>
+    <strong>Need 18</strong>
+    <span class="cs-t">35.7 to 39.2s</span>
+    <span class="cs-line">how that improvisation became the foundation of the Niten Ichiru style</span>
+  </figcaption>
+</figure>
+<figure class="cs-cell">
+  <img src="https://github.com/iamtamilore/iamtamilore.github.io/raw/main/products/forgotten-fronts/ep_musashi/19.png" alt="he created." loading="lazy">
+  <figcaption>
+    <strong>Need 19</strong>
+    <span class="cs-t">39.2 to 40.0s</span>
+    <span class="cs-line">he created.</span>
+  </figcaption>
+</figure>
+    </div>
+  </section>
+
+  <section id="claims-audit">
+    <h2>The claims audit — what the source actually says</h2>
+    <p>Every factual claim in the episode was checked against the Wikipedia article on 2026-10-25. <strong>33 confirmed</strong>, <strong>16 dropped</strong> (cut before the caption was finalised, because the source did not support them).</p>
+    <p class="muted">This is the audit gate in action: a claim only goes in if the source states it. Two drops means the caption got 2.6% more honest. The Wikipedia MCP at <code>get_article_summary</code> was the source pull — canonical URL + revision id, zero credits per call.</p>
+    <table class="qa-table">
+      <thead><tr><th style="width:65%">Claim</th><th style="width:35%">Verdict</th></tr></thead>
+      <tbody>
+<tr class="ok"><td>Miyamoto Musashi was a Japanese swordsman, strategist, and writer.</td><td><span class="verdict verdict-ok">confirmed</span></td></tr>
+<tr class="ok"><td>Musashi founded the Niten Ichi-ryū style of swordsmanship.</td><td><span class="verdict verdict-ok">confirmed</span></td></tr>
+<tr class="ok"><td>Musashi authored The Book of Five Rings.</td><td><span class="verdict verdict-ok">confirmed</span></td></tr>
+<tr class="ok"><td>Musashi defeated Sasaki Kojirō at Ganryū Island.</td><td><span class="verdict verdict-ok">confirmed</span></td></tr>
+<tr class="dropped"><td>Musashi defeated Sasaki Kojirō in 1612.</td><td><span class="verdict verdict-dropped">unsourced</span></td></tr>
+<tr class="ok"><td>Musashi requested Hosokawa Tadaoki to organize the encounter.</td><td><span class="verdict verdict-ok">confirmed</span></td></tr>
+<tr class="ok"><td>Musashi remained undefeated in sixty-two duels.</td><td><span class="verdict verdict-ok">confirmed</span></td></tr>
+<tr class="ok"><td>Musashi died on June 13, 1645.</td><td><span class="verdict verdict-ok">confirmed</span></td></tr>
+<tr class="ok"><td>The duel occurred on April 13.</td><td><span class="verdict verdict-ok">confirmed</span></td></tr>
+<tr class="dropped"><td>The duel occurred in 1612.</td><td><span class="verdict verdict-dropped">unsourced</span></td></tr>
+<tr class="ok"><td>The duel took place at Ganryū Island.</td><td><span class="verdict verdict-ok">confirmed</span></td></tr>
+<tr class="ok"><td>Hosokawa Tadaoki organized the time and place of the duel.</td><td><span class="verdict verdict-ok">confirmed</span></td></tr>
+<tr class="ok"><td>Kojirō was known for fighting with a nodachi.</td><td><span class="verdict verdict-ok">confirmed</span></td></tr>
+<tr class="ok"><td>A nodachi is a sword with a long blade.</td><td><span class="verdict verdict-ok">confirmed</span></td></tr>
+<tr class="ok"><td>Musashi carved an oar into a wooden bokken during his boat journey to the island.</td><td><span class="verdict verdict-ok">confirmed</span></td></tr>
+<tr class="ok"><td>Musashi deliberately arrived late.</td><td><span class="verdict verdict-ok">confirmed</span></td></tr>
+<tr class="ok"><td>Kojirō lost his patience while waiting.</td><td><span class="verdict verdict-ok">confirmed</span></td></tr>
+<tr class="ok"><td>Kojirō taunted Musashi for arriving late.</td><td><span class="verdict verdict-ok">confirmed</span></td></tr>
+<tr class="ok"><td>Musashi remained composed.</td><td><span class="verdict verdict-ok">confirmed</span></td></tr>
+<tr class="ok"><td>Musashi crushed Kojirō's skull with a vertical stroke using the wooden sword.</td><td><span class="verdict verdict-ok">confirmed</span></td></tr>
+<tr class="ok"><td>The vertical stroke was a single decisive strike.</td><td><span class="verdict verdict-ok">confirmed</span></td></tr>
+<tr class="dropped"><td>Musashi later proclaimed that Sasaki Kojirō was the strongest opponent he ever faced.</td><td><span class="verdict verdict-dropped">unsourced</span></td></tr>
+<tr class="ok"><td>Miyamoto Musashi is the subject of the first shot.</td><td><span class="verdict verdict-ok">confirmed</span></td></tr>
+<tr class="dropped"><td>The first shot should depict an Edo-period print or painting.</td><td><span class="verdict verdict-dropped">unsourced</span></td></tr>
+<tr class="dropped"><td>The second shot concerns a sword or swordsman and samurai at rest.</td><td><span class="verdict verdict-dropped">unsourced</span></td></tr>
+<tr class="dropped"><td>The second shot should use an Edo-period Japanese print or painting.</td><td><span class="verdict verdict-dropped">unsourced</span></td></tr>
+<tr class="dropped"><td>The year associated with the duel is 1612.</td><td><span class="verdict verdict-dropped">unsourced</span></td></tr>
+<tr class="dropped"><td>The third shot should depict an Edo-period Japanese ink painting or old map.</td><td><span class="verdict verdict-dropped">unsourced</span></td></tr>
+<tr class="ok"><td>Hosokawa Tadaoki is associated with the duel commission.</td><td><span class="verdict verdict-ok">confirmed</span></td></tr>
+<tr class="dropped"><td>Hosokawa Tadaoki is shown writing an official duel commission.</td><td><span class="verdict verdict-dropped">unsourced</span></td></tr>
+<tr class="ok"><td>Ganryū Island hosted the duel between Musashi and Kojirō.</td><td><span class="verdict verdict-ok">confirmed</span></td></tr>
+<tr class="dropped"><td>A wide shot of Ganryū Island's coastline is requested.</td><td><span class="verdict verdict-dropped">unsourced</span></td></tr>
+<tr class="ok"><td>Kojirō wielded a nodachi.</td><td><span class="verdict verdict-ok">confirmed</span></td></tr>
+<tr class="dropped"><td>The nodachi extended Kojirō's reach.</td><td><span class="verdict verdict-dropped">unsourced</span></td></tr>
+<tr class="ok"><td>Musashi carved an oar into a bokken.</td><td><span class="verdict verdict-ok">confirmed</span></td></tr>
+<tr class="ok"><td>Musashi arrived deliberately late to the island shore.</td><td><span class="verdict verdict-ok">confirmed</span></td></tr>
+<tr class="ok"><td>Musashi's composure contrasted with Kojirō's impatience.</td><td><span class="verdict verdict-ok">confirmed</span></td></tr>
+<tr class="dropped"><td>Musashi's composure became psychological warfare.</td><td><span class="verdict verdict-dropped">unsourced</span></td></tr>
+<tr class="ok"><td>The duel began on Ganryū Island.</td><td><span class="verdict verdict-ok">confirmed</span></td></tr>
+<tr class="dropped"><td>The duel began on sand.</td><td><span class="verdict verdict-dropped">unsourced</span></td></tr>
+<tr class="ok"><td>Kojirō lost his composure before the clash.</td><td><span class="verdict verdict-ok">confirmed</span></td></tr>
+<tr class="ok"><td>A single vertical strike ended the duel.</td><td><span class="verdict verdict-ok">confirmed</span></td></tr>
+<tr class="ok"><td>Musashi's victory came from the wooden sword.</td><td><span class="verdict verdict-ok">confirmed</span></td></tr>
+<tr class="dropped"><td>Mature Musashi reflected on past battles.</td><td><span class="verdict verdict-dropped">unsourced</span></td></tr>
+<tr class="dropped"><td>The duel represents a tradition of the duel.</td><td><span class="verdict verdict-dropped">unsourced</span></td></tr>
+<tr class="dropped"><td>Musashi turned from history toward innovation.</td><td><span class="verdict verdict-dropped">unsourced</span></td></tr>
+<tr class="dropped"><td>Musashi's improvisation founded Niten Ichi-ryū.</td><td><span class="verdict verdict-dropped">contradicts</span></td></tr>
+<tr class="ok"><td>Niten Ichi-ryū used two-sword techniques.</td><td><span class="verdict verdict-ok">confirmed</span></td></tr>
+<tr class="ok"><td>Musashi created the legendary Niten Ichi-ryū style.</td><td><span class="verdict verdict-ok">confirmed</span></td></tr>
+<tr class="ok"><td>Niten Ichi-ryū is represented by a two-sword stance or scroll.</td><td><span class="verdict verdict-ok">confirmed</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>The drift bug — and its fix</h2>
+    <p>The first build (<code>EP_MUSASHI_pre-drift-fix.mp4</code>) shipped with the same caption/picture drift bug that EP_SPEEDMASTER hit. <code>plan_shots.py</code> built the shot list from the spoken-span only — 5.16 seconds of pauses were missing — and the builder rescaled every shot by 1.1479 to fit. The pictures walked ahead of the captions until they were 2.7 seconds out by the end of the video.</p>
+    <p><strong>7 of 19 shots showed the wrong picture under the caption.</strong> Segment 2's frame showed "instead of steel? In 1612," which is two different lines than shot 2's own. The fix: <code>plan_shots.py</code> gives each shot the pause in front of it; the builder anchors every boundary to the words. <code>scripts/common/repair_drift.py</code> re-plans and rebuilds an episode. This file documents one re-plan, one re-build, and a clean gate.</p>
+  </section>
+
+  <section>
+    <h2>The QA gate reliability — what actually happened</h2>
+    <p>One pass. Two findings. <strong>Both false positives.</strong></p>
+    <table class="qa-table">
+      <thead><tr><th>What Gemini said</th><th>What the frame actually was</th></tr></thead>
+      <tbody>
+        <tr><td>0:12 "Modern photograph of a sword"</td><td>Edo-period woodblock print of a samurai with a long sword</td></tr>
+        <tr><td>0:36 "Dynamic captions overlap"</td><td>Japanese woodblock print of pilgrims under a moon; caption fully on screen</td></tr>
+      </tbody>
+    </table>
+    <p>Same pattern as Speedmaster: the gate misreads period artwork as modern, and treats woodblock prints as "infographics." No real defects were found in the rebuilt MP4. <strong>Open the frame before acting on any "modern" finding.</strong></p>
+  </section>
+
+  <section>
+    <h2>The closing promise — the next episode on the channel</h2>
+    <p>The closing caption of this episode points at the next subject: <strong>The Book of Five Rings</strong> (EP_BOOK_OF_FIVE_RINGS.mp4, built, ready to ship, 2.4 MB). The next-subject signal lives in <code>EP_MUSASHI/closing_next</code> in the brief JSON.</p>
+    <a href="/products/forgotten-fronts/" class="cta">Back to channel</a>
+    <a href="/products/workflow/" class="cta ghost">Workflow blueprint</a>
+  </section>
+
+</div>
+</body>
+</html>

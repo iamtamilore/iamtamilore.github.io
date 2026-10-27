@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Workflow | The 5-stage channel pipeline | Taiwo Alabi</title>
+<meta name="description" content="The master blueprint behind every episode shipped on every channel. Plan, select, build, gate, post. Six hard-won rules from real failures.">
+<style>
+body { color: var(--text); font-family: 'Quicksand', var(--font); line-height: 1.5; }
+.wrap { max-width: 900px; margin: 0 auto; padding: var(--space-6) var(--space-4); }
+.topbar { display: flex; justify-content: space-between; align-items: center; padding: var(--space-4) 0; margin-bottom: var(--space-6); border-bottom: 1px solid var(--border); }
+.topbar a { color: var(--text-3); font-size: var(--text-sm); text-decoration: none; border-bottom: none; }
+h1 { font-size: var(--text-3xl); font-weight: 700; margin-bottom: var(--space-2); }
+h2 { font-size: var(--text-2xl); font-weight: 700; color: #5B9BD5; margin-top: var(--space-8); margin-bottom: var(--space-4); padding-bottom: var(--space-3); border-bottom: 1px solid var(--border); }
+h3 { font-size: var(--text-lg); font-weight: 700; color: var(--text); margin-top: var(--space-6); margin-bottom: var(--space-2); }
+p { font-size: var(--text-sm); color: var(--text-2); line-height: 1.6; margin-bottom: var(--space-3); }
+.muted { color: var(--text-3); font-size: var(--text-sm); margin-bottom: var(--space-4); }
+.tagline { font-size: var(--text-base); color: var(--text-2); margin-bottom: var(--space-6); }
+.cta { display: inline-block; padding: 10px 18px; border-radius: 999px; background: #5B9BD5; color: #0c1018 !important; font-weight: 700; text-decoration: none; border-bottom: none; margin-right: var(--space-3); }
+.cta.ghost { background: transparent; color: var(--text) !important; border: 1px solid var(--border); }
+code { font-family: var(--font-mono); font-size: 0.92em; padding: 1px 4px; background: var(--surface-1); border-radius: 3px; }
+.bp-flow { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; margin-bottom: var(--space-6); }
+.bp-flow .node { padding: 8px 16px; background: var(--surface-1); border: 1px solid var(--border); border-radius: 8px; font-size: var(--text-sm); }
+.bp-flow .arrow { color: var(--text-3); font-size: var(--text-lg); }
+.bp-rule { display: flex; gap: var(--space-3); margin-bottom: var(--space-4); padding: var(--space-4); background: var(--surface-1); border-left: 3px solid #c54; border-radius: 0 8px 8px 0; }
+.bp-rule .num { font-weight: 700; color: #c54; font-size: var(--text-lg); flex-shrink: 0; min-width: 28px; }
+.bp-rule .body { font-size: var(--text-sm); color: var(--text); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <a href="/products/">&larr; All products</a>
+    <a href="/products/workflow/contact-sheets.html">Contact sheets &rarr;</a>
+  </div>
+
+  <header>
+    <h1>Workflow blueprint</h1>
+    <p class="tagline">The 5-stage pipeline behind every episode that ships on every channel. Plus six hard-won rules - one per failure that cost real time or money. Source: <code>anime_hive_episodes/CHANNELS/_LESSONS_HARD_WON.md</code> and the zenpai-pipeline docs.</p>
+  </header>
+
+  <section>
+    <h2>The five stages</h2>
+    <div class="bp-flow">
+      <span class="node">1. Plan</span>
+      <span class="arrow">&rarr;</span>
+      <span class="node">2. Select (contact sheets)</span>
+      <span class="arrow">&rarr;</span>
+      <span class="node">3. Build</span>
+      <span class="arrow">&rarr;</span>
+      <span class="node">4. Gate</span>
+      <span class="arrow">&rarr;</span>
+      <span class="node">5. Post</span>
+    </div>
+    <p>Every episode that ships on the channels runs through these five stages in order. Each stage has its own scripts, its own inputs, and its own failure modes. The rules at the bottom are the ones that were learned by getting a stage wrong - and they are enforced automatically, not by convention.</p>
+    <a href="/products/workflow/contact-sheets.html" class="cta">See Stage 2 in detail</a>
+  </section>
+
+  <section>
+    <h2>The six hard-won rules</h2>
+    <p>Each rule was learned by getting the corresponding stage wrong. The cost is real (dollars or hours); the rule is automatic.</p>
+
+    <div class="bp-rule">
+      <div class="num">1</div>
+      <div class="body">
+        <strong>Narrate first, then write the brief.</strong> The brief is written AGAINST the audio (the beats.json), not before. Estimate N beats, hand-write N <code>t</code> values; the TTS pauses somewhere you did not predict. <code>plan_shots.py</code> reads the audio, not the brief, and the builder refuses on a mismatch. Tengen 2: brief 19, audio 21 beats. Tengen 3: brief 19, audio 17, still broken. <em>Fix:</em> narrate, generate, build beats.json, THEN write the brief.
+      </div>
+    </div>
+
+    <div class="bp-rule">
+      <div class="num">2</div>
+      <div class="body">
+        <strong>Five queries per need, character name first, plus a per-need verb.</strong> Identical queries across needs put the same 50 jpgs in every folder. The selector dedups globally, so needs 7-16 silently get nothing and the build cycles a few stills across all 16 shots. <em>EP_GOJO rebuild, 2026-10-22, ~$1.50.</em>
+      </div>
+    </div>
+
+    <div class="bp-rule">
+      <div class="num">3</div>
+      <div class="body">
+        <strong>Every NEVER names its beat.</strong> Blanket rules like "no Kanao" or "no romance" rejected the wrong needs - the need where the forbidden character IS the subject, or where romance IS the subject. Hard character constraints stay absolute but the constraint is per-beat, not global. <em>EP_OBANAI rebuild, 2x re-SELECT.</em>
+      </div>
+    </div>
+
+    <div class="bp-rule">
+      <div class="num">4</div>
+      <div class="body">
+        <strong>UNPARSEABLE response means TRANSPORT, not model failure.</strong> Raw response was 361 bytes: gateway diagnostics plus <code>[image] cN: embedded</code> lines, then nothing. <code>urlopen</code> died before the response. <code>select_frames.py</code> discards stderr so a timeout reads as a model fault. <em>Fix:</em> <code>ask.py:1356</code> now 420s with 3-attempt backoff; <code>MAX_CANDS</code> 12 to 8. 4h of debugging on 2026-10-22.
+      </div>
+    </div>
+
+    <div class="bp-rule">
+      <div class="num">5</div>
+      <div class="body">
+        <strong>Pixel review must be at full 1080x1920.</strong> Six frames passed the selector at 640px and failed human review at full resolution: watermark plate, second character, English speech bubbles, two pre-injury combat poses, and one frame with Tengen missing entirely. Confirm any "wrong character" call by opening the source PNG. Record rejections in <code>sourced/&lt;EP&gt;/overrides.json</code>, never in <code>verdicts.json</code>.
+      </div>
+    </div>
+
+    <div class="bp-rule">
+      <div class="num">6</div>
+      <div class="body">
+        <strong>Every claim matches the source verbatim.</strong> Two claims cut from Musashi for being unsourced; one claim added to Speedmaster because it WAS sourced. The verification record is in <code>POSTING_VERIFICATION.md</code>. A claim only goes in if the source states it.
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>The QA gate that actually runs</h2>
+    <p>Stage 4: ResNet50 cosine similarity vs-seed and vs-hero at three frame positions (t=0%, t=50%, t=98%), then call <code>ask.py</code> for vision-based verification (modern/anachronism detection). Writes <code>qa.json</code> + <code>GATE_NOTES.md</code>.</p>
+    <p>The gate's pass/fail criterion: both vs-seed and vs-hero stay within the calibrated band for the scene type. Catastrophic divergence triggers an automatic regenerate. Stylistic drift within tolerance does not. <strong>The third scene of EP_MUSASHI had the lowest scores - that's correct:</strong> a character walking away SHOULD diverge from the reference. The gate is calibrated to flag catastrophic divergence, not stylistic movement.</p>
+  </section>
+
+  <section>
+    <h2>What the workflow proves to a brand</h2>
+    <p>A brand evaluating this work signs off on "the character looks like the character" - not on the mechanism. The blueprint is the proof that the work is <em>auditable</em>: every claim traces to a Wikipedia source, every frame is gated against a reference, every NEVER rule has a name and a beat it applies to, and every failure mode is documented with the cost it took to learn it.</p>
+  </section>
+
+  <a href="/products/workflow/contact-sheets.html" class="cta">See Stage 2 (contact sheets)</a>
+  <a href="/products/forgotten-fronts/" class="cta ghost" style="margin-left: var(--space-3);">Forgotten Fronts channel</a>
+  <a href="/products/forgotten-fronts/ep_musashi.html" class="cta ghost" style="margin-left: var(--space-3);">EP_MUSASHI breakdown</a>
+</div>
+</body>
+</html>
