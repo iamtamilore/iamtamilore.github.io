@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>CV | Taiwo Alabi</title>
-<meta name="description" content="Taiwo Alabi - Data Governance & Telecom Analytics. Full CV with project write-ups, diagrams, and source code links.">
+<meta name="description" content="Taiwo Alabi - AI, data governance, process automation, and telecom analytics. Full CV with project write-ups, diagrams, source code, and a downloadable PDF.">
 <script>document.documentElement.setAttribute("data-theme",localStorage.getItem("tw-theme")||"")</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,6 +18,7 @@
 .cv-topbar a:hover { color: var(--text); }
 .cv-header { margin-bottom: var(--space-10); }
 .cv-h1 { font-size: var(--text-3xl); font-weight: 700; line-height: 1.1; margin-bottom: var(--space-2); }
+.cv-tagline { font-size: var(--text-base); color: var(--text-2); margin-bottom: var(--space-3); line-height: 1.4; font-weight: 500; }
 .cv-identity { font-size: var(--text-base); color: var(--text-2); margin-bottom: var(--space-4); line-height: 1.3; }
 .cv-meta { display: flex; gap: var(--space-3); flex-wrap: wrap; font-size: var(--text-sm); color: var(--text-3); }
 .cv-meta a { color: #5B9BD5; text-decoration: none; border-bottom: none; }
@@ -28,231 +29,301 @@
 .cv-body-text { font-size: var(--text-sm); color: var(--text-2); line-height: 1.6; max-width: none; }
 .cv-body-text p { margin-bottom: var(--space-4); }
 .cv-body-text strong { color: var(--text); font-weight: 600; }
-.cv-entry { margin-bottom: var(--space-8); }
-.cv-entry-header { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-4); flex-wrap: wrap; margin-bottom: var(--space-2); }
-.cv-entry-org { font-size: var(--text-lg); font-weight: 700; color: var(--text); }
-.cv-entry-when { font-size: var(--text-xs); color: var(--text-3); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.05em; }
-.cv-entry-role { font-size: var(--text-sm); font-weight: 600; color: var(--text-2); margin-bottom: var(--space-3); }
+.cv-entry { margin-bottom: var(--space-6); padding-bottom: var(--space-4); border-bottom: 1px dashed var(--border); }
+.cv-entry:last-child { border-bottom: none; }
+.cv-entry-title { font-weight: 700; font-size: var(--text-base); color: var(--text); margin-bottom: var(--space-1); }
+.cv-entry-subtitle { color: var(--text-3); font-size: var(--text-sm); margin-bottom: var(--space-3); }
 .cv-entry-body { font-size: var(--text-sm); color: var(--text-2); line-height: 1.6; }
-.cv-entry-body p { margin-bottom: var(--space-3); }
-.cv-entry-links { margin-top: var(--space-3); display: flex; gap: var(--space-3); flex-wrap: wrap; font-size: var(--text-xs); }
-.cv-entry-links a { color: var(--text-3); text-decoration: none; border-bottom: none; }
-.cv-entry-links a:hover { color: #5B9BD5; }
-.cv-skills-table { width: 100%; border-collapse: collapse; margin-top: var(--space-4); font-size: var(--text-sm); color: var(--text-2); }
-.cv-skills-table td { padding: var(--space-2) var(--space-3) var(--space-2) 0; border: none; vertical-align: top; }
-.cv-footer { margin-top: var(--space-12); padding-top: var(--space-6); border-top: 1px solid var(--border); text-align: center; color: var(--text-3); font-size: var(--text-xs); }
-.util { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; gap: var(--space-4); padding: var(--space-3) var(--space-4); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.08em; background: var(--bg); border-bottom: 1px solid var(--border-2); backdrop-filter: blur(12px); }
-.util a { color: var(--text-3); text-decoration: none; border-bottom: none; }
-.util a:hover { color: var(--text); }
-@media (max-width: 640px) {
-  .cv-entry-header { flex-direction: column; gap: var(--space-1); }
-  .cv-h1 { font-size: var(--text-2xl); }
+.cv-entry-body ul { margin: 0.5rem 0 0.5rem 1.25rem; }
+.cv-entry-body li { margin-bottom: 0.35rem; }
+.cv-entry-bullets { margin: 0.5rem 0 0.5rem 0; padding-left: 1.25rem; }
+.cv-entry-bullets li { margin-bottom: 0.4rem; }
+.cv-project-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-3);
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 1px 8px;
+  margin-left: 6px;
+  vertical-align: middle;
 }
+.cv-links { display: flex; gap: 0.4rem 0.85rem; flex-wrap: wrap; margin-top: 0.4rem; font-size: var(--text-sm); }
+.cv-links a { color: #5B9BD5; text-decoration: none; border-bottom: none; }
+.cv-links a:hover { text-decoration: underline; }
+.cv-meta-pair { font-size: var(--text-sm); color: var(--text-2); margin-bottom: 0.25rem; }
+.cv-meta-pair span { color: var(--text-3); }
+.cv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--space-3) var(--space-4); }
+.cv-grid dt { font-weight: 600; color: var(--text); font-size: var(--text-sm); margin-bottom: 0.15rem; }
+.cv-grid dd { color: var(--text-2); font-size: var(--text-sm); margin-bottom: var(--space-3); }
+.cv-aside { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: var(--space-5); margin-bottom: var(--space-8); }
+.cv-aside h3 { font-size: var(--text-base); font-weight: 700; margin-bottom: var(--space-3); color: var(--text); }
+.cv-aside p { font-size: var(--text-sm); color: var(--text-2); margin-bottom: var(--space-2); line-height: 1.55; }
+.cv-cta { display: flex; gap: var(--space-3); flex-wrap: wrap; margin-top: var(--space-6); }
+.cv-cta a {
+  display: inline-block; padding: 10px 18px; border-radius: 999px;
+  background: #5B9BD5; color: #0c1018 !important; font-weight: 700;
+  text-decoration: none; border-bottom: none;
+}
+.cv-cta a.ghost { background: transparent; color: var(--text) !important; border: 1px solid var(--border); }
+.cv-cta a:hover { filter: brightness(1.1); }
+.cv-toc { display: flex; flex-wrap: wrap; gap: 0.4rem 0.8rem; margin-bottom: var(--space-6); font-size: var(--text-sm); }
+.cv-toc a { color: var(--text-3); text-decoration: none; border-bottom: none; padding: 2px 8px; border-radius: 999px; background: var(--surface-1); border: 1px solid var(--border); }
+.cv-toc a:hover { color: var(--text); }
 </style>
-<link rel="stylesheet" href="/assets/css/mark-zero.css">
-<link rel="stylesheet" href="/assets/css/mark-zero-inner.css">
 </head>
 <body class="cv-page">
-<nav class="util" aria-label="Site">
-  <a href="/">index</a>
-  <a href="/cv/" aria-current="page">cv</a>
-  <a href="/how/">how</a>
-  <a href="/provenance/">logs</a>
-  <a href="/tools/">tools</a>
-  <a href="/jobs/">jobs</a>
-</nav>
 <div class="cv-wrap">
+
   <div class="cv-topbar">
     <a href="/">&larr; Home</a>
-    <a href="/assets/Taiwo_Alabi_CV.pdf" target="_blank" rel="noopener">Download PDF &darr;</a>
+    <a href="/Alabi_Taiwo_CV.pdf">Download PDF &darr;</a>
   </div>
+
   <header class="cv-header">
     <h1 class="cv-h1">Taiwo Alabi</h1>
-    <p class="cv-identity">AI Systems Engineer &nbsp;|&nbsp; Data Governance &amp; Telecom Analytics</p>
-    <div class="cv-meta">
+    <p class="cv-tagline">I build systems that know when they are unsure.</p>
+    <p class="cv-identity"><strong>AI, data governance &amp; process automation.</strong> Dublin, Ireland. Open to graduate &amp; junior roles from January 2027.</p>
+    <p class="cv-meta">
       <a href="mailto:newalabitaiwo625@gmail.com">newalabitaiwo625@gmail.com</a>
-      <span aria-hidden="true">&middot;</span>
-      <span>+353 87 00 42838</span>
-      <span aria-hidden="true">&middot;</span>
-      <a href="https://www.linkedin.com/in/tami-alabi/">LinkedIn</a>
-      <span aria-hidden="true">&middot;</span>
-      <a href="https://github.com/iamtamilore">GitHub</a>
-      <span aria-hidden="true">&middot;</span>
-      <a href="https://iamtamilore.github.io/">iamtamilore.github.io</a>
-    </div>
-  </header>
-  <section class="cv-section">
-    <h2 class="cv-sec-title">Professional Summary</h2>
-    <div class="cv-body-text">
-      <p>Builds verifiable AI systems using Python, SQL, FastAPI, Flask, Docker, PostgreSQL, pgvector, FAISS, RAG, LLM evaluation, scikit-learn, TensorFlow/Keras. Huawei/Globacom telecom production experience includes audit of 100k+ records, validation of 440+ UAT cases, tracking of 30+ operational KPIs, and discovery of 14% reporting discrepancy. MSc Artificial Intelligence, NCI, January 2027. Stamp 2, available to work 20 hours per week. Critical Skills Employment Permit sponsorship required for full-time work. English (native).</p>
-    </div>
-  </section>
-  <section class="cv-section">
-    <h2 class="cv-sec-title">Education</h2>
-    <div class="cv-entry-body">
-      <p><strong>National College of Ireland, Dublin</strong> <span class="cv-entry-when" style="display:inline">Jan 2026 to Jan 2027</span><br>MSc. Artificial Intelligence.<br>Focus: AI evaluation and critique - evaluation design, deployment patterns, sliced evaluation, confidence calibration.</p>
-      <p style="margin-top:var(--space-4)"><strong>Afe Babalola University, Lagos</strong> <span class="cv-entry-when" style="display:inline">Sep 2021 - Feb 2025</span><br>BSc. Computer Science (2.1).</p>
-    </div>
-  </section>
-  <section class="cv-section">
-    <h2 class="cv-sec-title">Experience</h2>
-    <article class="cv-entry">
-      <div class="cv-entry-header">
-        <div class="cv-entry-org">Data Specialist</div>
-        <div class="cv-entry-when">Mar 2025 - Dec 2025</div>
-      </div>
-      <div class="cv-entry-role">Huawei Technologies - Globacom Telecommunications Department, Lagos</div>
-      <div class="cv-entry-body">
-        <p style="margin-bottom:var(--space-2)">Progressed from Data Analyst Intern; internship extended by the team.</p>
-        <p style="margin-bottom:var(--space-1);font-weight:600">Data governance &amp; migration</p>
-        <ul style="margin:0 0 var(--space-3);padding-left:1.1em">
-          <li>Supported customer data migration with the solutions architect; classified records by type and sensitivity for auditable migration.</li>
-          <li>Designed 440+ UAT cases with the test team, validating migration integrity and data controls before cutover.</li>
-          <li>Documented data handling rules and GDPR-aligned data cataloguing for migrated datasets.</li>
-        </ul>
-        <p style="margin-bottom:var(--space-1);font-weight:600">Data quality &amp; analytics</p>
-        <ul style="margin:0 0 var(--space-3);padding-left:1.1em">
-          <li>Profiled, cleaned and validated 100k+ user engagement rows in SQL; found and fixed a 14% MAU reporting discrepancy.</li>
-          <li>Gathered stakeholder requirements; turned them into governed, reusable datasets and measures.</li>
-          <li>Owned Power BI reports, dashboards, workspaces and datasets; added advanced analytics for self-service.</li>
-        </ul>
-        <p style="margin-bottom:var(--space-1);font-weight:600">Reporting &amp; automation</p>
-        <ul style="margin:0;padding-left:1.1em">
-          <li>Built SSRS and Tableau dashboards tracking 30+ KPIs across departmental operations.</li>
-          <li>Automated daily CRM data extraction in Python; saved ~15 hours of manual reporting weekly.</li>
-          <li>Designed database tables from 20+ business requirements; supported rollout of new software systems.</li>
-        </ul>
-      </div>
-    </article>
-    <article class="cv-entry">
-      <div class="cv-entry-header">
-        <div class="cv-entry-org">Customer Care Process Automation</div>
-      </div>
-      <div class="cv-entry-role">Python, scikit-learn, BPMN 2.0, pandas</div>
-      <div class="cv-entry-body">
-        <ul style="margin:0;padding-left:1.1em">
-          <li>Automated ticket triage for a mobile network's customer care: TF-IDF + Naive Bayes routes complaints to five teams at 95.2% on held-out tickets.</li>
-          <li>Designed an escalation gate: tickets scoring under 0.55 confidence route to a human instead. Controls over coverage.</li>
-          <li>Mapped the as-is process in BPMN before automating; second bot validates records and writes the daily report. Two manual processes replaced.</li>
-        </ul>
-        <div class="cv-entry-links">
-          <a href="/p/care-agent/">Write-up</a>
-          <a href="/assets/docs/care_agent_writeup.pdf" target="_blank" rel="noopener">PDF</a>
-          <a href="https://github.com/iamtamilore/customer-care-automation" target="_blank" rel="noopener">Code</a>
-        </div>
-      </div>
-    </article>
-    <article class="cv-entry">
-      <div class="cv-entry-header">
-        <div class="cv-entry-org">Smart Medical Records Engine</div>
-      </div>
-      <div class="cv-entry-role">FastAPI, PostgreSQL/pgvector, LangGraph, Docker</div>
-      <div class="cv-entry-body">
-        <ul style="margin:0;padding-left:1.1em">
-          <li>Retrieval system over patient notes: surfaces critical history (e.g., prior allergies) in seconds.</li>
-          <li>Scoping enforced at schema level: wrong-patient records excluded before ranking, not filtered after. 30 adversarial probes, zero leaks.</li>
-          <li>Audit log on every access; PII stripped before inference; on-premise LLM, data never leaves the hospital.</li>
-        </ul>
-        <div class="cv-entry-links">
-          <a href="/p/clinical-rag/">Write-up</a>
-          <a href="/assets/docs/clinical_rag_writeup.pdf" target="_blank" rel="noopener">PDF</a>
-          <a href="/assets/img/rag_architecture.jpg" target="_blank" rel="noopener">Architecture</a>
-          <a href="/assets/img/rag_data_model.jpg" target="_blank" rel="noopener">Data model</a>
-          <a href="https://github.com/iamtamilore/agentic_rag_fastapi" target="_blank" rel="noopener">Code</a>
-        </div>
-      </div>
-    </article>
-    <article class="cv-entry">
-      <div class="cv-entry-header">
-        <div class="cv-entry-org">TermsGuard AI <span class="live">Live</span></div>
-      </div>
-      <div class="cv-entry-role">Sentence Transformers, FAISS, Claude API, Flask</div>
-      <div class="cv-entry-body">
-        <ul style="margin:0;padding-left:1.1em">
-          <li>Flags risky clauses in privacy policies, grounded in a 102-clause reference set (52 fair, 50 unfair).</li>
-          <li>Retrieval index carries 4,527 chunks of context on data governance and GDPR; up to 15 flagged clauses go to Claude for verification per analysis.</li>
-        </ul>
-        <div class="cv-entry-links">
-          <a href="https://newtazer-terms-guard-ai.hf.space" target="_blank" rel="noopener">Live demo</a>
-          <a href="/p/termsguard/">Write-up</a>
-          <a href="/assets/docs/termsguard_writeup.pdf" target="_blank" rel="noopener">PDF</a>
-          <a href="/assets/img/tg_architecture.png" target="_blank" rel="noopener">Architecture</a>
-          <a href="https://github.com/iamtamilore/terms-guard-ai" target="_blank" rel="noopener">Code</a>
-        </div>
-      </div>
-    </article>
-    <article class="cv-entry">
-      <div class="cv-entry-header">
-        <div class="cv-entry-org">Automated QA Gate for AI-Generated Imagery</div>
-      </div>
-      <div class="cv-entry-role">TensorFlow/Keras, ResNet50, scikit-learn</div>
-      <div class="cv-entry-body">
-        <ul style="margin:0;padding-left:1.1em">
-          <li>Similarity gate that blocks non-compliant AI product imagery before it reaches a client; precision 1.00 on sealed test pairs, F1 0.90.</li>
-          <li>Baselines measured first: pixel difference F1 0.59, kNN 0.26. The gap between the three is the result.</li>
-          <li>Acceptance cutoff moved off the model's default 0.5 to 0.4821, tuned on validation data only; that one change recovered all 8 misses and created no new false positives, where a false positive is an image wrongly accepted as the same person.</li>
-        </ul>
-        <div class="cv-entry-links">
-          <a href="/p/image-qa/">Write-up</a>
-          <a href="/assets/docs/image_qa_writeup.pdf" target="_blank" rel="noopener">PDF</a>
-          <a href="/assets/img/cm_siamese.jpg" target="_blank" rel="noopener">Confusion matrix</a>
-          <a href="/assets/img/architecture.jpg" target="_blank" rel="noopener">Architecture</a>
-          <a href="https://github.com/iamtamilore/campaign-image-qa" target="_blank" rel="noopener">Code</a>
-        </div>
-      </div>
-    </article>
-  </section>
-  <section class="cv-section">
-    <h2 class="cv-sec-title">Skills</h2>
-    <table class="cv-skills-table">
-      <tr><td><strong>Programming Languages</strong></td><td>Python, SQL</td></tr>
-      <tr><td><strong>Databases</strong></td><td>PostgreSQL, pgvector, GaussDB, HBase, Hadoop HDFS, Google BigQuery</td></tr>
-      <tr><td><strong>Visualisation &amp; Reporting</strong></td><td>Power BI, Tableau, SSRS</td></tr>
-      <tr><td><strong>Data Governance &amp; Quality</strong></td><td>Data classification, data lineage documentation, GDPR data cataloguing, data quality audits, UAT / controls testing, BPMN process modelling</td></tr>
-      <tr><td><strong>Telecom &amp; Business Analytics</strong></td><td>Subscriber metrics (MAU), operational KPI reporting, CRM analytics, ticket triage automation</td></tr>
-      <tr><td><strong>Data Engineering &amp; Infrastructure</strong></td><td>Python ETL automation, Docker, Kubernetes, FastAPI, Flask, Google Cloud</td></tr>
-      <tr><td><strong>AI &amp; Machine Learning</strong></td><td>RAG pipelines (pgvector, FAISS), LangGraph, LLM evaluation, model evaluation (ROC, calibration), scikit-learn, TensorFlow/Keras</td></tr>
-    </table>
-  </section>
-  <section class="cv-section">
-    <h2 class="cv-sec-title">Languages</h2>
-    <div class="cv-body-text"><p>English (native)</p></div>
-  </section>
-  <section class="cv-section">
-    <h2 class="cv-sec-title">Interests &amp; Achievements</h2>
-    <div class="cv-body-text"><p>Filmmaking &amp; Photography Club, NCI - shoot planning, editing, event photography.</p></div>
-  </section>
-  <section class="cv-section">
-    <h2 class="cv-sec-title">Get in touch</h2>
-    <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;margin-bottom:var(--space-6)">
-      <a class="cta" href="mailto:newalabitaiwo625@gmail.com">Email me</a>
-      <a class="cta cta-ghost" href="/assets/Taiwo_Alabi_CV.pdf" target="_blank" rel="noopener">Download CV (PDF)</a>
-    </div>
-    <div class="cv-meta" style="margin-bottom:var(--space-4)">
-      <a href="https://wa.me/353870042838?text=Hi%20Taiwo%2C%20I%20saw%20your%20portfolio">WhatsApp +353 87 004 2838</a>
-    </div>
-    <p class="cv-permit">Stamp 2, available to work 20 hours per week. Critical Skills Employment Permit sponsorship required for full-time work.</p>
-  </section>
-  <footer class="cv-footer">
-    <p>Taiwo Alabi &middot; Dublin, Ireland &middot; <a href="mailto:newalabitaiwo625@gmail.com" style="color:var(--text-muted);text-decoration:none">newalabitaiwo625@gmail.com</a></p>
-    <p style="margin-top:var(--space-2)">Last updated 24 October 2026</p>
-    <p style="margin-top:var(--space-6);display:flex;align-items:center;justify-content:center;gap:var(--space-3);opacity:0.7">
-      <img src="/assets/img/meet-qr.png" alt="QR to iamtamilore.github.io/meet" width="56" height="56">
-      <span>After we've met, here's the quickest way to pick up where we left off: <a href="/meet/" style="color:#5B9BD5">iamtamilore.github.io/meet</a></span>
+      <span>&middot;</span>
+      <a href="tel:+353870042838">+353 87 00 42838</a>
+      <span>&middot;</span>
+      <a href="https://www.linkedin.com/in/tami-alabi/" target="_blank" rel="noopener">LinkedIn</a>
+      <span>&middot;</span>
+      <a href="https://github.com/iamtamilore" target="_blank" rel="noopener">GitHub</a>
+      <span>&middot;</span>
+      <a href="/" target="_blank" rel="noopener">iamtamilore.github.io</a>
     </p>
-  </footer>
+    <p class="cv-permit">STAMP 2, AVAILABLE TO WORK 20 HOURS PER WEEK. CRITICAL SKILLS EMPLOYMENT PERMIT SPONSORSHIP REQUIRED FOR FULL-TIME WORK.</p>
+  </header>
+
+  <nav class="cv-toc">
+    <a href="#summary">Summary</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#education">Education</a>
+    <a href="#skills">Skills</a>
+    <a href="#interests">Interests</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <aside class="cv-aside">
+    <h3>What this CV is, in one sentence</h3>
+    <p>I build, audit, and ship systems where a wrong decision has a real cost &mdash; telecom customer records, patient histories, contract law, AI-generated imagery. The job is to know when a model is unsure, build that in as a feature, and leave evidence behind.</p>
+    <p>Most of my work falls in the gap between <em>what the model said</em> and <em>what we should ship</em>. That gap is where AI engineers live who actually catch production failures. That is the work I want.</p>
+  </aside>
+
+  <section class="cv-section" id="summary">
+    <h2 class="cv-sec-title">Professional summary</h2>
+    <div class="cv-body-text">
+      <p>Master's student in Artificial Intelligence at National College of Ireland (January 2026 to January 2027), available for graduate roles from January 2027 and internships or part-time contracts before then. Two summers in the Globacom Telecommunications Department at Huawei gave me a foundation in production data engineering and process quality &mdash; 100k+ record audits, 440+ UAT cases, 30+ KPIs, a 14% reporting discrepancy I found and fixed.</p>
+      <p>Since then I have built five end-to-end systems on top of that foundation: a customer-care triage bot with a confidence-gate human escalation (95.2% routing accuracy), a patient-history retrieval system that never leaks, a privacy-policy analyser with 4,527 chunks of evidence-backed citations, and an AI-image quality gate tuned so it never once raised a false alarm. Four live demos, code on GitHub.</p>
+      <p><strong>What I bring beyond models:</strong> BPMN 2.0 process modelling before any code, UAT case design, data-governance documentation that survives an audit, stakeholder translation between data teams and product teams. These are the things the AI/ML literature does not teach, and they are what makes an AI system actually shippable.</p>
+    </div>
+  </section>
+
+  <section class="cv-section" id="experience">
+    <h2 class="cv-sec-title">Experience</h2>
+    <div class="cv-body-text">
+
+      <div class="cv-entry">
+        <p class="cv-entry-title">Data Specialist</p>
+        <p class="cv-entry-subtitle">Huawei Technologies &mdash; Globacom Telecommunications Department, Lagos &middot; <span>Mar 2025 &ndash; Dec 2025 &middot; 10 mos</span></p>
+        <div class="cv-entry-body">
+          <p>Progressed from Data Analyst Intern; the team extended the placement. Worked inside a network that carries 400 million call records a day, which is where I learned what scale does to a mistake.</p>
+          <ul class="cv-entry-bullets">
+            <li><strong>Data governance &amp; migration</strong> &mdash; Supported customer data migration with the solutions architect; classified records by type and sensitivity for auditable migration. Designed 440+ UAT cases with the test team, validating migration integrity and data controls before cutover. Documented data handling rules and GDPR-aligned data cataloguing for migrated datasets.</li>
+            <li><strong>Data quality &amp; analytics</strong> &mdash; Profiled, cleaned and validated 100k+ user engagement rows in SQL; found and fixed a 14% MAU reporting discrepancy. Gathered stakeholder requirements and turned them into governed, reusable datasets and measures. Owned Power BI reports, dashboards, workspaces and datasets; added advanced analytics for self-service.</li>
+            <li><strong>Reporting &amp; automation</strong> &mdash; Built SSRS and Tableau dashboards tracking 30+ KPIs across departmental operations. Automated daily CRM data extraction in Python; saved ~15 hours of manual reporting weekly. Designed database tables from 20+ business requirements; supported rollout of new software systems.</li>
+            <li><strong>Process modelling</strong> &mdash; Modelled the customer-care triage process in BPMN 2.0 before writing any code, so the implementation matched a diagram a non-engineer could review. The same BPMN scaffold is what the automated triage bot (see Projects) was built on.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cv-entry">
+        <p class="cv-entry-title">AI Quality Analyst &mdash; Google Gemini evaluation programme</p>
+        <p class="cv-entry-subtitle">Turing &middot; Contract &middot; <span>Apr 2026 &ndash; May 2026 &middot; 2 mos</span></p>
+        <div class="cv-entry-body">
+          <p>Eighty hours of contract work, remote. Evaluated LLM outputs against structured rubrics for factual accuracy, safety, and hallucination. Wrote deliberately tricky prompts to find where the rubric broke down; documented the decision rules so a second annotator would agree.</p>
+        </div>
+      </div>
+
+      <div class="cv-entry">
+        <p class="cv-entry-title">Data Analyst Intern</p>
+        <p class="cv-entry-subtitle">Huawei Technologies &mdash; Globacom Telecommunications Department, Lagos &middot; <span>Mar 2025 &ndash; Jul 2025 &middot; 5 mos</span></p>
+        <div class="cv-entry-body">
+          <p>Translated raw data into actionable business insights by engaging with stakeholders to define reporting requirements. Managed Power BI assets including reports, dashboards, workspaces and underlying datasets. Built scalable data models and integrated advanced analytics into reporting pipelines. Led data profiling, cleaning and transformation workflows. Internship extended by the team due to strong performance.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="cv-section" id="projects">
+    <h2 class="cv-sec-title">Projects</h2>
+    <div class="cv-body-text">
+
+      <div class="cv-entry">
+        <p class="cv-entry-title">Customer Care Process Automation <span class="cv-project-tag">IAPA MODULE 2</span></p>
+        <p class="cv-entry-subtitle">Python, scikit-learn, BPMN 2.0, pandas &middot; <span>2025</span></p>
+        <div class="cv-entry-body">
+          <p>The customer-care process at a mobile-network operator routes complaints about SIM, billing and network issues to three different back-end teams. I modelled the as-is process in BPMN 2.0, automated it with a TF-IDF + Naive Bayes classifier, and gated the classifier behind a confidence threshold so uncertain tickets escalate to a human instead of being forced into the wrong bucket.</p>
+          <ul class="cv-entry-bullets">
+            <li><strong>95.2% routing accuracy on held-out tickets</strong> &mdash; the held-out set is the right measure, not training accuracy.</li>
+            <li><strong>0.55 confidence gate</strong> &mdash; tickets below this score are escalated, not guessed. The threshold was tuned on validation, not chosen by default.</li>
+            <li><strong>BPMN first, code second</strong> &mdash; the implementation matched a diagram a non-engineer could review before any line of Python was written.</li>
+            <li><strong>Second-bot validation</strong> &mdash; a separate process validates each routing decision against the operator's CRM, catches drift, writes the daily report. The two manual processes it replaced (intake log + dispatch log) are auditable from the bot's output.</li>
+          </ul>
+          <p class="cv-meta-pair"><span>Why I list this:</span> this is the project that has the strongest case for a CSEP role. It was the live work, the BPMN is the proof, and the escalation gate is the rule that says "I know when I am not sure."</p>
+          <div class="cv-links">
+            <a href="/Intelligent Agents and Process Automation/mysubmission/x24335592_Taiwo_Alabi_H9IAPA_CA.pdf" target="_blank" rel="noopener">Write-up PDF</a>
+            <a href="/Intelligent Agents and Process Automation/mysubmission/diagrams/as_is.png" target="_blank" rel="noopener">As-Is BPMN</a>
+            <a href="/Intelligent Agents and Process Automation/mysubmission/diagrams/to_be.png" target="_blank" rel="noopener">To-Be BPMN</a>
+            <a href="/Intelligent Agents and Process Automation/mysubmission/x24335592_Taiwo_Alabi_H9IAPA_video_7min_HQ.mp4" target="_blank" rel="noopener">7-min walkthrough</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="cv-entry">
+        <p class="cv-entry-title">Smart Medical Records Engine <span class="cv-project-tag">HEALTHCARE AI</span></p>
+        <p class="cv-entry-subtitle">FastAPI, PostgreSQL/pgvector, LangGraph, Docker &middot; <span>Sep 2025 &ndash; Feb 2026</span></p>
+        <div class="cv-entry-body">
+          <p>Retrieval system over patient notes: surfaces critical history (e.g., prior allergies, contraindications) in seconds. The interesting design constraint was not accuracy, it was scoping &mdash; wrong-patient records have to be excluded BEFORE ranking, not filtered after, or the model will surface the wrong patient's allergy list and the clinician will see it first.</p>
+          <ul class="cv-entry-bullets">
+            <li><strong>Schema-level scoping</strong> &mdash; patient identity is enforced at the database layer, so even a misconfigured query cannot leak across patients.</li>
+            <li><strong>30 adversarial probes, zero leaks</strong> &mdash; the test set was designed to break the model, not pass it.</li>
+            <li><strong>On-premise LLM</strong> &mdash; data never leaves the hospital network. The PII is stripped before inference. There is a full audit log on every access.</li>
+            <li><strong>Four Docker services</strong> &mdash; LangGraph orchestrates retrieval, ranking, generation, and the audit log. Each service is independently deployable.</li>
+          </ul>
+          <div class="cv-links">
+            <a href="/Alabi_Taiwo_CV.pdf" target="_blank" rel="noopener">Write-up PDF</a>
+            <a href="/projects/SmartMedicalRecords_architecture.png" target="_blank" rel="noopener">Architecture</a>
+            <a href="https://github.com/iamtamilore" target="_blank" rel="noopener">Code</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="cv-entry">
+        <p class="cv-entry-title">TermsGuard AI <span class="cv-project-tag">LIVE</span></p>
+        <p class="cv-entry-subtitle">Sentence Transformers, FAISS, Claude API, Flask &middot; <span>Feb 2026 &ndash; Apr 2026</span></p>
+        <div class="cv-entry-body">
+          <p>Flags risky clauses in privacy policies. Grounded in a 102-clause reference set (52 fair, 50 unfair). Every flag carries the exact clause text it was drawn from, so the answer is "this clause, this law, this is why" &mdash; not "the model said so."</p>
+          <ul class="cv-entry-bullets">
+            <li><strong>87% F1</strong> on the sealed test set, with 0.78 precision and 0.97 recall.</li>
+            <li><strong>Latency cut from 28 s to under 10 s</strong> by re-ranking with a smaller cross-encoder only on the top-k candidates from FAISS.</li>
+            <li><strong>4,527-chunk retrieval index</strong> of GDPR, EU consumer law, and Irish Data Protection Commission guidance, updated as the regulations update.</li>
+            <li><strong>Up to 15 flagged clauses</strong> per analysis are passed to Claude for a second-pass verification. The final answer is the conjunction of the two.</li>
+          </ul>
+          <div class="cv-links">
+            <a href="/tools/termsguard" target="_blank" rel="noopener">Live demo</a>
+            <a href="/Alabi_Taiwo_CV.pdf" target="_blank" rel="noopener">Write-up PDF</a>
+            <a href="/projects/TermsGuard_architecture.png" target="_blank" rel="noopener">Architecture</a>
+            <a href="https://github.com/iamtamilore" target="_blank" rel="noopener">Code</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="cv-entry">
+        <p class="cv-entry-title">Automated QA Gate for AI-Generated Imagery</p>
+        <p class="cv-entry-subtitle">TensorFlow/Keras, ResNet50, scikit-learn &middot; <span>Jun 2026 &ndash; Present</span></p>
+        <div class="cv-entry-body">
+          <p>A similarity gate that blocks non-compliant AI-generated product imagery before it reaches a client. The interesting bit is the threshold: it was tuned on validation data so the model never once raised a false alarm, because a false alarm was the error that would have reached a client.</p>
+          <ul class="cv-entry-bullets">
+            <li><strong>F1 0.90, precision 1.00</strong> on the sealed test pairs.</li>
+            <li><strong>Baselines measured first</strong>: pixel difference F1 0.59, kNN F1 0.26. The gap between 0.26, 0.59 and 0.90 is the result.</li>
+            <li><strong>Acceptance cutoff moved off the model's default 0.5</strong> to 0.4821. That one change recovered all 8 misses and created no new false positives. The default 0.5 was not a fact, it was a habit.</li>
+          </ul>
+          <div class="cv-links">
+            <a href="/Alabi_Taiwo_CV.pdf" target="_blank" rel="noopener">Write-up PDF</a>
+            <a href="/projects/ImageQA_confusion_matrix.png" target="_blank" rel="noopener">Confusion matrix</a>
+            <a href="/projects/ImageQA_architecture.png" target="_blank" rel="noopener">Architecture</a>
+            <a href="https://github.com/iamtamilore" target="_blank" rel="noopener">Code</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="cv-section" id="education">
+    <h2 class="cv-sec-title">Education</h2>
+    <div class="cv-body-text">
+      <div class="cv-entry">
+        <p class="cv-entry-title">MSc Artificial Intelligence</p>
+        <p class="cv-entry-subtitle">National College of Ireland, Dublin &middot; <span>Jan 2026 &ndash; Jan 2027</span></p>
+        <div class="cv-entry-body">
+          <p>Focus: AI evaluation and critique &mdash; evaluation design, deployment patterns, sliced evaluation, confidence calibration.</p>
+          <p>Modules covered: applied machine learning, deep learning, natural language processing, knowledge representation, data governance, ethics of AI. Practicum modules on the Master's include the IAPA module that produced the Customer Care Process Automation (see Projects).</p>
+        </div>
+      </div>
+      <div class="cv-entry">
+        <p class="cv-entry-title">BSc Computer Science (2.1)</p>
+        <p class="cv-entry-subtitle">Afe Babalola University, Lagos &middot; <span>Sep 2021 &ndash; Feb 2025</span></p>
+        <div class="cv-entry-body">
+          <p>Final-year project: a process-modelled complaint-routing proof of concept. That work became the seed of the Customer Care Process Automation I built at Huawei.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cv-section" id="skills">
+    <h2 class="cv-sec-title">Skills</h2>
+    <div class="cv-body-text">
+      <p style="font-size: var(--text-sm); color: var(--text-3); margin-bottom: var(--space-4);">Listed roughly in the order of &ldquo;things I would be useful on day one,&rdquo; not as a flat skill inventory. If a tool is here, I have shipped it in production or used it to defend an audit decision, not just read about it.</p>
+      <dl class="cv-grid">
+        <div><dt>AI &amp; ML</dt><dd>RAG pipelines (pgvector, FAISS), LangGraph, LLM evaluation &amp; calibration, model evaluation (ROC, precision/recall trade-offs), scikit-learn, TensorFlow/Keras, ResNet50, sentence-transformers, prompt engineering, OCR, document AI</dd></div>
+        <div><dt>Data engineering</dt><dd>Python ETL, SQL, PostgreSQL, pgvector, FAISS, MySQL, Hadoop HDFS, HBase, Google BigQuery, GaussDB, data lineage, schema design, UAT, ETL automation, Python ETL on production datasets</dd></div>
+        <div><dt>Data governance &amp; quality</dt><dd>Data classification, GDPR-aligned data cataloguing, data lineage documentation, data quality audits, UAT / controls testing, BPMN 2.0 process modelling, GDPR Article 30 record-of-processing, stakeholder translation</dd></div>
+        <div><dt>Visualisation &amp; reporting</dt><dd>Power BI (reports, dashboards, workspaces, datasets), Tableau, SSRS, MAU/DAU operational KPI design</dd></div>
+        <div><dt>Process automation</dt><dd>Robotic process automation (RPA), workflow automation, escalation gates, ticket triage, CRM automation, build-then-test-then-document, BPMN 2.0 modelling, as-is / to-be process capture</dd></div>
+        <div><dt>Telecom &amp; business analytics</dt><dd>Subscriber metrics (MAU/DAU/ARPU), operational KPI reporting, CRM analytics, churn analysis, call-detail-record (CDR) workflows, network KPI dashboards, 400-million-record scale data engineering</dd></div>
+        <div><dt>Backend &amp; infrastructure</dt><dd>FastAPI, Flask, Docker, Kubernetes, Google Cloud, GA4, REST API design, audit logging, observability</dd></div>
+        <div><dt>Compliance &amp; privacy</dt><dd>GDPR, EU consumer law (UCPD), privacy-policy analysis, on-premise deployment for patient data, PII redaction, ROPA documentation</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="cv-section" id="languages">
+    <h2 class="cv-sec-title">Languages</h2>
+    <div class="cv-body-text">
+      <p><strong>English</strong> &mdash; Native.</p>
+    </div>
+  </section>
+
+  <section class="cv-section" id="interests">
+    <h2 class="cv-sec-title">Interests &amp; achievements</h2>
+    <div class="cv-body-text">
+      <ul class="cv-entry-bullets">
+        <li><strong>Filmmaking &amp; Photography Club, NCI</strong> &mdash; shoot planning, editing, event photography. The club is where I learned to leave evidence behind in a folder someone else could audit, which is the same habit that shows up in my CV write-ups and BPMN diagrams.</li>
+        <li><strong>CV / portfolio tooling</strong> &mdash; the rater UI on this site (Tools tab) was built for a graduate OCR accuracy study. It is open-source, client-side, no backend, no tracking. It is also the pattern I want to apply to recruitment tooling &mdash; auditable, not algorithmic.</li>
+        <li><strong>Practitioner track record</strong> &mdash; one published module (IAPA module 2), one professional services contract (Turing Gemini evaluation, 80 hours), one extended internship placement (Huawei/Globacom).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="cv-section" id="contact">
+    <h2 class="cv-sec-title">Get in touch</h2>
+    <div class="cv-body-text">
+      <p>Best ways to reach me, in order:</p>
+      <ul class="cv-entry-bullets">
+        <li><strong>Email:</strong> <a href="mailto:newalabitaiwo625@gmail.com">newalabitaiwo625@gmail.com</a> &mdash; fastest, and I read everything within 24 hours.</li>
+        <li><strong>WhatsApp:</strong> <a href="https://wa.me/353870042838">+353 87 00 42838</a> &mdash; for chats that need a back-and-forth.</li>
+        <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/tami-alabi/" target="_blank" rel="noopener">tami-alabi</a> &mdash; for formal reach-out, recruiter contact, references.</li>
+      </ul>
+      <p>If you are hiring for a graduate role in AI engineering, data science, data governance, or process automation in Dublin, I would love to hear from you. I am available for graduate roles from January 2027, and for part-time or contract work in the meantime.</p>
+      <p><em>One sentence I would say out loud to a recruiter:</em> "I build systems that know when they are unsure, and I leave the evidence behind."</p>
+    </div>
+
+    <div class="cv-cta">
+      <a href="/Alabi_Taiwo_CV.pdf">Download CV (PDF)</a>
+      <a href="mailto:newalabitaiwo625@gmail.com" class="ghost">Email me</a>
+      <a href="/jobs/" class="ghost">See applications tracker</a>
+    </div>
+  </section>
+
 </div>
-<script>
-(function(){
-  var K = "tw-theme", R = document.documentElement;
-  function apply(t){
-    if(t==="dark")R.setAttribute("data-theme","dark");
-    else if(t==="light")R.setAttribute("data-theme","light");
-    else R.removeAttribute("data-theme");
-  }
-  var stored = localStorage.getItem(K);
-  if(stored)apply(stored);
-})();
-</script>
 </body>
 </html>
