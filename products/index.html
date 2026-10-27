@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Episodes | Taiwo Alabi</title>
+<meta name="description" content="Three channels, one workflow, every episode auditable. The worked example, the blueprint, and the five-stage pipeline that builds them.">
+<style>
+body { color: var(--text); font-family: 'Quicksand', var(--font); line-height: 1.5; max-width: 860px; margin: 0 auto; padding: var(--space-6) var(--space-4); }
+.pr-wrap { max-width: 860px; margin: 0 auto; padding: var(--space-6) var(--space-4); }
+.pr-topbar { display: flex; justify-content: space-between; align-items: center; padding: var(--space-4) 0; margin-bottom: var(--space-6); border-bottom: 1px solid var(--border); }
+.pr-topbar a { color: var(--text-3); font-size: var(--text-sm); text-decoration: none; border-bottom: none; }
+.pr-h1 { font-size: var(--text-3xl); font-weight: 700; margin-bottom: var(--space-2); }
+.pr-tagline { font-size: var(--text-base); color: var(--text-2); margin-bottom: var(--space-6); }
+.pr-section { margin-bottom: var(--space-10); }
+.pr-h2 { font-size: var(--text-2xl); font-weight: 700; color: #5B9BD5; margin-bottom: var(--space-4); padding-bottom: var(--space-3); border-bottom: 1px solid var(--border); }
+.pr-body { font-size: var(--text-sm); color: var(--text-2); line-height: 1.6; }
+.pr-body p { margin-bottom: var(--space-3); }
+.pr-feature { padding: var(--space-6); border: 1px solid var(--border); border-radius: 12px; background: var(--surface-1); margin-bottom: var(--space-6); }
+.pr-feature h3 { font-size: var(--text-xl); font-weight: 700; margin-bottom: var(--space-3); }
+.pr-feature .desc { color: var(--text-2); font-size: var(--text-base); margin-bottom: var(--space-4); }
+.pr-feature .meta { display: flex; gap: var(--space-4); flex-wrap: wrap; font-size: var(--text-sm); color: var(--text-3); margin-bottom: var(--space-4); }
+.pr-feature .meta span { white-space: nowrap; }
+.pr-cta { display: inline-block; padding: 10px 18px; border-radius: 999px; background: #5B9BD5; color: #0c1018 !important; font-weight: 700; text-decoration: none; border-bottom: none; margin-right: var(--space-3); }
+.pr-cta.ghost { background: transparent; color: var(--text) !important; border: 1px solid var(--border); }
+.pr-section h3 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
+.pr-section .channel-card { padding: var(--space-5); border: 1px solid var(--border); border-radius: 8px; margin-bottom: var(--space-4); }
+.pr-section .channel-card .name { font-weight: 700; font-size: var(--text-base); margin-bottom: var(--space-1); }
+.pr-section .channel-card .handle { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--text-3); margin-bottom: var(--space-2); }
+.pr-section .channel-card .status { font-size: var(--text-sm); color: var(--text-2); }
+</style>
+</head>
+<body>
+<div class="pr-wrap">
+
+  <div class="pr-topbar">
+    <a href="/">&larr; Home</a>
+    <a href="/how/">How I make an episode</a>
+  </div>
+
+  <header>
+    <h1 class="pr-h1">Episodes</h1>
+    <p class="pr-tagline">The worked example, the workflow blueprint, and the three channels behind them. Every episode on the channels runs through the same five-stage pipeline with the same six hard-won rules.</p>
+  </header>
+
+  <section class="pr-section">
+    <div class="pr-feature">
+      <h3>The worked example: p1_flooded_street</h3>
+      <p class="desc">A 3-scene vertical anime episode (Miyamoto Musashi, dark history) shipped 2026-10-27. Three scenes, nine frames extracted at t=0%/50%/98%, one QA gate per scene. Every measurement is shown on the page — what passed, what drifted within tolerance, what the gate's pass/fail criterion is, and why the lowest scores are still a pass.</p>
+      <div class="meta">
+        <span>Duration: 24.8s</span>
+        <span>Scenes: 3</span>
+        <span>Frames extracted: 9</span>
+        <span>QA: 9/9 passed</span>
+        <span>Source: Wikipedia (Miyamoto Musashi)</span>
+      </div>
+      <a href="/products/p1_flooded_street/" class="pr-cta">View the breakdown</a>
+      <a href="/products/p1_flooded_street/s1_establish.mp4" class="pr-cta ghost" style="margin-left: var(--space-3);">Watch s1 (9.2s)</a>
+      <a href="/products/p1_flooded_street/s2_deepen.mp4" class="pr-cta ghost" style="margin-left: var(--space-3);">Watch s2 (7.6s)</a>
+      <a href="/products/p1_flooded_street/s3_exit.mp4" class="pr-cta ghost" style="margin-left: var(--space-3);">Watch s3 (8.0s)</a>
+    </div>
+
+    <div class="pr-feature">
+      <h3>The workflow blueprint</h3>
+      <p class="desc">The five-stage pipeline (plan, select, build, gate, post) plus the six hard-won rules the pipeline enforces automatically. One rule per failure that cost real time or money to learn. Every rule is documented with its measured cost, and the production code that enforces it is named and fileable. A brand can audit this end-to-end without any agent involvement.</p>
+      <div class="meta">
+        <span>Stages: 5</span>
+        <span>Hard-won rules: 6</span>
+        <span>QA gate: ResNet50 cosine + ask.py vision</span>
+        <span>Failure modes: documented per rule</span>
+      </div>
+      <a href="/products/blueprint.html" class="pr-cta">Read the blueprint</a>
+    </div>
+  </section>
+
+  <section class="pr-section">
+    <h2 class="pr-h2">The channels behind the work</h2>
+    <div class="pr-body">
+      <p>Three channels. Each runs the same five-stage pipeline. Each has its own measured subject catalog with lift ratios that drive what gets built next.</p>
+
+      <div class="channel-card">
+        <div class="name">Forgotten Fronts</div>
+        <div class="handle">@forgottenfronts0 (YouTube + TikTok + Instagram + Facebook)</div>
+        <div class="status">
+          <strong>Status: LIVE.</strong> EP_MUSASHI shipped 2026-10-27. 876 views on Musashi in first 24h (65.3% retention), 4 views on EP_BOOK_OF_FIVE_RINGS (shipped same day). 0 subscribers across 1,318 views — the clean measurement still pending. Next: EP_CANN AE (216 BC, the named next subject), then the remaining dark-history catalogue.
+        </div>
+      </div>
+
+      <div class="channel-card">
+        <div class="name">Proof Tested (luxury_archive)</div>
+        <div class="handle">@prooftested0 (YouTube + TikTok + IG pending login)</div>
+        <div class="status">
+          <strong>Status: EPISODE 1 BUILT AND GATED.</strong> EP_SPEEDMASTER is ready (40.0s, 23 shots, 148 words, 51 caption phrases, every claim verified against the Wikipedia source on 2026-10-27). The brand account for Instagram is not logged in from any installed profile on this machine — that blocks the IG leg. Next: EP_APOLLO13 (Apollo 13's improvised return — the closing-promise from EP_SPEEDMASTER already points at it).
+        </div>
+      </div>
+
+      <div class="channel-card">
+        <div class="name">Super Zenpai</div>
+        <div class="handle">@zenpaitv_ (TikTok only — no YouTube channel launched)</div>
+        <div class="status">
+          <strong>Status: FORMAT BUILT, 13 EPISODES SHIPPED INTERNALLY.</strong> The format is the opposite of Zenpai's reference: 22 shots over 40.1s median 1.67s, opening 1.33s median (0.68x body), pan 102 px/s, captions 2-4 words white with exactly one yellow. 24 MP4 files exist as proof the pipeline can ship Demon Slayer lore. The subject make-list is measured: Tengen 3.77x, Sanemi 1.91x, Inosuke 1.41x, Rengoku 1.38x, Yoriichi 1.36x, Hashira 1.33x, Obanai 1.28x, Tanjiro 1.25x. <em>Do not make:</em> Muzan 0.81x, Nezuko 0.83x, Hantengu 0.81x, Nakime 0.72x, Shinobu 0.53x.
+        </div>
+      </div>
+
+      <div class="channel-card">
+        <div class="name">Test-bed channels</div>
+        <div class="handle">anime_hive (no handle, no launch) + capital_postmortem (empty)</div>
+        <div class="status">
+          <strong>Status: TEST-BED ONLY.</strong> anime_hive is the format R&D playground (4 episode folders: Gojo, Madara, Sukuna, Ben 10 — all experimental). capital_postmortem is empty — the subject table was a copy of dark_history's, money/economy measured 0.09x per channel, so a capital-company channel needs its own scrape and subject list before it can launch.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pr-section">
+    <h2 class="pr-h2">What the brand sees</h2>
+    <div class="pr-body">
+      <p>The brand signs off on "the character looks like the character" — not on the mechanism. The blueprint is the proof that the work is <em>auditable</em>: every claim traces to a Wikipedia source, every frame is gated against a reference, every NEVER rule has a name and a beat it applies to, and every failure mode is documented with the cost it took to learn it.</p>
+      <p>The pipeline is in <code>~/repos/zenpai-pipeline</code> (mirrored from <code>/mnt/2b</code>). The 6 hard-won rules in <code>_LESSONS_HARD_WON.md</code> are the operating manual. The worked example here (p1_flooded_street) is one of 3 shipped luxury_archive episodes, but it's the one that shows the QA gate's actual measurements end-to-end so a brand can verify the work without taking anyone's word for it.</p>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
