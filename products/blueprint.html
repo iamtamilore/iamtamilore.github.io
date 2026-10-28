@@ -41,7 +41,7 @@ body { color: var(--text); font-family: 'Quicksand', var(--font); line-height: 1
 
   <div class="bp-topbar">
     <a href="/how/">&larr; How I make an episode</a>
-    <a href="/products/p1_flooded_street/">Worked example: p1_flooded_street &rarr;</a>
+    <a href="/products/ep_speedmaster/">Worked example: EP_SPEEDMASTER &rarr;</a>
   </div>
 
   <header>
@@ -159,7 +159,7 @@ body { color: var(--text); font-family: 'Quicksand', var(--font); line-height: 1
   <section class="bp-section">
     <h2 class="bp-h2">The QA gate that actually runs</h2>
     <div class="bp-body">
-      <p>The gate that runs on every frame in every batch — <code>qa_selector.py</code> (ResNet50 cosine similarity, threshold M16.8–16.9 calibrated on a reference bank held out from the active training run). Calibrated against <code>p1_flooded_street/qa.json</code> from the reverse-engineered luxury episode:</p>
+      <p>The gate that runs on every frame in every batch — <code>qa_selector.py</code> (ResNet50 cosine similarity, threshold M16.8–16.9 calibrated on a reference bank held out from the active training run). Calibrated against <code>ep_speedmaster/qa.json</code> from the reverse-engineered luxury episode:</p>
       <table style="width:100%;border-collapse:collapse;margin-bottom:var(--space-4);font-size:var(--text-sm);">
         <thead><tr><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border);color:var(--text-3);">Scene</th><th style="padding:8px;border-bottom:1px solid var(--border);">f00 (t=0%)</th><th style="padding:8px;border-bottom:1px solid var(--border);">f50 (t=50%)</th><th style="padding:8px;border-bottom:1px solid var(--border);">f98 (t=98%)</th></tr></thead>
         <tbody>
@@ -218,12 +218,12 @@ body { color: var(--text); font-family: 'Quicksand', var(--font); line-height: 1
     <h2 class="bp-h2">What this blueprint proves to a brand</h2>
     <div class="bp-body">
       <p>A brand evaluating this work signs off on "the character looks like the character" — not on the mechanism. The blueprint is the proof that the work is <em>auditable</em>: every claim traces to a Wikipedia source, every frame is gated against a reference, every NEAR rule has a name and a beat it applies to, and every failure mode is documented with the cost it took to learn it.</p>
-      <p>The <a href="/products/p1_flooded_street/">worked example</a> shows the gate's actual measurements on a real shipped episode — the s2_deepen scene drifts 10% over its 7.6 seconds (intentional: the scene's job is to deepen, not stay static), the s3_exit scene drops to the lowest scores (also intentional: the character walks away from the reference), and the gate passes both because they are within tolerance for the scene type. That's what the calibration buys you.</p>
+      <p>The <a href="/products/ep_speedmaster/">worked example</a> shows the gate's actual measurements on a real shipped episode — the s2_deepen scene drifts 10% over its 7.6 seconds (intentional: the scene's job is to deepen, not stay static), the s3_exit scene drops to the lowest scores (also intentional: the character walks away from the reference), and the gate passes both because they are within tolerance for the scene type. That's what the calibration buys you.</p>
     </div>
   </section>
 
   <div style="text-align:center;margin: var(--space-8) 0;">
-    <a href="/products/p1_flooded_street/" class="bp-cta">See the worked example</a>
+    <a href="/products/ep_speedmaster/" class="bp-cta">See the worked example</a>
     <a href="/how/" class="bp-cta ghost" style="margin-left: var(--space-3);">How I make an episode</a>
     <a href="/products/" class="bp-cta ghost" style="margin-left: var(--space-3);">All episodes</a>
   </div>
