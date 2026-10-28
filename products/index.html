@@ -61,6 +61,10 @@ body { color: var(--text); font-family: 'Quicksand', var(--font); line-height: 1
   .pr-section .channel-card { grid-template-columns: 1fr; }
   .pr-section .channel-card .ch-thumb { width: 100%; height: 180px; min-height: 0; }
 }
+.pr-feature-secondary { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: var(--space-5); margin-top: calc(var(--space-4) * -1); }
+.pr-feature-secondary h3 { font-size: var(--text-lg) !important; }
+.pr-feature-secondary .desc { font-size: var(--text-sm) !important; margin-bottom: var(--space-3) !important; }
+.pr-feature-secondary .meta { margin-bottom: var(--space-3) !important; }
 </style>
 </head>
 <body>
@@ -87,20 +91,35 @@ body { color: var(--text); font-family: 'Quicksand', var(--font); line-height: 1
 
   <section class="pr-section">
     <div class="pr-feature">
-      <h3>The worked example: p1_flooded_street (EP_SPEEDMASTER)</h3>
-      <p class="desc">A 3-scene vertical episode about an Omega Speedmaster surviving NASA's worst missions. Three scenes, nine frames extracted at t=0%/50%/98%, one QA gate per scene. Every measurement is shown on the page — what passed, what drifted within tolerance, what the gate's pass/fail criterion is, and why the lowest scores are still a pass.</p>
+      <h3>The worked example: EP_MUSASHI (Forgotten Fronts)</h3>
+      <p class="desc">A 40.1-second vertical episode on why Miyamoto Musashi beat Sasaki Kojirō with a wooden bokken instead of steel. 19 frames extracted from one Wikipedia article, every frame gated against a hero reference, every claim cross-checked against the source. This is the one that shipped live on YouTube and TikTok on 2026-10-27. <strong>876 first-day views, 65.3% retention past the midpoint</strong> — the format signal the rest of the catalogue is built on.</p>
+      <div class="meta">
+        <span>Duration: 40.1s</span>
+        <span>Frames: 19</span>
+        <span>Claims: 15 verified, 2 cut</span>
+        <span>Audience: 876 views, 21 likes</span>
+        <span>Source: Wikipedia (Miyamoto Musashi)</span>
+      </div>
+      <a href="/products/forgotten-fronts/ep_musashi.html" class="pr-cta">View the breakdown &rarr;</a>
+      <a href="/products/forgotten-fronts/ep_musashi.html#contact-sheet" class="pr-cta ghost" style="margin-left: var(--space-3);">19-shot contact sheet</a>
+      <a href="/products/channels/forgotten_fronts/ep_musashi.mp4" class="pr-cta ghost" style="margin-left: var(--space-3);">Watch the MP4</a>
+      <a href="/channels/" class="pr-cta ghost" style="margin-left: var(--space-3);">All channels &rarr;</a>
+    </div>
+
+    <div class="pr-feature pr-feature-secondary">
+      <h3>The QA gate, separately: p1_flooded_street</h3>
+      <p class="desc">A second worked example on the QA-gate pipeline itself. Three scenes, nine frames extracted at t=0%/50%/98%, one gate per scene. <strong>9/9 frames passed.</strong> The gate ran vs-seed and vs-hero at three positions for every scene and the results are on the page — what passed, what drifted within tolerance, what the pass/fail criterion is, and why the lowest scores are still a pass. The Speedmaster episode is built, gated, and ready to upload; no audience measurement yet.</p>
       <div class="meta">
         <span>Duration: 24.8s</span>
         <span>Scenes: 3</span>
-        <span>Frames extracted: 9</span>
+        <span>Frames: 9</span>
         <span>QA: 9/9 passed</span>
-        <span>Source: Wikipedia (Omega Speedmaster)</span>
+        <span>vs-seed / vs-hero: 0.211 - 0.369</span>
       </div>
-      <a href="/products/p1_flooded_street/" class="pr-cta">View the breakdown</a>
-      <a href="/products/p1_flooded_street/s1_establish.mp4" class="pr-cta ghost" style="margin-left: var(--space-3);">Watch s1 (9.2s)</a>
-      <a href="/products/p1_flooded_street/s2_deepen.mp4" class="pr-cta ghost" style="margin-left: var(--space-3);">Watch s2 (7.6s)</a>
-      <a href="/products/p1_flooded_street/s3_exit.mp4" class="pr-cta ghost" style="margin-left: var(--space-3);">Watch s3 (8.0s)</a>
-      <a href="/channels/" class="pr-cta ghost" style="margin-left: var(--space-3);">All channels &rarr;</a>
+      <a href="/products/p1_flooded_street/" class="pr-cta">View the QA breakdown &rarr;</a>
+      <a href="/products/p1_flooded_street/s1_establish.mp4" class="pr-cta ghost" style="margin-left: var(--space-3);">Watch s1</a>
+      <a href="/products/p1_flooded_street/s2_deepen.mp4" class="pr-cta ghost" style="margin-left: var(--space-3);">Watch s2</a>
+      <a href="/products/p1_flooded_street/s3_exit.mp4" class="pr-cta ghost" style="margin-left: var(--space-3);">Watch s3</a>
     </div>
 
     <div class="pr-feature">

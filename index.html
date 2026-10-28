@@ -85,98 +85,97 @@
     </div>
 
   <div class="shead">
+    <div class="shead">
     <span class="idx">01</span>
-    <h2>The four systems</h2>
-    <span class="note">Each line starts with the defect, not the feature.</span>
+    <h2>Four systems, four failure modes they defend against</h2>
+    <span class="note">Each card starts with what the system catches, not what it does.</span>
   </div>
 
   <div class="entries">
 
     <article class="entry">
       <div>
-        <div class="metric">grounded</div>
-        <span class="metric-note">every flag carries the context it was drawn from, so nothing is invented</span>
+        <div class="metric">live demo</div>
+        <span class="metric-note">you can paste a privacy policy in and see it fail in real time</span>
       </div>
       <div>
-        <h3 class="name">TermsGuard AI <span class="tag">live</span></h3>
+        <h3 class="name">TermsGuard AI</h3>
         <p class="desc">
-          Reads the small print in privacy policies and flags the parts that are unfair to you.
-          Cosine similarity alone marks "we do not sell your data" as a violation, so rule guards
-          sit on top of the score and a model rules on what is left. 102 reference clauses.
-          The previous build labelled clauses as model-verified when no model had looked at them.
-          The verifier now runs three routes with retry.
+          Reads the small print in a privacy policy and flags the unfair parts. A live demo on
+          HuggingFace, source on GitHub, and a 12-case regression suite that runs against the
+          deployed service (not a notebook). When the verification fails, the page says so
+          instead of pretending it ran.
         </p>
-        <a class="go" href="/p/termsguard/">Read it &rarr;</a>
-        <a class="go" href="https://newtazer-terms-guard-ai.hf.space" target="_blank" rel="noopener">Run it live &rarr;</a>
+        <a class="go" href="https://newtazer-terms-guard-ai.hf.space" target="_blank" rel="noopener">Try it now &rarr;</a>
+        <a class="go" href="/p/termsguard/">Case study &rarr;</a>
         <a class="code" href="https://github.com/iamtamilore/terms-guard-ai" target="_blank" rel="noopener">code</a>
       </div>
     </article>
 
     <article class="entry">
       <div>
-        <div class="metric">scoped</div>
-        <span class="metric-note">per patient before ranking, not filtered after</span>
-      </div>
-      <div>
-        <h3 class="name">Smart Medical Records</h3>
-        <p class="desc">
-          A doctor asks in plain English and gets the answer out of that patient's own notes.
-          The search filters to one patient before it ranks by similarity, so a different
-          patient's note can never surface. Self-hosted on the hospital's own machine, so the
-          data never leaves. 30 adversarial probes, zero leaks.
-        </p>
-        <a class="go" href="/p/clinical-rag/">Read it &rarr;</a>
-        <a class="code" href="https://github.com/iamtamilore/agentic_rag_fastapi" target="_blank" rel="noopener">code</a>
-      </div>
-    </article>
-
-    <article class="entry">
-      <div>
-        <div class="metric">escalates</div>
-        <span class="metric-note">below 0.55 a human decides, and I report the lower automation rate that produces</span>
+        <div class="metric">95.2% / 0.55</div>
+        <span class="metric-note">on 42 held-out tickets, the rest escalate to a human</span>
       </div>
       <div>
         <h3 class="name">Care Agent</h3>
         <p class="desc">
           Two bots that took over two jobs I used to do by hand every morning at Huawei. One
-          reads complaints and decides which of five teams they belong to. Below 0.55 confidence
-          it hands the ticket to a human instead of forcing a label. 95.2% on 42 held-out
-          tickets. The process was mapped in BPMN before any code.
+          reads complaints and decides which of five teams they belong to. The other runs the
+          process. Below 0.55 confidence it hands the ticket to a human instead of forcing a
+          label. 95.2% on the held-out set; the process was mapped in BPMN before any code.
         </p>
-        <a class="go" href="/p/care-agent/">Read it &rarr;</a>
+        <a class="go" href="/p/care-agent/">Case study &rarr;</a>
         <a class="code" href="https://github.com/iamtamilore/customer-care-automation" target="_blank" rel="noopener">code</a>
       </div>
     </article>
 
     <article class="entry">
       <div>
-        <div class="metric">zero false acceptances</div>
-        <span class="metric-note">no wrongly accepted image ever reaches the client. A wrongly rejected one costs one retry</span>
+        <div class="metric">one patient, one answer</div>
+        <span class="metric-note">a different patient's note cannot surface; 30 probes, zero leaks</span>
+      </div>
+      <div>
+        <h3 class="name">Smart Medical Records</h3>
+        <p class="desc">
+          A doctor asks in plain English and gets the answer out of that patient's own notes.
+          The search filters to one patient before it ranks, so a different patient's note
+          cannot surface. Self-hosted on the hospital's own machine, so the data never leaves.
+        </p>
+        <a class="go" href="/p/clinical-rag/">Case study &rarr;</a>
+        <a class="code" href="https://github.com/iamtamilore/agentic_rag_fastapi" target="_blank" rel="noopener">code</a>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div>
+        <div class="metric">catches the wrong person</div>
+        <span class="metric-note">flags when an AI image model drifts to the wrong subject</span>
       </div>
       <div>
         <h3 class="name">Image QA Gate</h3>
         <p class="desc">
-          Catches the moment an AI-generated model stops being the same person. A Siamese
-          network over frozen ResNet50 features, judged against two baselines: pixel difference
-          scored F1 0.59, kNN 0.26, the Siamese 0.90. 90 sealed test pairs. The cutoff was
-          tuned on validation data only, never on the test set.
+          The moment an AI-generated model stops being the person you asked for, this catches
+          it. Built so the agency can ship AI-generated imagery without the wrong face going
+          out. A neural net reads the generated image against a locked reference, with a
+          cutoff tuned on validation data only and 90 sealed test pairs.
         </p>
-        <a class="go" href="/p/image-qa/">Read it &rarr;</a>
+        <a class="go" href="/p/image-qa/">Case study &rarr;</a>
         <a class="code" href="https://github.com/iamtamilore/campaign-image-qa" target="_blank" rel="noopener">code</a>
       </div>
     </article>
 
     <article class="entry">
       <div>
-        <div class="metric">400 million a day</div>
-        <span class="metric-note">and the migration split records by type, with 440+ UAT cases before cutover</span>
+        <div class="metric">14% discrepancy caught</div>
+        <span class="metric-note">100k+ rows validated; 440+ UAT cases before cutover</span>
       </div>
       <div>
         <h3 class="name">Huawei, Globacom data team</h3>
         <p class="desc">
-          Telecom mediation moves call records to fourteen downstream consumers. The constraint was
-          never throughput, it was trust: a bad deploy means a customer is billed twice. Profiled
-          and validated 100k+ rows and found a 14% reporting discrepancy nobody had seen.
+          Telecom mediation moves call records to fourteen downstream consumers. The constraint
+          was never throughput, it was trust: a bad deploy means a customer is billed twice.
+          On a 100k+ row validation pass, found a 14% reporting discrepancy nobody had seen.
         </p>
         <a class="go" href="/cv/">On the CV &rarr;</a>
       </div>
@@ -216,9 +215,6 @@
     </article>
   </div>
 
-  <div class="shead">
-    <span class="idx">03</span>
-    <h2>Elsewhere</h2>
   </div>
 
   <div class="entries">
@@ -251,7 +247,7 @@
     </a>
   </div>
 
-  <h2 class="shead" style="margin-top:var(--space-12)"><span class="idx">04</span><h2>Get in touch</h2></h2>
+  <h2 class="shead" style="margin-top:var(--space-12)"><span class="idx">03</span><h2>Get in touch</h2></h2>
 
   <p class="recency">
     I make AI output verifiable before it ships. Every system here names the failure it

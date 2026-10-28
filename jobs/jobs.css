@@ -266,3 +266,5 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--a
 @media (prefers-reduced-motion: no-preference) {
   .fstep { transition: border-color var(--motion-duration) var(--motion-ease); }
 }
+/* Hero for the jobs page - generated card grid above the funnel */
+.jh-hero { width: 100%; height: auto; border: 1px solid var(--border); border-radius: 8px; margin: 0 0 var(--space-8); display: block; }
