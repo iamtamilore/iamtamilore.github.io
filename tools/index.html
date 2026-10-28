@@ -40,6 +40,7 @@
 .tool-note { margin-top: var(--space-4); padding: var(--space-3) var(--space-4); background: var(--bg-3); border-left: 3px solid var(--text-3); font-size: var(--text-xs); color: var(--text-3); border-radius: 0 4px 4px 0; }
 .tool-note strong { color: var(--text-2); }
 .tools-footer { margin-top: var(--space-10); padding-top: var(--space-6); border-top: 1px solid var(--border); font-size: var(--text-xs); color: var(--text-3); text-align: center; }
+.tools-hero { width: 100%; height: auto; border: 1px solid var(--border); border-radius: 8px; margin: 0 0 var(--space-8); display: block; }
 </style>
 </head>
 <body class="tools-page">
@@ -51,6 +52,8 @@
   <a href="/how/">how</a>
   <a href="/provenance/">logs</a>
   <a href="/tools/" aria-current="page">tools</a>
+  <a href="/products/">episodes</a>
+  <a href="/channels/">channels</a>
   <a href="/jobs/">jobs</a>
 </nav>
 
@@ -70,7 +73,9 @@
     <span class="pill">All links route through iamtamilore.github.io</span>
   </div>
 
-  <div class="tool-card static">
+  
+  <img class="tools-hero" src="/assets/img/hero/tools.jpg" alt="Overhead view of four dark modules in the corners of a warm grey surface, each with a thin line routing inward to one small glowing burnt-orange square at the centre" loading="lazy">
+<div class="tool-card static">
     <h2 class="tool-title">OCR Rater UI <span class="tool-status static">Static · github.io</span></h2>
     <p class="tool-desc">
       Pure client-side rater for the P1 garment-OCR accuracy study. 80 items, four
