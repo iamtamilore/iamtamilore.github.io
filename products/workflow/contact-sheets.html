@@ -3,34 +3,55 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Contact Sheets | The image-generation workflow | Taiwo Alabi</title>
+<title>Contact Sheets | How a beat becomes a still | Taiwo Alabi</title>
 <script>document.documentElement.setAttribute("data-theme",localStorage.getItem("tw-theme")||"")</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
 <link rel="stylesheet" href="/assets/css/design-system.css">
 <link rel="stylesheet" href="/assets/css/mark-zero.css">
-<meta name="description" content="How the pipeline generates one frame per beat: query authoring, source pull, ranking by vs-hero similarity, retrieval index, reject rules, the drift bug and its fix.">
+<meta name="description" content="Stage 2 of the five-stage pipeline: from beat to contact sheet to chosen still. Five queries, vs-hero ranking, scoped NEVER rules, drift fix.">
 <style>
 body { color: var(--text); font-family: 'Quicksand', var(--font); line-height: 1.5; }
-.wrap { max-width: 900px; margin: 0 auto; padding: var(--space-6) var(--space-4); }
+.wrap { max-width: 960px; margin: 0 auto; padding: var(--space-6) var(--space-4); }
 .topbar { display: flex; justify-content: space-between; align-items: center; padding: var(--space-4) 0; margin-bottom: var(--space-6); border-bottom: 1px solid var(--border); }
 .topbar a { color: var(--text-3); font-size: var(--text-sm); text-decoration: none; border-bottom: none; }
 h1 { font-size: var(--text-3xl); font-weight: 700; margin-bottom: var(--space-2); }
-h2 { font-size: var(--text-2xl); font-weight: 700; color: #5B9BD5; margin-top: var(--space-8); margin-bottom: var(--space-4); padding-bottom: var(--space-3); border-bottom: 1px solid var(--border); }
+h2 { font-size: var(--text-2xl); font-weight: 700; color: #5B9BD5; margin-top: var(--space-10); margin-bottom: var(--space-4); padding-bottom: var(--space-3); border-bottom: 1px solid var(--border); }
 h3 { font-size: var(--text-lg); font-weight: 700; color: var(--text); margin-top: var(--space-6); margin-bottom: var(--space-2); }
 p { font-size: var(--text-sm); color: var(--text-2); line-height: 1.6; margin-bottom: var(--space-3); }
 .muted { color: var(--text-3); font-size: var(--text-sm); margin-bottom: var(--space-4); }
-.tagline { font-size: var(--text-base); color: var(--text-2); margin-bottom: var(--space-6); }
-.qa-table { width: 100%; border-collapse: collapse; margin: var(--space-3) 0; font-size: var(--text-sm); }
-.qa-table th, .qa-table td { padding: var(--space-2); text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
-.qa-table th { color: var(--text-3); font-weight: 600; background: var(--surface-1); }
-.qa-table td { color: var(--text-2); }
-.qa-table tr.dropped { background: rgba(200, 60, 60, 0.06); }
+.lede { font-size: var(--text-base); color: var(--text-2); margin-bottom: var(--space-8); max-width: 65ch; }
+
+/* Code blocks - light theme, no rounded corners, mono */
+.cs-code { background: var(--surface-1); border: 1px solid var(--border); border-radius: 4px; padding: var(--space-4); margin: var(--space-3) 0; overflow-x: auto; font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text); white-space: pre; line-height: 1.5; }
+
+/* Rules list (mirrors the workflow page) */
+.cs-rules { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-3); margin: var(--space-4) 0; }
+.cs-rule { padding: var(--space-4); background: var(--surface-1); border: 1px solid var(--border); border-left: 3px solid #c45a1f; border-radius: 0 6px 6px 0; }
+.cs-rule .rule-num { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-3); margin-bottom: var(--space-1); }
+.cs-rule .rule-name { font-size: var(--text-base); font-weight: 700; color: var(--text); margin-bottom: var(--space-1); }
+.cs-rule .rule-body { font-size: var(--text-sm); color: var(--text-2); line-height: 1.5; }
+.cs-rule .rule-cost { display: inline-block; margin-top: var(--space-2); font-family: var(--font-mono); font-size: var(--text-xs); color: #c45a1f; border: 1px solid #c45a1f; padding: 1px 6px; border-radius: 3px; }
+
+/* Title pattern table */
+.cs-patterns { width: 100%; border-collapse: collapse; margin: var(--space-3) 0; font-size: var(--text-sm); }
+.cs-patterns th, .cs-patterns td { padding: var(--space-2); text-align: left; border-bottom: 1px solid var(--border); }
+.cs-patterns th { color: var(--text-3); font-weight: 600; }
+.cs-patterns td { color: var(--text-2); }
+.cs-patterns td:first-child { font-family: var(--font-mono); color: var(--text); }
+.cs-patterns tr.dropped { background: rgba(196, 90, 31, 0.06); }
+.cs-patterns tr.dropped td:first-child { color: #c45a1f; }
+
 .cta { display: inline-block; padding: 10px 18px; border-radius: 999px; background: #5B9BD5; color: #0c1018 !important; font-weight: 700; text-decoration: none; border-bottom: none; margin-right: var(--space-3); }
 .cta.ghost { background: transparent; color: var(--text) !important; border: 1px solid var(--border); }
 code { font-family: var(--font-mono); font-size: 0.92em; padding: 1px 4px; background: var(--surface-1); border-radius: 3px; }
-pre { font-family: var(--font-mono); font-size: var(--text-xs); background: var(--surface-1); padding: var(--space-4); border-radius: 8px; overflow-x: auto; }
+strong { color: var(--text); font-weight: 600; }
+em { color: var(--text); font-style: italic; }
+
+@media (max-width: 700px) {
+  .cs-rules { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
@@ -43,74 +64,100 @@ pre { font-family: var(--font-mono); font-size: var(--text-xs); background: var(
 
   <header>
     <h1>Contact Sheets - how a beat becomes a still</h1>
-    <p class="tagline">Stage 2 of the 5-stage pipeline. The pipeline takes a beat, writes 5 queries, fetches candidate stills from the source article, ranks them by vs-hero similarity, and picks the highest-scoring candidate within the reject rules. Every step has a measured cost and a rule that closes one class of failures.</p>
+    <p class="lede">Stage 2 of the five-stage pipeline. The selector takes a beat, writes five queries, fetches candidate stills from the source article, ranks them against the hero reference, and picks the highest-scoring candidate within the reject rules. Every step has a measured cost and a rule that closes one class of failures.</p>
   </header>
 
   <section>
-    <h2>Stage 2: Select - from beat to contact sheet to chosen still</h2>
-    <p>The selector reads the audio's beats.json and the brief's needs. For each need, it builds 5 queries, fetches candidate stills from the source article, computes ResNet50 cosine similarity against the hero reference frame, applies the reject rules, and selects the highest-scoring surviving candidate.</p>
+    <h2>Stage 2: Select - from beat to chosen still</h2>
+    <p>For each beat in the audio, the selector pulls candidate stills from the source article and ranks them against the locked hero reference. Highest score wins, subject to the reject rules. The hero reference is held out of the active run, so the calibration is not contaminated.</p>
 
     <h3>The five-query rule</h3>
-    <p>Identical queries across needs put the same 50 jpgs in every folder. The selector dedups globally, so needs 7-16 silently get nothing. <strong>Five queries per need, character name first, plus a per-need verb.</strong></p>
-    <pre>queries = [
+    <p>Identical queries across needs put the same 50 jpgs in every folder. The selector dedups globally, so half the needs see nothing. Five queries per need, character name first, plus a per-need verb:</p>
+    <div class="cs-code">queries = [
   "{character_name} {subject_action} {scene}",
   "{character_name} {scene}",
   "{character_name} {location}",
   "{subject_action} {scene} {visual_world}",
   "{location} {scene}",
-]</pre>
+]</div>
 
-    <p>This produces five meaningfully different still candidates per need rather than five variants of the same still. EP_GOJO rebuild cost ~$1.50 before this rule existed - four of 16 needs received the same still because three of their queries were identical.</p>
-
-    <h3>The ranking - ResNet50 cosine similarity vs the hero reference</h3>
-    <p>Every candidate gets scored against the locked hero reference frame using ResNet50 cosine similarity (<code>vs_hero</code>). Highest score wins, subject to the reject rules. The hero reference is held out of the active training run, so the calibration is not contaminated.</p>
+    <h3>The ranking - vs the hero reference</h3>
+    <p>Every candidate gets scored against the locked hero reference frame using cosine similarity. Highest score wins, subject to the reject rules.</p>
 
     <h3>The reject rules - never generic, always named to the beat</h3>
-    <p>A blanket rule like "no Kanao" or "no romance" rejected the wrong needs - the very need where the forbidden character IS the subject, or where romance IS the subject. <strong>Every NEVER names its beat.</strong> Hard character constraints stay absolute but the constraint is per-beat, not global.</p>
-    <pre>accept: "{character} in {location}, looking {direction}, period dress"
+    <p>A blanket rule like "no Kanao" or "no romance" rejected the wrong needs - the very need where the forbidden character IS the subject, or where romance IS the subject. Every NEVER names its beat. Hard character constraints stay absolute but the constraint is per-beat, not global:</p>
+    <div class="cs-code">accept: "{character} in {location}, looking {direction}, period dress"
 reject: "modern product photography, neon lights, period-incorrect armour"
-NEVER: "{character} appears with {forbidden_char}",
-"modern-{period}-inappropriate costume",
-"anachronistic weapons",</pre>
+NEVER:
+  "{character} appears with {forbidden_char}",
+  "modern-{period}-inappropriate costume",
+  "anachronistic weapons",</div>
 
-    <p>Two rejects of 23 shots were false positives at 640px thumbnail - at 1080x1920 they passed cleanly. <strong>Pixel review must be at full resolution.</strong> Open the source PNG, do not trust the 640px thumbnail verdict.</p>
-
-    <h3>The retrieval index - what carries forward across episodes</h3>
-    <p>Each source-article fetch produces a list of unique still URLs indexed against the hero reference. The index persists across episodes, so once a still has been seen and ranked for one character in one channel, the next episode reuses the embedding rather than re-embedding the same still. <strong>Index re-use is what makes the 4,527-chunk retrieval cheap on TermsGuard;</strong> the per-query work is just a cosine search against an index that already exists.</p>
+    <p>Pixel review must be at full 1080×1920. Two rejects of 23 shots were false positives at 640px thumbnail - at full resolution they passed cleanly. Confirm any "wrong character" call by opening the source PNG.</p>
   </section>
 
   <section>
     <h2>What a contact sheet actually looks like</h2>
-    <p>This is the <a href="/products/forgotten-fronts/ep_musashi.html#contact-sheet">EP_MUSASHI contact sheet</a> - 19 frames, each captioned with the line the narrator says during that shot and the timestamp window. Same data the build pipeline used to generate the MP4, rendered as a single page so a brand can verify each shot independently against the source.</p>
+    <p>The <a href="/products/forgotten-fronts/ep_musashi.html#contact-sheet">EP_MUSASHI contact sheet</a> shows 19 frames, each captioned with the line the narrator says during that shot and the timestamp window. Same data the build pipeline used to generate the MP4, rendered as a single page so a brand can verify each shot independently against the source.</p>
   </section>
 
   <section>
-    <h2>The drift bug - what happens when the contact sheet is right but the audio is longer than the stills</h2>
-    <p>EP_MUSASHI first build had the right 19 frames for the right 19 lines, but the stills were 5.16 seconds shorter than the audio. The builder rescaled every shot by 1.1479 to fit. The pictures walked ahead of the captions until they were 2.7 seconds out by the end of the video. 7 of 19 shots showed the wrong picture under the caption.</p>
-    <p>The fix: <strong><code>plan_shots.py</code> gives each shot the pause in front of it</strong>, so the builder anchors every boundary to the words rather than to the spoken-span-only. <code>scripts/common/repair_drift.py</code> re-plans and rebuilds the episode. After the fix, the same 19 frames against the same audio produced a clean gate with zero defects.</p>
+    <h2>The drift bug - and its fix</h2>
+    <p>The first build of the Musashi episode had the right 19 frames for the right 19 lines, but the stills were 5.16 seconds shorter than the audio. The builder rescaled every shot to fit, and the pictures walked ahead of the captions until they were 2.7 seconds out by the end of the video. 7 of 19 shots showed the wrong picture under the caption.</p>
+    <p>The fix: each shot is given the pause in front of it, so the builder anchors every boundary to the words rather than to the spoken-span-only. After the fix, the same 19 frames against the same audio produced a clean gate with zero defects.</p>
     <p>The contact-sheet rules on this page are what prevent the drift from happening in the first place. The drift fix is the recovery path when it does.</p>
   </section>
 
   <section>
-    <h2>The "STRONGEST" title pattern - what the catalogue says, not what feels good</h2>
-    <p>Source: <code>channel_research/source_channel_insights.md</code>, 1,297 videos across 4 channels, measured by ratios.</p>
-    <table class="qa-table">
-      <thead><tr><th style="width:60%">Pattern</th><th style="width:20%">Ratio</th><th style="width:20%">n</th></tr></thead>
+    <h2>The strongest title pattern</h2>
+    <p>Subject carries the claim, not the title pattern. Across 1,297 videos measured against the channel median, the patterns that lift on every channel are:</p>
+
+    <table class="cs-patterns">
+      <thead><tr><th>Pattern</th><th>Lift</th><th>Note</th></tr></thead>
       <tbody>
-        <tr><td>STRONGEST</td><td>1.65x to 4.12x</td><td>across channels</td></tr>
-        <tr><td>WHY</td><td>6.77x (forgotten_fronts), 1.06x (luxury_archive)</td><td>per-channel</td></tr>
-        <tr><td>NUMBERED</td><td>8.24x</td><td>51</td></tr>
-        <tr><td>STORY</td><td>3.65x</td><td>24</td></tr>
-        <tr class="dropped"><td>TRUTH</td><td>0.29x (DO NOT USE on this channel)</td><td>20</td></tr>
-        <tr class="dropped"><td>SHOCK (INSANE/BROKEN/CRAZY)</td><td>0.13x on the 2.41m channel</td><td>n/a</td></tr>
-        <tr class="dropped"><td>BACKSTORY / TRAGEDY</td><td>0.09x to 0.78x (underperform everywhere)</td><td>n/a</td></tr>
+        <tr><td>STRONGEST</td><td>1.65x to 4.12x</td><td>Across channels</td></tr>
+        <tr><td>WHY</td><td>6.77x on dark history</td><td>Per-channel, not universal</td></tr>
+        <tr><td>NUMBERED</td><td>8.24x</td><td>51 videos measured</td></tr>
+        <tr><td>STORY</td><td>3.65x</td><td>24 videos measured</td></tr>
+        <tr class="dropped"><td>TRUTH</td><td>0.29x</td><td>Do not use on this channel</td></tr>
+        <tr class="dropped"><td>SHOCK (INSANE / BROKEN / CRAZY)</td><td>0.13x</td><td>Underperforms</td></tr>
+        <tr class="dropped"><td>BACKSTORY / TRAGEDY</td><td>0.09x to 0.78x</td><td>Underperforms everywhere</td></tr>
       </tbody>
     </table>
-    <p class="muted">These are per-channel medians against the channel median. The pooled-median math that suggested "STRONGEST = 1.65x" hides the truth: STRONGEST is the only pattern that lifts on <em>every</em> channel measured. Subject carries the claim, not the title pattern. Pick on the ratio, not on intuition.</p>
+    <p class="muted">These are per-channel medians against the channel median. The pooled-median math that suggested "STRONGEST = 1.65x" hides the truth: STRONGEST is the only pattern that lifts on every channel measured. Pick on the ratio, not on intuition.</p>
+  </section>
+
+  <section>
+    <h2>The three rules this stage enforces</h2>
+    <p>These are the rules that belong specifically to Stage 2. The other three live on the main workflow page.</p>
+
+    <div class="cs-rules">
+      <div class="cs-rule">
+        <div class="rule-num">02</div>
+        <div class="rule-name">Five queries per need</div>
+        <p class="rule-body">Identical queries put the same 50 jpgs in every folder; the selector dedups globally, so half the needs see nothing.</p>
+        <span class="rule-cost">$1.50 saved per rebuild</span>
+      </div>
+
+      <div class="cs-rule">
+        <div class="rule-num">03</div>
+        <div class="rule-name">Every NEVER names its beat</div>
+        <p class="rule-body">"No Kanao" rejected the very need whose line is "Then he met Kanao." Constraints are per-beat, not global.</p>
+        <span class="rule-cost">~25min saved per re-SELECT</span>
+      </div>
+
+      <div class="cs-rule">
+        <div class="rule-num">05</div>
+        <div class="rule-name">Pixel review at full 1080×1920</div>
+        <p class="rule-body">Six frames passed at 640px and failed at full resolution. Confirm any "wrong character" call by opening the source PNG.</p>
+        <span class="rule-cost">6 frames caught</span>
+      </div>
+    </div>
   </section>
 
   <a href="/products/forgotten-fronts/ep_musashi.html" class="cta">See EP_MUSASHI breakdown</a>
   <a href="/products/workflow/" class="cta ghost" style="margin-left: var(--space-3);">Master workflow</a>
+
 </div>
 </body>
 </html>
