@@ -94,10 +94,20 @@ body a.cta-ghost:hover { color: var(--accent); border-bottom-color: var(--accent
 body .correction {
   background: transparent;
   border: none;
-  border-top: 1px solid var(--accent);
+  border-top: 1px solid var(--border);
   border-radius: 0;
   padding-left: 0;
   padding-right: 0;
+}
+/* The accent is a small marker at the start of the rule, not the whole rule.
+   A 900px line in --accent reads as an alarm bar, not an instrument readout. */
+body .correction::before {
+  content: "";
+  display: block;
+  width: 48px;
+  height: 2px;
+  background: var(--accent);
+  margin: calc(var(--space-2) * -1) 0 var(--space-4);
 }
 body .correction h2 { color: var(--text); }
 
