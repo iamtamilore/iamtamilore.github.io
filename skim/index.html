@@ -15,13 +15,48 @@
 <meta property="og:title" content="30-second skim | Taiwo Alabi">
 <meta property="og:description" content="Five projects, what each one prevents going wrong, the one number a recruiter needs.">
 <meta property="og:url" content="https://iamtamilore.github.io/skim/">
+<style>
+.skim-page { color: var(--text); font-family: 'Quicksand', var(--font); line-height: 1.55; max-width: 860px; margin: 0 auto; padding: var(--space-6) var(--space-4); }
+.skim-page .stamp { font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-3); margin-bottom: var(--space-2); }
+.skim-page h1 { font-size: var(--text-3xl); font-weight: 700; line-height: 1.1; margin-bottom: var(--space-3); }
+.skim-page .lede { font-size: var(--text-base); color: var(--text-2); margin-bottom: var(--space-10); max-width: 65ch; }
+.skim-entry { padding: var(--space-6) 0; border-bottom: 1px solid var(--border); }
+.skim-entry:last-of-type { border-bottom: none; }
+.skim-entry h2 { font-size: var(--text-2xl); font-weight: 700; margin: 0 0 var(--space-1); }
+.skim-entry .skim-line { font-size: var(--text-base); color: var(--text); margin: 0 0 var(--space-4); line-height: 1.5; font-weight: 500; }
+.skim-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-2); margin: 0 0 var(--space-3); }
+.skim-grid .row { display: grid; grid-template-columns: 130px 1fr; gap: var(--space-4); padding: var(--space-2) 0; border-bottom: 1px dashed var(--border); align-items: start; }
+.skim-grid .row:last-child { border-bottom: none; }
+.skim-grid .label { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-3); text-transform: uppercase; letter-spacing: 0.06em; padding-top: 2px; }
+.skim-grid .value { font-size: var(--text-sm); color: var(--text-2); line-height: 1.55; }
+.skim-grid .value strong { color: var(--text); font-weight: 600; }
+.skim-stack { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: var(--space-3) 0; }
+.skim-stack code { font-family: var(--font-mono); font-size: var(--text-xs); background: var(--bg-2); border: 1px solid var(--border); padding: 2px 8px; border-radius: 3px; color: var(--text-2); }
+.skim-links { display: flex; gap: var(--space-3); flex-wrap: wrap; margin-top: var(--space-3); }
+.skim-links a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent); font-size: var(--text-sm); padding-bottom: 1px; }
+.skim-links a:hover { color: var(--accent-2); border-bottom-color: var(--accent-2); }
+.skim-private { display: inline-block; font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-3); margin-left: var(--space-2); }
+.skim-footnote { margin-top: var(--space-10); padding: var(--space-6) 0; border-top: 1px solid var(--border); font-size: var(--text-sm); color: var(--text-2); line-height: 1.6; }
+.skim-footnote strong { color: var(--text); }
+.skim-meta { margin-top: var(--space-6); padding: var(--space-6); background: var(--bg-2); border: 1px solid var(--border); border-radius: 8px; font-size: var(--text-sm); color: var(--text-2); line-height: 1.6; }
+.skim-meta h2 { font-size: var(--text-base); font-weight: 700; color: var(--text); margin: 0 0 var(--space-3); }
+.skim-meta p { margin: 0 0 var(--space-3); }
+.skim-meta p:last-child { margin-bottom: 0; }
+.skim-foot { display: flex; justify-content: space-between; align-items: center; padding: var(--space-6) 0; margin-top: var(--space-8); border-top: 1px solid var(--border); font-size: var(--text-sm); color: var(--text-3); }
+.skim-foot a { color: var(--text-3); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+.skim-foot a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+@media (max-width: 600px) {
+  .skim-grid .row { grid-template-columns: 1fr; gap: var(--space-1); }
+  .skim-grid .label { padding-top: 0; }
+}
+</style>
 </head>
-<body>
+<body class="skim-page">
 
 <nav class="util" aria-label="Site">
   <a href="/">index</a>
   <a href="/cv/">cv</a>
-  <a href="/skim/">skim</a>
+  <a href="/skim/" aria-current="page">skim</a>
   <a href="/how/">how</a>
   <a href="/provenance/">logs</a>
   <a href="/tools/">tools</a>
@@ -30,76 +65,77 @@
   <a href="/jobs/">jobs</a>
 </nav>
 
-<div class="wrap">
-
-<header class="page-head">
-  <p class="stamp">skim &nbsp;·&nbsp; 60 seconds</p>
-  <h1 class="display">Five projects, what each one prevents going wrong.</h1>
-  <p class="lede">
-    Five projects, the failure mode each one defends against, the one number a recruiter
-    needs. The full write-up is one click deeper on every entry.
-  </p>
-</header>
-
-<main class="skim-grid">
+<p class="stamp">skim &nbsp;·&nbsp; 60 seconds</p>
+<h1>Five projects, what each one prevents going wrong.</h1>
+<p class="lede">
+  Five projects, the failure mode each one defends against, the one number a recruiter
+  needs. The full write-up is one click deeper on every entry.
+</p>
 
 <article class="skim-entry">
-  <header class="skim-head">
-    <h2>TermsGuard AI</h2>
-    <p class="skim-tag"><a href="https://newtazer-terms-guard-ai.hf.space" target="_blank" rel="noopener">Live demo &rarr;</a></p>
-  </header>
-  <p class="skim-line">Reads the small print in privacy policies and flags the parts that are unfair to you.</p>
-  <p class="skim-failure"><strong>Failure mode it prevents:</strong> a clause being labelled "checked by the model" when no model had actually looked at it. The previous build did that, silently. The current build runs the verifier on three routing paths with retry and surfaces any fallback as an error.</p>
-  <p class="skim-cost"><strong>Cost of being wrong:</strong> telling you your bank's terms are predatory when they are not. A bad warning is worse than no warning, because you stop reading the ones that matter.</p>
-  <p class="skim-headline"><strong>Headline:</strong> 102 hand-labelled reference clauses (52 fair, 50 unfair). 4,527 chunks of retrieval context. Up to 15 flagged clauses go to Claude for verification per analysis. Verified by a 12-case regression suite measured live on 25 October 2026.</p>
-  <p class="skim-limit"><strong>Honest limit:</strong> the retrieval index is mostly data-governance and GDPR context, only about 2 percent of it cites a GDPR article. The tool surfaces context, not regulation.</p>
-  <p class="skim-stack"><code>Sentence-BERT</code> <code>FAISS</code> <code>Claude API</code></p>
-  <p class="skim-links"><a href="/p/termsguard/">Full write-up &rarr;</a> &nbsp;·&nbsp; <a href="https://github.com/iamtamilore/terms-guard-ai" target="_blank" rel="noopener">Code &rarr;</a></p>
+  <h2>TermsGuard AI</h2>
+  <p class="skim-line">Reads the small print in a privacy policy and flags the unfair parts.</p>
+  <div class="skim-grid">
+    <div class="row"><div class="label">Failure mode it prevents</div><div class="value">A clause being labelled "checked by the model" when no model actually looked at it. The previous build did that, silently.</div></div>
+    <div class="row"><div class="label">Cost of being wrong</div><div class="value">Telling you your bank's terms are predatory when they are not. A bad warning is worse than no warning, because you stop reading the ones that matter.</div></div>
+    <div class="row"><div class="label">Headline number</div><div class="value"><strong>102 hand-labelled reference clauses (52 fair, 50 unfair).</strong> 4,527 chunks of retrieval context. A 12-case regression suite runs against the deployed service and currently passes 12 of 12 live.</div></div>
+    <div class="row"><div class="label">Honest limit</div><div class="value">The retrieval index is mostly data-governance and GDPR context. About 2% of it cites a GDPR article. The tool surfaces context, not regulation.</div></div>
+  </div>
+  <div class="skim-stack"><code>Sentence-BERT</code><code>FAISS</code><code>Claude API</code></div>
+  <div class="skim-links">
+    <a href="https://newtazer-terms-guard-ai.hf.space" target="_blank" rel="noopener">Try the live demo &rarr;</a>
+    <a href="/p/termsguard/">Full write-up &rarr;</a>
+    <a href="https://github.com/iamtamilore/terms-guard-ai" target="_blank" rel="noopener">Code &rarr;</a>
+  </div>
 </article>
 
 <article class="skim-entry">
-  <header class="skim-head">
-    <h2>Customer Care Process Automation</h2>
-    <p class="skim-tag"><a href="/p/care-agent/">Full write-up &rarr;</a></p>
-  </header>
+  <h2>Customer Care Process Automation</h2>
   <p class="skim-line">Two bots that took over two jobs I used to do by hand every morning at Huawei.</p>
-  <p class="skim-failure"><strong>Failure mode it prevents:</strong> a complaint being forced through to a team the classifier was unsure about. Below 0.55 confidence the ticket goes to a human instead of being routed.</p>
-  <p class="skim-cost"><strong>Cost of being wrong:</strong> a misrouted complaint costs the customer days of waiting. A needless escalation costs an agent five minutes. Wildly lopsided, so the gate is set to escalate freely.</p>
-  <p class="skim-headline"><strong>Headline:</strong> TF-IDF + Naive Bayes routes complaints to five back-end teams. 95.2% accuracy on 42 held-out tickets. Both errors were P_BILL and REFUND confusion, the one boundary the model cannot tell apart.</p>
-  <p class="skim-limit"><strong>Honest limit:</strong> 42 tickets is a thin evaluation. The 0.55 escalation threshold was set by judgement about the cost of a needless escalation, not swept.</p>
-  <p class="skim-stack"><code>Python</code> <code>scikit-learn</code> <code>BPMN 2.0</code></p>
-  <p class="skim-links"><a href="https://github.com/iamtamilore/customer-care-automation" target="_blank" rel="noopener">Code &rarr;</a></p>
+  <div class="skim-grid">
+    <div class="row"><div class="label">Failure mode it prevents</div><div class="value">A complaint being forced through to a team the classifier was unsure about. Below 0.55 confidence the ticket goes to a human instead of being routed.</div></div>
+    <div class="row"><div class="label">Cost of being wrong</div><div class="value">A misrouted complaint costs the customer days of waiting. A needless escalation costs an agent five minutes. Wildly lopsided, so the gate is set to escalate freely.</div></div>
+    <div class="row"><div class="label">Headline number</div><div class="value"><strong>95.2% accuracy on 42 held-out tickets.</strong> Both errors were P_BILL and REFUND confusion, the one boundary the model cannot tell apart.</div></div>
+    <div class="row"><div class="label">Honest limit</div><div class="value">42 tickets is a thin evaluation. The 0.55 escalation threshold was set by judgement about the cost of a needless escalation, not swept.</div></div>
+  </div>
+  <div class="skim-stack"><code>Python</code><code>scikit-learn</code><code>BPMN 2.0</code></div>
+  <div class="skim-links">
+    <a href="/p/care-agent/">Full write-up &rarr;</a>
+    <a href="https://github.com/iamtamilore/customer-care-automation" target="_blank" rel="noopener">Code &rarr;</a>
+  </div>
 </article>
 
 <article class="skim-entry">
-  <header class="skim-head">
-    <h2>Smart Medical Records Engine</h2>
-    <p class="skim-tag"><a href="/p/clinical-rag/">Full write-up &rarr;</a></p>
-  </header>
+  <h2>Smart Medical Records Engine</h2>
   <p class="skim-line">A doctor asks in plain English and gets the answer out of the patient's own file.</p>
-  <p class="skim-failure"><strong>Failure mode it prevents:</strong> the wrong patient's note being returned because it happens to be worded the same way. The retrieval query carries the patient_id, and the database filters on it before ranking.</p>
-  <p class="skim-cost"><strong>Cost of being wrong:</strong> a data breach, and possibly a wrong prescription. Too expensive to leave to a threshold, so this system has no dial in it at all. The failure is designed out at the query, not tuned down afterwards.</p>
-  <p class="skim-headline"><strong>Headline:</strong> self-hosted on the hospital's own machine. PII stripped pre-embedding. 30 adversarial probes designed to leak cross-patient. Zero leaked.</p>
-  <p class="skim-limit"><strong>Honest limit:</strong> designed and tested on synthetic records, not a hospital deployment. A real deployment is integration work, not model work.</p>
-  <p class="skim-stack"><code>FastAPI</code> <code>PostgreSQL + pgvector</code> <code>Llama 3.1</code> <code>LangGraph</code> <code>Docker</code></p>
-  <p class="skim-links"><a href="https://github.com/iamtamilore/agentic_rag_fastapi" target="_blank" rel="noopener">Code &rarr;</a></p>
+  <div class="skim-grid">
+    <div class="row"><div class="label">Failure mode it prevents</div><div class="value">A different patient's note being returned because it happens to be worded the same way. The retrieval query carries the patient_id, and the database filters on it before ranking.</div></div>
+    <div class="row"><div class="label">Cost of being wrong</div><div class="value">A data breach, and possibly a wrong prescription. Too expensive to leave to a threshold, so this system has no dial in it at all. The failure is designed out at the query, not tuned down afterwards.</div></div>
+    <div class="row"><div class="label">Headline number</div><div class="value"><strong>30 adversarial probes designed to leak cross-patient data, zero leaks.</strong> Self-hosted on the hospital's own machine. PII stripped pre-embedding.</div></div>
+    <div class="row"><div class="label">Honest limit</div><div class="value">Designed and tested on synthetic records, not a hospital deployment. A real deployment is integration work, not model work.</div></div>
+  </div>
+  <div class="skim-stack"><code>FastAPI</code><code>PostgreSQL + pgvector</code><code>Llama 3.1</code><code>LangGraph</code><code>Docker</code></div>
+  <div class="skim-links">
+    <a href="/p/clinical-rag/">Full write-up &rarr;</a>
+    <a href="https://github.com/iamtamilore/agentic_rag_fastapi" target="_blank" rel="noopener">Code &rarr;</a>
+  </div>
 </article>
 
 <article class="skim-entry">
-  <header class="skim-head">
-    <h2>Image QA Gate <span class="skim-private">(private until graded)</span></h2>
-    <p class="skim-tag"><a href="/p/image-qa/">Full write-up &rarr;</a></p>
-  </header>
+  <h2>Image QA Gate <span class="skim-private">(private until graded)</span></h2>
   <p class="skim-line">Catches the moment an AI-generated model stops being the same person.</p>
-  <p class="skim-failure"><strong>Failure mode it prevents:</strong> a quality gate that cries wolf. A gate that flags good images gets switched off inside a week, and then it is protecting nobody.</p>
-  <p class="skim-cost"><strong>Cost of being wrong:</strong> the wrongly accepted image, not the missed one. Zero false acceptances was the target, not a bonus.</p>
-  <p class="skim-headline"><strong>Headline:</strong> Siamese network over frozen ResNet50 features. F1 0.90, ROC-AUC 1.00, precision 1.00 on 90 sealed test pairs. Two baselines lose: pixel difference at F1 0.59, kNN at F1 0.26.</p>
-  <p class="skim-limit"><strong>Honest limit:</strong> 90 pairs is too few to rule out luck as the explanation for the gap to the baselines. McNemar's test is underpowered.</p>
-  <p class="skim-stack"><code>TensorFlow</code> <code>ResNet50</code> <code>Siamese networks</code></p>
-  <p class="skim-links">&nbsp;</p>
+  <div class="skim-grid">
+    <div class="row"><div class="label">Failure mode it prevents</div><div class="value">A quality gate that cries wolf. A gate that flags good images gets switched off inside a week, and then it is protecting nobody.</div></div>
+    <div class="row"><div class="label">Cost of being wrong</div><div class="value">The wrongly accepted image, not the missed one. Zero false acceptances was the target, not a bonus.</div></div>
+    <div class="row"><div class="label">Headline number</div><div class="value"><strong>F1 0.90 on 90 sealed test pairs.</strong> ROC-AUC 1.00, precision 1.00. Two baselines lose: pixel difference at F1 0.59, kNN at F1 0.26.</div></div>
+    <div class="row"><div class="label">Honest limit</div><div class="value">90 pairs is too few to rule out luck as the explanation for the gap to the baselines. McNemar's test is underpowered.</div></div>
+  </div>
+  <div class="skim-stack"><code>TensorFlow</code><code>ResNet50</code><code>Siamese networks</code></div>
+  <div class="skim-links">
+    <a href="/p/image-qa/">Full write-up &rarr;</a>
+    <a href="https://github.com/iamtamilore/campaign-image-qa" target="_blank" rel="noopener">Code &rarr;</a>
+  </div>
 </article>
-
-</main>
 
 <section class="skim-footnote">
   <p>
@@ -118,11 +154,10 @@
   <p><strong>This is not:</strong> an alternative to the homepage. The homepage is the project card grid for someone choosing what to read. This page is for the recruiter who wants to read more than a card but less than a write-up.</p>
 </section>
 
-<footer class="skim-foot">
-  <p><a href="/">&larr; Home</a> &nbsp;·&nbsp; <a href="/cv/">CV</a></p>
-  <p class="skim-credit">Taiwo Alabi &middot; Dublin, Ireland</p>
-</footer>
-
+<div class="skim-foot">
+  <div><a href="/">&larr; Home</a> &nbsp;·&nbsp; <a href="/cv/">CV</a></div>
+  <div>Taiwo Alabi &middot; Dublin, Ireland</div>
 </div>
+
 </body>
 </html>
