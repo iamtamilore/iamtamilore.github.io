@@ -16,10 +16,30 @@
 <meta property="og:url" content="https://iamtamilore.github.io/p/termsguard/">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary_large_image">
+<style>
+/* Project-page shell from design-pipeline */
+.pg-hero { width: 100%; height: auto; border: 1px solid var(--border); border-radius: 8px; margin: 0 0 var(--space-8); display: block; background: var(--bg-3); }
+.pg-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 0 0 var(--space-8); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.pg-stat { padding: var(--space-5) var(--space-3); text-align: center; border-right: 1px solid var(--border); }
+.pg-stat:last-child { border-right: none; }
+.pg-stat .pg-num { font-family: var(--font-mono); font-size: var(--text-2xl); font-weight: 700; color: var(--accent); display: block; line-height: 1.1; margin-bottom: var(--space-1); }
+.pg-stat .pg-lab { font-size: var(--text-xs); color: var(--text-3); line-height: 1.3; }
+.pg-cta-row { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: var(--space-6) 0 var(--space-10); padding-top: var(--space-6); border-top: 1px solid var(--border); }
+.pg-cta { display: inline-block; padding: 8px 16px; background: var(--accent); color: var(--bg) !important; border-radius: 999px; text-decoration: none; font-size: var(--text-sm); font-weight: 700; border-bottom: none; }
+.pg-cta:hover { background: var(--accent-2, var(--accent)); }
+.pg-cta-ghost { display: inline-block; padding: 8px 16px; background: transparent; color: var(--text-2); border: 1px solid var(--border); border-radius: 999px; text-decoration: none; font-size: var(--text-sm); border-bottom: none; }
+.pg-cta-ghost:hover { border-color: var(--accent); color: var(--accent); }
+.pg-back { display: inline-flex; align-items: center; gap: 4px; color: var(--text-3); font-size: var(--text-sm); text-decoration: none; border-bottom: none; padding: 4px 0; }
+.pg-back:hover { color: var(--accent); }
+@media (max-width: 700px) {
+  .pg-stats { grid-template-columns: repeat(2, 1fr); }
+  .pg-stat:nth-child(2) { border-right: none; }
+}
+</style>
 </head>
 <body>
 <div class="topbar">
-  <a href="/#termsguard">&larr; All work</a>
+  <a class="pg-back" data-back-link href="/" rel="prev"><span aria-hidden="true">←</span> <span data-back-label>Back to projects</span></a>
 </div>
 <div class="wrap">
 <hr class="rule"><h1 id="termsguard-ai">TermsGuard AI</h1>
@@ -43,6 +63,10 @@ Ireland</p>
 href="https://newtazer-terms-guard-ai.hf.space">https://newtazer-terms-guard-ai.hf.space</a>
 Source: <a
 href="https://github.com/iamtamilore/terms-guard-ai">https://github.com/iamtamilore/terms-guard-ai</a></p>
+
+<img class="pg-hero" src="/assets/img/p/termsguard_hero.jpg" alt="" loading="lazy" width="1280" height="720">
+
+<div class="pg-stats"><div class="pg-stat"><span class="pg-num">102</span><span class="pg-lab">hand-labelled reference clauses</span></div><div class="pg-stat"><span class="pg-num">12</span><span class="pg-lab">regression cases</span></div><div class="pg-stat"><span class="pg-num">12 / 12</span><span class="pg-lab">passing live</span></div><div class="pg-stat"><span class="pg-num">< 10s</span><span class="pg-lab">per policy on the live demo</span></div></div>
 <hr />
 <div class="toc"><h3 style="margin-top:0">Contents</h3><ol>
 <li><a href="#1-the-problem">The problem</a></li>
@@ -251,6 +275,8 @@ sentence's meaning, like turning "we sell your data" into "we do
   <a class="cta cta-ghost" href="/cv/">CV</a>
   <a class="cta cta-ghost" href="https://github.com/iamtamilore">GitHub</a>
 </div>
+<div class="pg-cta-row"><a class="pg-cta" href="https://newtazer-terms-guard-ai.hf.space" target="_blank" rel="noopener">Try the live demo</a><a class="pg-cta" href="/assets/docs/termsguard_writeup.pdf">Read the case study PDF</a><a class="pg-cta" href="https://github.com/iamtamilore/terms-guard-ai" target="_blank" rel="noopener">Read the source</a></div>
+
 <footer>
   <div>Taiwo Alabi &middot; <a href="mailto:newalabitaiwo625@gmail.com">newalabitaiwo625@gmail.com</a>
    &middot; <a href="https://www.linkedin.com/in/tami-alabi/">LinkedIn</a>
