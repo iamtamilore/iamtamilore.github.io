@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tools | Taiwo Alabi</title>
-<meta name="description" content="Hub for every active URL from the OCR / image-generation experiment: rater UI, Mohit's image generator, the portfolio, and the CV.">
+<meta name="description" content="The tools behind the work: CV, TermsGuard live demo, the portfolio, the rater UI, and the image generator.">
 <script>document.documentElement.setAttribute("data-theme",localStorage.getItem("tw-theme")||"")</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
 <link rel="stylesheet" href="/assets/css/design-system.css">
 <link rel="stylesheet" href="/assets/css/landing.css">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231a1816'/><text y='72' x='50' font-size='62' text-anchor='middle' fill='%23c45a1f' font-family='sans-serif' font-weight='bold'>T</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231a1816'/><text y='73' x='50' font-size='64' text-anchor='middle' fill='%23c45a1f' font-family='sans-serif' font-weight='bold'>T</text></svg>">
 <style>
 .tools-page { color: var(--text); font-family: 'Space Grotesk', var(--font); line-height: 1.5; }
 .tools-wrap { max-width: 980px; margin: 0 auto; padding: var(--space-10) var(--space-5) var(--space-12); }
@@ -19,28 +19,37 @@
 .tools-lede { font-size: var(--text-base); color: var(--text-2); max-width: 60ch; margin: 0 0 var(--space-10); line-height: 1.6; }
 .tools-meta { display: flex; gap: var(--space-3); flex-wrap: wrap; margin-bottom: var(--space-8); font-size: var(--text-xs); color: var(--text-3); }
 .tools-meta .pill { display: inline-block; padding: 4px 10px; background: var(--bg-2); border: 1px solid var(--border); border-radius: 20px; }
-.tool-card { background: var(--bg-2); border: 1px solid var(--border); border-radius: 10px; padding: var(--space-6); margin-bottom: var(--space-5); transition: border-color 0.15s ease; }
-.tool-card:hover { border-color: var(--accent); }
-.tool-card.live { border-left: 3px solid #28a745; }
-.tool-card.beta  { border-left: 3px solid #d4a017; }
-.tool-card.static { border-left: 3px solid #5b9bd5; }
-.tool-status { display: inline-block; font-size: var(--text-xs); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.06em; padding: 2px 8px; border-radius: 3px; margin-left: var(--space-3); }
-.tool-status.live { background: #28a74522; color: #28a745; }
-.tool-status.beta { background: #d4a01722; color: #d4a017; }
-.tool-status.static { background: #5b9bd522; color: #5b9bd5; }
-.tool-title { font-size: var(--text-xl); font-weight: 700; margin: 0 0 var(--space-2); color: var(--text); }
-.tool-desc { font-size: var(--text-sm); color: var(--text-2); margin: 0 0 var(--space-4); line-height: 1.6; max-width: 70ch; }
-.tool-meta-row { display: flex; flex-wrap: wrap; gap: var(--space-4); margin-bottom: var(--space-3); font-size: var(--text-xs); color: var(--text-3); }
-.tool-meta-row code { font-family: var(--font-mono); background: var(--bg-3); padding: 2px 6px; border-radius: 3px; font-size: var(--text-xs); color: var(--text-2); }
-.tool-actions { display: flex; gap: var(--space-3); flex-wrap: wrap; }
-.tool-cta { display: inline-block; padding: 10px 18px; background: var(--accent); color: var(--bg); border-radius: 6px; text-decoration: none; font-size: var(--text-sm); font-weight: 500; border-bottom: none; }
-.tool-cta:hover { background: var(--accent-2, var(--accent)); color: var(--bg); }
-.tool-cta-ghost { display: inline-block; padding: 10px 18px; background: transparent; color: var(--text-2); border: 1px solid var(--border); border-radius: 6px; text-decoration: none; font-size: var(--text-sm); }
-.tool-cta-ghost:hover { border-color: var(--text-3); color: var(--text); }
-.tool-note { margin-top: var(--space-4); padding: var(--space-3) var(--space-4); background: var(--bg-3); border-left: 3px solid var(--text-3); font-size: var(--text-xs); color: var(--text-3); border-radius: 0 4px 4px 0; }
-.tool-note strong { color: var(--text-2); }
-.tools-footer { margin-top: var(--space-10); padding-top: var(--space-6); border-top: 1px solid var(--border); font-size: var(--text-xs); color: var(--text-3); text-align: center; }
 .tools-hero { width: 100%; height: auto; border: 1px solid var(--border); border-radius: 8px; margin: 0 0 var(--space-8); display: block; }
+
+/* new card grammar: thumbnail + body */
+.tool-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; margin-bottom: var(--space-5); overflow: hidden; display: grid; grid-template-columns: 120px 1fr; gap: 0; transition: border-color 0.15s ease; }
+.tool-card:hover { border-color: var(--accent); }
+.tool-card .tool-thumb { width: 120px; height: 100%; min-height: 200px; object-fit: cover; display: block; }
+.tool-card .tool-body { padding: var(--space-5); }
+.tool-card h2 { font-size: var(--text-xl); font-weight: 700; margin: 0 0 var(--space-1); color: var(--text); display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; }
+.tool-status { display: inline-block; font-size: var(--text-xs); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.06em; padding: 2px 8px; border-radius: 3px; font-weight: 500; }
+.tool-status.live { background: #2a7a3a22; color: var(--live); }
+.tool-status.static { background: var(--bg-2); color: var(--text-3); }
+.tool-summary { font-size: var(--text-base); color: var(--text); margin: 0 0 var(--space-3); line-height: 1.5; font-weight: 500; }
+.tool-desc { font-size: var(--text-sm); color: var(--text-2); margin: 0 0 var(--space-4); line-height: 1.6; max-width: 70ch; }
+.tool-actions { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-bottom: var(--space-3); }
+.tool-cta { display: inline-block; padding: 8px 16px; background: var(--accent); color: var(--bg) !important; border-radius: 999px; text-decoration: none; font-size: var(--text-sm); font-weight: 700; border-bottom: none; }
+.tool-cta:hover { background: var(--accent-2, var(--accent)); }
+.tool-cta-ghost { display: inline-block; padding: 8px 16px; background: transparent; color: var(--text-2); border: 1px solid var(--border); border-radius: 999px; text-decoration: none; font-size: var(--text-sm); border-bottom: none; }
+.tool-cta-ghost:hover { border-color: var(--accent); color: var(--accent); }
+.tool-detail { border-top: 1px solid var(--border); padding-top: var(--space-3); margin-top: var(--space-2); }
+.tool-detail summary { font-size: var(--text-xs); color: var(--text-3); cursor: pointer; font-family: var(--font-mono); padding: 4px 0; list-style: none; user-select: none; }
+.tool-detail summary::before { content: "+  "; color: var(--accent); font-weight: 700; }
+.tool-detail[open] summary::before { content: "−  "; }
+.tool-detail[open] summary { margin-bottom: var(--space-2); }
+.tool-detail-body { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-3); line-height: 1.7; padding: var(--space-3) 0 0; }
+.tool-detail-body code { background: var(--bg-2); padding: 2px 6px; border-radius: 3px; color: var(--text-2); }
+.tools-footer { margin-top: var(--space-10); padding-top: var(--space-6); border-top: 1px solid var(--border); font-size: var(--text-xs); color: var(--text-3); text-align: center; }
+
+@media (max-width: 600px) {
+  .tool-card { grid-template-columns: 1fr; }
+  .tool-card .tool-thumb { width: 100%; height: 200px; min-height: 0; }
+}
 </style>
 </head>
 <body class="tools-page">
@@ -60,96 +69,108 @@
 <div class="tools-wrap">
 
   <h1 class="tools-h1">Tools</h1>
-  <p class="tools-lede">Every URL the work produces lives here, behind one hub page. Each tool below is the one canonical URL for that surface.</p>
+  <p class="tools-lede">The tools behind the work. Each one is something you can click right now to see the engineering, not read about it.</p>
 
   <div class="tools-meta">
-    <span class="pill">Hub updated 2026-10-23</span>
+    <span class="pill">Hub updated 2026-10-28</span>
     <span class="pill">All links route through iamtamilore.github.io</span>
   </div>
 
-  
   <img class="tools-hero" src="/assets/img/hero/tools.jpg" alt="Overhead view of four dark modules in the corners of a warm grey surface, each with a thin line routing inward to one small glowing burnt-orange square at the centre" loading="lazy">
-<div class="tool-card static">
-    <h2 class="tool-title">OCR Rater UI <span class="tool-status static">Static · github.io</span></h2>
-    <p class="tool-desc">
-      Pure client-side rater for the P1 garment-OCR accuracy study. 80 items, four
-      conditions (A / B / C / D), three judgements per item (correct / incorrect /
-      skip). Progress and answers live in the rater's browser; export is a single
-      JSON file the rater emails back. No backend, no account, no tracking.
-    </p>
-    <div class="tool-meta-row">
-      <span>Public URL: <code>https://iamtamilore.github.io/rater/</code></span>
-      <span>Per-rater URLs: <code>?rater=&lt;id&gt;&amp;token=&lt;32-char secret&gt;</code></span>
-    </div>
-    <div class="tool-actions">
-      <a class="tool-cta" href="/rater/" target="_blank" rel="noopener">Open rater UI</a>
-      <a class="tool-cta-ghost" href="/rater/mint.py" target="_blank" rel="noopener">mint.py (CLI for per-rater URLs)</a>
-    </div>
-    <div class="tool-note">
-      <strong>For raters:</strong> the URL I send you already has your <code>?rater=</code>
-      and <code>?token=</code> filled in. Bookmark it &mdash; that is the recovery
-      path if you close the tab. When you finish, click "Download my ratings (JSON)"
-      and send the file back.
-    </div>
-  </div>
 
-  <div class="tool-card live">
-    <h2 class="tool-title">Image Generator (Mohit's UI) <span class="tool-status live">Live · Tailscale funnel</span></h2>
-    <p class="tool-desc">
-      Flask app for the image-generation experiment &mdash; prompt, four conditions
-      (A no-asset / B reference / C edit / D edit-with-reference), gallery of
-      generated images, OCR accuracy feed. Used by the second author of the
-      study to run the conditions end to end and inspect outputs without leaving
-      the experiment folder.
-    </p>
-    <div class="tool-meta-row">
-      <span>Public URL: <code>https://newtazer.tail1075c4.ts.net/</code></span>
-      <span>Backing: Flask on <code>:8763</code> behind Tailscale funnel</span>
+  <article class="tool-card">
+    <img class="tool-thumb" src="/assets/img/tools/cv.jpg" alt="A printed CV page on a warm grey desk, glasses on the upper right corner, a small burnt-orange link line at the bottom" loading="lazy">
+    <div class="tool-body">
+      <h2>The CV <span class="tool-status static">Static · github.io</span></h2>
+      <p class="tool-summary">Full CV with project write-ups, the framing grammar, and every code repo linked out.</p>
+      <div class="tool-actions">
+        <a class="tool-cta" href="/cv/">Open CV</a>
+        <a class="tool-cta-ghost" href="/assets/Taiwo_Alabi_CV.pdf" target="_blank" rel="noopener">Download PDF</a>
+      </div>
+      <details class="tool-detail">
+        <summary>URLs and files</summary>
+        <div class="tool-detail-body">
+          Page: <code>/cv/</code> &middot; PDF mirror: <code>/assets/Taiwo_Alabi_CV.pdf</code> &middot; Hosted on GitHub Pages.
+        </div>
+      </details>
     </div>
-    <div class="tool-actions">
-      <a class="tool-cta" href="https://newtazer.tail1075c4.ts.net/" target="_blank" rel="noopener">Open generator</a>
-    </div>
-    <div class="tool-note">
-      <strong>How it's served:</strong> the funnel proxies to a small reverse
-      router on localhost (<code>:9000</code>) that forwards <code>/</code> to
-      the Flask UI and <code>/garments/</code>, <code>/audition/</code>,
-      <code>/uploads/</code> to the asset ref-server (<code>:8799</code>) so
-      kie.ai can fetch local references. The top-right of the generator now has
-      a "back to hub" link to this page.
-    </div>
-  </div>
+  </article>
 
-  <div class="tool-card static">
-    <h2 class="tool-title">Portfolio <span class="tool-status static">Static · github.io</span></h2>
-    <p class="tool-desc">
-      The main personal site. Data governance and telecom analytics work,
-      project write-ups, links to every repo. This is the URL I put on the CV
-      and the one I send first.
-    </p>
-    <div class="tool-meta-row">
-      <span>Public URL: <code>https://iamtamilore.github.io/</code></span>
+  <article class="tool-card">
+    <img class="tool-thumb" src="/assets/img/tools/termsguard.jpg" alt="A printed privacy policy page on a warm grey desk with one paragraph circled in burnt-orange ink and a red pen resting on it" loading="lazy">
+    <div class="tool-body">
+      <h2>TermsGuard AI <span class="tool-status live">Live · HuggingFace</span></h2>
+      <p class="tool-summary">Reads the small print in a privacy policy and flags the unfair parts.</p>
+      <p class="tool-desc">Cosine similarity alone marks "we do not sell your data" as a violation, so a model verifier sits on top and rules on what is left. 102 reference clauses. 12-case regression suite runs against the deployed service, not a notebook.</p>
+      <div class="tool-actions">
+        <a class="tool-cta" href="https://newtazer-terms-guard-ai.hf.space" target="_blank" rel="noopener">Try the live demo</a>
+        <a class="tool-cta-ghost" href="/p/termsguard/">Case study</a>
+        <a class="tool-cta-ghost" href="https://github.com/iamtamilore/terms-guard-ai" target="_blank" rel="noopener">Code</a>
+      </div>
+      <details class="tool-detail">
+        <summary>URLs and files</summary>
+        <div class="tool-detail-body">
+          Live demo: <code>https://newtazer-terms-guard-ai.hf.space</code> &middot; Case study: <code>/p/termsguard/</code> &middot; Repo: <code>github.com/iamtamilore/terms-guard-ai</code>
+        </div>
+      </details>
     </div>
-    <div class="tool-actions">
-      <a class="tool-cta" href="/" target="_blank" rel="noopener">Open portfolio</a>
-    </div>
-  </div>
+  </article>
 
-  <div class="tool-card static">
-    <h2 class="tool-title">CV <span class="tool-status static">Static · github.io</span></h2>
-    <p class="tool-desc">
-      Full CV with project write-ups, the framing grammar from the dissertation,
-      and every code repo linked out. Mirror of the PDF version at
-      <code>/assets/Taiwo_Alabi_CV.pdf</code>.
-    </p>
-    <div class="tool-meta-row">
-      <span>Public URL: <code>https://iamtamilore.github.io/cv/</code></span>
-      <span>PDF: <code>/assets/Taiwo_Alabi_CV.pdf</code></span>
+  <article class="tool-card">
+    <img class="tool-thumb" src="/assets/img/tools/portfolio.jpg" alt="An open notebook on a warm grey desk, one page blank, the other showing three connected nodes drawn in near-black ink with the top node circled in burnt orange" loading="lazy">
+    <div class="tool-body">
+      <h2>Portfolio <span class="tool-status static">Static · github.io</span></h2>
+      <p class="tool-summary">The main personal site. Project write-ups, the four-systems grid, the channel work, every repo linked out.</p>
+      <div class="tool-actions">
+        <a class="tool-cta" href="/">Open portfolio</a>
+        <a class="tool-cta-ghost" href="/products/episodes">Episodes &amp; channels</a>
+        <a class="tool-cta-ghost" href="/provenance/">Every call log</a>
+      </div>
+      <details class="tool-detail">
+        <summary>URLs and files</summary>
+        <div class="tool-detail-body">
+          Home: <code>/</code> &middot; Channels: <code>/channels/</code> &middot; Provenance: <code>/provenance/</code> &middot; Jobs: <code>/jobs/</code>
+        </div>
+      </details>
     </div>
-    <div class="tool-actions">
-      <a class="tool-cta" href="/cv/" target="_blank" rel="noopener">Open CV</a>
-      <a class="tool-cta-ghost" href="/assets/Taiwo_Alabi_CV.pdf" target="_blank" rel="noopener">Download PDF</a>
+  </article>
+
+  <article class="tool-card">
+    <img class="tool-thumb" src="/assets/img/tools/rater.jpg" alt="A laptop showing a checkbox grid with several cells ticked and crossed out, beside a printed paper questionnaire with the same grid and a pen" loading="lazy">
+    <div class="tool-body">
+      <h2>OCR Rater UI <span class="tool-status static">Static · github.io</span></h2>
+      <p class="tool-summary">Rater UI for the image-generation study. Eighty garments, four conditions, human-rated, blind.</p>
+      <p class="tool-desc">Per-rater URLs carry a token so each rater's progress lives in their browser. Export is a single JSON file the rater emails back. No backend, no account, no tracking.</p>
+      <div class="tool-actions">
+        <a class="tool-cta" href="/rater/" target="_blank" rel="noopener">Open rater UI</a>
+        <a class="tool-cta-ghost" href="/rater/mint.py" target="_blank" rel="noopener">mint.py (CLI)</a>
+      </div>
+      <details class="tool-detail">
+        <summary>URLs and files</summary>
+        <div class="tool-detail-body">
+          Public URL: <code>https://iamtamilore.github.io/rater/</code> &middot; Per-rater URLs: <code>?rater=&lt;id&gt;&amp;token=&lt;32-char secret&gt;</code>
+        </div>
+      </details>
     </div>
-  </div>
+  </article>
+
+  <article class="tool-card">
+    <img class="tool-thumb" src="/assets/img/tools/generator.jpg" alt="A small server box on a warm grey desk with status LEDs, beside a 4-by-3 printed grid of small garment images" loading="lazy">
+    <div class="tool-body">
+      <h2>Image Generator (Mohit's UI) <span class="tool-status live">Live · Tailscale funnel</span></h2>
+      <p class="tool-summary">Flask app for the image-generation study. Four conditions, gallery of generated images, OCR accuracy feed.</p>
+      <p class="tool-desc">Used by the second author of the study to run the four conditions end to end and inspect outputs without leaving the experiment folder.</p>
+      <div class="tool-actions">
+        <a class="tool-cta" href="https://newtazer.tail1075c4.ts.net/" target="_blank" rel="noopener">Open generator</a>
+      </div>
+      <details class="tool-detail">
+        <summary>URLs and files</summary>
+        <div class="tool-detail-body">
+          Public URL: <code>https://newtazer.tail1075c4.ts.net/</code> &middot; Flask on <code>:8763</code> behind Tailscale funnel &middot; Asset ref-server on <code>:8799</code> so kie.ai can fetch local references.
+        </div>
+      </details>
+    </div>
+  </article>
 
   <p class="tools-footer">
     Built as part of the dissertation tool chain. Hub regenerates from
