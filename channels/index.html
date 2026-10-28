@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="/assets/css/mark-zero.css">
 <meta name="description" content="Five channels. One five-stage pipeline. Every episode auditable end-to-end.">
 <style>
-body { color: var(--text); font-family: 'Quicksand', var(--font); line-height: 1.5; max-width: 860px; margin: 0 auto; padding: var(--space-6) var(--space-4); }
+body { color: var(--text); font-family: 'Quicksand', var(--font); line-height: 1.5; max-width: 1100px; margin: 0 auto; padding: var(--space-6) var(--space-4); }
 .ch-topbar { display: flex; justify-content: space-between; align-items: center; padding: var(--space-4) 0; margin-bottom: var(--space-6); border-bottom: 1px solid var(--border); }
 .ch-topbar a { color: var(--text-3); font-size: var(--text-sm); text-decoration: none; border-bottom: none; }
 h1 { font-size: var(--text-3xl); font-weight: 700; margin-bottom: var(--space-2); }
@@ -20,15 +20,24 @@ h2 { font-size: var(--text-2xl); font-weight: 700; color: #5B9BD5; margin-top: v
 h3 { font-size: var(--text-lg); font-weight: 700; color: var(--text); margin-top: var(--space-6); margin-bottom: var(--space-2); }
 p { font-size: var(--text-sm); color: var(--text-2); line-height: 1.6; margin-bottom: var(--space-3); }
 .ch-lede { font-size: var(--text-base); color: var(--text-2); margin-bottom: var(--space-8); max-width: 65ch; }
-.ch-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-5); margin-top: var(--space-6); }
-.ch-card { display: grid; grid-template-columns: 120px 1fr; gap: var(--space-5); padding: var(--space-5); background: var(--surface-1); border: 1px solid var(--border); border-radius: 8px; }
-.ch-card .thumb { width: 120px; height: 120px; object-fit: cover; border-radius: 4px; }
-.ch-card .name { font-family: var(--font-mono); font-size: var(--text-base); color: var(--text); margin-bottom: var(--space-1); }
-.ch-card .handle { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-3); margin-bottom: var(--space-2); }
-.ch-card .identity { font-size: var(--text-sm); color: var(--text-2); line-height: 1.5; margin-bottom: var(--space-2); }
-.ch-card .proof { font-size: var(--text-sm); color: var(--text); margin-bottom: var(--space-2); }
-.ch-card .proof strong { color: #c45a1f; font-weight: 700; }
-.ch-card .stat { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-3); border-top: 1px solid var(--border); padding-top: var(--space-2); margin-top: var(--space-2); }
+
+/* Gallery: each channel is a 2-column card - video on left, info on right */
+.ch-gallery { display: grid; grid-template-columns: 1fr; gap: var(--space-6); margin-top: var(--space-6); }
+.ch-card { display: grid; grid-template-columns: 240px 1fr; gap: var(--space-5); padding: var(--space-5); background: var(--surface-1); border: 1px solid var(--border); border-radius: 8px; align-items: start; }
+.ch-card .video-wrap { width: 240px; }
+.ch-card video { width: 240px; height: 426px; object-fit: cover; border-radius: 4px; display: block; background: #000; }
+.ch-card .info .name { font-family: var(--font-mono); font-size: var(--text-base); color: var(--text); margin-bottom: var(--space-1); }
+.ch-card .info .handle { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-3); margin-bottom: var(--space-3); }
+.ch-card .info .identity { font-size: var(--text-sm); color: var(--text-2); line-height: 1.5; margin-bottom: var(--space-3); }
+.ch-card .info .proof { font-size: var(--text-sm); color: var(--text); margin-bottom: var(--space-3); }
+.ch-card .info .proof strong { color: #c45a1f; font-weight: 700; }
+.ch-card .info .stat { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-3); border-top: 1px solid var(--border); padding-top: var(--space-2); margin-top: var(--space-3); }
+.ch-card .info .breakdown { display: inline-block; margin-top: var(--space-3); padding: 6px 14px; border: 1px solid var(--border); border-radius: 999px; font-size: var(--text-xs); color: var(--text); text-decoration: none; }
+.ch-card .info .breakdown:hover { background: var(--surface-1); border-color: #c45a1f; color: #c45a1f; }
+.ch-card.empty { grid-template-columns: 240px 1fr; }
+.ch-card.empty .placeholder { width: 240px; height: 426px; background: var(--bg-3); border: 1px dashed var(--border); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-3); }
+
+/* Pipeline diagram */
 .ch-pipeline-img { width: 100%; height: auto; border: 1px solid var(--border); border-radius: 8px; margin: var(--space-4) 0; display: block; }
 .ch-stages { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--space-2); margin: var(--space-3) 0 var(--space-6); }
 .ch-stage { padding: var(--space-3); background: var(--surface-1); border: 1px solid var(--border); border-radius: 4px; text-align: center; }
@@ -36,19 +45,27 @@ p { font-size: var(--text-sm); color: var(--text-2); line-height: 1.6; margin-bo
 .ch-stage .stage-rule { font-size: var(--text-xs); color: var(--text-3); margin-top: var(--space-1); }
 .ch-stage.gate { border-color: #c45a1f; }
 .ch-stage.gate .stage-name { color: #c45a1f; }
+
+/* QA gate table */
 .md-table { width: 100%; border-collapse: collapse; margin: var(--space-3) 0; font-size: var(--text-sm); }
 .md-table th, .md-table td { padding: var(--space-2); text-align: left; border-bottom: 1px solid var(--border); }
 .md-table th { color: var(--text-3); font-weight: 600; }
 .md-table td { color: var(--text-2); }
 .md-table td:first-child { font-family: var(--font-mono); color: var(--text); }
+
 strong { color: var(--text); font-weight: 600; }
 em { color: var(--text); font-style: italic; }
 code { font-family: var(--font-mono); font-size: 0.92em; padding: 1px 4px; background: var(--surface-1); border-radius: 3px; }
+
 .ch-cta { display: inline-block; padding: 10px 18px; border-radius: 999px; background: #5B9BD5; color: #0c1018 !important; font-weight: 700; text-decoration: none; border-bottom: none; margin-right: var(--space-3); }
 .ch-cta.ghost { background: transparent; color: var(--text) !important; border: 1px solid var(--border); }
-@media (max-width: 600px) {
-  .ch-card { grid-template-columns: 80px 1fr; gap: var(--space-3); }
-  .ch-card .thumb { width: 80px; height: 80px; }
+
+@media (max-width: 700px) {
+  .ch-card { grid-template-columns: 1fr; }
+  .ch-card video { width: 100%; height: auto; aspect-ratio: 9/16; max-height: 540px; }
+  .ch-card .video-wrap { width: 100%; }
+  .ch-card.empty { grid-template-columns: 1fr; }
+  .ch-card.empty .placeholder { width: 100%; height: 240px; }
   .ch-stages { grid-template-columns: repeat(2, 1fr); }
 }
 </style>
@@ -66,62 +83,80 @@ code { font-family: var(--font-mono); font-size: 0.92em; padding: 1px 4px; backg
 <p class="ch-lede">Five channels. One five-stage pipeline. Every episode is auditable end to end — the brief, the frames, the gate, the post. Three are live. Two are test-beds where the format is the work.</p>
 </header>
 
-<h2>The five channels</h2>
+<h2>Watch the channels</h2>
 
-<div class="ch-grid">
+<div class="ch-gallery">
 
   <article class="ch-card">
-    <img class="thumb" src="/assets/img/channels/forgotten_fronts.jpg" alt="A wooden bokken resting diagonally on aged Japanese parchment, a drop of ink bleeding at the tip" loading="lazy">
-    <div>
+    <div class="video-wrap">
+      <video controls preload="none" playsinline poster="/products/channels/posters/ep_musashi.jpg">
+        <source src="/products/channels/forgotten_fronts/ep_musashi.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="info">
       <div class="name">forgotten_fronts</div>
       <div class="handle">@forgottenfronts0 · YouTube, TikTok, Instagram, Facebook</div>
       <p class="identity"><em>Dark history.</em> The events, regimes and people history skipped over.</p>
       <p class="proof">The first episode kept <strong>65.3% of viewers</strong> past the midpoint on Musashi's duel with Kojirō. Retention is the format signal.</p>
-      <p class="stat">LIVE · 2 episodes shipped · 876 + 6 first-day views</p>
+      <p class="stat">LIVE · EP_MUSASHI · 40.1s · 876 first-day views</p>
+      <a href="/products/forgotten-fronts/ep_musashi.html" class="breakdown">View the 19-shot breakdown &rarr;</a>
     </div>
   </article>
 
   <article class="ch-card">
-    <img class="thumb" src="/assets/img/channels/luxury_archive.jpg" alt="A vintage wristwatch face on a watchmaker's loupe stand, second hand in burnt orange" loading="lazy">
-    <div>
+    <div class="video-wrap">
+      <video controls preload="none" playsinline poster="/products/channels/posters/ep_speedmaster.jpg">
+        <source src="/products/channels/luxury_archive/ep_speedmaster.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="info">
       <div class="name">luxury_archive</div>
       <div class="handle">@prooftested · YouTube, TikTok, Instagram, Facebook</div>
       <p class="identity"><em>Tested objects.</em> Watches, engines, instruments. Everything claims it works. We put it through the test.</p>
-      <p class="proof">Episode one is <strong>built, gated, and waiting to upload</strong>. The gate ran 9 of 9 frames against the reference bank.</p>
-      <p class="stat">READY · 1 episode built · EP_SPEEDMASTER (40.0s, 23 shots)</p>
+      <p class="proof">Episode one is <strong>built, gated, and ready to upload</strong>. The QA gate ran 9 of 9 frames against the reference bank at vs-seed and vs-hero.</p>
+      <p class="stat">READY · EP_SPEEDMASTER · 40.0s · 23 shots, 148 words</p>
+      <a href="/products/p1_flooded_street/" class="breakdown">View the breakdown &rarr;</a>
     </div>
   </article>
 
   <article class="ch-card">
-    <img class="thumb" src="/assets/img/channels/zenpai.jpg" alt="A Japanese katana in its sheath, diamond-pattern hilt wrap, ember on the guard" loading="lazy">
-    <div>
+    <div class="video-wrap">
+      <video controls preload="none" playsinline poster="/products/channels/posters/ep_obanai.jpg">
+        <source src="/products/channels/zenpai/ep_obanai.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="info">
       <div class="name">zenpai</div>
       <div class="handle">@zenpaitv_ · YouTube, TikTok</div>
       <p class="identity"><em>Demon Slayer lore, vertical narration-driven.</em> Hard cuts on beat boundaries, not the blur-whip.</p>
-      <p class="proof"><strong>13 episodes built and gated</strong> — proof the pipeline can ship a single franchise to format. Subject ratios already measured: Tengen 3.77x, Sanemi 1.91x, Upper Moons 1.47x.</p>
-      <p class="stat">READY · 13 episodes built · Awaiting a YouTube channel</p>
+      <p class="proof"><strong>13 episodes built and gated</strong> — proof the pipeline can ship a single franchise to format. Subject ratios measured against the channel median: Tengen 3.77x, Sanemi 1.91x, Upper Moons 1.47x.</p>
+      <p class="stat">READY · EP_OBANAI · 40.0s · 13 episodes built, awaiting a YouTube channel</p>
     </div>
   </article>
 
   <article class="ch-card">
-    <img class="thumb" src="/assets/img/channels/anime_hive.jpg" alt="A 35mm film strip with the words 'SMALL STEPS BUILD BIG DREAMS', one word glowing in burnt orange" loading="lazy">
-    <div>
+    <div class="video-wrap">
+      <video controls preload="none" playsinline poster="/products/channels/posters/ep_gojo.jpg">
+        <source src="/products/channels/anime_hive/ep_gojo.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="info">
       <div class="name">anime_hive</div>
       <div class="handle">No handle · Test-bed</div>
       <p class="identity"><em>Format research.</em> 3.00-second grid, blur-whip transitions, one red word at 140px. The opposite of Zenpai, on purpose.</p>
       <p class="proof">4 episode folders (Gojo, Madara, Sukuna, Ben 10) — the format itself is the experiment. <strong>No subject catalogue yet</strong>; building it is the next move.</p>
-      <p class="stat">R&amp;D · 4 experimental episodes</p>
+      <p class="stat">R&amp;D · EP_GOJO · 48.0s · 4 experimental episodes</p>
     </div>
   </article>
 
-  <article class="ch-card">
-    <img class="thumb" src="/assets/img/channels/capital_postmortem.jpg" alt="A closed leather-bound ledger book with a fountain pen resting across the cover, thin burnt-orange line along the spine" loading="lazy">
-    <div>
+  <article class="ch-card empty">
+    <div class="placeholder">subject catalogue<br>not built</div>
+    <div class="info">
       <div class="name">capital_postmortem</div>
       <div class="handle">No handle · Test-bed</div>
       <p class="identity"><em>Money, economy, companies that failed.</em> Money/economy measured 0.09x against the channel median — this needs its own scrape before it ships.</p>
       <p class="proof"><strong>Not started.</strong> The pipeline is ready. The subject list is the work.</p>
-      <p class="stat">EMPTY · Subject catalogue not built</p>
+      <p class="stat">EMPTY · Awaiting scrape + subject list</p>
     </div>
   </article>
 
@@ -157,7 +192,7 @@ code { font-family: var(--font-mono); font-size: 0.92em; padding: 1px 4px; backg
 </div>
 
 <h3>What the gate actually measures</h3>
-<p>The gate runs ResNet50 cosine similarity at three frame positions per scene, then asks a vision model for a modern/anachronism check. The pass/fail criterion is calibrated against <code>p1_flooded_street/qa.json</code>, the reverse-engineered luxury episode:</p>
+<p>The gate runs ResNet50 cosine similarity at three frame positions per scene, then asks a vision model for a modern/anachronism check. The pass/fail criterion is calibrated against the reverse-engineered luxury episode:</p>
 
 <table class="md-table">
   <tr><th>Scene</th><th>t = 0%</th><th>t = 50%</th><th>t = 98%</th></tr>
@@ -175,14 +210,14 @@ code { font-family: var(--font-mono); font-size: 0.92em; padding: 1px 4px; backg
   <li><strong>Narrate first, brief against the audio.</strong> Estimated beats never match the TTS pauses. Plan <em>after</em> the audio, not before.</li>
   <li><strong>Five queries per need.</strong> Identical queries put the same 50 jpgs in every folder; the selector dedups globally, so half the needs see nothing.</li>
   <li><strong>Every NEVER names its beat.</strong> "No Kanao" rejected the very need whose line is "Then he met Kanao." Constraints are per-beat, not global.</li>
-  <li><strong>UNPARSEABLE means transport, not model failure.</strong> A 361-byte gateway response looks like a model fault; it is a timeout the stderr-discarding selector hides.</li>
+  <li><strong>UNPARSEABLE means transport, not model failure.</strong> A timeout reads as a model fault unless the selector logs transport separately.</li>
   <li><strong>Pixel review at full 1080×1920.</strong> Six frames passed at 640px and failed at full resolution. Confirm by opening the source PNG.</li>
   <li><strong>Every claim matches the source verbatim.</strong> Two claims dropped from Musashi for being unsourced; one added to Speedmaster because it was sourced.</li>
 </ol>
 
 <div style="text-align:center; margin: var(--space-8) 0;">
 <a href="/products/" class="ch-cta">See the worked example</a>
-<a href="/products/blueprint.html" class="ch-cta ghost" style="margin-left: var(--space-3);">Workflow blueprint</a>
+<a href="/products/workflow/" class="ch-cta ghost" style="margin-left: var(--space-3);">Workflow blueprint</a>
 <a href="/how/" class="ch-cta ghost" style="margin-left: var(--space-3);">How I make an episode</a>
 </div>
 
