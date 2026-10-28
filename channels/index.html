@@ -48,7 +48,7 @@ p { font-size: var(--text-sm); color: var(--text-2); line-height: 1.6; margin-bo
 
 /* QA gate table */
 .md-table { width: 100%; border-collapse: collapse; margin: var(--space-3) 0; font-size: var(--text-sm); }
-.md-table th, .md-table td { padding: var(--space-2); text-align: left; border-bottom: 1px solid var(--border); }
+.md-table th.md-table td { padding: var(--space-2); text-align: left; border-bottom: 1px solid var(--border); }
 .md-table th { color: var(--text-3); font-weight: 600; }
 .md-table td { color: var(--text-2); }
 .md-table td:first-child { font-family: var(--font-mono); color: var(--text); }
@@ -61,12 +61,12 @@ code { font-family: var(--font-mono); font-size: 0.92em; padding: 1px 4px; backg
 .ch-cta.ghost { background: transparent; color: var(--text) !important; border: 1px solid var(--border); }
 
 @media (max-width: 700px) {
-  .ch-card { grid-template-columns: 1fr; }
-  .ch-card video { width: 100%; height: auto; aspect-ratio: 9/16; max-height: 540px; }
-  .ch-card .video-wrap { width: 100%; }
-  .ch-card.empty { grid-template-columns: 1fr; }
-  .ch-card.empty .placeholder { width: 100%; height: 240px; }
-  .ch-stages { grid-template-columns: repeat(2, 1fr); }
+ .ch-card { grid-template-columns: 1fr; }
+ .ch-card video { width: 100%; height: auto; aspect-ratio: 9/16; max-height: 540px; }
+ .ch-card .video-wrap { width: 100%; }
+ .ch-card.empty { grid-template-columns: 1fr; }
+ .ch-card.empty .placeholder { width: 100%; height: 240px; }
+ .ch-stages { grid-template-columns: repeat(2, 1fr); }
 }
 </style>
 </head>
@@ -74,152 +74,152 @@ code { font-family: var(--font-mono); font-size: 0.92em; padding: 1px 4px; backg
 <div class="ch-wrap">
 
 <nav class="util" aria-label="Site">
-  <a href="/">index</a>
-  <a href="/cv/">cv</a>
-  <a href="/skim/">skim</a>
-  <a href="/how/">how</a>
-  <a href="/provenance/">logs</a>
-  <a href="/tools/">tools</a>
-  <a href="/products/">episodes</a>
-  <a href="/channels/" aria-current="page">channels</a>
-  <a href="/jobs/">jobs</a>
+ <a href="/">index</a>
+ <a href="/cv/">cv</a>
+ <a href="/skim/">skim</a>
+ <a href="/how/">how</a>
+ <a href="/provenance/">logs</a>
+ <a href="/tools/">tools</a>
+ <a href="/products/">episodes</a>
+ <a href="/channels/" aria-current="page">channels</a>
+ <a href="/jobs/">jobs</a>
 </nav>
 
 <header>
 <h1>Channels</h1>
-<p class="ch-lede">Five channels. One five-stage pipeline. Every episode is auditable end to end — the brief, the frames, the gate, the post. Three are live. Two are test-beds where the format is the work.</p>
+<p class="ch-lede">Five channels. One five-stage pipeline. Every episode is auditable end to end, the brief, the frames, the gate, the post. Three are live. Two are test-beds where the format is the work.</p>
 </header>
 
 <h2>Watch the channels</h2>
 
 <div class="ch-gallery">
 
-  <article class="ch-card">
-    <div class="video-wrap">
-      <video controls preload="none" playsinline poster="/products/channels/posters/ep_musashi.jpg">
-        <source src="/products/channels/forgotten_fronts/ep_musashi.mp4" type="video/mp4">
-      </video>
-    </div>
-    <div class="info">
-      <div class="name">forgotten_fronts</div>
-      <div class="handle">@forgottenfronts0 · YouTube, TikTok, Instagram, Facebook</div>
-      <p class="identity"><em>Dark history.</em> The events, regimes and people history skipped over.</p>
-      <p class="proof">The first episode kept <strong>65.3% of viewers</strong> past the midpoint on Musashi's duel with Kojirō. Retention is the format signal.</p>
-      <p class="stat">LIVE · EP_MUSASHI · 40.1s · 876 first-day views</p>
-      <a href="/products/forgotten-fronts/ep_musashi.html" class="breakdown">View the 19-shot breakdown &rarr;</a>
-    </div>
-  </article>
+ <article class="ch-card">
+ <div class="video-wrap">
+ <video controls preload="none" playsinline poster="/products/channels/posters/ep_musashi.jpg">
+ <source src="/products/channels/forgotten_fronts/ep_musashi.mp4" type="video/mp4">
+ </video>
+ </div>
+ <div class="info">
+ <div class="name">forgotten_fronts</div>
+ <div class="handle">@forgottenfronts0 · YouTube, TikTok, Instagram, Facebook</div>
+ <p class="identity"><em>Dark history.</em> The events, regimes and people history skipped over.</p>
+ <p class="proof">The first episode kept <strong>65.3% of viewers</strong> past the midpoint on Musashi's duel with Kojirō. Retention is the format signal.</p>
+ <p class="stat">LIVE · EP_MUSASHI · 40.1s · 876 first-day views</p>
+ <a href="/products/forgotten-fronts/ep_musashi.html" class="breakdown">View the 19-shot breakdown &rarr;</a>
+ </div>
+ </article>
 
-  <article class="ch-card">
-    <div class="video-wrap">
-      <video controls preload="none" playsinline poster="/products/channels/posters/ep_speedmaster.jpg">
-        <source src="/products/channels/luxury_archive/ep_speedmaster.mp4" type="video/mp4">
-      </video>
-    </div>
-    <div class="info">
-      <div class="name">luxury_archive</div>
-      <div class="handle">@prooftested · YouTube, TikTok, Instagram, Facebook</div>
-      <p class="identity"><em>Tested objects.</em> Watches, engines, instruments. Everything claims it works. We put it through the test.</p>
-      <p class="proof">Episode one is <strong>built, gated, and ready to upload</strong>. The QA gate ran 9 of 9 frames against the reference bank at vs-seed and vs-hero.</p>
-      <p class="stat">READY · EP_SPEEDMASTER · 40.0s · 23 shots, 148 words</p>
-      <a href="/products/ep_speedmaster/" class="breakdown">View the breakdown &rarr;</a>
-    </div>
-  </article>
+ <article class="ch-card">
+ <div class="video-wrap">
+ <video controls preload="none" playsinline poster="/products/channels/posters/ep_speedmaster.jpg">
+ <source src="/products/channels/luxury_archive/ep_speedmaster.mp4" type="video/mp4">
+ </video>
+ </div>
+ <div class="info">
+ <div class="name">luxury_archive</div>
+ <div class="handle">@prooftested · YouTube, TikTok, Instagram, Facebook</div>
+ <p class="identity"><em>Tested objects.</em> Watches, engines, instruments. Everything claims it works. We put it through the test.</p>
+ <p class="proof">Episode one is <strong>built, gated, and ready to upload</strong>. The QA gate ran 9 of 9 frames against the reference bank at vs-seed and vs-hero.</p>
+ <p class="stat">READY · EP_SPEEDMASTER · 40.0s · 23 shots, 148 words</p>
+ <a href="/products/ep_speedmaster/" class="breakdown">View the breakdown &rarr;</a>
+ </div>
+ </article>
 
-  <article class="ch-card">
-    <div class="video-wrap">
-      <video controls preload="none" playsinline poster="/products/channels/posters/ep_obanai.jpg">
-        <source src="/products/channels/zenpai/ep_obanai.mp4" type="video/mp4">
-      </video>
-    </div>
-    <div class="info">
-      <div class="name">zenpai</div>
-      <div class="handle">@zenpaitv_ · YouTube, TikTok</div>
-      <p class="identity"><em>Demon Slayer lore, vertical narration-driven.</em> Hard cuts on beat boundaries, not the blur-whip.</p>
-      <p class="proof"><strong>13 episodes built and gated</strong> — proof the pipeline can ship a single franchise to format. Subject ratios measured against the channel median: Tengen 3.77x, Sanemi 1.91x, Upper Moons 1.47x.</p>
-      <p class="stat">READY · EP_OBANAI · 40.0s · 13 episodes built, awaiting a YouTube channel</p>
-    </div>
-  </article>
+ <article class="ch-card">
+ <div class="video-wrap">
+ <video controls preload="none" playsinline poster="/products/channels/posters/ep_obanai.jpg">
+ <source src="/products/channels/zenpai/ep_obanai.mp4" type="video/mp4">
+ </video>
+ </div>
+ <div class="info">
+ <div class="name">zenpai</div>
+ <div class="handle">@zenpaitv_ · YouTube, TikTok</div>
+ <p class="identity"><em>Demon Slayer lore, vertical narration-driven.</em> Hard cuts on beat boundaries, not the blur-whip.</p>
+ <p class="proof"><strong>13 episodes built and gated</strong>, proof the pipeline can ship a single franchise to format. Subject ratios measured against the channel median: Tengen 3.77x, Sanemi 1.91x, Upper Moons 1.47x.</p>
+ <p class="stat">READY · EP_OBANAI · 40.0s · 13 episodes built, awaiting a YouTube channel</p>
+ </div>
+ </article>
 
-  <article class="ch-card">
-    <div class="video-wrap">
-      <video controls preload="none" playsinline poster="/products/channels/posters/ep_gojo.jpg">
-        <source src="/products/channels/anime_hive/ep_gojo.mp4" type="video/mp4">
-      </video>
-    </div>
-    <div class="info">
-      <div class="name">anime_hive</div>
-      <div class="handle">No handle · Test-bed</div>
-      <p class="identity"><em>Format research.</em> 3.00-second grid, blur-whip transitions, one red word at 140px. The opposite of Zenpai, on purpose.</p>
-      <p class="proof">4 episode folders (Gojo, Madara, Sukuna, Ben 10) — the format itself is the experiment. <strong>No subject catalogue yet</strong>; building it is the next move.</p>
-      <p class="stat">R&amp;D · EP_GOJO · 48.0s · 4 experimental episodes</p>
-    </div>
-  </article>
+ <article class="ch-card">
+ <div class="video-wrap">
+ <video controls preload="none" playsinline poster="/products/channels/posters/ep_gojo.jpg">
+ <source src="/products/channels/anime_hive/ep_gojo.mp4" type="video/mp4">
+ </video>
+ </div>
+ <div class="info">
+ <div class="name">anime_hive</div>
+ <div class="handle">No handle · Test-bed</div>
+ <p class="identity"><em>Format research.</em> 3.00-second grid, blur-whip transitions, one red word at 140px. The opposite of Zenpai, on purpose.</p>
+ <p class="proof">4 episode folders (Gojo, Madara, Sukuna, Ben 10), the format itself is the experiment. <strong>No subject catalogue yet</strong>; building it is the next move.</p>
+ <p class="stat">R&amp;D · EP_GOJO · 48.0s · 4 experimental episodes</p>
+ </div>
+ </article>
 
-  <article class="ch-card empty">
-    <div class="placeholder">subject catalogue<br>not built</div>
-    <div class="info">
-      <div class="name">capital_postmortem</div>
-      <div class="handle">No handle · Test-bed</div>
-      <p class="identity"><em>Money, economy, companies that failed.</em> Money/economy measured 0.09x against the channel median — this needs its own scrape before it ships.</p>
-      <p class="proof"><strong>Not started.</strong> The pipeline is ready. The subject list is the work.</p>
-      <p class="stat">EMPTY · Awaiting scrape + subject list</p>
-    </div>
-  </article>
+ <article class="ch-card empty">
+ <div class="placeholder">subject catalogue<br>not built</div>
+ <div class="info">
+ <div class="name">capital_postmortem</div>
+ <div class="handle">No handle · Test-bed</div>
+ <p class="identity"><em>Money, economy, companies that failed.</em> Money/economy measured 0.09x against the channel median, this needs its own scrape before it ships.</p>
+ <p class="proof"><strong>Not started.</strong> The pipeline is ready. The subject list is the work.</p>
+ <p class="stat">EMPTY · Awaiting scrape + subject list</p>
+ </div>
+ </article>
 
 </div>
 
 <h2>The pipeline every channel runs on</h2>
 
-<img class="ch-pipeline-img" src="/assets/img/channels/pipeline.jpg" alt="Five small objects on a workbench — notebook, magnifier, camera, ink-stamp, paper plane — connected by a thin horizontal line. GATE is highlighted in burnt orange as the only warm colour in the frame." loading="lazy">
+<img class="ch-pipeline-img" src="/assets/img/channels/pipeline.jpg" alt="Five small objects on a workbench, notebook, magnifier, camera, ink-stamp, paper plane, connected by a thin horizontal line. GATE is highlighted in burnt orange as the only warm colour in the frame." loading="lazy">
 
-<p>Plan, select, build, gate, post. Every episode on every channel goes through these five stages. The gate is the load-bearing one — that's why it carries the only warm colour in the diagram.</p>
+<p>Plan, select, build, gate, post. Every episode on every channel goes through these five stages. The gate is the load-bearing one, that's why it carries the only warm colour in the diagram.</p>
 
 <div class="ch-stages">
-  <div class="ch-stage">
-    <div class="stage-name">Plan</div>
-    <div class="stage-rule">Brief against the audio, not before</div>
-  </div>
-  <div class="ch-stage">
-    <div class="stage-name">Select</div>
-    <div class="stage-rule">5 queries per need, vs-hero rank</div>
-  </div>
-  <div class="ch-stage">
-    <div class="stage-name">Build</div>
-    <div class="stage-rule">NEVER rules name their beat</div>
-  </div>
-  <div class="ch-stage gate">
-    <div class="stage-name">Gate</div>
-    <div class="stage-rule">Cosine + ask.py vision</div>
-  </div>
-  <div class="ch-stage">
-    <div class="stage-name">Post</div>
-    <div class="stage-rule">Copy, thumb, pin, queue</div>
-  </div>
+ <div class="ch-stage">
+ <div class="stage-name">Plan</div>
+ <div class="stage-rule">Brief against the audio, not before</div>
+ </div>
+ <div class="ch-stage">
+ <div class="stage-name">Select</div>
+ <div class="stage-rule">5 queries per need, vs-hero rank</div>
+ </div>
+ <div class="ch-stage">
+ <div class="stage-name">Build</div>
+ <div class="stage-rule">NEVER rules name their beat</div>
+ </div>
+ <div class="ch-stage gate">
+ <div class="stage-name">Gate</div>
+ <div class="stage-rule">Cosine + ask.py vision</div>
+ </div>
+ <div class="ch-stage">
+ <div class="stage-name">Post</div>
+ <div class="stage-rule">Copy, thumb, pin, queue</div>
+ </div>
 </div>
 
 <h3>What the gate actually measures</h3>
 <p>The gate runs ResNet50 cosine similarity at three frame positions per scene, then asks a vision model for a modern/anachronism check. The pass/fail criterion is calibrated against the reverse-engineered luxury episode:</p>
 
 <table class="md-table">
-  <tr><th>Scene</th><th>t = 0%</th><th>t = 50%</th><th>t = 98%</th></tr>
-  <tr><td>s1_establish</td><td>0.325 / 0.317</td><td>0.324 / 0.316</td><td>0.329 / 0.320</td></tr>
-  <tr><td>s2_deepen</td><td>0.335 / 0.327</td><td>0.353 / 0.346</td><td>0.369 / 0.362</td></tr>
-  <tr><td>s3_exit</td><td>0.231 / 0.230</td><td>0.228 / 0.226</td><td>0.211 / 0.213</td></tr>
+ <tr><th>Scene</th><th>t = 0%</th><th>t = 50%</th><th>t = 98%</th></tr>
+ <tr><td>s1_establish</td><td>0.325 / 0.317</td><td>0.324 / 0.316</td><td>0.329 / 0.320</td></tr>
+ <tr><td>s2_deepen</td><td>0.335 / 0.327</td><td>0.353 / 0.346</td><td>0.369 / 0.362</td></tr>
+ <tr><td>s3_exit</td><td>0.231 / 0.230</td><td>0.228 / 0.226</td><td>0.211 / 0.213</td></tr>
 </table>
 
-<p>The numbers are vs-seed / vs-hero. The third scene has the lowest scores and that is correct — a character walking away should diverge from the reference. The gate flags catastrophic divergence, not stylistic movement.</p>
+<p>The numbers are vs-seed / vs-hero. The third scene has the lowest scores and that is correct, a character walking away should diverge from the reference. The gate flags catastrophic divergence, not stylistic movement.</p>
 
 <h3>The six rules the pipeline enforces</h3>
-<p>Each rule closes one class of failure that cost real time or money. Every rule is documented, fileable, and automatic — not convention.</p>
+<p>Each rule closes one class of failure that cost real time or money. Every rule is documented, fileable, and automatic, not convention.</p>
 
 <ol style="font-size: var(--text-sm); color: var(--text-2); line-height: 1.7; padding-left: var(--space-6);">
-  <li><strong>Narrate first, brief against the audio.</strong> Estimated beats never match the TTS pauses. Plan <em>after</em> the audio, not before.</li>
-  <li><strong>Five queries per need.</strong> Identical queries put the same 50 jpgs in every folder; the selector dedups globally, so half the needs see nothing.</li>
-  <li><strong>Every NEVER names its beat.</strong> "No Kanao" rejected the very need whose line is "Then he met Kanao." Constraints are per-beat, not global.</li>
-  <li><strong>UNPARSEABLE means transport, not model failure.</strong> A timeout reads as a model fault unless the selector logs transport separately.</li>
-  <li><strong>Pixel review at full 1080×1920.</strong> Six frames passed at 640px and failed at full resolution. Confirm by opening the source PNG.</li>
-  <li><strong>Every claim matches the source verbatim.</strong> Two claims dropped from Musashi for being unsourced; one added to Speedmaster because it was sourced.</li>
+ <li><strong>Narrate first, brief against the audio.</strong> Estimated beats never match the TTS pauses. Plan <em>after</em> the audio, not before.</li>
+ <li><strong>Five queries per need.</strong> Identical queries put the same 50 jpgs in every folder; the selector dedups globally, so half the needs see nothing.</li>
+ <li><strong>Every NEVER names its beat.</strong> "No Kanao" rejected the very need whose line is "Then he met Kanao." Constraints are per-beat, not global.</li>
+ <li><strong>UNPARSEABLE means transport, not model failure.</strong> A timeout reads as a model fault unless the selector logs transport separately.</li>
+ <li><strong>Pixel review at full 1080×1920.</strong> Six frames passed at 640px and failed at full resolution. Confirm by opening the source PNG.</li>
+ <li><strong>Every claim matches the source verbatim.</strong> Two claims dropped from Musashi for being unsourced; one added to Speedmaster because it was sourced.</li>
 </ol>
 
 <div style="text-align:center; margin: var(--space-8) 0;">

@@ -36,16 +36,16 @@ body { color: var(--text); font-family: 'Quicksand', var(--font); line-height: 1
 .pr-section .channel-card .status { font-size: var(--text-sm); color: var(--text-2); }
 .pr-hero { width: 100%; height: auto; border: 1px solid var(--border); border-radius: 8px; margin: 0 0 var(--space-8); display: block; }
 .pr-section .channel-card {
-  padding: 0;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  margin-bottom: var(--space-4);
-  overflow: hidden;
-  background: var(--surface-1);
-  display: grid;
-  grid-template-columns: 120px 1fr;
-  gap: 0;
-  transition: border-color 0.15s ease;
+ padding: 0;
+ border: 1px solid var(--border);
+ border-radius: 8px;
+ margin-bottom: var(--space-4);
+ overflow: hidden;
+ background: var(--surface-1);
+ display: grid;
+ grid-template-columns: 120px 1fr;
+ gap: 0;
+ transition: border-color 0.15s ease;
 }
 .pr-section .channel-card:hover { border-color: var(--accent); }
 .pr-section .channel-card .ch-thumb { width: 120px; height: 100%; min-height: 180px; object-fit: cover; display: block; }
@@ -58,8 +58,8 @@ body { color: var(--text); font-family: 'Quicksand', var(--font); line-height: 1
 .pr-section .channel-card .actions a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent); padding: 4px 10px; border-radius: 999px; }
 .pr-section .channel-card .actions a:hover { color: var(--accent-2); border-bottom-color: var(--accent-2); }
 @media (max-width: 600px) {
-  .pr-section .channel-card { grid-template-columns: 1fr; }
-  .pr-section .channel-card .ch-thumb { width: 100%; height: 180px; min-height: 0; }
+ .pr-section .channel-card { grid-template-columns: 1fr; }
+ .pr-section .channel-card .ch-thumb { width: 100%; height: 180px; min-height: 0; }
 }
 .pr-feature-secondary { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: var(--space-5); margin-top: calc(var(--space-4) * -1); }
 .pr-feature-secondary h3 { font-size: var(--text-lg) !important; }
@@ -70,148 +70,148 @@ body { color: var(--text); font-family: 'Quicksand', var(--font); line-height: 1
 <body>
 <div class="pr-wrap">
 
-  <nav class="util" aria-label="Site">
-  <a href="/">index</a>
-  <a href="/cv/">cv</a>
-  <a href="/skim/">skim</a>
-  <a href="/how/">how</a>
-  <a href="/provenance/">logs</a>
-  <a href="/tools/">tools</a>
-  <a href="/products/" aria-current="page">episodes</a>
-  <a href="/channels/">channels</a>
-  <a href="/jobs/">jobs</a>
+ <nav class="util" aria-label="Site">
+ <a href="/">index</a>
+ <a href="/cv/">cv</a>
+ <a href="/skim/">skim</a>
+ <a href="/how/">how</a>
+ <a href="/provenance/">logs</a>
+ <a href="/tools/">tools</a>
+ <a href="/products/" aria-current="page">episodes</a>
+ <a href="/channels/">channels</a>
+ <a href="/jobs/">jobs</a>
 </nav>
 
-  <header>
-    <h1 class="pr-h1">Episodes</h1>
-    <p class="pr-tagline">The worked example, the workflow blueprint, and the three channels behind them. Every episode on the channels runs through the same five-stage pipeline with the same six hard-won rules.</p>
-  </header>
+ <header>
+ <h1 class="pr-h1">Episodes</h1>
+ <p class="pr-tagline">The worked example, the workflow blueprint, and the three channels behind them. Every episode on the channels runs through the same five-stage pipeline with the same six hard-won rules.</p>
+ </header>
 
-  <img class="pr-hero" src="/assets/img/hero/products.jpg" alt="Overhead view of a phone showing a Japanese woodblock-print samurai, surrounded by five printed contact sheets of tiny numbered frames and a white caption strip with one word highlighted in yellow" loading="lazy">
+ <img class="pr-hero" src="/assets/img/hero/products.jpg" alt="Overhead view of a phone showing a Japanese woodblock-print samurai, surrounded by five printed contact sheets of tiny numbered frames and a white caption strip with one word highlighted in yellow" loading="lazy">
 
-  <section class="pr-section">
-    <div class="pr-feature">
-      <h3>The worked example: EP_SPEEDMASTER (Proof Tested)</h3>
-      <p class="desc">A 24.8-second vertical episode on the Omega Speedmaster surviving NASA&rsquo;s worst missions. Three scenes, nine frames extracted at t=0%/50%/98%, one QA gate per scene. <strong>9/9 frames passed</strong> against the reference bank at vs-seed and vs-hero. Every measurement is shown on the page &mdash; what passed, what drifted within tolerance, what the gate&rsquo;s pass/fail criterion is, and why the lowest scores are still a pass. The Speedmaster episode is built, gated, and ready to upload.</p>
-      <div class="meta">
-        <span>Duration: 24.8s</span>
-        <span>Scenes: 3</span>
-        <span>Frames: 9</span>
-        <span>QA: 9/9 passed</span>
-        <span>vs-seed / vs-hero: 0.211 - 0.369</span>
-        <span>Source: Wikipedia (Omega Speedmaster)</span>
-      </div>
-      <a href="/products/ep_speedmaster/" class="pr-cta">View the breakdown &rarr;</a>
-      <a href="/products/ep_speedmaster/s1_establish.mp4" class="pr-cta ghost" style="margin-left: var(--space-3);">Watch s1 (8.8s)</a>
-      <a href="/products/ep_speedmaster/s2_deepen.mp4" class="pr-cta ghost" style="margin-left: var(--space-3);">Watch s2 (7.8s)</a>
-      <a href="/products/ep_speedmaster/s3_exit.mp4" class="pr-cta ghost" style="margin-left: var(--space-3);">Watch s3 (8.2s)</a>
-      <a href="/channels/" class="pr-cta ghost" style="margin-left: var(--space-3);">All channels &rarr;</a>
-    </div>
+ <section class="pr-section">
+ <div class="pr-feature">
+ <h3>The worked example: EP_SPEEDMASTER (Proof Tested)</h3>
+ <p class="desc">A 24.8-second vertical episode on the Omega Speedmaster surviving NASA&rsquo;s worst missions. Three scenes, nine frames extracted at t=0%/50%/98%, one QA gate per scene. <strong>9/9 frames passed</strong> against the reference bank at vs-seed and vs-hero. Every measurement is shown on the page, what passed, what drifted within tolerance, what the gate&rsquo;s pass/fail criterion is, and why the lowest scores are still a pass. The Speedmaster episode is built, gated, and ready to upload.</p>
+ <div class="meta">
+ <span>Duration: 24.8s</span>
+ <span>Scenes: 3</span>
+ <span>Frames: 9</span>
+ <span>QA: 9/9 passed</span>
+ <span>vs-seed / vs-hero: 0.211 - 0.369</span>
+ <span>Source: Wikipedia (Omega Speedmaster)</span>
+ </div>
+ <a href="/products/ep_speedmaster/" class="pr-cta">View the breakdown &rarr;</a>
+ <a href="/products/ep_speedmaster/s1_establish.mp4" class="pr-cta ghost" style="margin-left: var(--space-3);">Watch s1 (8.8s)</a>
+ <a href="/products/ep_speedmaster/s2_deepen.mp4" class="pr-cta ghost" style="margin-left: var(--space-3);">Watch s2 (7.8s)</a>
+ <a href="/products/ep_speedmaster/s3_exit.mp4" class="pr-cta ghost" style="margin-left: var(--space-3);">Watch s3 (8.2s)</a>
+ <a href="/channels/" class="pr-cta ghost" style="margin-left: var(--space-3);">All channels &rarr;</a>
+ </div>
 
-    <div class="pr-feature pr-feature-secondary">
-      <h3>The QA gate, separately: EP_MUSASHI</h3>
-      <p class="desc">A second worked example on the QA gate, applied to a different shipped episode. 19 frames extracted from one Wikipedia article, every frame gated against a hero reference, every claim cross-checked against the source. EP_MUSASHI shipped live on YouTube and TikTok on 2026-10-27 and kept 65.3% of viewers past the midpoint.</p>
-      <div class="meta">
-        <span>Duration: 40.1s</span>
-        <span>Frames: 19</span>
-        <span>Claims: 15 verified, 2 cut</span>
-        <span>Audience: 876 first-day views, 21 likes</span>
-        <span>Source: Wikipedia (Miyamoto Musashi)</span>
-      </div>
-      <a href="/products/forgotten-fronts/ep_musashi.html" class="pr-cta">View the breakdown &rarr;</a>
-      <a href="/products/forgotten-fronts/ep_musashi.html#contact-sheet" class="pr-cta ghost" style="margin-left: var(--space-3);">19-shot contact sheet</a>
-      <a href="/products/channels/forgotten_fronts/ep_musashi.mp4" class="pr-cta ghost" style="margin-left: var(--space-3);">Watch the MP4</a>
-    </div>
+ <div class="pr-feature pr-feature-secondary">
+ <h3>The QA gate, separately: EP_MUSASHI</h3>
+ <p class="desc">A second worked example on the QA gate, applied to a different shipped episode. 19 frames extracted from one Wikipedia article, every frame gated against a hero reference, every claim cross-checked against the source. EP_MUSASHI shipped live on YouTube and TikTok on 2026-10-27 and kept 65.3% of viewers past the midpoint.</p>
+ <div class="meta">
+ <span>Duration: 40.1s</span>
+ <span>Frames: 19</span>
+ <span>Claims: 15 verified, 2 cut</span>
+ <span>Audience: 876 first-day views, 21 likes</span>
+ <span>Source: Wikipedia (Miyamoto Musashi)</span>
+ </div>
+ <a href="/products/forgotten-fronts/ep_musashi.html" class="pr-cta">View the breakdown &rarr;</a>
+ <a href="/products/forgotten-fronts/ep_musashi.html#contact-sheet" class="pr-cta ghost" style="margin-left: var(--space-3);">19-shot contact sheet</a>
+ <a href="/products/channels/forgotten_fronts/ep_musashi.mp4" class="pr-cta ghost" style="margin-left: var(--space-3);">Watch the MP4</a>
+ </div>
 
-    <div class="pr-feature">
-      <h3>The workflow blueprint</h3>
-      <p class="desc">The five-stage pipeline (plan, select, build, gate, post) plus the six hard-won rules the pipeline enforces automatically. One rule per failure that cost real time or money to learn. Every rule is documented with its measured cost, and the production code that enforces it is named and fileable. A brand can audit this end-to-end without any agent involvement.</p>
-      <div class="meta">
-        <span>Stages: 5</span>
-        <span>Hard-won rules: 6</span>
-        <span>QA gate: ResNet50 cosine + ask.py vision</span>
-        <span>Failure modes: documented per rule</span>
-      </div>
-      <a href="/products/blueprint.html" class="pr-cta">Read the blueprint</a>
-    </div>
-  </section>
+ <div class="pr-feature">
+ <h3>The workflow blueprint</h3>
+ <p class="desc">The five-stage pipeline (plan, select, build, gate, post) plus the six hard-won rules the pipeline enforces automatically. One rule per failure that cost real time or money to learn. Every rule is documented with its measured cost, and the production code that enforces it is named and fileable. A brand can audit this end-to-end without any agent involvement.</p>
+ <div class="meta">
+ <span>Stages: 5</span>
+ <span>Hard-won rules: 6</span>
+ <span>QA gate: ResNet50 cosine + ask.py vision</span>
+ <span>Failure modes: documented per rule</span>
+ </div>
+ <a href="/products/blueprint.html" class="pr-cta">Read the blueprint</a>
+ </div>
+ </section>
 
-  <section class="pr-section">
-    <h2 class="pr-h2">The channels behind the work</h2>
-    <div class="pr-body">
-      <p>Three channels ship on the same five-stage pipeline. Each has its own measured subject catalog. Click a thumbnail to see the channel breakdown; the handle links to the real platform channel.</p>
+ <section class="pr-section">
+ <h2 class="pr-h2">The channels behind the work</h2>
+ <div class="pr-body">
+ <p>Three channels ship on the same five-stage pipeline. Each has its own measured subject catalog. Click a thumbnail to see the channel breakdown; the handle links to the real platform channel.</p>
 
-      <div class="channel-card">
-        <a href="/products/forgotten-fronts/" aria-label="Forgotten Fronts breakdown">
-          <img class="ch-thumb" src="/assets/img/channels/forgotten_fronts.jpg" alt="" loading="lazy">
-        </a>
-        <div class="ch-body">
-          <div class="name">Forgotten Fronts</div>
-          <div class="handle"><a href="https://www.youtube.com/@forgottenfronts0" target="_blank" rel="noopener">@forgottenfronts0</a> &middot; YouTube, TikTok, Instagram, Facebook</div>
-          <p class="status"><strong>Status: LIVE.</strong> EP_MUSASHI shipped 2026-10-27 with 65.3% retention. Next: EP_CANN AE (216 BC, the named next subject).</p>
-          <div class="actions">
-            <a href="/products/forgotten-fronts/">View breakdown &rarr;</a>
-            <a href="/products/channels/forgotten_fronts/ep_musashi.mp4">Watch EP_MUSASHI</a>
-            <a href="/channels/">All channels &rarr;</a>
-          </div>
-        </div>
-      </div>
+ <div class="channel-card">
+ <a href="/products/forgotten-fronts/" aria-label="Forgotten Fronts breakdown">
+ <img class="ch-thumb" src="/assets/img/channels/forgotten_fronts.jpg" alt="" loading="lazy">
+ </a>
+ <div class="ch-body">
+ <div class="name">Forgotten Fronts</div>
+ <div class="handle"><a href="https://www.youtube.com/@forgottenfronts0" target="_blank" rel="noopener">@forgottenfronts0</a> &middot; YouTube, TikTok, Instagram, Facebook</div>
+ <p class="status"><strong>Status: LIVE.</strong> EP_MUSASHI shipped 2026-10-27 with 65.3% retention. Next: EP_CANN AE (216 BC, the named next subject).</p>
+ <div class="actions">
+ <a href="/products/forgotten-fronts/">View breakdown &rarr;</a>
+ <a href="/products/channels/forgotten_fronts/ep_musashi.mp4">Watch EP_MUSASHI</a>
+ <a href="/channels/">All channels &rarr;</a>
+ </div>
+ </div>
+ </div>
 
-      <div class="channel-card">
-        <a href="/products/ep_speedmaster/" aria-label="EP_SPEEDMASTER worked example">
-          <img class="ch-thumb" src="/assets/img/channels/luxury_archive.jpg" alt="" loading="lazy">
-        </a>
-        <div class="ch-body">
-          <div class="name">Proof Tested (luxury_archive)</div>
-          <div class="handle"><a href="https://www.youtube.com/@prooftested0" target="_blank" rel="noopener">@prooftested0</a> &middot; YouTube, TikTok, IG pending login</div>
-          <p class="status"><strong>Status: EPISODE 1 BUILT AND GATED.</strong> EP_SPEEDMASTER (24.8s, 3 scenes, 9 frames, every claim verified against Wikipedia). Awaiting upload. Next: EP_APOLLO13.</p>
-          <div class="actions">
-            <a href="/products/ep_speedmaster/">View worked example &rarr;</a>
-            <a href="/products/channels/luxury_archive/ep_speedmaster.mp4">Watch EP_SPEEDMASTER</a>
-            <a href="/channels/">All channels &rarr;</a>
-          </div>
-        </div>
-      </div>
+ <div class="channel-card">
+ <a href="/products/ep_speedmaster/" aria-label="EP_SPEEDMASTER worked example">
+ <img class="ch-thumb" src="/assets/img/channels/luxury_archive.jpg" alt="" loading="lazy">
+ </a>
+ <div class="ch-body">
+ <div class="name">Proof Tested (luxury_archive)</div>
+ <div class="handle"><a href="https://www.youtube.com/@prooftested0" target="_blank" rel="noopener">@prooftested0</a> &middot; YouTube, TikTok, IG pending login</div>
+ <p class="status"><strong>Status: EPISODE 1 BUILT AND GATED.</strong> EP_SPEEDMASTER (24.8s, 3 scenes, 9 frames, every claim verified against Wikipedia). Awaiting upload. Next: EP_APOLLO13.</p>
+ <div class="actions">
+ <a href="/products/ep_speedmaster/">View worked example &rarr;</a>
+ <a href="/products/channels/luxury_archive/ep_speedmaster.mp4">Watch EP_SPEEDMASTER</a>
+ <a href="/channels/">All channels &rarr;</a>
+ </div>
+ </div>
+ </div>
 
-      <div class="channel-card">
-        <a href="/channels/" aria-label="Channels tab">
-          <img class="ch-thumb" src="/assets/img/channels/zenpai.jpg" alt="" loading="lazy">
-        </a>
-        <div class="ch-body">
-          <div class="name">Super Zenpai</div>
-          <div class="handle"><a href="https://www.tiktok.com/@zenpaitv_" target="_blank" rel="noopener">@zenpaitv_</a> &middot; TikTok only (no YouTube channel launched)</div>
-          <p class="status"><strong>Status: FORMAT BUILT, 13 EPISODES SHIPPED INTERNALLY.</strong> Proof the pipeline ships Demon Slayer lore. Subject ratios measured: Tengen 3.77x, Sanemi 1.91x, Upper Moons 1.47x.</p>
-          <div class="actions">
-            <a href="/products/channels/zenpai/ep_obanai.mp4">Watch EP_OBANAI</a>
-            <a href="/channels/">All channels &rarr;</a>
-          </div>
-        </div>
-      </div>
+ <div class="channel-card">
+ <a href="/channels/" aria-label="Channels tab">
+ <img class="ch-thumb" src="/assets/img/channels/zenpai.jpg" alt="" loading="lazy">
+ </a>
+ <div class="ch-body">
+ <div class="name">Super Zenpai</div>
+ <div class="handle"><a href="https://www.tiktok.com/@zenpaitv_" target="_blank" rel="noopener">@zenpaitv_</a> &middot; TikTok only (no YouTube channel launched)</div>
+ <p class="status"><strong>Status: FORMAT BUILT, 13 EPISODES SHIPPED INTERNALLY.</strong> Proof the pipeline ships Demon Slayer lore. Subject ratios measured: Tengen 3.77x, Sanemi 1.91x, Upper Moons 1.47x.</p>
+ <div class="actions">
+ <a href="/products/channels/zenpai/ep_obanai.mp4">Watch EP_OBANAI</a>
+ <a href="/channels/">All channels &rarr;</a>
+ </div>
+ </div>
+ </div>
 
-      <div class="channel-card">
-        <a href="/channels/" aria-label="Channels tab">
-          <img class="ch-thumb" src="/assets/img/channels/anime_hive.jpg" alt="" loading="lazy">
-        </a>
-        <div class="ch-body">
-          <div class="name">Test-bed channels</div>
-          <div class="handle">anime_hive (format R&D) + capital_postmortem (not started)</div>
-          <p class="status"><strong>Status: TEST-BED.</strong> anime_hive is the format R&D playground (4 experimental episodes). capital_postmortem is empty — needs its own subject scrape before launch.</p>
-          <div class="actions">
-            <a href="/products/channels/anime_hive/ep_gojo.mp4">Watch EP_GOJO</a>
-            <a href="/channels/">All channels &rarr;</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+ <div class="channel-card">
+ <a href="/channels/" aria-label="Channels tab">
+ <img class="ch-thumb" src="/assets/img/channels/anime_hive.jpg" alt="" loading="lazy">
+ </a>
+ <div class="ch-body">
+ <div class="name">Test-bed channels</div>
+ <div class="handle">anime_hive (format R&D) + capital_postmortem (not started)</div>
+ <p class="status"><strong>Status: TEST-BED.</strong> anime_hive is the format R&D playground (4 experimental episodes). capital_postmortem is empty, needs its own subject scrape before launch.</p>
+ <div class="actions">
+ <a href="/products/channels/anime_hive/ep_gojo.mp4">Watch EP_GOJO</a>
+ <a href="/channels/">All channels &rarr;</a>
+ </div>
+ </div>
+ </div>
+ </div>
+ </section>
 
-  <section class="pr-section">
-    <h2 class="pr-h2">What the brand sees</h2>
-    <div class="pr-body">
-      <p>The brand signs off on "the character looks like the character" — not on the mechanism. The blueprint is the proof that the work is <em>auditable</em>: every claim traces to a Wikipedia source, every frame is gated against a reference, every NEVER rule has a name and a beat it applies to, and every failure mode is documented with the cost it took to learn it.</p>
-      <p>The pipeline is in <code>~/repos/zenpai-pipeline</code> (mirrored from <code>/mnt/2b</code>). The 6 hard-won rules in <code>_LESSONS_HARD_WON.md</code> are the operating manual. The worked example here (EP_SPEEDMASTER) is one of 3 shipped luxury_archive episodes, but it's the one that shows the QA gate's actual measurements end-to-end so a brand can verify the work without taking anyone's word for it.</p>
-    </div>
-  </section>
+ <section class="pr-section">
+ <h2 class="pr-h2">What the brand sees</h2>
+ <div class="pr-body">
+ <p>The brand signs off on "the character looks like the character", not on the mechanism. The blueprint is the proof that the work is <em>auditable</em>: every claim traces to a Wikipedia source, every frame is gated against a reference, every NEVER rule has a name and a beat it applies to, and every failure mode is documented with the cost it took to learn it.</p>
+ <p>The pipeline is in <code>~/repos/zenpai-pipeline</code> (mirrored from <code>/mnt/2b</code>). The 6 hard-won rules in <code>_LESSONS_HARD_WON.md</code> are the operating manual. The worked example here (EP_SPEEDMASTER) is one of 3 shipped luxury_archive episodes, but it's the one that shows the QA gate's actual measurements end-to-end so a brand can verify the work without taking anyone's word for it.</p>
+ </div>
+ </section>
 
 </div>
 </body>

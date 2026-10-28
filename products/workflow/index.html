@@ -47,7 +47,7 @@ p { font-size: var(--text-sm); color: var(--text-2); line-height: 1.6; margin-bo
 
 /* QA gate table */
 .md-table { width: 100%; border-collapse: collapse; margin: var(--space-3) 0; font-size: var(--text-sm); }
-.md-table th, .md-table td { padding: var(--space-2); text-align: left; border-bottom: 1px solid var(--border); }
+.md-table th.md-table td { padding: var(--space-2); text-align: left; border-bottom: 1px solid var(--border); }
 .md-table th { color: var(--text-3); font-weight: 600; }
 .md-table td { color: var(--text-2); }
 .md-table td:first-child { font-family: var(--font-mono); color: var(--text); }
@@ -59,129 +59,129 @@ strong { color: var(--text); font-weight: 600; }
 em { color: var(--text); font-style: italic; }
 
 @media (max-width: 700px) {
-  .wf-stages { grid-template-columns: repeat(2, 1fr); }
-  .wf-rules { grid-template-columns: 1fr; }
+ .wf-stages { grid-template-columns: repeat(2, 1fr); }
+ .wf-rules { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <div class="topbar">
-    <a href="/products/">&larr; All products</a>
-    <a href="/products/workflow/contact-sheets.html">Contact sheets &rarr;</a>
-  </div>
+ <div class="topbar">
+ <a href="/products/">&larr; All products</a>
+ <a href="/products/workflow/contact-sheets.html">Contact sheets &rarr;</a>
+ </div>
 
-  <header>
-    <h1>Workflow blueprint</h1>
-    <p class="lede">The five-stage pipeline that runs every channel. Plus six rules the pipeline enforces automatically - one per failure that cost real time or money to learn.</p>
-  </header>
+ <header>
+ <h1>Workflow blueprint</h1>
+ <p class="lede">The five-stage pipeline that runs every channel. Plus six rules the pipeline enforces automatically - one per failure that cost real time or money to learn.</p>
+ </header>
 
-  <section>
-    <h2>The pipeline</h2>
-    <img class="wf-pipeline-img" src="/assets/img/channels/pipeline.jpg" alt="Five small objects on a workbench — notebook, magnifier, camera, ink-stamp, paper plane — connected by a thin horizontal line. GATE is highlighted in burnt orange as the only warm colour in the frame." loading="lazy">
+ <section>
+ <h2>The pipeline</h2>
+ <img class="wf-pipeline-img" src="/assets/img/channels/pipeline.jpg" alt="Five small objects on a workbench, notebook, magnifier, camera, ink-stamp, paper plane, connected by a thin horizontal line. GATE is highlighted in burnt orange as the only warm colour in the frame." loading="lazy">
 
-    <p>Plan, select, build, gate, post. Every episode on every channel goes through these five stages. The gate is the load-bearing one - that's why it carries the only warm colour in the diagram.</p>
+ <p>Plan, select, build, gate, post. Every episode on every channel goes through these five stages. The gate is the load-bearing one - that's why it carries the only warm colour in the diagram.</p>
 
-    <div class="wf-stages">
-      <div class="wf-stage">
-        <div class="stage-name">Plan</div>
-        <div class="stage-rule">Brief against the audio, not before</div>
-      </div>
-      <div class="wf-stage">
-        <div class="stage-name">Select</div>
-        <div class="stage-rule">5 queries per need, vs-hero rank</div>
-      </div>
-      <div class="wf-stage">
-        <div class="stage-name">Build</div>
-        <div class="stage-rule">NEVER rules name their beat</div>
-      </div>
-      <div class="wf-stage gate">
-        <div class="stage-name">Gate</div>
-        <div class="stage-rule">Cosine + ask.py vision</div>
-      </div>
-      <div class="wf-stage">
-        <div class="stage-name">Post</div>
-        <div class="stage-rule">Copy, thumb, pin, queue</div>
-      </div>
-    </div>
-  </section>
+ <div class="wf-stages">
+ <div class="wf-stage">
+ <div class="stage-name">Plan</div>
+ <div class="stage-rule">Brief against the audio, not before</div>
+ </div>
+ <div class="wf-stage">
+ <div class="stage-name">Select</div>
+ <div class="stage-rule">5 queries per need, vs-hero rank</div>
+ </div>
+ <div class="wf-stage">
+ <div class="stage-name">Build</div>
+ <div class="stage-rule">NEVER rules name their beat</div>
+ </div>
+ <div class="wf-stage gate">
+ <div class="stage-name">Gate</div>
+ <div class="stage-rule">Cosine + ask.py vision</div>
+ </div>
+ <div class="wf-stage">
+ <div class="stage-name">Post</div>
+ <div class="stage-rule">Copy, thumb, pin, queue</div>
+ </div>
+ </div>
+ </section>
 
-  <section>
-    <h2>The six rules</h2>
-    <p>Each rule closes one class of failure. The cost is the proof - real time, real money, or real defects that would otherwise have shipped.</p>
+ <section>
+ <h2>The six rules</h2>
+ <p>Each rule closes one class of failure. The cost is the proof - real time, real money, or real defects that would otherwise have shipped.</p>
 
-    <img class="wf-rules-img" src="/assets/img/workflow/rules.jpg" alt="Six printed cards in a 3-by-2 grid on a warm-grey workbench. Each card shows a number (01 to 06), a small marker icon, the rule name in bold, and the measured cost in burnt orange. The six cards are: 01 Narrate First ~3h, 02 Five Queries $1.50, 03 Name the Beat ~25min, 04 Transport, Not Model 4h, 05 Full Resolution 6 frames, 06 Source Verbatim 2 dropped." loading="lazy">
+ <img class="wf-rules-img" src="/assets/img/workflow/rules.jpg" alt="Six printed cards in a 3-by-2 grid on a warm-grey workbench. Each card shows a number (01 to 06), a small marker icon, the rule name in bold, and the measured cost in burnt orange. The six cards are: 01 Narrate First ~3h, 02 Five Queries $1.50, 03 Name the Beat ~25min, 04 Transport, Not Model 4h, 05 Full Resolution 6 frames, 06 Source Verbatim 2 dropped." loading="lazy">
 
-    <div class="wf-rules">
+ <div class="wf-rules">
 
-      <div class="wf-rule">
-        <div class="rule-num">01</div>
-        <div class="rule-name">Narrate first, brief against the audio</div>
-        <p class="rule-body">Estimated beats never match the TTS pauses. Plan <em>after</em> the audio, not before.</p>
-        <span class="rule-cost">~3h saved per rebuild</span>
-      </div>
+ <div class="wf-rule">
+ <div class="rule-num">01</div>
+ <div class="rule-name">Narrate first, brief against the audio</div>
+ <p class="rule-body">Estimated beats never match the TTS pauses. Plan <em>after</em> the audio, not before.</p>
+ <span class="rule-cost">~3h saved per rebuild</span>
+ </div>
 
-      <div class="wf-rule">
-        <div class="rule-num">02</div>
-        <div class="rule-name">Five queries per need</div>
-        <p class="rule-body">Identical queries put the same 50 jpgs in every folder; the selector dedups globally, so half the needs see nothing.</p>
-        <span class="rule-cost">$1.50 saved per rebuild</span>
-      </div>
+ <div class="wf-rule">
+ <div class="rule-num">02</div>
+ <div class="rule-name">Five queries per need</div>
+ <p class="rule-body">Identical queries put the same 50 jpgs in every folder; the selector dedups globally, so half the needs see nothing.</p>
+ <span class="rule-cost">$1.50 saved per rebuild</span>
+ </div>
 
-      <div class="wf-rule">
-        <div class="rule-num">03</div>
-        <div class="rule-name">Every NEVER names its beat</div>
-        <p class="rule-body">"No Kanao" rejected the very need whose line is "Then he met Kanao." Constraints are per-beat, not global.</p>
-        <span class="rule-cost">~25min saved per re-SELECT</span>
-      </div>
+ <div class="wf-rule">
+ <div class="rule-num">03</div>
+ <div class="rule-name">Every NEVER names its beat</div>
+ <p class="rule-body">"No Kanao" rejected the very need whose line is "Then he met Kanao." Constraints are per-beat, not global.</p>
+ <span class="rule-cost">~25min saved per re-SELECT</span>
+ </div>
 
-      <div class="wf-rule">
-        <div class="rule-num">04</div>
-        <div class="rule-name">UNPARSEABLE means transport, not model</div>
-        <p class="rule-body">A timeout reads as a model fault unless the selector logs transport separately. The selector never silently swallows stderr.</p>
-        <span class="rule-cost">4h saved per debugging session</span>
-      </div>
+ <div class="wf-rule">
+ <div class="rule-num">04</div>
+ <div class="rule-name">UNPARSEABLE means transport, not model</div>
+ <p class="rule-body">A timeout reads as a model fault unless the selector logs transport separately. The selector never silently swallows stderr.</p>
+ <span class="rule-cost">4h saved per debugging session</span>
+ </div>
 
-      <div class="wf-rule">
-        <div class="rule-num">05</div>
-        <div class="rule-name">Pixel review at full 1080×1920</div>
-        <p class="rule-body">Six frames passed at 640px and failed at full resolution. Confirm any "wrong character" call by opening the source PNG.</p>
-        <span class="rule-cost">6 frames caught</span>
-      </div>
+ <div class="wf-rule">
+ <div class="rule-num">05</div>
+ <div class="rule-name">Pixel review at full 1080×1920</div>
+ <p class="rule-body">Six frames passed at 640px and failed at full resolution. Confirm any "wrong character" call by opening the source PNG.</p>
+ <span class="rule-cost">6 frames caught</span>
+ </div>
 
-      <div class="wf-rule">
-        <div class="rule-num">06</div>
-        <div class="rule-name">Every claim matches the source verbatim</div>
-        <p class="rule-body">A claim only goes in if the source states it. Two claims dropped from Musashi for being unsourced; one added to Speedmaster because it was sourced.</p>
-        <span class="rule-cost">2 claims cut for honesty</span>
-      </div>
+ <div class="wf-rule">
+ <div class="rule-num">06</div>
+ <div class="rule-name">Every claim matches the source verbatim</div>
+ <p class="rule-body">A claim only goes in if the source states it. Two claims dropped from Musashi for being unsourced; one added to Speedmaster because it was sourced.</p>
+ <span class="rule-cost">2 claims cut for honesty</span>
+ </div>
 
-    </div>
-  </section>
+ </div>
+ </section>
 
-  <section>
-    <h2>The QA gate that actually runs</h2>
-    <p>The gate runs ResNet50 cosine similarity at three frame positions per scene, then asks a vision model for a modern/anachronism check. The pass/fail criterion is calibrated against the reverse-engineered luxury episode:</p>
+ <section>
+ <h2>The QA gate that actually runs</h2>
+ <p>The gate runs ResNet50 cosine similarity at three frame positions per scene, then asks a vision model for a modern/anachronism check. The pass/fail criterion is calibrated against the reverse-engineered luxury episode:</p>
 
-    <table class="md-table">
-      <tr><th>Scene</th><th>t = 0%</th><th>t = 50%</th><th>t = 98%</th></tr>
-      <tr><td>s1_establish</td><td>0.325 / 0.317</td><td>0.324 / 0.316</td><td>0.329 / 0.320</td></tr>
-      <tr><td>s2_deepen</td><td>0.335 / 0.327</td><td>0.353 / 0.346</td><td>0.369 / 0.362</td></tr>
-      <tr><td>s3_exit</td><td>0.231 / 0.230</td><td>0.228 / 0.226</td><td>0.211 / 0.213</td></tr>
-    </table>
+ <table class="md-table">
+ <tr><th>Scene</th><th>t = 0%</th><th>t = 50%</th><th>t = 98%</th></tr>
+ <tr><td>s1_establish</td><td>0.325 / 0.317</td><td>0.324 / 0.316</td><td>0.329 / 0.320</td></tr>
+ <tr><td>s2_deepen</td><td>0.335 / 0.327</td><td>0.353 / 0.346</td><td>0.369 / 0.362</td></tr>
+ <tr><td>s3_exit</td><td>0.231 / 0.230</td><td>0.228 / 0.226</td><td>0.211 / 0.213</td></tr>
+ </table>
 
-    <p>The numbers are vs-seed / vs-hero. The third scene has the lowest scores and that is correct - a character walking away should diverge from the reference. The gate flags catastrophic divergence, not stylistic movement.</p>
-  </section>
+ <p>The numbers are vs-seed / vs-hero. The third scene has the lowest scores and that is correct - a character walking away should diverge from the reference. The gate flags catastrophic divergence, not stylistic movement.</p>
+ </section>
 
-  <section>
-    <h2>What the workflow proves to a brand</h2>
-    <p>A brand evaluating this work signs off on "the character looks like the character" - not on the mechanism. The blueprint is the proof that the work is auditable end to end: every claim traces to a source, every frame is gated against a reference, every rule has a name and a measured cost, and every failure mode is documented.</p>
-  </section>
+ <section>
+ <h2>What the workflow proves to a brand</h2>
+ <p>A brand evaluating this work signs off on "the character looks like the character" - not on the mechanism. The blueprint is the proof that the work is auditable end to end: every claim traces to a source, every frame is gated against a reference, every rule has a name and a measured cost, and every failure mode is documented.</p>
+ </section>
 
-  <a href="/products/workflow/contact-sheets.html" class="cta">See Stage 2 (contact sheets)</a>
-  <a href="/products/forgotten-fronts/" class="cta ghost" style="margin-left: var(--space-3);">Forgotten Fronts channel</a>
-  <a href="/products/forgotten-fronts/ep_musashi.html" class="cta ghost" style="margin-left: var(--space-3);">EP_MUSASHI breakdown</a>
+ <a href="/products/workflow/contact-sheets.html" class="cta">See Stage 2 (contact sheets)</a>
+ <a href="/products/forgotten-fronts/" class="cta ghost" style="margin-left: var(--space-3);">Forgotten Fronts channel</a>
+ <a href="/products/forgotten-fronts/ep_musashi.html" class="cta ghost" style="margin-left: var(--space-3);">EP_MUSASHI breakdown</a>
 
 </div>
 </body>

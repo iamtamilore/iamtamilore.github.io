@@ -27,7 +27,7 @@ body { color: var(--text); font-family: 'Quicksand', var(--font); line-height: 1
 .frame-grid img { width: 100%; border-radius: 8px; border: 1px solid var(--border); }
 .frame-grid figcaption { font-size: var(--text-xs); color: var(--text-3); margin-top: var(--space-1); text-align: center; }
 .qa-table { width: 100%; border-collapse: collapse; margin-bottom: var(--space-4); font-size: var(--text-sm); }
-.qa-table th, .qa-table td { padding: var(--space-2); text-align: left; border-bottom: 1px solid var(--border); }
+.qa-table th.qa-table td { padding: var(--space-2); text-align: left; border-bottom: 1px solid var(--border); }
 .qa-table th { color: var(--text-3); font-weight: 600; }
 .qa-table .pass { color: #3a8; }
 .qa-table .fail { color: #c54; }
@@ -42,118 +42,118 @@ body { color: var(--text); font-family: 'Quicksand', var(--font); line-height: 1
 <body>
 <div class="frm-wrap">
 
-  <div class="frm-topbar">
-    <a href="/how/">&larr; How I make an episode</a>
-    <a href="/products/">All episodes &rarr;</a>
-  </div>
+ <div class="frm-topbar">
+ <a href="/how/">&larr; How I make an episode</a>
+ <a href="/products/">All episodes &rarr;</a>
+ </div>
 
-  <header>
-    <h1 class="frm-h1">EP_SPEEDMASTER — the reverse-engineered episode</h1>
-    <p class="frm-tagline">A 3-scene vertical anime episode, deconstructed so a brand can see exactly what they're paying for. Three shots, one QA gate per shot, one full frame extraction set per shot.</p>
-  </header>
+ <header>
+ <h1 class="frm-h1">EP_SPEEDMASTER, the reverse-engineered episode</h1>
+ <p class="frm-tagline">A 3-scene vertical anime episode, deconstructed so a brand can see exactly what they're paying for. Three shots, one QA gate per shot, one full frame extraction set per shot.</p>
+ </header>
 
-  <section class="scene-card">
-    <h2>1. The shape of the work</h2>
-    <p>This episode shipped <strong>4 July 2026</strong> as the first end-to-end run of the seed blueprint (this page) that became the luxury blueprint (see the <a href="/products/blueprint.html">blueprint page</a>). Three scenes, each with three frames extracted at t=0%, t=50%, t=98% of duration. One QA gate per scene. ~3 minute total runtime. One writer, one QA system, one set of kie.ai generation calls — visible below.</p>
-    <p><strong>Output:</strong> 3 MP4 scenes (s1_establish, s2_deepen, s3_exit), 9 frames total (3 per scene), 1 QA JSON file with all 9 vs-seed and vs-hero similarity scores.</p>
-    <p><strong>Source files:</strong> <code>/home/newtazer/Desktop/NCI/2ND/newtazer/products/ep_speedmaster/</code></p>
-  </section>
+ <section class="scene-card">
+ <h2>1. The shape of the work</h2>
+ <p>This episode shipped <strong>4 July 2026</strong> as the first end-to-end run of the seed blueprint (this page) that became the luxury blueprint (see the <a href="/products/blueprint.html">blueprint page</a>). Three scenes, each with three frames extracted at t=0%, t=50%, t=98% of duration. One QA gate per scene. ~3 minute total runtime. One writer, one QA system, one set of kie.ai generation calls, visible below.</p>
+ <p><strong>Output:</strong> 3 MP4 scenes (s1_establish, s2_deepen, s3_exit), 9 frames total (3 per scene), 1 QA JSON file with all 9 vs-seed and vs-hero similarity scores.</p>
+ <p><strong>Source files:</strong> <code>/home/newtazer/Desktop/NCI/2ND/newtazer/products/ep_speedmaster/</code></p>
+ </section>
 
-  <section class="scene-card">
-    <h2>Scene 1: s1_establish <span style="color:var(--text-3);font-size:var(--text-sm);font-weight:400;">— 9.2s</span></h2>
-    <p class="meta">Establishes the setting: empty street, rain beginning, character mid-stride. Sets the visual baseline for the rest of the episode.</p>
-    <div class="frame-grid">
-      <figure><img src="s1_establish_f00.png" alt="frame 1 t=0"><figcaption>t=0% (entry)</figcaption></figure>
-      <figure><img src="s1_establish_f50.png" alt="frame 2 t=50"><figcaption>t=50% (peak)</figcaption></figure>
-      <figure><img src="s1_establish_f98.png" alt="frame 3 t=98"><figcaption>t=98% (exit)</figcaption></figure>
-    </div>
-    <div class="q-msg"><strong>QA gate passes.</strong> vs-seed: 0.325, 0.324, 0.329. vs-hero: 0.317, 0.316, 0.320. Both similarity metrics show stable alignment across all three frames. No regeneration triggered.</div>
-    <table class="qa-table">
-      <thead><tr><th>Frame</th><th>vs-seed</th><th>vs-hero</th><th>Status</th></tr></thead>
-      <tbody>
-        <tr><td>f00 (t=0%)</td><td>0.3248</td><td>0.3175</td><td class="pass">PASS</td></tr>
-        <tr><td>f50 (t=50%)</td><td>0.3244</td><td>0.3158</td><td class="pass">PASS</td></tr>
-        <tr><td>f98 (t=98%)</td><td>0.3292</td><td>0.3202</td><td class="pass">PASS</td></tr>
-      </tbody>
-    </table>
-    <video src="s1_establish.mp4" controls style="width:100%; border-radius:8px; margin-bottom: var(--space-4);"></video>
-  </section>
+ <section class="scene-card">
+ <h2>Scene 1: s1_establish <span style="color:var(--text-3);font-size:var(--text-sm);font-weight:400;">, 9.2s</span></h2>
+ <p class="meta">Establishes the setting: empty street, rain beginning, character mid-stride. Sets the visual baseline for the rest of the episode.</p>
+ <div class="frame-grid">
+ <figure><img src="s1_establish_f00.png" alt="frame 1 t=0"><figcaption>t=0% (entry)</figcaption></figure>
+ <figure><img src="s1_establish_f50.png" alt="frame 2 t=50"><figcaption>t=50% (peak)</figcaption></figure>
+ <figure><img src="s1_establish_f98.png" alt="frame 3 t=98"><figcaption>t=98% (exit)</figcaption></figure>
+ </div>
+ <div class="q-msg"><strong>QA gate passes.</strong> vs-seed: 0.325, 0.324, 0.329. vs-hero: 0.317, 0.316, 0.320. Both similarity metrics show stable alignment across all three frames. No regeneration triggered.</div>
+ <table class="qa-table">
+ <thead><tr><th>Frame</th><th>vs-seed</th><th>vs-hero</th><th>Status</th></tr></thead>
+ <tbody>
+ <tr><td>f00 (t=0%)</td><td>0.3248</td><td>0.3175</td><td class="pass">PASS</td></tr>
+ <tr><td>f50 (t=50%)</td><td>0.3244</td><td>0.3158</td><td class="pass">PASS</td></tr>
+ <tr><td>f98 (t=98%)</td><td>0.3292</td><td>0.3202</td><td class="pass">PASS</td></tr>
+ </tbody>
+ </table>
+ <video src="s1_establish.mp4" controls style="width:100%; border-radius:8px; margin-bottom: var(--space-4);"></video>
+ </section>
 
-  <section class="scene-card">
-    <h2>Scene 2: s2_deepen <span style="color:var(--text-3);font-size:var(--text-sm);font-weight:400;">— 7.6s</span></h2>
-    <p class="meta">Deepens the rain and the character's posture. The most dramatic frame in the episode.</p>
-    <div class="frame-grid">
-      <figure><img src="s2_deepen_f00.png" alt="frame 1 t=0"><figcaption>t=0%</figcaption></figure>
-      <figure><img src="s2_deepen_f50.png" alt="frame 2 t=50"><figcaption>t=50%</figcaption></figure>
-      <figure><img src="s2_deepen_f98.png" alt="frame 3 t=98"><figcaption>t=98%</figcaption></figure>
-    </div>
-    <div class="q-msg"><strong>QA gate passes, drift detected.</strong> vs-seed climbs from 0.335 (entry) to 0.369 (exit), vs-hero from 0.327 to 0.362. This ~10% drift over the 7.6s scene is intentional (the scene's job is to deepen, not stay static) — the gate catches catastrophic failures, not stylistic drift.</div>
-    <table class="qa-table">
-      <thead><tr><th>Frame</th><th>vs-seed</th><th>vs-hero</th><th>Status</th></tr></thead>
-      <tbody>
-        <tr><td>f00</td><td>0.3352</td><td>0.3266</td><td class="pass">PASS</td></tr>
-        <tr><td>f50</td><td>0.3531</td><td>0.3460</td><td class="pass">PASS (drift within tolerance)</td></tr>
-        <tr><td>f98</td><td>0.3692</td><td>0.3617</td><td class="pass">PASS (drift within tolerance)</td></tr>
-      </tbody>
-    </table>
-    <video src="s2_deepen.mp4" controls style="width:100%; border-radius:8px; margin-bottom: var(--space-4);"></video>
-  </section>
+ <section class="scene-card">
+ <h2>Scene 2: s2_deepen <span style="color:var(--text-3);font-size:var(--text-sm);font-weight:400;">, 7.6s</span></h2>
+ <p class="meta">Deepens the rain and the character's posture. The most dramatic frame in the episode.</p>
+ <div class="frame-grid">
+ <figure><img src="s2_deepen_f00.png" alt="frame 1 t=0"><figcaption>t=0%</figcaption></figure>
+ <figure><img src="s2_deepen_f50.png" alt="frame 2 t=50"><figcaption>t=50%</figcaption></figure>
+ <figure><img src="s2_deepen_f98.png" alt="frame 3 t=98"><figcaption>t=98%</figcaption></figure>
+ </div>
+ <div class="q-msg"><strong>QA gate passes, drift detected.</strong> vs-seed climbs from 0.335 (entry) to 0.369 (exit), vs-hero from 0.327 to 0.362. This ~10% drift over the 7.6s scene is intentional (the scene's job is to deepen, not stay static), the gate catches catastrophic failures, not stylistic drift.</div>
+ <table class="qa-table">
+ <thead><tr><th>Frame</th><th>vs-seed</th><th>vs-hero</th><th>Status</th></tr></thead>
+ <tbody>
+ <tr><td>f00</td><td>0.3352</td><td>0.3266</td><td class="pass">PASS</td></tr>
+ <tr><td>f50</td><td>0.3531</td><td>0.3460</td><td class="pass">PASS (drift within tolerance)</td></tr>
+ <tr><td>f98</td><td>0.3692</td><td>0.3617</td><td class="pass">PASS (drift within tolerance)</td></tr>
+ </tbody>
+ </table>
+ <video src="s2_deepen.mp4" controls style="width:100%; border-radius:8px; margin-bottom: var(--space-4);"></video>
+ </section>
 
-  <section class="scene-card">
-    <h2>Scene 3: s3_exit <span style="color:var(--text-3);font-size:var(--text-sm);font-weight:400;">— 8.0s</span></h2>
-    <p class="meta">The character leaves the frame. Lowest similarity scores of the three scenes — that's correct: exit means departing from the reference, not staying close to it.</p>
-    <div class="frame-grid">
-      <figure><img src="s3_exit_f00.png" alt="frame 1 t=0"><figcaption>t=0%</figcaption></figure>
-      <figure><img src="s3_exit_f50.png" alt="frame 2 t=50"><figcaption>t=50%</figcaption></figure>
-      <figure><img src="s3_exit_f98.png" alt="frame 3 t=98"><figcaption>t=98%</figcaption></figure>
-    </div>
-    <div class="q-msg"><strong>QA gate passes (lowest of the three, as expected).</strong> vs-seed 0.231 → 0.211, vs-hero 0.230 → 0.213. The <em>lowest</em> scores in the episode are the correct ones — a character walking away SHOULD diverge from the reference. The QA gate is calibrated to flag <em>catastrophic</em> divergence, not stylistic movement.</div>
-    <table class="qa-table">
-      <thead><tr><th>Frame</th><th>vs-seed</th><th>vs-hero</th><th>Status</th></tr></thead>
-      <tbody>
-        <tr><td>f00</td><td>0.2314</td><td>0.2302</td><td class="pass">PASS</td></tr>
-        <tr><td>f50</td><td>0.2276</td><td>0.2260</td><td class="pass">PASS</td></tr>
-        <tr><td>f98</td><td>0.2111</td><td>0.2130</td><td class="pass">PASS</td></tr>
-      </tbody>
-    </table>
-    <video src="s3_exit.mp4" controls style="width:100%; border-radius:8px; margin-bottom: var(--space-4);"></video>
-  </section>
+ <section class="scene-card">
+ <h2>Scene 3: s3_exit <span style="color:var(--text-3);font-size:var(--text-sm);font-weight:400;">, 8.0s</span></h2>
+ <p class="meta">The character leaves the frame. Lowest similarity scores of the three scenes, that's correct: exit means departing from the reference, not staying close to it.</p>
+ <div class="frame-grid">
+ <figure><img src="s3_exit_f00.png" alt="frame 1 t=0"><figcaption>t=0%</figcaption></figure>
+ <figure><img src="s3_exit_f50.png" alt="frame 2 t=50"><figcaption>t=50%</figcaption></figure>
+ <figure><img src="s3_exit_f98.png" alt="frame 3 t=98"><figcaption>t=98%</figcaption></figure>
+ </div>
+ <div class="q-msg"><strong>QA gate passes (lowest of the three, as expected).</strong> vs-seed 0.231 → 0.211, vs-hero 0.230 → 0.213. The <em>lowest</em> scores in the episode are the correct ones, a character walking away SHOULD diverge from the reference. The QA gate is calibrated to flag <em>catastrophic</em> divergence, not stylistic movement.</div>
+ <table class="qa-table">
+ <thead><tr><th>Frame</th><th>vs-seed</th><th>vs-hero</th><th>Status</th></tr></thead>
+ <tbody>
+ <tr><td>f00</td><td>0.2314</td><td>0.2302</td><td class="pass">PASS</td></tr>
+ <tr><td>f50</td><td>0.2276</td><td>0.2260</td><td class="pass">PASS</td></tr>
+ <tr><td>f98</td><td>0.2111</td><td>0.2130</td><td class="pass">PASS</td></tr>
+ </tbody>
+ </table>
+ <video src="s3_exit.mp4" controls style="width:100%; border-radius:8px; margin-bottom: var(--space-4);"></video>
+ </section>
 
-  <section class="scene-card">
-    <h2>The QA gate that ran</h2>
-    <p>Every scene was measured against two reference images using the same gate that runs on every frame in every batch — <code>qa_selector.py</code> (ResNet50 cosine similarity, threshold M16.8–16.9 calibrated on a reference bank held out from the active training run).</p>
-    <p>The pass/fail criterion is: both <em>vs-seed</em> and <em>vs-hero</em> stay within the calibrated band for the scene type. Catastrophic divergence triggers an automatic regenerate; stylistic drift within tolerance does not. See the <a href="/products/blueprint.html">blueprint page</a> for the full gate logic, the regeneration budget, and the calibrated thresholds.</p>
-    <h3>Raw QA JSON</h3>
-    <pre style="font-family: var(--font-mono); font-size: var(--text-xs); background: var(--surface-1); padding: var(--space-4); border-radius: 8px; overflow-x: auto;">{
-  "s1_establish": [
-    {"pos": 0.00, "vs_seed": 0.3248, "vs_hero": 0.3175},
-    {"pos": 0.50, "vs_seed": 0.3244, "vs_hero": 0.3158},
-    {"pos": 0.98, "vs_seed": 0.3292, "vs_hero": 0.3202}
-  ],
-  "s2_deepen": [
-    {"pos": 0.00, "vs_seed": 0.3352, "vs_hero": 0.3266},
-    {"pos": 0.50, "vs_seed": 0.3531, "vs_hero": 0.3460},
-    {"pos": 0.98, "vs_seed": 0.3692, "vs_hero": 0.3617}
-  ],
-  "s3_exit": [
-    {"pos": 0.00, "vs_seed": 0.2314, "vs_hero": 0.2302},
-    {"pos": 0.50, "vs_seed": 0.2276, "vs_hero": 0.2260},
-    {"pos": 0.98, "vs_seed": 0.2111, "vs_hero": 0.2130}
-  ]
+ <section class="scene-card">
+ <h2>The QA gate that ran</h2>
+ <p>Every scene was measured against two reference images using the same gate that runs on every frame in every batch, <code>qa_selector.py</code> (ResNet50 cosine similarity, threshold M16.8, 16.9 calibrated on a reference bank held out from the active training run).</p>
+ <p>The pass/fail criterion is: both <em>vs-seed</em> and <em>vs-hero</em> stay within the calibrated band for the scene type. Catastrophic divergence triggers an automatic regenerate; stylistic drift within tolerance does not. See the <a href="/products/blueprint.html">blueprint page</a> for the full gate logic, the regeneration budget, and the calibrated thresholds.</p>
+ <h3>Raw QA JSON</h3>
+ <pre style="font-family: var(--font-mono); font-size: var(--text-xs); background: var(--surface-1); padding: var(--space-4); border-radius: 8px; overflow-x: auto;">{
+ "s1_establish": [
+ {"pos": 0.00, "vs_seed": 0.3248, "vs_hero": 0.3175},
+ {"pos": 0.50, "vs_seed": 0.3244, "vs_hero": 0.3158},
+ {"pos": 0.98, "vs_seed": 0.3292, "vs_hero": 0.3202}
+ ],
+ "s2_deepen": [
+ {"pos": 0.00, "vs_seed": 0.3352, "vs_hero": 0.3266},
+ {"pos": 0.50, "vs_seed": 0.3531, "vs_hero": 0.3460},
+ {"pos": 0.98, "vs_seed": 0.3692, "vs_hero": 0.3617}
+ ],
+ "s3_exit": [
+ {"pos": 0.00, "vs_seed": 0.2314, "vs_hero": 0.2302},
+ {"pos": 0.50, "vs_seed": 0.2276, "vs_hero": 0.2260},
+ {"pos": 0.98, "vs_seed": 0.2111, "vs_hero": 0.2130}
+ ]
 }</pre>
-  </section>
+ </section>
 
-  <section class="scene-card">
-    <h2>What the brand sees vs what the agent does</h2>
-    <p>The brand receives three video files and a single QA report. They do not see the prompts, the regeneration logic, or the threshold tuning. That's the whole point of the gate — the brand signs off on "the character looks like the character", not on the mechanism that ensures it.</p>
-    <p>For brands that want to see the mechanism — to verify the work is auditable, not just trusted — this page is the entry. The full production system is documented in the <a href="/products/blueprint.html">blueprint</a>; the higher-end version (the luxury tier that adds a four-ward expert routing panel, an AIDM Thompson-sampling credit allocator, and an EEAI leakage audit) is on the same blueprint at the <code>luxury</code> tier.</p>
-  </section>
+ <section class="scene-card">
+ <h2>What the brand sees vs what the agent does</h2>
+ <p>The brand receives three video files and a single QA report. They do not see the prompts, the regeneration logic, or the threshold tuning. That's the whole point of the gate, the brand signs off on "the character looks like the character", not on the mechanism that ensures it.</p>
+ <p>For brands that want to see the mechanism, to verify the work is auditable, not just trusted, this page is the entry. The full production system is documented in the <a href="/products/blueprint.html">blueprint</a>; the higher-end version (the luxury tier that adds a four-ward expert routing panel, an AIDM Thompson-sampling credit allocator, and an EEAI leakage audit) is on the same blueprint at the <code>luxury</code> tier.</p>
+ </section>
 
-  <div style="text-align:center;margin: var(--space-8) 0;">
-    <a href="/products/" class="frm-cta">All episodes</a>
-    <a href="/products/blueprint.html" class="frm-cta ghost" style="margin-left: var(--space-3);">See the blueprint</a>
-    <a href="/how/" class="frm-cta ghost" style="margin-left: var(--space-3);">How I make an episode</a>
-  </div>
+ <div style="text-align:center;margin: var(--space-8) 0;">
+ <a href="/products/" class="frm-cta">All episodes</a>
+ <a href="/products/blueprint.html" class="frm-cta ghost" style="margin-left: var(--space-3);">See the blueprint</a>
+ <a href="/how/" class="frm-cta ghost" style="margin-left: var(--space-3);">How I make an episode</a>
+ </div>
 
 </div>
 </body>
