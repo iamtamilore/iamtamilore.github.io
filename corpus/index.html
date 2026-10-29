@@ -102,6 +102,10 @@
   color: var(--text-3); cursor: pointer; user-select: none;
   letter-spacing: 0.04em; text-transform: uppercase; }
 .company details[open] summary { color: var(--accent); }
+.diff-section { margin-top: var(--space-3); }
+.diff-section-label { font-family: var(--font-mono); font-size: var(--text-xs);
+  letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--text-3); margin-bottom: var(--space-2); }
 .company .empty-state { color: var(--text-3); font-size: var(--text-sm);
   font-style: italic; }
 
@@ -145,7 +149,7 @@
       that the engine works on documents it has never seen before.
     </p>
     <div class="sampling">
-      <strong>Sampling frame.</strong> The corpus covers 9 companies that are
+      <strong>Sampling frame.</strong> The corpus covers 17 companies that are
       either (a) the largest data processors operating under GDPR scope,
       or (b) among the top five in their EU category. The list is the
       sample, not a ranking. Each entry justifies itself by size or
@@ -231,26 +235,58 @@
     <span class="corpus-sector">Big Tech</span>
   </td>
   <td class="corpus-risk risk-medium">Medium</td>
-  <td class="corpus-num">0.52</td>
-  <td class="corpus-num">46</td>
-  <td class="corpus-num">18</td>
-  <td class="corpus-num">44</td>
+  <td class="corpus-num">0.48</td>
+  <td class="corpus-num">14</td>
+  <td class="corpus-num">15</td>
+  <td class="corpus-num">25</td>
   <td class="corpus-date">2026-10-29</td>
   <td class="corpus-date">—</td>
   <td><span class="change none">.</span></td>
 </tr>
 
 
-<tr class="corpus-row" data-risk="Medium" data-slug="ing">
+<tr class="corpus-row" data-risk="Medium" data-slug="deutsche-bank">
   <td class="corpus-name">
-    <a href="https://www.ing.com/Privacy-Statement.htm" target="_blank" rel="noopener">ING</a>
+    <a href="https://www.db.com/legal-resources/privacy-notice?language_id=1" target="_blank" rel="noopener">Deutsche Bank</a>
     <span class="corpus-sector">Banking</span>
   </td>
   <td class="corpus-risk risk-medium">Medium</td>
-  <td class="corpus-num">0.64</td>
-  <td class="corpus-num">7</td>
+  <td class="corpus-num">0.55</td>
+  <td class="corpus-num">12</td>
+  <td class="corpus-num">20</td>
+  <td class="corpus-num">41</td>
+  <td class="corpus-date">2026-10-29</td>
+  <td class="corpus-date">—</td>
+  <td><span class="change none">.</span></td>
+</tr>
+
+
+<tr class="corpus-row" data-risk="Medium" data-slug="unicredit">
+  <td class="corpus-name">
+    <a href="https://www.unicredit.eu/privacy" target="_blank" rel="noopener">UniCredit</a>
+    <span class="corpus-sector">Banking</span>
+  </td>
+  <td class="corpus-risk risk-medium">Medium</td>
+  <td class="corpus-num">0.56</td>
   <td class="corpus-num">3</td>
-  <td class="corpus-num">22</td>
+  <td class="corpus-num">2</td>
+  <td class="corpus-num">8</td>
+  <td class="corpus-date">2026-10-29</td>
+  <td class="corpus-date">—</td>
+  <td><span class="change none">.</span></td>
+</tr>
+
+
+<tr class="corpus-row" data-risk="Medium" data-slug="ikea">
+  <td class="corpus-name">
+    <a href="https://www.ikea.com/global/en/legal/privacy-cookie-statement/" target="_blank" rel="noopener">IKEA</a>
+    <span class="corpus-sector">Retail</span>
+  </td>
+  <td class="corpus-risk risk-medium">Medium</td>
+  <td class="corpus-num">0.55</td>
+  <td class="corpus-num">73</td>
+  <td class="corpus-num">63</td>
+  <td class="corpus-num">285</td>
   <td class="corpus-date">2026-10-29</td>
   <td class="corpus-date">—</td>
   <td><span class="change none">.</span></td>
@@ -273,16 +309,32 @@
 </tr>
 
 
+<tr class="corpus-row" data-risk="Medium" data-slug="decathlon">
+  <td class="corpus-name">
+    <a href="https://www.decathlon.com/policies/privacy-policy" target="_blank" rel="noopener">Decathlon</a>
+    <span class="corpus-sector">Retail</span>
+  </td>
+  <td class="corpus-risk risk-medium">Medium</td>
+  <td class="corpus-num">0.59</td>
+  <td class="corpus-num">33</td>
+  <td class="corpus-num">18</td>
+  <td class="corpus-num">37</td>
+  <td class="corpus-date">2026-10-29</td>
+  <td class="corpus-date">—</td>
+  <td><span class="change none">.</span></td>
+</tr>
+
+
 <tr class="corpus-row" data-risk="Medium" data-slug="sap">
   <td class="corpus-name">
     <a href="https://www.sap.com/about/legal/privacy.html" target="_blank" rel="noopener">SAP</a>
     <span class="corpus-sector">Tech &amp; SaaS</span>
   </td>
   <td class="corpus-risk risk-medium">Medium</td>
-  <td class="corpus-num">0.53</td>
-  <td class="corpus-num">27</td>
-  <td class="corpus-num">26</td>
-  <td class="corpus-num">45</td>
+  <td class="corpus-num">0.54</td>
+  <td class="corpus-num">72</td>
+  <td class="corpus-num">74</td>
+  <td class="corpus-num">170</td>
   <td class="corpus-date">2026-10-29</td>
   <td class="corpus-date">—</td>
   <td><span class="change none">.</span></td>
@@ -305,16 +357,48 @@
 </tr>
 
 
+<tr class="corpus-row" data-risk="Medium" data-slug="deutsche-telekom">
+  <td class="corpus-name">
+    <a href="https://www.telekom.com/en/general/data-protection-information" target="_blank" rel="noopener">Deutsche Telekom</a>
+    <span class="corpus-sector">Telecom</span>
+  </td>
+  <td class="corpus-risk risk-medium">Medium</td>
+  <td class="corpus-num">0.54</td>
+  <td class="corpus-num">51</td>
+  <td class="corpus-num">30</td>
+  <td class="corpus-num">94</td>
+  <td class="corpus-date">2026-10-29</td>
+  <td class="corpus-date">—</td>
+  <td><span class="change none">.</span></td>
+</tr>
+
+
+<tr class="corpus-row" data-risk="Medium" data-slug="vodafone">
+  <td class="corpus-name">
+    <a href="https://www.vodafone.com/site-services/privacy-and-cookies" target="_blank" rel="noopener">Vodafone</a>
+    <span class="corpus-sector">Telecom</span>
+  </td>
+  <td class="corpus-risk risk-medium">Medium</td>
+  <td class="corpus-num">0.56</td>
+  <td class="corpus-num">16</td>
+  <td class="corpus-num">26</td>
+  <td class="corpus-num">40</td>
+  <td class="corpus-date">2026-10-29</td>
+  <td class="corpus-date">—</td>
+  <td><span class="change none">.</span></td>
+</tr>
+
+
 <tr class="corpus-row" data-risk="Medium" data-slug="booking">
   <td class="corpus-name">
     <a href="https://www.booking.com/content/privacy.html" target="_blank" rel="noopener">Booking.com</a>
     <span class="corpus-sector">Travel</span>
   </td>
   <td class="corpus-risk risk-medium">Medium</td>
-  <td class="corpus-num">0.52</td>
-  <td class="corpus-num">175</td>
-  <td class="corpus-num">94</td>
-  <td class="corpus-num">339</td>
+  <td class="corpus-num">0.51</td>
+  <td class="corpus-num">131</td>
+  <td class="corpus-num">72</td>
+  <td class="corpus-num">257</td>
   <td class="corpus-date">2026-10-29</td>
   <td class="corpus-date">—</td>
   <td><span class="change none">.</span></td>
@@ -358,10 +442,19 @@
     Last fetched <span class="mono">2026-10-29</span>
      · first snapshot
   </p>
-  <details>
-    <summary>latest diff</summary>
+  <div class="diff-section">
+    <p class="diff-section-label">Latest diff</p>
     <p class="empty-state">No diff yet (first snapshot).</p>
-  </details>
+  </div>
+</article>
+
+
+<article class="company" data-slug="meta" data-sector="Big Tech">
+  <header>
+    <h3>Meta <span class="sector">Big Tech</span></h3>
+    <p class="fetch-url"><a href="https://www.facebook.com/help/325807682359234" target="_blank" rel="noopener">policy source</a></p>
+  </header>
+  <p class="empty-state">No snapshot yet.</p>
 </article>
 
 
@@ -396,10 +489,10 @@
     Last fetched <span class="mono">2026-10-29</span>
      · first snapshot
   </p>
-  <details>
-    <summary>latest diff</summary>
+  <div class="diff-section">
+    <p class="diff-section-label">Latest diff</p>
     <p class="empty-state">No diff yet (first snapshot).</p>
-  </details>
+  </div>
 </article>
 
 
@@ -434,10 +527,10 @@
     Last fetched <span class="mono">2026-10-29</span>
      · first snapshot
   </p>
-  <details>
-    <summary>latest diff</summary>
+  <div class="diff-section">
+    <p class="diff-section-label">Latest diff</p>
     <p class="empty-state">No diff yet (first snapshot).</p>
-  </details>
+  </div>
 </article>
 
 
@@ -448,7 +541,7 @@
   </header>
   <div class="metrics">
     <div class="metric">
-      <span class="metric-num">0.52</span>
+      <span class="metric-num">0.48</span>
       <span class="metric-lab">score</span>
     </div>
     <div class="metric">
@@ -456,15 +549,15 @@
       <span class="metric-lab">risk</span>
     </div>
     <div class="metric">
-      <span class="metric-num">46</span>
+      <span class="metric-num">14</span>
       <span class="metric-lab">flagged</span>
     </div>
     <div class="metric">
-      <span class="metric-num">18</span>
+      <span class="metric-num">15</span>
       <span class="metric-lab">cleared</span>
     </div>
     <div class="metric sparkline-cell">
-      <span class="sparkline" data-history='[0.518]'></span>
+      <span class="sparkline" data-history='[0.478]'></span>
       <span class="metric-lab">1 snapshot</span>
     </div>
   </div>
@@ -472,21 +565,68 @@
     Last fetched <span class="mono">2026-10-29</span>
      · first snapshot
   </p>
-  <details>
-    <summary>latest diff</summary>
+  <div class="diff-section">
+    <p class="diff-section-label">Latest diff</p>
     <p class="empty-state">No diff yet (first snapshot).</p>
-  </details>
+  </div>
 </article>
 
 
-<article class="company" data-slug="ing" data-sector="Banking" data-risk="Medium">
+<article class="company" data-slug="deutsche-bank" data-sector="Banking" data-risk="Medium">
+  <header>
+    <h3>Deutsche Bank <span class="sector">Banking</span></h3>
+    <p class="fetch-url"><a href="https://www.db.com/legal-resources/privacy-notice?language_id=1" target="_blank" rel="noopener">policy source</a></p>
+  </header>
+  <div class="metrics">
+    <div class="metric">
+      <span class="metric-num">0.55</span>
+      <span class="metric-lab">score</span>
+    </div>
+    <div class="metric">
+      <span class="metric-num risk-Medium">Medium</span>
+      <span class="metric-lab">risk</span>
+    </div>
+    <div class="metric">
+      <span class="metric-num">12</span>
+      <span class="metric-lab">flagged</span>
+    </div>
+    <div class="metric">
+      <span class="metric-num">20</span>
+      <span class="metric-lab">cleared</span>
+    </div>
+    <div class="metric sparkline-cell">
+      <span class="sparkline" data-history='[0.55]'></span>
+      <span class="metric-lab">1 snapshot</span>
+    </div>
+  </div>
+  <p class="latest-meta">
+    Last fetched <span class="mono">2026-10-29</span>
+     · first snapshot
+  </p>
+  <div class="diff-section">
+    <p class="diff-section-label">Latest diff</p>
+    <p class="empty-state">No diff yet (first snapshot).</p>
+  </div>
+</article>
+
+
+<article class="company" data-slug="ing" data-sector="Banking">
   <header>
     <h3>ING <span class="sector">Banking</span></h3>
     <p class="fetch-url"><a href="https://www.ing.com/Privacy-Statement.htm" target="_blank" rel="noopener">policy source</a></p>
   </header>
+  <p class="empty-state">No snapshot yet.</p>
+</article>
+
+
+<article class="company" data-slug="unicredit" data-sector="Banking" data-risk="Medium">
+  <header>
+    <h3>UniCredit <span class="sector">Banking</span></h3>
+    <p class="fetch-url"><a href="https://www.unicredit.eu/privacy" target="_blank" rel="noopener">policy source</a></p>
+  </header>
   <div class="metrics">
     <div class="metric">
-      <span class="metric-num">0.64</span>
+      <span class="metric-num">0.56</span>
       <span class="metric-lab">score</span>
     </div>
     <div class="metric">
@@ -494,15 +634,15 @@
       <span class="metric-lab">risk</span>
     </div>
     <div class="metric">
-      <span class="metric-num">7</span>
+      <span class="metric-num">3</span>
       <span class="metric-lab">flagged</span>
     </div>
     <div class="metric">
-      <span class="metric-num">3</span>
+      <span class="metric-num">2</span>
       <span class="metric-lab">cleared</span>
     </div>
     <div class="metric sparkline-cell">
-      <span class="sparkline" data-history='[0.636]'></span>
+      <span class="sparkline" data-history='[0.56]'></span>
       <span class="metric-lab">1 snapshot</span>
     </div>
   </div>
@@ -510,10 +650,57 @@
     Last fetched <span class="mono">2026-10-29</span>
      · first snapshot
   </p>
-  <details>
-    <summary>latest diff</summary>
+  <div class="diff-section">
+    <p class="diff-section-label">Latest diff</p>
     <p class="empty-state">No diff yet (first snapshot).</p>
-  </details>
+  </div>
+</article>
+
+
+<article class="company" data-slug="ikea" data-sector="Retail" data-risk="Medium">
+  <header>
+    <h3>IKEA <span class="sector">Retail</span></h3>
+    <p class="fetch-url"><a href="https://www.ikea.com/global/en/legal/privacy-cookie-statement/" target="_blank" rel="noopener">policy source</a></p>
+  </header>
+  <div class="metrics">
+    <div class="metric">
+      <span class="metric-num">0.55</span>
+      <span class="metric-lab">score</span>
+    </div>
+    <div class="metric">
+      <span class="metric-num risk-Medium">Medium</span>
+      <span class="metric-lab">risk</span>
+    </div>
+    <div class="metric">
+      <span class="metric-num">73</span>
+      <span class="metric-lab">flagged</span>
+    </div>
+    <div class="metric">
+      <span class="metric-num">63</span>
+      <span class="metric-lab">cleared</span>
+    </div>
+    <div class="metric sparkline-cell">
+      <span class="sparkline" data-history='[0.547]'></span>
+      <span class="metric-lab">1 snapshot</span>
+    </div>
+  </div>
+  <p class="latest-meta">
+    Last fetched <span class="mono">2026-10-29</span>
+     · first snapshot
+  </p>
+  <div class="diff-section">
+    <p class="diff-section-label">Latest diff</p>
+    <p class="empty-state">No diff yet (first snapshot).</p>
+  </div>
+</article>
+
+
+<article class="company" data-slug="hm" data-sector="Retail">
+  <header>
+    <h3>H&amp;M <span class="sector">Retail</span></h3>
+    <p class="fetch-url"><a href="https://hmgroup.com/data-privacy-notice" target="_blank" rel="noopener">policy source</a></p>
+  </header>
+  <p class="empty-state">No snapshot yet.</p>
 </article>
 
 
@@ -548,10 +735,48 @@
     Last fetched <span class="mono">2026-10-29</span>
      · first snapshot
   </p>
-  <details>
-    <summary>latest diff</summary>
+  <div class="diff-section">
+    <p class="diff-section-label">Latest diff</p>
     <p class="empty-state">No diff yet (first snapshot).</p>
-  </details>
+  </div>
+</article>
+
+
+<article class="company" data-slug="decathlon" data-sector="Retail" data-risk="Medium">
+  <header>
+    <h3>Decathlon <span class="sector">Retail</span></h3>
+    <p class="fetch-url"><a href="https://www.decathlon.com/policies/privacy-policy" target="_blank" rel="noopener">policy source</a></p>
+  </header>
+  <div class="metrics">
+    <div class="metric">
+      <span class="metric-num">0.59</span>
+      <span class="metric-lab">score</span>
+    </div>
+    <div class="metric">
+      <span class="metric-num risk-Medium">Medium</span>
+      <span class="metric-lab">risk</span>
+    </div>
+    <div class="metric">
+      <span class="metric-num">33</span>
+      <span class="metric-lab">flagged</span>
+    </div>
+    <div class="metric">
+      <span class="metric-num">18</span>
+      <span class="metric-lab">cleared</span>
+    </div>
+    <div class="metric sparkline-cell">
+      <span class="sparkline" data-history='[0.592]'></span>
+      <span class="metric-lab">1 snapshot</span>
+    </div>
+  </div>
+  <p class="latest-meta">
+    Last fetched <span class="mono">2026-10-29</span>
+     · first snapshot
+  </p>
+  <div class="diff-section">
+    <p class="diff-section-label">Latest diff</p>
+    <p class="empty-state">No diff yet (first snapshot).</p>
+  </div>
 </article>
 
 
@@ -562,7 +787,7 @@
   </header>
   <div class="metrics">
     <div class="metric">
-      <span class="metric-num">0.53</span>
+      <span class="metric-num">0.54</span>
       <span class="metric-lab">score</span>
     </div>
     <div class="metric">
@@ -570,15 +795,15 @@
       <span class="metric-lab">risk</span>
     </div>
     <div class="metric">
-      <span class="metric-num">27</span>
+      <span class="metric-num">72</span>
       <span class="metric-lab">flagged</span>
     </div>
     <div class="metric">
-      <span class="metric-num">26</span>
+      <span class="metric-num">74</span>
       <span class="metric-lab">cleared</span>
     </div>
     <div class="metric sparkline-cell">
-      <span class="sparkline" data-history='[0.531]'></span>
+      <span class="sparkline" data-history='[0.543]'></span>
       <span class="metric-lab">1 snapshot</span>
     </div>
   </div>
@@ -586,10 +811,10 @@
     Last fetched <span class="mono">2026-10-29</span>
      · first snapshot
   </p>
-  <details>
-    <summary>latest diff</summary>
+  <div class="diff-section">
+    <p class="diff-section-label">Latest diff</p>
     <p class="empty-state">No diff yet (first snapshot).</p>
-  </details>
+  </div>
 </article>
 
 
@@ -624,10 +849,86 @@
     Last fetched <span class="mono">2026-10-29</span>
      · first snapshot
   </p>
-  <details>
-    <summary>latest diff</summary>
+  <div class="diff-section">
+    <p class="diff-section-label">Latest diff</p>
     <p class="empty-state">No diff yet (first snapshot).</p>
-  </details>
+  </div>
+</article>
+
+
+<article class="company" data-slug="deutsche-telekom" data-sector="Telecom" data-risk="Medium">
+  <header>
+    <h3>Deutsche Telekom <span class="sector">Telecom</span></h3>
+    <p class="fetch-url"><a href="https://www.telekom.com/en/general/data-protection-information" target="_blank" rel="noopener">policy source</a></p>
+  </header>
+  <div class="metrics">
+    <div class="metric">
+      <span class="metric-num">0.54</span>
+      <span class="metric-lab">score</span>
+    </div>
+    <div class="metric">
+      <span class="metric-num risk-Medium">Medium</span>
+      <span class="metric-lab">risk</span>
+    </div>
+    <div class="metric">
+      <span class="metric-num">51</span>
+      <span class="metric-lab">flagged</span>
+    </div>
+    <div class="metric">
+      <span class="metric-num">30</span>
+      <span class="metric-lab">cleared</span>
+    </div>
+    <div class="metric sparkline-cell">
+      <span class="sparkline" data-history='[0.536]'></span>
+      <span class="metric-lab">1 snapshot</span>
+    </div>
+  </div>
+  <p class="latest-meta">
+    Last fetched <span class="mono">2026-10-29</span>
+     · first snapshot
+  </p>
+  <div class="diff-section">
+    <p class="diff-section-label">Latest diff</p>
+    <p class="empty-state">No diff yet (first snapshot).</p>
+  </div>
+</article>
+
+
+<article class="company" data-slug="vodafone" data-sector="Telecom" data-risk="Medium">
+  <header>
+    <h3>Vodafone <span class="sector">Telecom</span></h3>
+    <p class="fetch-url"><a href="https://www.vodafone.com/site-services/privacy-and-cookies" target="_blank" rel="noopener">policy source</a></p>
+  </header>
+  <div class="metrics">
+    <div class="metric">
+      <span class="metric-num">0.56</span>
+      <span class="metric-lab">score</span>
+    </div>
+    <div class="metric">
+      <span class="metric-num risk-Medium">Medium</span>
+      <span class="metric-lab">risk</span>
+    </div>
+    <div class="metric">
+      <span class="metric-num">16</span>
+      <span class="metric-lab">flagged</span>
+    </div>
+    <div class="metric">
+      <span class="metric-num">26</span>
+      <span class="metric-lab">cleared</span>
+    </div>
+    <div class="metric sparkline-cell">
+      <span class="sparkline" data-history='[0.561]'></span>
+      <span class="metric-lab">1 snapshot</span>
+    </div>
+  </div>
+  <p class="latest-meta">
+    Last fetched <span class="mono">2026-10-29</span>
+     · first snapshot
+  </p>
+  <div class="diff-section">
+    <p class="diff-section-label">Latest diff</p>
+    <p class="empty-state">No diff yet (first snapshot).</p>
+  </div>
 </article>
 
 
@@ -638,7 +939,7 @@
   </header>
   <div class="metrics">
     <div class="metric">
-      <span class="metric-num">0.52</span>
+      <span class="metric-num">0.51</span>
       <span class="metric-lab">score</span>
     </div>
     <div class="metric">
@@ -646,15 +947,15 @@
       <span class="metric-lab">risk</span>
     </div>
     <div class="metric">
-      <span class="metric-num">175</span>
+      <span class="metric-num">131</span>
       <span class="metric-lab">flagged</span>
     </div>
     <div class="metric">
-      <span class="metric-num">94</span>
+      <span class="metric-num">72</span>
       <span class="metric-lab">cleared</span>
     </div>
     <div class="metric sparkline-cell">
-      <span class="sparkline" data-history='[0.515]'></span>
+      <span class="sparkline" data-history='[0.508]'></span>
       <span class="metric-lab">1 snapshot</span>
     </div>
   </div>
@@ -662,10 +963,10 @@
     Last fetched <span class="mono">2026-10-29</span>
      · first snapshot
   </p>
-  <details>
-    <summary>latest diff</summary>
+  <div class="diff-section">
+    <p class="diff-section-label">Latest diff</p>
     <p class="empty-state">No diff yet (first snapshot).</p>
-  </details>
+  </div>
 </article>
 
   </section>
@@ -692,7 +993,7 @@
     Built by <a href="/" style="color: var(--text-2); text-decoration: none; border-bottom: 1px solid var(--border);">Taiwo Alabi</a>
     · <a href="/cv/" style="color: var(--text-2); text-decoration: none; border-bottom: 1px solid var(--border);">CV</a>
     · <a href="/p/termsguard/" style="color: var(--text-2); text-decoration: none; border-bottom: 1px solid var(--border);">TermsGuard write-up</a>
-    · Last run: 2026-10-29 (9/9 ok)
+    · Last run: 2026-10-29 (14/17 ok)
   </footer>
 </div>
 
