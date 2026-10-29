@@ -31,6 +31,44 @@
 .pg-cta-ghost:hover { border-color: var(--accent); color: var(--accent); }
 .pg-back { display: inline-flex; align-items: center; gap: 4px; color: var(--text-3); font-size: var(--text-sm); text-decoration: none; border-bottom: none; padding: 4px 0; }
 .pg-back:hover { color: var(--accent); }
+
+/* Corpus snapshot callout: sits between the stat strip and the long body.
+   High-visibility but not a primary CTA: it shows the engine is alive. */
+.corpus-callout {
+    margin: 0 0 var(--space-8);
+    padding: var(--space-5) var(--space-6);
+    background: var(--bg-2);
+    border-left: 3px solid var(--accent);
+}
+.corpus-eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 6px;
+}
+.corpus-headline {
+    font-family: var(--font-mono);
+    font-size: var(--text-base);
+    color: var(--text);
+    margin-bottom: 6px;
+}
+.corpus-detail {
+    font-size: var(--text-sm);
+    color: var(--text-2);
+    line-height: 1.5;
+    margin-bottom: 8px;
+    max-width: 70ch;
+}
+.corpus-link {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+}
+.corpus-link:hover { color: var(--accent-2, var(--accent)); }
 @media (max-width: 700px) {
   .pg-stats { grid-template-columns: repeat(2, 1fr); }
   .pg-stat:nth-child(2) { border-right: none; }
@@ -45,6 +83,13 @@
 <img class="pg-hero" src="/assets/img/p/termsguard_hero.jpg" alt="" loading="lazy" width="1280" height="720">
 
 <div class="pg-stats"><div class="pg-stat"><span class="pg-num">102</span><span class="pg-lab">hand-labelled reference clauses</span></div><div class="pg-stat"><span class="pg-num">12</span><span class="pg-lab">regression cases</span></div><div class="pg-stat"><span class="pg-num">12 / 12</span><span class="pg-lab">passing live</span></div><div class="pg-stat"><span class="pg-num">< 10s</span><span class="pg-lab">per policy on the live demo</span></div></div>
+
+<aside class="corpus-callout">
+  <p class="corpus-eyebrow">Latest corpus snapshot</p>
+  <p class="corpus-headline"><strong>20 of 24</strong> companies scored. Last run 2026-10-29.</p>
+  <p class="corpus-detail">5 Big Tech, 5 banks, 5 retailers, 5 telecom and insurance, plus the failure cases from this week's drops. Every score is the mean confidence of the flagged clauses, on the latest fetched version of each policy.</p>
+  <p><a class="corpus-link" href="/corpus/">Open the corpus →</a></p>
+</aside>
 <div class="wrap">
 <hr class="rule"><h1 id="termsguard-ai">TermsGuard AI</h1>
 <p class="readtime">7 min read</p>
