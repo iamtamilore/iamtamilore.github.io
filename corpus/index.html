@@ -109,6 +109,86 @@
 .company .empty-state { color: var(--text-3); font-size: var(--text-sm);
   font-style: italic; }
 
+/* Per-company analyst sections */
+.section-h { font-family: var(--font-mono); font-size: var(--text-xs);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-3); margin: var(--space-6) 0 var(--space-3); }
+.analyst p, .overall p, .method-block p {
+  font-size: var(--text-base); color: var(--text); line-height: 1.65;
+  max-width: 70ch; margin: 0 0 var(--space-3); }
+.method-block p em { font-style: normal; color: var(--accent); font-weight: 500; }
+
+/* Clause blocks */
+.clauses-block { margin-top: var(--space-6); }
+.clauses { margin-bottom: var(--space-5); }
+.clauses h4 { font-size: var(--text-base); font-weight: 500; color: var(--text);
+  margin: 0 0 var(--space-2); }
+.clauses-meta { font-family: var(--font-mono); font-size: var(--text-xs);
+  color: var(--text-3); margin: 0 0 var(--space-3); }
+.clause-block { padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-3); border-radius: 0 4px 4px 0; }
+.clause-block.clause-bad { border-left: 3px solid var(--accent);
+  background: var(--accent-bg); }
+.clause-block.clause-good { border-left: 3px solid var(--border-2);
+  background: var(--bg-2); }
+.clause-text { font-size: var(--text-sm); color: var(--text);
+  line-height: 1.6; margin: 0 0 var(--space-2); }
+.clause-meta { font-family: var(--font-mono); font-size: var(--text-xs);
+  color: var(--text-3); margin: 0 0 var(--space-2);
+  display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+.law-chip { background: var(--bg); border: 1px solid var(--border);
+  padding: 1px 8px; border-radius: 999px; font-size: var(--text-xs);
+  color: var(--text-2); }
+.clause-bad .law-chip { border-color: var(--accent); color: var(--accent); }
+.clause-confidence { color: var(--text-3); }
+.clause-evidence { font-family: var(--font-mono); font-size: var(--text-xs);
+  color: var(--text-3); line-height: 1.5; margin: 0;
+  border-top: 1px solid var(--border-2); padding-top: var(--space-2); }
+.clause-evidence em { font-style: normal; color: var(--text-2); }
+
+/* Notes block */
+.notes-list { margin: 0; padding-left: var(--space-4); font-size: var(--text-sm);
+  color: var(--text-2); line-height: 1.6; max-width: 70ch; }
+.notes-list li { margin-bottom: var(--space-2); }
+
+/* "How to read" callouts */
+.how-to-read { margin-top: var(--space-8); padding: var(--space-5);
+  background: var(--bg-2); border: 1px solid var(--border); border-radius: 4px; }
+.how-to-read h2 { font-size: var(--text-lg); margin: 0 0 var(--space-3);
+  font-weight: 500; letter-spacing: -0.01em; }
+.how-to-read p { font-size: var(--text-sm); color: var(--text-2);
+  line-height: 1.6; margin: 0 0 var(--space-3); max-width: 70ch; }
+.how-to-read .legend { display: flex; gap: var(--space-5); flex-wrap: wrap;
+  font-size: var(--text-xs); font-family: var(--font-mono);
+  color: var(--text-3); margin-top: var(--space-3); }
+.legend-item { display: inline-flex; align-items: center; gap: var(--space-2); }
+.legend-swatch { width: 12px; height: 12px; border-radius: 2px; display: inline-block; }
+.swatch-flagged { background: var(--accent); }
+.swatch-cleared { background: var(--border-2); border: 1px solid var(--border); }
+.swatch-uncertain { background: transparent; border: 1px dashed var(--text-3); }
+
+/* Change indicator */
+.latest-meta { font-size: var(--text-sm); color: var(--text-2);
+  margin: var(--space-3) 0 var(--space-2); }
+.delta { font-family: var(--font-mono); font-weight: 700; padding: 1px 5px;
+  border-radius: 3px; font-size: var(--text-xs); }
+.delta-up { color: var(--accent); background: var(--accent-bg); }
+.delta-down { color: var(--live); background: var(--live-bg); }
+.delta-flat { color: var(--text-3); }
+
+/* "What changed" subsection */
+.what-changed { margin-top: var(--space-6); }
+.what-changed p { font-size: var(--text-sm); color: var(--text-2);
+  line-height: 1.6; margin: 0 0 var(--space-3); max-width: 70ch; }
+
+/* Footer how-to-read */
+.how-to-read-footer { margin-top: var(--space-12); padding-top: var(--space-6);
+  border-top: 1px solid var(--border); }
+.how-to-read-footer h2 { font-size: var(--text-lg); margin: 0 0 var(--space-3);
+  font-weight: 500; letter-spacing: -0.01em; }
+.how-to-read-footer p { font-size: var(--text-sm); color: var(--text-2);
+  line-height: 1.65; margin: 0; max-width: 70ch; }
+
 /* Diff renderer */
 .diff {
   margin-top: var(--space-3); border: 1px solid var(--border);
@@ -157,6 +237,21 @@
       3 were rate-limited or bot-blocked and will retry next run.
     </div>
   </header>
+
+  <section class="how-to-read">
+  <h2 class="section-h">How to read this</h2>
+  <p>
+    The score is the mean cosine confidence of the flagged clauses, range 0 to 1.
+    Risk labels (Low / Medium / High / Unknown) come from fixed score bands, not a learned model.
+    A diff is computed between the current snapshot and the previous one for the same company;
+    companies with only one snapshot have no diff to show.
+  </p>
+  <p class="legend">
+    <span class="legend-item"><span class="legend-swatch swatch-flagged"></span> Flagged = matches the unfair reference set</span>
+    <span class="legend-item"><span class="legend-swatch swatch-cleared"></span> Cleared = matches the fair reference set</span>
+    <span class="legend-item"><span class="legend-swatch swatch-uncertain"></span> Uncertain = no confident match</span>
+  </p>
+</section>
 
   <section>
     <h2>Latest scores</h2>
@@ -440,9 +535,121 @@
     </div>
   </div>
   <p class="latest-meta">
-    Last fetched <span class="mono">2026-10-29</span>
-     · first snapshot
+    Last fetched <span class="mono">2026-10-29</span> · first snapshot
   </p>
+
+  <section class="analyst">
+    <h4 class="section-h">Analyst summary</h4>
+    <p>TermsGuard&#39;s reading: This is a medium risk policy with purpose limitation concerns, cookie and consent issues, and disputed claims about international transfers and territorial scope. The dominant matches are Article 5(1)(b) Purpose Limitation, with 53 flagged clauses, followed by no basis match in 43 clauses and ePrivacy Directive combinations with Article 5(1)(b) or Article 7 Conditions for Consent. The engine also flags Article 44 International Transfers and Article 3 Territorial Scope.</p>
+  </section>
+
+  <section class="method-block">
+    <h4 class="section-h">How this was scored</h4>
+    <p class="methodology">
+      How this was scored: <span class="mono">481</span> clauses were extracted from the
+      policy and matched against the <span class="mono">102</span> hand-labelled reference clauses
+      (<span class="mono">52</span> fair, <span class="mono">50</span> unfair). The top match for each
+      clause was checked against the
+      <span class="mono">550</span>-chunk reference index of the actual GDPR text
+      (<span class="mono">99</span> articles + <span class="mono">173</span> recitals), and the matching
+      article was attached to the flag. The score is the mean confidence of the
+      <span class="mono">173</span> flagged clauses
+      , most of them under <em>Art.5(1)(b) Purpose Limitation violation</em>.
+      No model verification on this run; cosine + GDPR retrieval only.
+    </p>
+  </section>
+
+  <section class="clauses-block">
+    
+<section class="clauses">
+  <h4>Flagged clauses · what TermsGuard thinks you should read</h4>
+  <p class="clauses-meta">Top 4 of 173 by confidence. Each clause shows the matched GDPR article and the passage the engine used.</p>
+  <div class="clause-block clause-bad">
+  <p class="clause-text">We don’t share information that personally identifies you with advertisers, such as your name or email, unless you ask us to.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.5(1)(b) Purpose Limitation</span>
+    <span class="clause-confidence">confidence 0.72</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 5] Principles relating to processing of personal data 1. Personal data shall be: (1) processed lawfully, fairly and in a transparent manner in relation to the data subject (‘lawfulness, fairness and transparency’); (2) collected for specified, explicit and legitimate purposes and not furt...</p>
+</div>
+<div class="clause-block clause-bad">
+  <p class="clause-text">Data protection laws vary among countries, with some providing more protection than others.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.44 International Transfers</span>
+    <span class="clause-confidence">confidence 0.72</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 44] General principle for transfers 1. Any transfer of personal data which are undergoing processing or are intended for processing after transfer to a third country or to an international organisation shall take place only if, subject to the other provisions of this Regulation, the condi...</p>
+</div>
+<div class="clause-block clause-bad">
+  <p class="clause-text">This Privacy Policy doesn’t apply to services that have separate privacy policies that do not incorporate this Privacy Policy.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.3 Territorial Scope unlawful claim</span>
+    <span class="clause-confidence">confidence 0.72</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 3] Territorial scope 1. This Regulation applies to the processing of personal data in the context of the activities of an establishment of a controller or a processor in the Union, regardless of whether the processing takes place in the Union or not. 2. This Regulation applies to the proc...</p>
+</div>
+<div class="clause-block clause-bad">
+  <p class="clause-text">For example, we use cookies to analyze how people interact with our services.</p>
+  <p class="clause-meta">
+    <span class="law-chip">ePrivacy Directive violation + Art.7 Consent</span>
+    <span class="clause-confidence">confidence 0.72</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Recital 58] The Principle of Transparency 1. The principle of transparency requires that any information addressed to the public or to the data subject be concise, easily accessible and easy to understand, and that clear and plain language and, additionally, where appropriate, visualisation be...</p>
+</div>
+</section>
+<section class="clauses">
+  <h4>Cleared clauses · what TermsGuard reads as protective</h4>
+  <p class="clauses-meta">Top 4 of 84 by confidence. These are the clauses the engine read as GDPR-compliant.</p>
+  <div class="clause-block clause-good">
+  <p class="clause-text">To delete your information, you can:</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.17 Right to Erasure</span>
+    <span class="clause-confidence">confidence 0.77</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 17] Right to erasure (‘right to be forgotten’) (4) the personal data have been unlawfully processed; (5) the personal data have to be erased for compliance with a legal obligation in Union or Member State law to which the controller is subject; (6) the personal data have been collected in...</p>
+</div>
+<div class="clause-block clause-good">
+  <p class="clause-text">And some data we retain for longer periods of time when necessary for legitimate business or legal purposes, such as security, fraud and abuse prevention, or financial record-keeping.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.5(1)(e) Storage Limitation</span>
+    <span class="clause-confidence">confidence 0.76</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 5] Principles relating to processing of personal data (5) kept in a form which permits identification of data subjects for no longer than is necessary for the purposes for which the personal data are processed; personal data may be stored for longer periods insofar as the personal data wi...</p>
+</div>
+<div class="clause-block clause-good">
+  <p class="clause-text">However, some website features or services may not function properly without cookies.</p>
+  <p class="clause-meta">
+    <span class="law-chip">ePrivacy Directive + Art.5(1)(b)</span>
+    <span class="clause-confidence">confidence 0.76</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Recital 64] Identity Verification 1. The controller should use all reasonable measures to verify the identity of a data subject who requests access, in particular in the context of online services and online identifiers. 2. A controller should not retain personal data for the sole purpose of b...</p>
+</div>
+<div class="clause-block clause-good">
+  <p class="clause-text">We change this Privacy Policy from time to time.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.7 Conditions for Consent + Art.13</span>
+    <span class="clause-confidence">confidence 0.74</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 7] Conditions for consent 1. Where processing is based on consent, the controller shall be able to demonstrate that the data subject has consented to processing of his or her personal data. 1. If the data subject’s consent is given in the context of a written declaration which also concer...</p>
+</div>
+</section>
+  </section>
+
+  <section class="overall">
+    <h4 class="section-h">Overall analysis</h4>
+    <p>Of 481 clauses analysed, 173 were flagged and 84 were cleared, so the policy contains valid privacy controls alongside a larger set of detected concerns. The flagged examples cover advertiser sharing, cookie analytics, a statement that data protection varies between countries, and exclusion of services with separate privacy policies. The cleared examples cover deletion requests, longer retention for stated business or legal purposes, cookie-related service limits</p>
+  </section>
+
+  
+
+  <section class="notes-block">
+    <h4 class="section-h">Notes and caveats</h4>
+    <ul class="notes-list">  <li>224 clauses were left uncertain. They sit between the fair and unfair reference sets and the engine did not commit.</li>
+  <li>The verification model is not configured for this corpus run. Cosine similarity + GDPR-article retrieval are the only signals.</li>
+  <li>This is a measurement of the published policy text, not the company&#39;s actual data-handling practice. The policy can be more or less protective than the practice.</li>
+</ul>
+  </section>
+
   <div class="diff-section">
     <p class="diff-section-label">Latest diff</p>
     <p class="empty-state">No diff yet (first snapshot).</p>
@@ -487,9 +694,81 @@
     </div>
   </div>
   <p class="latest-meta">
-    Last fetched <span class="mono">2026-10-29</span>
-     · first snapshot
+    Last fetched <span class="mono">2026-10-29</span> · first snapshot
   </p>
+
+  <section class="analyst">
+    <h4 class="section-h">Analyst summary</h4>
+    <p>TermsGuard&#39;s reading: This policy presents a medium risk of consent and access compliance problems. The engine flagged a general privacy commitment under Article 7 Conditions for Consent and an instruction to visit Manage your Apple account under Article 15 Right of Access. The flagged clauses have a mean confidence of 0.58.</p>
+  </section>
+
+  <section class="method-block">
+    <h4 class="section-h">How this was scored</h4>
+    <p class="methodology">
+      How this was scored: <span class="mono">7</span> clauses were extracted from the
+      policy and matched against the <span class="mono">102</span> hand-labelled reference clauses
+      (<span class="mono">52</span> fair, <span class="mono">50</span> unfair). The top match for each
+      clause was checked against the
+      <span class="mono">550</span>-chunk reference index of the actual GDPR text
+      (<span class="mono">99</span> articles + <span class="mono">173</span> recitals), and the matching
+      article was attached to the flag. The score is the mean confidence of the
+      <span class="mono">2</span> flagged clauses
+      , most of them under <em>Art.7 Conditions for Consent violation</em>.
+      No model verification on this run; cosine + GDPR retrieval only.
+    </p>
+  </section>
+
+  <section class="clauses-block">
+    
+<section class="clauses">
+  <h4>Flagged clauses · what TermsGuard thinks you should read</h4>
+  <p class="clauses-meta">Top 2 of 2 by confidence. Each clause shows the matched GDPR article and the passage the engine used.</p>
+  <div class="clause-block clause-bad">
+  <p class="clause-text">Apple is committed to your privacy.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.7 Conditions for Consent</span>
+    <span class="clause-confidence">confidence 0.59</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 7] Conditions for consent It shall be as easy to withdraw as to give consent. 8. When assessing whether consent is freely given, utmost account shall be taken of whether, inter alia, the performance of a contract, including the provision of a service, is conditional on consent to the proc...</p>
+</div>
+<div class="clause-block clause-bad">
+  <p class="clause-text">To access and manage your Apple data please visit Manage your Apple account.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.15 Right of Access</span>
+    <span class="clause-confidence">confidence 0.58</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 15] Right of access by the data subject 1. The data subject shall have the right to obtain from the controller confirmation as to whether or not personal data concerning him or her are being processed, and, where that is the case, access to the personal data and the following information:...</p>
+</div>
+</section>
+<section class="clauses">
+  <h4>Cleared clauses · what TermsGuard reads as protective</h4>
+  <p class="clauses-meta">Top 1 of 1 by confidence. These are the clauses the engine read as GDPR-compliant.</p>
+  <div class="clause-block clause-good">
+  <p class="clause-text">For corrections or general enquiries, please Contact Privacy.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.15 Right of Access</span>
+    <span class="clause-confidence">confidence 0.49</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 15] Right of access by the data subject 1. The data subject shall have the right to obtain from the controller confirmation as to whether or not personal data concerning him or her are being processed, and, where that is the case, access to the personal data and the following information:...</p>
+</div>
+</section>
+  </section>
+
+  <section class="overall">
+    <h4 class="section-h">Overall analysis</h4>
+    <p>Of seven clauses analysed, two were flagged and one was cleared. The flagged set covers one clause under Article 7 and one under Article 15, while the cleared clause also concerns Article 15 and directs users to Contact Privacy for corrections or general enquiries. This shows mixed treatment of access-related language, with the account-management instruction flagged and the contact instruction cleared. Four analysed clauses are not represented in the supplied flagged or cleared lists.</p>
+  </section>
+
+  
+
+  <section class="notes-block">
+    <h4 class="section-h">Notes and caveats</h4>
+    <ul class="notes-list">  <li>4 clauses were left uncertain. They sit between the fair and unfair reference sets and the engine did not commit.</li>
+  <li>The verification model is not configured for this corpus run. Cosine similarity + GDPR-article retrieval are the only signals.</li>
+  <li>This is a measurement of the published policy text, not the company&#39;s actual data-handling practice. The policy can be more or less protective than the practice.</li>
+</ul>
+  </section>
+
   <div class="diff-section">
     <p class="diff-section-label">Latest diff</p>
     <p class="empty-state">No diff yet (first snapshot).</p>
@@ -525,9 +804,121 @@
     </div>
   </div>
   <p class="latest-meta">
-    Last fetched <span class="mono">2026-10-29</span>
-     · first snapshot
+    Last fetched <span class="mono">2026-10-29</span> · first snapshot
   </p>
+
+  <section class="analyst">
+    <h4 class="section-h">Analyst summary</h4>
+    <p>TermsGuard&#39;s reading: This is a medium-risk policy with data-use, cookie-consent, purpose-limitation, and international-transfer concerns. The engine most often flagged Article 5(1)(b) Purpose Limitation, followed by no basis matches, and also identified ePrivacy Directive and Article 7 Conditions for Consent issues. It also flagged an Article 44 International Transfers clause, with a mean confidence of 0.52 across flagged clauses.</p>
+  </section>
+
+  <section class="method-block">
+    <h4 class="section-h">How this was scored</h4>
+    <p class="methodology">
+      How this was scored: <span class="mono">1462</span> clauses were extracted from the
+      policy and matched against the <span class="mono">102</span> hand-labelled reference clauses
+      (<span class="mono">52</span> fair, <span class="mono">50</span> unfair). The top match for each
+      clause was checked against the
+      <span class="mono">550</span>-chunk reference index of the actual GDPR text
+      (<span class="mono">99</span> articles + <span class="mono">173</span> recitals), and the matching
+      article was attached to the flag. The score is the mean confidence of the
+      <span class="mono">286</span> flagged clauses
+      , most of them under <em>Art.5(1)(b) Purpose Limitation violation</em>.
+      No model verification on this run; cosine + GDPR retrieval only.
+    </p>
+  </section>
+
+  <section class="clauses-block">
+    
+<section class="clauses">
+  <h4>Flagged clauses · what TermsGuard thinks you should read</h4>
+  <p class="clauses-meta">Top 4 of 286 by confidence. Each clause shows the matched GDPR article and the passage the engine used.</p>
+  <div class="clause-block clause-bad">
+  <p class="clause-text">Browsing activity includes your browse history, favourites, usage data, and web content.</p>
+  <p class="clause-meta">
+    <span class="law-chip">ePrivacy Directive violation + Art.5(1)(b)</span>
+    <span class="clause-confidence">confidence 0.79</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Recital 18] Not Applicable to Personal or Household Activities 1. This Regulation does not apply to the processing of personal data by a natural person in the course of a purely personal or household activity and thus with no connection to a professional or commercial activity. 2. Personal or ...</p>
+</div>
+<div class="clause-block clause-bad">
+  <p class="clause-text">We transfer personal data from the country of origin to other countries, including those that may not offer the same level of data protection as determined by the European Commission or your local data protection authority.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.44 International Transfers</span>
+    <span class="clause-confidence">confidence 0.78</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 44] General principle for transfers 1. Any transfer of personal data which are undergoing processing or are intended for processing after transfer to a third country or to an international organisation shall take place only if, subject to the other provisions of this Regulation, the condi...</p>
+</div>
+<div class="clause-block clause-bad">
+  <p class="clause-text">We use cookies to store your preferences and settings, help with sign-in, provide personalised ads and analyse site operations.</p>
+  <p class="clause-meta">
+    <span class="law-chip">ePrivacy Directive violation + Art.7 Consent</span>
+    <span class="clause-confidence">confidence 0.77</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Recital 30] Online Identifiers for Profiling and Identification 1. Natural persons may be associated with online identifiers provided by their devices, applications, tools and protocols, such as internet protocol addresses, cookie identifiers or other identifiers such as radio frequency identi...</p>
+</div>
+<div class="clause-block clause-bad">
+  <p class="clause-text">We use cookies and similar technologies to store and honour your preferences and settings, enable you to sign-in, provide personalised advertising, combat fraud, analyse how our products perform, and fulfil other legitimate purposes described below.</p>
+  <p class="clause-meta">
+    <span class="law-chip">ePrivacy Directive violation + Art.7 Consent</span>
+    <span class="clause-confidence">confidence 0.76</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Recital 64] Identity Verification 1. The controller should use all reasonable measures to verify the identity of a data subject who requests access, in particular in the context of online services and online identifiers. 2. A controller should not retain personal data for the sole purpose of b...</p>
+</div>
+</section>
+<section class="clauses">
+  <h4>Cleared clauses · what TermsGuard reads as protective</h4>
+  <p class="clauses-meta">Top 4 of 372 by confidence. These are the clauses the engine read as GDPR-compliant.</p>
+  <div class="clause-block clause-good">
+  <p class="clause-text">Because these needs can vary for different data types and the context of our interactions with you or your use of our products, actual retention periods can vary significantly.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.5(1)(e) Storage Limitation + Art.13</span>
+    <span class="clause-confidence">confidence 0.77</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 5] Principles relating to processing of personal data (5) kept in a form which permits identification of data subjects for no longer than is necessary for the purposes for which the personal data are processed; personal data may be stored for longer periods insofar as the personal data wi...</p>
+</div>
+<div class="clause-block clause-good">
+  <p class="clause-text">You provide some of this data directly, and we get other data by collecting information about your interactions, use, and experiences with our products.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.5(1)(a) Transparency</span>
+    <span class="clause-confidence">confidence 0.75</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 5] Principles relating to processing of personal data 1. Personal data shall be: (1) processed lawfully, fairly and in a transparent manner in relation to the data subject (‘lawfulness, fairness and transparency’); (2) collected for specified, explicit and legitimate purposes and not furt...</p>
+</div>
+<div class="clause-block clause-good">
+  <p class="clause-text">Parents can change or revoke consent at any time.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.7(3) Right to Withdraw Consent</span>
+    <span class="clause-confidence">confidence 0.74</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 7] Conditions for consent 1. Where processing is based on consent, the controller shall be able to demonstrate that the data subject has consented to processing of his or her personal data. 1. If the data subject’s consent is given in the context of a written declaration which also concer...</p>
+</div>
+<div class="clause-block clause-good">
+  <p class="clause-text">Parents or guardians (“parents”) can change or revoke consent at any time.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.7(3) Right to Withdraw Consent</span>
+    <span class="clause-confidence">confidence 0.74</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 7] Conditions for consent 1. Where processing is based on consent, the controller shall be able to demonstrate that the data subject has consented to processing of his or her personal data. 1. If the data subject’s consent is given in the context of a written declaration which also concer...</p>
+</div>
+</section>
+  </section>
+
+  <section class="overall">
+    <h4 class="section-h">Overall analysis</h4>
+    <p>Of 1,462 clauses analysed, 286 were flagged and 372 were cleared. The flagged examples describe browsing activity collection, cookies used for settings, sign-in, personalised advertising, fraud prevention, and analysis, plus transfers to countries that may not provide the same level of protection. The cleared examples describe variable retention periods, data provided directly or collected from product interactions, and parents&#39; ability to change or revoke consent. The shape is mixed: the policy contains provisions the engine reads as transparent or consent-supporting, alongside broader data-use and transfer language that contributes to the medium score.</p>
+  </section>
+
+  
+
+  <section class="notes-block">
+    <h4 class="section-h">Notes and caveats</h4>
+    <ul class="notes-list">  <li>804 clauses were left uncertain. They sit between the fair and unfair reference sets and the engine did not commit.</li>
+  <li>The verification model is not configured for this corpus run. Cosine similarity + GDPR-article retrieval are the only signals.</li>
+  <li>This is a measurement of the published policy text, not the company&#39;s actual data-handling practice. The policy can be more or less protective than the practice.</li>
+</ul>
+  </section>
+
   <div class="diff-section">
     <p class="diff-section-label">Latest diff</p>
     <p class="empty-state">No diff yet (first snapshot).</p>
@@ -563,9 +954,121 @@
     </div>
   </div>
   <p class="latest-meta">
-    Last fetched <span class="mono">2026-10-29</span>
-     · first snapshot
+    Last fetched <span class="mono">2026-10-29</span> · first snapshot
   </p>
+
+  <section class="analyst">
+    <h4 class="section-h">Analyst summary</h4>
+    <p>TermsGuard&#39;s reading: This policy presents a medium risk of purpose limitation and consent problems, especially around cookies, identifiers, browsing history, legal compliance, and third-party providers. The flagged set is dominated by Article 5(1)(b) Purpose Limitation, ePrivacy Directive violations, and Article 7 Consent, with one Article 5(1)(a) Transparency violation and five clauses with no basis match.</p>
+  </section>
+
+  <section class="method-block">
+    <h4 class="section-h">How this was scored</h4>
+    <p class="methodology">
+      How this was scored: <span class="mono">54</span> clauses were extracted from the
+      policy and matched against the <span class="mono">102</span> hand-labelled reference clauses
+      (<span class="mono">52</span> fair, <span class="mono">50</span> unfair). The top match for each
+      clause was checked against the
+      <span class="mono">550</span>-chunk reference index of the actual GDPR text
+      (<span class="mono">99</span> articles + <span class="mono">173</span> recitals), and the matching
+      article was attached to the flag. The score is the mean confidence of the
+      <span class="mono">14</span> flagged clauses
+      .
+      No model verification on this run; cosine + GDPR retrieval only.
+    </p>
+  </section>
+
+  <section class="clauses-block">
+    
+<section class="clauses">
+  <h4>Flagged clauses · what TermsGuard thinks you should read</h4>
+  <p class="clauses-meta">Top 4 of 14 by confidence. Each clause shows the matched GDPR article and the passage the engine used.</p>
+  <div class="clause-block clause-bad">
+  <p class="clause-text">You can edit Your Browsing History, as well.</p>
+  <p class="clause-meta">
+    <span class="law-chip">ePrivacy Directive violation + Art.5(1)(b)</span>
+    <span class="clause-confidence">confidence 0.65</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Recital 66] Right to be Forgotten 1. To strengthen the right to be forgotten in the online environment, the right to erasure should also be extended in such a way that a controller who has made the personal data public should be obliged to inform the controllers which are processing such perso...</p>
+</div>
+<div class="clause-block clause-bad">
+  <p class="clause-text">Amazon Services, we use cookies and other identifiers.</p>
+  <p class="clause-meta">
+    <span class="law-chip">ePrivacy Directive violation + Art.7 Consent</span>
+    <span class="clause-confidence">confidence 0.63</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Recital 30] Online Identifiers for Profiling and Identification 1. Natural persons may be associated with online identifiers provided by their devices, applications, tools and protocols, such as internet protocol addresses, cookie identifiers or other identifiers such as radio frequency identi...</p>
+</div>
+<div class="clause-block clause-bad">
+  <p class="clause-text">In certain cases, we collect and use your personal information to comply with laws.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.5(1)(b) Purpose Limitation</span>
+    <span class="clause-confidence">confidence 0.59</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 5] Principles relating to processing of personal data (5) kept in a form which permits identification of data subjects for no longer than is necessary for the purposes for which the personal data are processed; personal data may be stored for longer periods insofar as the personal data wi...</p>
+</div>
+<div class="clause-block clause-bad">
+  <p class="clause-text">Third-Party Service Providers: We employ other companies and individuals to perform functions on our behalf.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.5(1)(b) Purpose Limitation</span>
+    <span class="clause-confidence">confidence 0.48</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 5] Principles relating to processing of personal data (6) processed in a manner that ensures appropriate security of the personal data, including protection against unauthorised or unlawful processing and against accidental loss, destruction or damage, using appropriate technical or organ...</p>
+</div>
+</section>
+<section class="clauses">
+  <h4>Cleared clauses · what TermsGuard reads as protective</h4>
+  <p class="clauses-meta">Top 4 of 15 by confidence. These are the clauses the engine read as GDPR-compliant.</p>
+  <div class="clause-block clause-good">
+  <p class="clause-text">Information from Other Sources: We might receive information about you from other sources.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.15 Right of Access</span>
+    <span class="clause-confidence">confidence 0.68</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 15] Right of access by the data subject 1. The data subject shall have the right to obtain from the controller confirmation as to whether or not personal data concerning him or her are being processed, and, where that is the case, access to the personal data and the following information:...</p>
+</div>
+<div class="clause-block clause-good">
+  <p class="clause-text">You provide information to us when you:</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.15 Right of Access</span>
+    <span class="clause-confidence">confidence 0.68</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 15] Right of access by the data subject 1. The data subject shall have the right to obtain from the controller confirmation as to whether or not personal data concerning him or her are being processed, and, where that is the case, access to the personal data and the following information:...</p>
+</div>
+<div class="clause-block clause-good">
+  <p class="clause-text">See examples of information we collect or receive.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.5(1)(a) Transparency</span>
+    <span class="clause-confidence">confidence 0.61</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 5] Principles relating to processing of personal data 1. Personal data shall be: (1) processed lawfully, fairly and in a transparent manner in relation to the data subject (‘lawfulness, fairness and transparency’); (2) collected for specified, explicit and legitimate purposes and not furt...</p>
+</div>
+<div class="clause-block clause-good">
+  <p class="clause-text">You may adjust your personalized advertising preferences by visiting Your Ads Privacy Choices.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.25 Privacy by Design &amp; Default</span>
+    <span class="clause-confidence">confidence 0.59</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 25] Data protection by design and by default The controller shall implement appropriate technical and organisational measures for ensuring that, by default, only personal data which are necessary for each specific purpose of the processing are processed. 2. That obligation applies to the ...</p>
+</div>
+</section>
+  </section>
+
+  <section class="overall">
+    <h4 class="section-h">Overall analysis</h4>
+    <p>The engine flagged 14 of 54 analysed clauses and cleared 15. Flagged clauses describe editing browsing history, using cookies and other identifiers, collecting information to comply with laws, and using third-party service providers; cleared clauses describe information sources, user-provided information, collection examples, and advertising preference controls. The cleared set therefore covers access, transparency, and preference controls, while the flagged set concentrates on processing purposes and consent. The score is 0.48, based on the mean confidence of flagged clauses.</p>
+  </section>
+
+  
+
+  <section class="notes-block">
+    <h4 class="section-h">Notes and caveats</h4>
+    <ul class="notes-list">  <li>25 clauses were left uncertain. They sit between the fair and unfair reference sets and the engine did not commit.</li>
+  <li>The verification model is not configured for this corpus run. Cosine similarity + GDPR-article retrieval are the only signals.</li>
+  <li>This is a measurement of the published policy text, not the company&#39;s actual data-handling practice. The policy can be more or less protective than the practice.</li>
+</ul>
+  </section>
+
   <div class="diff-section">
     <p class="diff-section-label">Latest diff</p>
     <p class="empty-state">No diff yet (first snapshot).</p>
@@ -601,9 +1104,121 @@
     </div>
   </div>
   <p class="latest-meta">
-    Last fetched <span class="mono">2026-10-29</span>
-     · first snapshot
+    Last fetched <span class="mono">2026-10-29</span> · first snapshot
   </p>
+
+  <section class="analyst">
+    <h4 class="section-h">Analyst summary</h4>
+    <p>TermsGuard&#39;s reading: This is a medium-risk privacy policy with potential consent, cookie purpose, and data security concerns. The engine primarily flags ePrivacy Directive requirements and GDPR Article 7 Consent, followed by Article 5(1)(b) Purpose Limitation and one clause linked to Article 32 and Article 5(1)(f). It reads the policy as describing cookies that activate on visits and persist after browsing, while leaving questions about how information is retained, protected, and used.</p>
+  </section>
+
+  <section class="method-block">
+    <h4 class="section-h">How this was scored</h4>
+    <p class="methodology">
+      How this was scored: <span class="mono">73</span> clauses were extracted from the
+      policy and matched against the <span class="mono">102</span> hand-labelled reference clauses
+      (<span class="mono">52</span> fair, <span class="mono">50</span> unfair). The top match for each
+      clause was checked against the
+      <span class="mono">550</span>-chunk reference index of the actual GDPR text
+      (<span class="mono">99</span> articles + <span class="mono">173</span> recitals), and the matching
+      article was attached to the flag. The score is the mean confidence of the
+      <span class="mono">12</span> flagged clauses
+      , most of them under <em>ePrivacy Directive violation + Art.7 Consent</em>.
+      No model verification on this run; cosine + GDPR retrieval only.
+    </p>
+  </section>
+
+  <section class="clauses-block">
+    
+<section class="clauses">
+  <h4>Flagged clauses · what TermsGuard thinks you should read</h4>
+  <p class="clauses-meta">Top 4 of 12 by confidence. Each clause shows the matched GDPR article and the passage the engine used.</p>
+  <div class="clause-block clause-bad">
+  <p class="clause-text">Some cookies allow you to take full advantage of the functionality of our website.</p>
+  <p class="clause-meta">
+    <span class="law-chip">ePrivacy Directive violation + Art.7 Consent</span>
+    <span class="clause-confidence">confidence 0.74</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Recital 64] Identity Verification 1. The controller should use all reasonable measures to verify the identity of a data subject who requests access, in particular in the context of online services and online identifiers. 2. A controller should not retain personal data for the sole purpose of b...</p>
+</div>
+<div class="clause-block clause-bad">
+  <p class="clause-text">They are activated each time you visit the website that created that particular cookie.</p>
+  <p class="clause-meta">
+    <span class="law-chip">ePrivacy Directive violation + Art.7 Consent</span>
+    <span class="clause-confidence">confidence 0.61</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Recital 30] Online Identifiers for Profiling and Identification 1. Natural persons may be associated with online identifiers provided by their devices, applications, tools and protocols, such as internet protocol addresses, cookie identifiers or other identifiers such as radio frequency identi...</p>
+</div>
+<div class="clause-block clause-bad">
+  <p class="clause-text">How is information retained, protected, and used?</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.32 + Art.5(1)(f)</span>
+    <span class="clause-confidence">confidence 0.60</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 32] Security of processing (1) the pseudonymisation and encryption of personal data; (2) the ability to ensure the ongoing confidentiality, integrity, availability and resilience of processing systems and services; (3) the ability to restore the availability and access to personal data in...</p>
+</div>
+<div class="clause-block clause-bad">
+  <p class="clause-text">So-called “persistent cookies” remain on your device even after you close your internet browser.</p>
+  <p class="clause-meta">
+    <span class="law-chip">ePrivacy Directive violation + Art.7 Consent</span>
+    <span class="clause-confidence">confidence 0.60</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Recital 66] Right to be Forgotten 1. To strengthen the right to be forgotten in the online environment, the right to erasure should also be extended in such a way that a controller who has made the personal data public should be obliged to inform the controllers which are processing such perso...</p>
+</div>
+</section>
+<section class="clauses">
+  <h4>Cleared clauses · what TermsGuard reads as protective</h4>
+  <p class="clauses-meta">Top 4 of 20 by confidence. These are the clauses the engine read as GDPR-compliant.</p>
+  <div class="clause-block clause-good">
+  <p class="clause-text">You can set your web browser to disable cookies.</p>
+  <p class="clause-meta">
+    <span class="law-chip">ePrivacy Directive + Art.5(1)(b)</span>
+    <span class="clause-confidence">confidence 0.71</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Recital 64] Identity Verification 1. The controller should use all reasonable measures to verify the identity of a data subject who requests access, in particular in the context of online services and online identifiers. 2. A controller should not retain personal data for the sole purpose of b...</p>
+</div>
+<div class="clause-block clause-good">
+  <p class="clause-text">What information is collected and how is it used?</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.5(1)(a) Transparency</span>
+    <span class="clause-confidence">confidence 0.67</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 5] Principles relating to processing of personal data (5) kept in a form which permits identification of data subjects for no longer than is necessary for the purposes for which the personal data are processed; personal data may be stored for longer periods insofar as the personal data wi...</p>
+</div>
+<div class="clause-block clause-good">
+  <p class="clause-text">Marketing cookies and other cookies requiring your consent are not used on this site.</p>
+  <p class="clause-meta">
+    <span class="law-chip">ePrivacy Directive + Art.5(1)(b)</span>
+    <span class="clause-confidence">confidence 0.67</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Recital 42] Burden of Proof and Requirements for Consent Consent should not be regarded as freely given if the data subject has no genuine or free choice or is unable to refuse or withdraw consent without detriment. &lt;div...</p>
+</div>
+<div class="clause-block clause-good">
+  <p class="clause-text">Please note that if you disable cookies in this way, you will not be able to set new cookies.</p>
+  <p class="clause-meta">
+    <span class="law-chip">ePrivacy Directive + Art.5(1)(b)</span>
+    <span class="clause-confidence">confidence 0.65</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Recital 66] Right to be Forgotten 1. To strengthen the right to be forgotten in the online environment, the right to erasure should also be extended in such a way that a controller who has made the personal data public should be obliged to inform the controllers which are processing such perso...</p>
+</div>
+</section>
+  </section>
+
+  <section class="overall">
+    <h4 class="section-h">Overall analysis</h4>
+    <p>The policy contains 12 flagged clauses and 20 cleared clauses among 73 analysed, with a mean flagged-clause confidence of 0.55. The flagged clauses describe cookies used for website functionality, activation on visits, and persistence after the browser closes; the cleared clauses describe browser controls, transparency about collection and use, and the stated absence of marketing cookies requiring consent. This gives the policy a mixed profile, with cookie and information-handling language triggering concerns while several disclosure and control statements are read as compliant.</p>
+  </section>
+
+  
+
+  <section class="notes-block">
+    <h4 class="section-h">Notes and caveats</h4>
+    <ul class="notes-list">  <li>41 clauses were left uncertain. They sit between the fair and unfair reference sets and the engine did not commit.</li>
+  <li>The verification model is not configured for this corpus run. Cosine similarity + GDPR-article retrieval are the only signals.</li>
+  <li>This is a measurement of the published policy text, not the company&#39;s actual data-handling practice. The policy can be more or less protective than the practice.</li>
+</ul>
+  </section>
+
   <div class="diff-section">
     <p class="diff-section-label">Latest diff</p>
     <p class="empty-state">No diff yet (first snapshot).</p>
@@ -648,9 +1263,97 @@
     </div>
   </div>
   <p class="latest-meta">
-    Last fetched <span class="mono">2026-10-29</span>
-     · first snapshot
+    Last fetched <span class="mono">2026-10-29</span> · first snapshot
   </p>
+
+  <section class="analyst">
+    <h4 class="section-h">Analyst summary</h4>
+    <p>TermsGuard&#39;s reading: This policy presents a medium consent and cookie compliance risk, centered on profiling cookies, third-party cookies, and advertising based on user preferences. The dominant basis is the ePrivacy Directive and Article 7 Consent, with two flagged clauses stating that profiling cookie installation requires prior consent. A separate purpose statement received no basis match.</p>
+  </section>
+
+  <section class="method-block">
+    <h4 class="section-h">How this was scored</h4>
+    <p class="methodology">
+      How this was scored: <span class="mono">13</span> clauses were extracted from the
+      policy and matched against the <span class="mono">102</span> hand-labelled reference clauses
+      (<span class="mono">52</span> fair, <span class="mono">50</span> unfair). The top match for each
+      clause was checked against the
+      <span class="mono">550</span>-chunk reference index of the actual GDPR text
+      (<span class="mono">99</span> articles + <span class="mono">173</span> recitals), and the matching
+      article was attached to the flag. The score is the mean confidence of the
+      <span class="mono">3</span> flagged clauses
+      , most of them under <em>ePrivacy Directive violation + Art.7 Consent</em>.
+      No model verification on this run; cosine + GDPR retrieval only.
+    </p>
+  </section>
+
+  <section class="clauses-block">
+    
+<section class="clauses">
+  <h4>Flagged clauses · what TermsGuard thinks you should read</h4>
+  <p class="clauses-meta">Top 3 of 3 by confidence. Each clause shows the matched GDPR article and the passage the engine used.</p>
+  <div class="clause-block clause-bad">
+  <p class="clause-text">This website uses technical, analytics and profiling Cookies, also installed by third parties (so called Third-Party Cookies).</p>
+  <p class="clause-meta">
+    <span class="law-chip">ePrivacy Directive violation + Art.7 Consent</span>
+    <span class="clause-confidence">confidence 0.63</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Recital 30] Online Identifiers for Profiling and Identification 1. Natural persons may be associated with online identifiers provided by their devices, applications, tools and protocols, such as internet protocol addresses, cookie identifiers or other identifiers such as radio frequency identi...</p>
+</div>
+<div class="clause-block clause-bad">
+  <p class="clause-text">Profiling Cookies are used in order to offer you advertising messages in line with your preferences; their installation requires your prior consent.</p>
+  <p class="clause-meta">
+    <span class="law-chip">ePrivacy Directive violation + Art.7 Consent</span>
+    <span class="clause-confidence">confidence 0.62</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 4] Definitions ‘profiling’ means any form of automated processing of personal data consisting of the use of personal data to evaluate certain personal aspects relating to a natural person, in particular to analyse or predict aspects concerning that natural person’s performance at work, ec...</p>
+</div>
+<div class="clause-block clause-bad">
+  <p class="clause-text">Our purpose is to empower communities to progress, delivering the best-in-class for all stakeholders, unlocking the potential of our clients and our people across Europe.</p>
+  <p class="clause-meta">
+    <span class="law-chip">no basis match</span>
+    <span class="clause-confidence">confidence 0.43</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> ...</p>
+</div>
+</section>
+<section class="clauses">
+  <h4>Cleared clauses · what TermsGuard reads as protective</h4>
+  <p class="clauses-meta">Top 2 of 2 by confidence. These are the clauses the engine read as GDPR-compliant.</p>
+  <div class="clause-block clause-good">
+  <p class="clause-text">If you want to know more or refuse consent click on the link below.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.7(3) Right to Withdraw Consent</span>
+    <span class="clause-confidence">confidence 0.63</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 7] Conditions for consent It shall be as easy to withdraw as to give consent. 8. When assessing whether consent is freely given, utmost account shall be taken of whether, inter alia, the performance of a contract, including the provision of a service, is conditional on consent to the proc...</p>
+</div>
+<div class="clause-block clause-good">
+  <p class="clause-text">By clicking on the X at the top right, your navigation will continue without profiling cookies.</p>
+  <p class="clause-meta">
+    <span class="law-chip">ePrivacy Directive + Art.5(1)(b)</span>
+    <span class="clause-confidence">confidence 0.62</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Recital 72] Guidance of the European Data Protection Board Regarding Profiling 1. Profiling is subject to the rules of this Regulation governing the processing of personal data, such as the legal grounds for processing or data protection principles. 2. The European Data Protection Board establ...</p>
+</div>
+</section>
+  </section>
+
+  <section class="overall">
+    <h4 class="section-h">Overall analysis</h4>
+    <p>The engine flagged three clauses and cleared two of the 13 analysed clauses. The flagged set describes technical, analytics, and profiling cookies, profiling-based advertising, and a broad stakeholder purpose statement. The cleared clauses describe refusing consent through a link and continuing navigation without profiling cookies by clicking the X. This pattern shows that the policy contains stated consent and refusal mechanisms, while the cookie and profiling language still triggered the main risk signals.</p>
+  </section>
+
+  
+
+  <section class="notes-block">
+    <h4 class="section-h">Notes and caveats</h4>
+    <ul class="notes-list">  <li>8 clauses were left uncertain. They sit between the fair and unfair reference sets and the engine did not commit.</li>
+  <li>The verification model is not configured for this corpus run. Cosine similarity + GDPR-article retrieval are the only signals.</li>
+  <li>This is a measurement of the published policy text, not the company&#39;s actual data-handling practice. The policy can be more or less protective than the practice.</li>
+</ul>
+  </section>
+
   <div class="diff-section">
     <p class="diff-section-label">Latest diff</p>
     <p class="empty-state">No diff yet (first snapshot).</p>
@@ -686,9 +1389,121 @@
     </div>
   </div>
   <p class="latest-meta">
-    Last fetched <span class="mono">2026-10-29</span>
-     · first snapshot
+    Last fetched <span class="mono">2026-10-29</span> · first snapshot
   </p>
+
+  <section class="analyst">
+    <h4 class="section-h">Analyst summary</h4>
+    <p>TermsGuard&#39;s reading: This is a medium-risk policy with signals of broad-purpose data sharing, tracking through cookies, and retention tied to account activity rather than a stated end point. The dominant issues concern Article 5(1)(b) Purpose Limitation, Article 7 Consent, and Article 17 Right to Erasure, with the flagged set also including Article 28 processor provisions. Of 421 clauses analysed, 73 were flagged, with a mean flagged-clause confidence of 0.55.</p>
+  </section>
+
+  <section class="method-block">
+    <h4 class="section-h">How this was scored</h4>
+    <p class="methodology">
+      How this was scored: <span class="mono">421</span> clauses were extracted from the
+      policy and matched against the <span class="mono">102</span> hand-labelled reference clauses
+      (<span class="mono">52</span> fair, <span class="mono">50</span> unfair). The top match for each
+      clause was checked against the
+      <span class="mono">550</span>-chunk reference index of the actual GDPR text
+      (<span class="mono">99</span> articles + <span class="mono">173</span> recitals), and the matching
+      article was attached to the flag. The score is the mean confidence of the
+      <span class="mono">73</span> flagged clauses
+      , most of them under <em>Art.5(1)(b) Purpose Limitation violation</em>.
+      No model verification on this run; cosine + GDPR retrieval only.
+    </p>
+  </section>
+
+  <section class="clauses-block">
+    
+<section class="clauses">
+  <h4>Flagged clauses · what TermsGuard thinks you should read</h4>
+  <p class="clauses-meta">Top 4 of 73 by confidence. Each clause shows the matched GDPR article and the passage the engine used.</p>
+  <div class="clause-block clause-bad">
+  <p class="clause-text">To provide our services to you, we may share your data with third parties providing services to us.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.5(1)(b) Purpose Limitation</span>
+    <span class="clause-confidence">confidence 0.78</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 5] Principles relating to processing of personal data 1. Personal data shall be: (1) processed lawfully, fairly and in a transparent manner in relation to the data subject (‘lawfulness, fairness and transparency’); (2) collected for specified, explicit and legitimate purposes and not furt...</p>
+</div>
+<div class="clause-block clause-bad">
+  <p class="clause-text">Together with our partners, we use these cookies to collect information about how you interact with our websites—such as time spent, pages visited, geolocation, audience size,  usage patterns, and video usage .</p>
+  <p class="clause-meta">
+    <span class="law-chip">ePrivacy Directive violation + Art.7 Consent</span>
+    <span class="clause-confidence">confidence 0.76</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Recital 30] Online Identifiers for Profiling and Identification 1. Natural persons may be associated with online identifiers provided by their devices, applications, tools and protocols, such as internet protocol addresses, cookie identifiers or other identifiers such as radio frequency identi...</p>
+</div>
+<div class="clause-block clause-bad">
+  <p class="clause-text">Your account data is kept as long as your profile is active.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.5(1)(e) Storage Limitation + Art.17</span>
+    <span class="clause-confidence">confidence 0.76</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 5] Principles relating to processing of personal data (5) kept in a form which permits identification of data subjects for no longer than is necessary for the purposes for which the personal data are processed; personal data may be stored for longer periods insofar as the personal data wi...</p>
+</div>
+<div class="clause-block clause-bad">
+  <p class="clause-text">When you visit our websites (cookie statement)</p>
+  <p class="clause-meta">
+    <span class="law-chip">ePrivacy Directive violation + Art.7 Consent</span>
+    <span class="clause-confidence">confidence 0.73</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Recital 64] Identity Verification 1. The controller should use all reasonable measures to verify the identity of a data subject who requests access, in particular in the context of online services and online identifiers. 2. A controller should not retain personal data for the sole purpose of b...</p>
+</div>
+</section>
+<section class="clauses">
+  <h4>Cleared clauses · what TermsGuard reads as protective</h4>
+  <p class="clauses-meta">Top 4 of 63 by confidence. These are the clauses the engine read as GDPR-compliant.</p>
+  <div class="clause-block clause-good">
+  <p class="clause-text">You can withdraw your consent at any time.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.7(3) Right to Withdraw Consent</span>
+    <span class="clause-confidence">confidence 0.98</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 7] Conditions for consent It shall be as easy to withdraw as to give consent. 8. When assessing whether consent is freely given, utmost account shall be taken of whether, inter alia, the performance of a contract, including the provision of a service, is conditional on consent to the proc...</p>
+</div>
+<div class="clause-block clause-good">
+  <p class="clause-text">You may withdraw your consent at any time.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.7(3) Right to Withdraw Consent</span>
+    <span class="clause-confidence">confidence 0.96</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 7] Conditions for consent It shall be as easy to withdraw as to give consent. 8. When assessing whether consent is freely given, utmost account shall be taken of whether, inter alia, the performance of a contract, including the provision of a service, is conditional on consent to the proc...</p>
+</div>
+<div class="clause-block clause-good">
+  <p class="clause-text">When your personal data is needed for us, for example to meet legal obligations or to perform an agreement with you, we cannot erase your data.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.17 Right to Erasure</span>
+    <span class="clause-confidence">confidence 0.84</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 17] Right to erasure (‘right to be forgotten’) (4) the personal data have been unlawfully processed; (5) the personal data have to be erased for compliance with a legal obligation in Union or Member State law to which the controller is subject; (6) the personal data have been collected in...</p>
+</div>
+<div class="clause-block clause-good">
+  <p class="clause-text">You can ask us whether we process your personal information and if so receive a copy of such data.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.15 Right of Access</span>
+    <span class="clause-confidence">confidence 0.82</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 15] Right of access by the data subject 1. The data subject shall have the right to obtain from the controller confirmation as to whether or not personal data concerning him or her are being processed, and, where that is the case, access to the personal data and the following information:...</p>
+</div>
+</section>
+  </section>
+
+  <section class="overall">
+    <h4 class="section-h">Overall analysis</h4>
+    <p>The highest-confidence flags concern sharing data with service providers, cookie-based tracking, active-profile retention, and a cookie statement. The 63 cleared clauses cover consent withdrawal, limits on erasure where legal or contractual needs apply, and access requests. The shape of the results shows a policy that states several individual rights clearly while still drawing flags for data use, tracking, consent, and retention practices</p>
+  </section>
+
+  
+
+  <section class="notes-block">
+    <h4 class="section-h">Notes and caveats</h4>
+    <ul class="notes-list">  <li>285 clauses were left uncertain. They sit between the fair and unfair reference sets and the engine did not commit.</li>
+  <li>The verification model is not configured for this corpus run. Cosine similarity + GDPR-article retrieval are the only signals.</li>
+  <li>This is a measurement of the published policy text, not the company&#39;s actual data-handling practice. The policy can be more or less protective than the practice.</li>
+</ul>
+  </section>
+
   <div class="diff-section">
     <p class="diff-section-label">Latest diff</p>
     <p class="empty-state">No diff yet (first snapshot).</p>
@@ -733,9 +1548,67 @@
     </div>
   </div>
   <p class="latest-meta">
-    Last fetched <span class="mono">2026-10-29</span>
-     · first snapshot
+    Last fetched <span class="mono">2026-10-29</span> · first snapshot
   </p>
+
+  <section class="analyst">
+    <h4 class="section-h">Analyst summary</h4>
+    <p>TermsGuard&#39;s reading: This is a medium, low-specificity privacy risk centered on vague, non-operational language rather than a stated processing practice. The only flagged text is a community-oriented slogan, and the flagged set has no GDPR basis match, including no identified Article 6 Lawfulness of processing basis.</p>
+  </section>
+
+  <section class="method-block">
+    <h4 class="section-h">How this was scored</h4>
+    <p class="methodology">
+      How this was scored: <span class="mono">7</span> clauses were extracted from the
+      policy and matched against the <span class="mono">102</span> hand-labelled reference clauses
+      (<span class="mono">52</span> fair, <span class="mono">50</span> unfair). The top match for each
+      clause was checked against the
+      <span class="mono">550</span>-chunk reference index of the actual GDPR text
+      (<span class="mono">99</span> articles + <span class="mono">173</span> recitals), and the matching
+      article was attached to the flag. The score is the mean confidence of the
+      <span class="mono">1</span> flagged clauses
+      .
+      No model verification on this run; cosine + GDPR retrieval only.
+    </p>
+  </section>
+
+  <section class="clauses-block">
+    
+<section class="clauses">
+  <h4>Flagged clauses · what TermsGuard thinks you should read</h4>
+  <p class="clauses-meta">Top 1 of 1 by confidence. Each clause shows the matched GDPR article and the passage the engine used.</p>
+  <div class="clause-block clause-bad">
+  <p class="clause-text">A company can make things—but it takes a community to change things.</p>
+  <p class="clause-meta">
+    <span class="law-chip">no basis match</span>
+    <span class="clause-confidence">confidence 0.37</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> ...</p>
+</div>
+</section>
+<section class="clauses">
+  <h4>Cleared clauses · what TermsGuard reads as protective</h4>
+  <p class="clauses-meta">Top 0 of 0 by confidence. These are the clauses the engine read as GDPR-compliant.</p>
+  <p class="empty-state">No clauses were cleared.</p>
+</section>
+  </section>
+
+  <section class="overall">
+    <h4 class="section-h">Overall analysis</h4>
+    <p>Seven clauses were analysed, with one flagged and none cleared. The policy record therefore provides one flagged example and no cleared comparison set. The 0.37 score is the mean confidence of that single flagged clause.</p>
+  </section>
+
+  
+
+  <section class="notes-block">
+    <h4 class="section-h">Notes and caveats</h4>
+    <ul class="notes-list">  <li>6 clauses were left uncertain. They sit between the fair and unfair reference sets and the engine did not commit.</li>
+  <li>No clauses were cleared. The corpus has no clauses that read as GDPR-compliant by the reference comparison.</li>
+  <li>The verification model is not configured for this corpus run. Cosine similarity + GDPR-article retrieval are the only signals.</li>
+  <li>This is a measurement of the published policy text, not the company&#39;s actual data-handling practice. The policy can be more or less protective than the practice.</li>
+</ul>
+  </section>
+
   <div class="diff-section">
     <p class="diff-section-label">Latest diff</p>
     <p class="empty-state">No diff yet (first snapshot).</p>
@@ -771,9 +1644,121 @@
     </div>
   </div>
   <p class="latest-meta">
-    Last fetched <span class="mono">2026-10-29</span>
-     · first snapshot
+    Last fetched <span class="mono">2026-10-29</span> · first snapshot
   </p>
+
+  <section class="analyst">
+    <h4 class="section-h">Analyst summary</h4>
+    <p>TermsGuard&#39;s reading: This is a medium-risk policy with a concentration of purpose limitation concerns around marketing and promotional use, partner use under their own notices, and collection through cookies and similar technologies. The dominant finding is Article 5(1)(b) Purpose Limitation, with 20 flagged clauses and five combined with Article 28, alongside Article 44 International Transfers, the ePrivacy Directive with Article 7 Conditions for Consent, and Article 82 Controller Liability. The flagged material concerns expanded use, processing by partners, international processing, and consent-related collection.</p>
+  </section>
+
+  <section class="method-block">
+    <h4 class="section-h">How this was scored</h4>
+    <p class="methodology">
+      How this was scored: <span class="mono">88</span> clauses were extracted from the
+      policy and matched against the <span class="mono">102</span> hand-labelled reference clauses
+      (<span class="mono">52</span> fair, <span class="mono">50</span> unfair). The top match for each
+      clause was checked against the
+      <span class="mono">550</span>-chunk reference index of the actual GDPR text
+      (<span class="mono">99</span> articles + <span class="mono">173</span> recitals), and the matching
+      article was attached to the flag. The score is the mean confidence of the
+      <span class="mono">33</span> flagged clauses
+      , most of them under <em>Art.5(1)(b) Purpose Limitation violation</em>.
+      No model verification on this run; cosine + GDPR retrieval only.
+    </p>
+  </section>
+
+  <section class="clauses-block">
+    
+<section class="clauses">
+  <h4>Flagged clauses · what TermsGuard thinks you should read</h4>
+  <p class="clauses-meta">Top 4 of 33 by confidence. Each clause shows the matched GDPR article and the passage the engine used.</p>
+  <div class="clause-block clause-bad">
+  <p class="clause-text">We use your personal information for marketing and promotional purposes, such as to send marketing, advertising and promotional communications by email, text message or postal mail, and to show you online advertisements for products or services on the Services or other websites, including based on items you previously have purchased or added to your cart and other activity on the Services.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.5(1)(b) Purpose Limitation</span>
+    <span class="clause-confidence">confidence 0.76</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 5] Principles relating to processing of personal data (5) kept in a form which permits identification of data subjects for no longer than is necessary for the purposes for which the personal data are processed; personal data may be stored for longer periods insofar as the personal data wi...</p>
+</div>
+<div class="clause-block clause-bad">
+  <p class="clause-text">Our business and marketing partners will use your information in accordance with their own privacy notices.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.5(1)(b) Purpose Limitation + Art.28</span>
+    <span class="clause-confidence">confidence 0.69</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 5] Principles relating to processing of personal data 1. Personal data shall be: (1) processed lawfully, fairly and in a transparent manner in relation to the data subject (‘lawfulness, fairness and transparency’); (2) collected for specified, explicit and legitimate purposes and not furt...</p>
+</div>
+<div class="clause-block clause-bad">
+  <p class="clause-text">Please note that we may transfer, store and process your personal information outside the country you live in.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.44 International Transfers</span>
+    <span class="clause-confidence">confidence 0.68</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 44] General principle for transfers 1. Any transfer of personal data which are undergoing processing or are intended for processing after transfer to a third country or to an international organisation shall take place only if, subject to the other provisions of this Regulation, the condi...</p>
+</div>
+<div class="clause-block clause-bad">
+  <p class="clause-text">Automatically through the Services including from your device when you use our products or services or visit our websites, and through the use of cookies and similar technologies;</p>
+  <p class="clause-meta">
+    <span class="law-chip">ePrivacy Directive violation + Art.7 Consent</span>
+    <span class="clause-confidence">confidence 0.67</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Recital 30] Online Identifiers for Profiling and Identification 1. Natural persons may be associated with online identifiers provided by their devices, applications, tools and protocols, such as internet protocol addresses, cookie identifiers or other identifiers such as radio frequency identi...</p>
+</div>
+</section>
+<section class="clauses">
+  <h4>Cleared clauses · what TermsGuard reads as protective</h4>
+  <p class="clauses-meta">Top 4 of 18 by confidence. These are the clauses the engine read as GDPR-compliant.</p>
+  <div class="clause-block clause-good">
+  <p class="clause-text">You may have a right to request that we delete personal information we maintain about you.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.17 Right to Erasure</span>
+    <span class="clause-confidence">confidence 0.79</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 17] Right to erasure (‘right to be forgotten’) (4) the personal data have been unlawfully processed; (5) the personal data have to be erased for compliance with a legal obligation in Union or Member State law to which the controller is subject; (6) the personal data have been collected in...</p>
+</div>
+<div class="clause-block clause-good">
+  <p class="clause-text">Other than the Global Privacy Control, we do not recognize other &quot;Do Not Track&quot; signals that may be sent from your web browser or device.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.5(1)(b) Purpose Limitation + ePrivacy Directive</span>
+    <span class="clause-confidence">confidence 0.73</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 5] Principles relating to processing of personal data 1. Personal data shall be: (1) processed lawfully, fairly and in a transparent manner in relation to the data subject (‘lawfulness, fairness and transparency’); (2) collected for specified, explicit and legitimate purposes and not furt...</p>
+</div>
+<div class="clause-block clause-good">
+  <p class="clause-text">We will post the revised Privacy Policy on this website, update the &quot;Last updated&quot; date and provide notice as required by applicable law.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.7 Conditions for Consent + Art.13</span>
+    <span class="clause-confidence">confidence 0.71</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 7] Conditions for consent 1. Where processing is based on consent, the controller shall be able to demonstrate that the data subject has consented to processing of his or her personal data. 1. If the data subject’s consent is given in the context of a written declaration which also concer...</p>
+</div>
+<div class="clause-block clause-good">
+  <p class="clause-text">Please read this Privacy Policy carefully.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.7 Conditions for Consent + Art.13</span>
+    <span class="clause-confidence">confidence 0.69</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 7] Conditions for consent 1. Where processing is based on consent, the controller shall be able to demonstrate that the data subject has consented to processing of his or her personal data. 1. If the data subject’s consent is given in the context of a written declaration which also concer...</p>
+</div>
+</section>
+  </section>
+
+  <section class="overall">
+    <h4 class="section-h">Overall analysis</h4>
+    <p>Of 88 clauses analysed, 33 were flagged and 18 were cleared, with a mean flagged-clause confidence of 0.59. The cleared examples cover the right to request erasure, treatment of Do Not Track signals, notice of policy changes, and a general instruction to read the policy. This contrast shows that the engine did not flag every rights or notice provision</p>
+  </section>
+
+  
+
+  <section class="notes-block">
+    <h4 class="section-h">Notes and caveats</h4>
+    <ul class="notes-list">  <li>37 clauses were left uncertain. They sit between the fair and unfair reference sets and the engine did not commit.</li>
+  <li>The verification model is not configured for this corpus run. Cosine similarity + GDPR-article retrieval are the only signals.</li>
+  <li>This is a measurement of the published policy text, not the company&#39;s actual data-handling practice. The policy can be more or less protective than the practice.</li>
+</ul>
+  </section>
+
   <div class="diff-section">
     <p class="diff-section-label">Latest diff</p>
     <p class="empty-state">No diff yet (first snapshot).</p>
@@ -809,9 +1794,121 @@
     </div>
   </div>
   <p class="latest-meta">
-    Last fetched <span class="mono">2026-10-29</span>
-     · first snapshot
+    Last fetched <span class="mono">2026-10-29</span> · first snapshot
   </p>
+
+  <section class="analyst">
+    <h4 class="section-h">Analyst summary</h4>
+    <p>TermsGuard&#39;s reading: This is a medium-risk policy with compliance risk focused on international data transfers and use of personal data beyond clearly matched purposes. The engine flagged Article 44 International Transfers violations, Article 5(1)(b) Purpose Limitation violations, Article 82 Controller Liability violations, and clauses with no basis match. It also identified combined Article 5(1)(b) and Article 28 concerns.</p>
+  </section>
+
+  <section class="method-block">
+    <h4 class="section-h">How this was scored</h4>
+    <p class="methodology">
+      How this was scored: <span class="mono">316</span> clauses were extracted from the
+      policy and matched against the <span class="mono">102</span> hand-labelled reference clauses
+      (<span class="mono">52</span> fair, <span class="mono">50</span> unfair). The top match for each
+      clause was checked against the
+      <span class="mono">550</span>-chunk reference index of the actual GDPR text
+      (<span class="mono">99</span> articles + <span class="mono">173</span> recitals), and the matching
+      article was attached to the flag. The score is the mean confidence of the
+      <span class="mono">72</span> flagged clauses
+      .
+      No model verification on this run; cosine + GDPR retrieval only.
+    </p>
+  </section>
+
+  <section class="clauses-block">
+    
+<section class="clauses">
+  <h4>Flagged clauses · what TermsGuard thinks you should read</h4>
+  <p class="clauses-meta">Top 4 of 72 by confidence. Each clause shows the matched GDPR article and the passage the engine used.</p>
+  <div class="clause-block clause-bad">
+  <p class="clause-text">Your personal data may be processed globally.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.44 International Transfers</span>
+    <span class="clause-confidence">confidence 0.77</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 44] General principle for transfers 1. Any transfer of personal data which are undergoing processing or are intended for processing after transfer to a third country or to an international organisation shall take place only if, subject to the other provisions of this Regulation, the condi...</p>
+</div>
+<div class="clause-block clause-bad">
+  <p class="clause-text">In conducting our international business operations, we may transfer your Personal Data to countries outside of Malaysia for the purposes described in this Privacy Statement.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.44 International Transfers</span>
+    <span class="clause-confidence">confidence 0.74</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 44] General principle for transfers 1. Any transfer of personal data which are undergoing processing or are intended for processing after transfer to a third country or to an international organisation shall take place only if, subject to the other provisions of this Regulation, the condi...</p>
+</div>
+<div class="clause-block clause-bad">
+  <p class="clause-text">In conducting our international business operations, we may transfer your Personal Data to countries outside of Thailand for the purposes described in this Privacy Statement.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.44 International Transfers</span>
+    <span class="clause-confidence">confidence 0.72</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 44] General principle for transfers 1. Any transfer of personal data which are undergoing processing or are intended for processing after transfer to a third country or to an international organisation shall take place only if, subject to the other provisions of this Regulation, the condi...</p>
+</div>
+<div class="clause-block clause-bad">
+  <p class="clause-text">Your Personal Data may be stored and processed by the SAP Group in countries outside your jurisdiction for general business purposes.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.44 International Transfers</span>
+    <span class="clause-confidence">confidence 0.69</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 44] General principle for transfers 1. Any transfer of personal data which are undergoing processing or are intended for processing after transfer to a third country or to an international organisation shall take place only if, subject to the other provisions of this Regulation, the condi...</p>
+</div>
+</section>
+<section class="clauses">
+  <h4>Cleared clauses · what TermsGuard reads as protective</h4>
+  <p class="clauses-meta">Top 4 of 74 by confidence. These are the clauses the engine read as GDPR-compliant.</p>
+  <div class="clause-block clause-good">
+  <p class="clause-text">Request for the deletion of your Personal Data, under certain lawful circumstances.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.17 Right to Erasure</span>
+    <span class="clause-confidence">confidence 0.81</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 17] Right to erasure (‘right to be forgotten’) (4) the personal data have been unlawfully processed; (5) the personal data have to be erased for compliance with a legal obligation in Union or Member State law to which the controller is subject; (6) the personal data have been collected in...</p>
+</div>
+<div class="clause-block clause-good">
+  <p class="clause-text">To the extent provided by applicable data protection laws, you have the right to:</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.7 Conditions for Consent</span>
+    <span class="clause-confidence">confidence 0.75</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 7] Conditions for consent 1. Where processing is based on consent, the controller shall be able to demonstrate that the data subject has consented to processing of his or her personal data. 1. If the data subject’s consent is given in the context of a written declaration which also concer...</p>
+</div>
+<div class="clause-block clause-good">
+  <p class="clause-text">Withdraw your consent for the processing of your Personal Data at any time.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.17 Right to Erasure</span>
+    <span class="clause-confidence">confidence 0.75</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 17] Right to erasure (‘right to be forgotten’) (4) the personal data have been unlawfully processed; (5) the personal data have to be erased for compliance with a legal obligation in Union or Member State law to which the controller is subject; (6) the personal data have been collected in...</p>
+</div>
+<div class="clause-block clause-good">
+  <p class="clause-text">Delete your personal data we hold about you.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.17 Right to Erasure</span>
+    <span class="clause-confidence">confidence 0.74</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 17] Right to erasure (‘right to be forgotten’) (4) the personal data have been unlawfully processed; (5) the personal data have to be erased for compliance with a legal obligation in Union or Member State law to which the controller is subject; (6) the personal data have been collected in...</p>
+</div>
+</section>
+  </section>
+
+  <section class="overall">
+    <h4 class="section-h">Overall analysis</h4>
+    <p>The policy contains 72 flagged clauses and 74 cleared clauses out of 316 analysed, so its text presents both risk signals and recognised rights language. The flagged examples permit global processing and transfers or storage outside Malaysia, Thailand, or the reader&#39;s jurisdiction. The cleared examples state rights to deletion and erasure, and to withdraw consent. The score of 0.54 is the mean confidence of the flagged clauses, while the cleared set is not empty.</p>
+  </section>
+
+  
+
+  <section class="notes-block">
+    <h4 class="section-h">Notes and caveats</h4>
+    <ul class="notes-list">  <li>170 clauses were left uncertain. They sit between the fair and unfair reference sets and the engine did not commit.</li>
+  <li>The verification model is not configured for this corpus run. Cosine similarity + GDPR-article retrieval are the only signals.</li>
+  <li>This is a measurement of the published policy text, not the company&#39;s actual data-handling practice. The policy can be more or less protective than the practice.</li>
+</ul>
+  </section>
+
   <div class="diff-section">
     <p class="diff-section-label">Latest diff</p>
     <p class="empty-state">No diff yet (first snapshot).</p>
@@ -847,9 +1944,121 @@
     </div>
   </div>
   <p class="latest-meta">
-    Last fetched <span class="mono">2026-10-29</span>
-     · first snapshot
+    Last fetched <span class="mono">2026-10-29</span> · first snapshot
   </p>
+
+  <section class="analyst">
+    <h4 class="section-h">Analyst summary</h4>
+    <p>TermsGuard&#39;s reading: This is a medium privacy compliance risk centered on secondary use and retention of personal data, tailored advertising and profiling of minors, international transfers, and consent conditions. The dominant signals are Article 5(1)(b) Purpose Limitation, Article 8 and Article 22 protections concerning profiling of minors, Article 44 International Transfers, and Article 7 Conditions for Consent. It also flags Article 5(1)(e) Storage Limitation and Article 17 Right to Erasure where data may be retained after account deletion.</p>
+  </section>
+
+  <section class="method-block">
+    <h4 class="section-h">How this was scored</h4>
+    <p class="methodology">
+      How this was scored: <span class="mono">279</span> clauses were extracted from the
+      policy and matched against the <span class="mono">102</span> hand-labelled reference clauses
+      (<span class="mono">52</span> fair, <span class="mono">50</span> unfair). The top match for each
+      clause was checked against the
+      <span class="mono">550</span>-chunk reference index of the actual GDPR text
+      (<span class="mono">99</span> articles + <span class="mono">173</span> recitals), and the matching
+      article was attached to the flag. The score is the mean confidence of the
+      <span class="mono">86</span> flagged clauses
+      .
+      No model verification on this run; cosine + GDPR retrieval only.
+    </p>
+  </section>
+
+  <section class="clauses-block">
+    
+<section class="clauses">
+  <h4>Flagged clauses · what TermsGuard thinks you should read</h4>
+  <p class="clauses-meta">Top 4 of 86 by confidence. Each clause shows the matched GDPR article and the passage the engine used.</p>
+  <div class="clause-block clause-bad">
+  <p class="clause-text">After your account is deleted, we keep some data for a longer time period but for very limited purposes.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.5(1)(e) Storage Limitation + Art.17</span>
+    <span class="clause-confidence">confidence 0.89</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 5] Principles relating to processing of personal data (5) kept in a form which permits identification of data subjects for no longer than is necessary for the purposes for which the personal data are processed; personal data may be stored for longer periods insofar as the personal data wi...</p>
+</div>
+<div class="clause-block clause-bad">
+  <p class="clause-text">Our partners may also combine the personal data we share with them with other data they collect about you, e.g. your use of their services.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.5(1)(b) Purpose Limitation</span>
+    <span class="clause-confidence">confidence 0.80</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 5] Principles relating to processing of personal data 1. Personal data shall be: (1) processed lawfully, fairly and in a transparent manner in relation to the data subject (‘lawfulness, fairness and transparency’); (2) collected for specified, explicit and legitimate purposes and not furt...</p>
+</div>
+<div class="clause-block clause-bad">
+  <p class="clause-text">Appropriate age for tailored advertising:</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.8 + Art.22 profiling of minors (+ likely COPPA exposure)</span>
+    <span class="clause-confidence">confidence 0.72</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 8] Conditions applicable to child&#39;s consent in relation to information society services 1. Where point (a) of Article 6(1) applies, in relation to the offer of information society services directly to a child, the processing of the personal data of a child shall be lawful where the child ...</p>
+</div>
+<div class="clause-block clause-bad">
+  <p class="clause-text">You will not be able to &#39;opt-in&#39; to Tailored Ads if you are under the appropriate age.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.8 + Art.22 profiling of minors (+ likely COPPA exposure)</span>
+    <span class="clause-confidence">confidence 0.72</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 8] Conditions applicable to child&#39;s consent in relation to information society services 1. Where point (a) of Article 6(1) applies, in relation to the offer of information society services directly to a child, the processing of the personal data of a child shall be lawful where the child ...</p>
+</div>
+</section>
+<section class="clauses">
+  <h4>Cleared clauses · what TermsGuard reads as protective</h4>
+  <p class="clauses-meta">Top 4 of 55 by confidence. These are the clauses the engine read as GDPR-compliant.</p>
+  <div class="clause-block clause-good">
+  <p class="clause-text">To withdraw your consent, you can:</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.7(3) Right to Withdraw Consent</span>
+    <span class="clause-confidence">confidence 0.92</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 7] Conditions for consent It shall be as easy to withdraw as to give consent. 8. When assessing whether consent is freely given, utmost account shall be taken of whether, inter alia, the performance of a contract, including the provision of a service, is conditional on consent to the proc...</p>
+</div>
+<div class="clause-block clause-good">
+  <p class="clause-text">It&#39;s your right to request that we delete certain of your personal data.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.17 Right to Erasure</span>
+    <span class="clause-confidence">confidence 0.89</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 17] Right to erasure (‘right to be forgotten’) (4) the personal data have been unlawfully processed; (5) the personal data have to be erased for compliance with a legal obligation in Union or Member State law to which the controller is subject; (6) the personal data have been collected in...</p>
+</div>
+<div class="clause-block clause-good">
+  <p class="clause-text">Request that we erase certain of your personal data.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.17 Right to Erasure</span>
+    <span class="clause-confidence">confidence 0.79</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 17] Right to erasure (‘right to be forgotten’) (4) the personal data have been unlawfully processed; (5) the personal data have to be erased for compliance with a legal obligation in Union or Member State law to which the controller is subject; (6) the personal data have been collected in...</p>
+</div>
+<div class="clause-block clause-good">
+  <p class="clause-text">You’ll always have the option to change your mind and withdraw your consent at any time.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.7(3) Right to Withdraw Consent</span>
+    <span class="clause-confidence">confidence 0.78</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 7] Conditions for consent It shall be as easy to withdraw as to give consent. 8. When assessing whether consent is freely given, utmost account shall be taken of whether, inter alia, the performance of a contract, including the provision of a service, is conditional on consent to the proc...</p>
+</div>
+</section>
+  </section>
+
+  <section class="overall">
+    <h4 class="section-h">Overall analysis</h4>
+    <p>Across 279 clauses, 86 were flagged and 55 were cleared, with a mean flagged-clause confidence of 0.52. The highest-confidence flags describe retention after deletion and partners combining shared data with data from their services, while other flags address tailored ads for users under the appropriate age. The cleared clauses state that users can withdraw consent and request erasure, so the policy contains rights language alongside clauses the engine reads as purpose, retention, and profiling concerns.</p>
+  </section>
+
+  
+
+  <section class="notes-block">
+    <h4 class="section-h">Notes and caveats</h4>
+    <ul class="notes-list">  <li>138 clauses were left uncertain. They sit between the fair and unfair reference sets and the engine did not commit.</li>
+  <li>The verification model is not configured for this corpus run. Cosine similarity + GDPR-article retrieval are the only signals.</li>
+  <li>This is a measurement of the published policy text, not the company&#39;s actual data-handling practice. The policy can be more or less protective than the practice.</li>
+</ul>
+  </section>
+
   <div class="diff-section">
     <p class="diff-section-label">Latest diff</p>
     <p class="empty-state">No diff yet (first snapshot).</p>
@@ -885,9 +2094,121 @@
     </div>
   </div>
   <p class="latest-meta">
-    Last fetched <span class="mono">2026-10-29</span>
-     · first snapshot
+    Last fetched <span class="mono">2026-10-29</span> · first snapshot
   </p>
+
+  <section class="analyst">
+    <h4 class="section-h">Analyst summary</h4>
+    <p>TermsGuard&#39;s reading: This is a medium-risk policy with a compliance pattern centered on purpose expansion and secondary use, international transfers, and cookie or analytics consent. The dominant flagged bases are Article 5(1)(b) Purpose Limitation, the ePrivacy Directive with Article 7 Consent, and Article 44 International Transfers, with additional flags touching storage limitation and Article 17 erasure.</p>
+  </section>
+
+  <section class="method-block">
+    <h4 class="section-h">How this was scored</h4>
+    <p class="methodology">
+      How this was scored: <span class="mono">175</span> clauses were extracted from the
+      policy and matched against the <span class="mono">102</span> hand-labelled reference clauses
+      (<span class="mono">52</span> fair, <span class="mono">50</span> unfair). The top match for each
+      clause was checked against the
+      <span class="mono">550</span>-chunk reference index of the actual GDPR text
+      (<span class="mono">99</span> articles + <span class="mono">173</span> recitals), and the matching
+      article was attached to the flag. The score is the mean confidence of the
+      <span class="mono">51</span> flagged clauses
+      , most of them under <em>Art.5(1)(b) Purpose Limitation violation</em>.
+      No model verification on this run; cosine + GDPR retrieval only.
+    </p>
+  </section>
+
+  <section class="clauses-block">
+    
+<section class="clauses">
+  <h4>Flagged clauses · what TermsGuard thinks you should read</h4>
+  <p class="clauses-meta">Top 4 of 51 by confidence. Each clause shows the matched GDPR article and the passage the engine used.</p>
+  <div class="clause-block clause-bad">
+  <p class="clause-text">The data can be used for the partners’ advertising purposes, processed further and combined with data from other sources.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.5(1)(b) Purpose Limitation</span>
+    <span class="clause-confidence">confidence 0.84</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 5] Principles relating to processing of personal data 1. Personal data shall be: (1) processed lawfully, fairly and in a transparent manner in relation to the data subject (‘lawfulness, fairness and transparency’); (2) collected for specified, explicit and legitimate purposes and not furt...</p>
+</div>
+<div class="clause-block clause-bad">
+  <p class="clause-text">In some cases, your data may also be processed in countries outside the European Union (so-called third countries), currently including:</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.44 International Transfers</span>
+    <span class="clause-confidence">confidence 0.75</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 44] General principle for transfers 1. Any transfer of personal data which are undergoing processing or are intended for processing after transfer to a third country or to an international organisation shall take place only if, subject to the other provisions of this Regulation, the condi...</p>
+</div>
+<div class="clause-block clause-bad">
+  <p class="clause-text">We use cookies and analytics technologies to get a better understanding of how our digital service is used.</p>
+  <p class="clause-meta">
+    <span class="law-chip">ePrivacy Directive violation + Art.7 Consent</span>
+    <span class="clause-confidence">confidence 0.70</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Recital 30] Online Identifiers for Profiling and Identification 1. Natural persons may be associated with online identifiers provided by their devices, applications, tools and protocols, such as internet protocol addresses, cookie identifiers or other identifiers such as radio frequency identi...</p>
+</div>
+<div class="clause-block clause-bad">
+  <p class="clause-text">This data is not used to create individual user profiles, nor is it shared with third parties, and it is deleted after a maximum of seven days.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.5(1)(e) Storage Limitation + Art.17</span>
+    <span class="clause-confidence">confidence 0.69</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 5] Principles relating to processing of personal data (5) kept in a form which permits identification of data subjects for no longer than is necessary for the purposes for which the personal data are processed; personal data may be stored for longer periods insofar as the personal data wi...</p>
+</div>
+</section>
+<section class="clauses">
+  <h4>Cleared clauses · what TermsGuard reads as protective</h4>
+  <p class="clauses-meta">Top 4 of 30 by confidence. These are the clauses the engine read as GDPR-compliant.</p>
+  <div class="clause-block clause-good">
+  <p class="clause-text">We want you to know what personal data we collect, how it is used, and what choices you have in the process.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.5(1)(a) Transparency</span>
+    <span class="clause-confidence">confidence 0.72</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 5] Principles relating to processing of personal data (5) kept in a form which permits identification of data subjects for no longer than is necessary for the purposes for which the personal data are processed; personal data may be stored for longer periods insofar as the personal data wi...</p>
+</div>
+<div class="clause-block clause-good">
+  <p class="clause-text">The respective service provider will inform you about how your personal data is processed.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.5(1)(a) Transparency</span>
+    <span class="clause-confidence">confidence 0.71</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 5] Principles relating to processing of personal data 1. Personal data shall be: (1) processed lawfully, fairly and in a transparent manner in relation to the data subject (‘lawfulness, fairness and transparency’); (2) collected for specified, explicit and legitimate purposes and not furt...</p>
+</div>
+<div class="clause-block clause-good">
+  <p class="clause-text">What data is collected and for what purpose is it processed?</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.5(1)(a) Transparency</span>
+    <span class="clause-confidence">confidence 0.68</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 5] Principles relating to processing of personal data 1. Personal data shall be: (1) processed lawfully, fairly and in a transparent manner in relation to the data subject (‘lawfulness, fairness and transparency’); (2) collected for specified, explicit and legitimate purposes and not furt...</p>
+</div>
+<div class="clause-block clause-good">
+  <p class="clause-text">Where is my data processed?</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.5(1)(a) Transparency</span>
+    <span class="clause-confidence">confidence 0.68</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 5] Principles relating to processing of personal data (3) adequate, relevant and limited to what is necessary in relation to the purposes for which they are processed (‘data minimisation’); (4) accurate and, where necessary, kept up to date; every reasonable step must be taken to ensure t...</p>
+</div>
+</section>
+  </section>
+
+  <section class="overall">
+    <h4 class="section-h">Overall analysis</h4>
+    <p>Of 175 clauses analysed, 51 were flagged and 30 were cleared. The flagged clauses describe partner advertising, further processing and data combination, processing outside the European Union, cookie and analytics use, and a deletion statement assessed under storage limitation and erasure. The cleared clauses mainly provide transparency about collected data, processing purposes, choices, service providers, and processing locations, so the policy explains its practices while the engine identifies concerns in how those practices are used and governed.</p>
+  </section>
+
+  
+
+  <section class="notes-block">
+    <h4 class="section-h">Notes and caveats</h4>
+    <ul class="notes-list">  <li>94 clauses were left uncertain. They sit between the fair and unfair reference sets and the engine did not commit.</li>
+  <li>The verification model is not configured for this corpus run. Cosine similarity + GDPR-article retrieval are the only signals.</li>
+  <li>This is a measurement of the published policy text, not the company&#39;s actual data-handling practice. The policy can be more or less protective than the practice.</li>
+</ul>
+  </section>
+
   <div class="diff-section">
     <p class="diff-section-label">Latest diff</p>
     <p class="empty-state">No diff yet (first snapshot).</p>
@@ -923,9 +2244,121 @@
     </div>
   </div>
   <p class="latest-meta">
-    Last fetched <span class="mono">2026-10-29</span>
-     · first snapshot
+    Last fetched <span class="mono">2026-10-29</span> · first snapshot
   </p>
+
+  <section class="analyst">
+    <h4 class="section-h">Analyst summary</h4>
+    <p>TermsGuard&#39;s reading: This policy presents a medium privacy and consent risk centered on using customer data for marketing, advertising, and personalised recommendations. The engine primarily flagged Article 5(1)(b) Purpose Limitation, Article 7(4) Conditional consent prohibition, and Article 7 Conditions for Consent issues, alongside ePrivacy Directive consent concerns.</p>
+  </section>
+
+  <section class="method-block">
+    <h4 class="section-h">How this was scored</h4>
+    <p class="methodology">
+      How this was scored: <span class="mono">82</span> clauses were extracted from the
+      policy and matched against the <span class="mono">102</span> hand-labelled reference clauses
+      (<span class="mono">52</span> fair, <span class="mono">50</span> unfair). The top match for each
+      clause was checked against the
+      <span class="mono">550</span>-chunk reference index of the actual GDPR text
+      (<span class="mono">99</span> articles + <span class="mono">173</span> recitals), and the matching
+      article was attached to the flag. The score is the mean confidence of the
+      <span class="mono">16</span> flagged clauses
+      , most of them under <em>Art.5(1)(b) Purpose Limitation violation</em>.
+      No model verification on this run; cosine + GDPR retrieval only.
+    </p>
+  </section>
+
+  <section class="clauses-block">
+    
+<section class="clauses">
+  <h4>Flagged clauses · what TermsGuard thinks you should read</h4>
+  <p class="clauses-meta">Top 4 of 16 by confidence. Each clause shows the matched GDPR article and the passage the engine used.</p>
+  <div class="clause-block clause-bad">
+  <p class="clause-text">With customer permission, we will use customer data to market our products and services and for advertising to provide more accurate recommendations.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.5(1)(b) Purpose Limitation</span>
+    <span class="clause-confidence">confidence 0.71</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 5] Principles relating to processing of personal data (5) kept in a form which permits identification of data subjects for no longer than is necessary for the purposes for which the personal data are processed; personal data may be stored for longer periods insofar as the personal data wi...</p>
+</div>
+<div class="clause-block clause-bad">
+  <p class="clause-text">In order to provide these services, we need to use our customers’ personal information.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.5(1)(b) Purpose Limitation</span>
+    <span class="clause-confidence">confidence 0.70</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 5] Principles relating to processing of personal data (5) kept in a form which permits identification of data subjects for no longer than is necessary for the purposes for which the personal data are processed; personal data may be stored for longer periods insofar as the personal data wi...</p>
+</div>
+<div class="clause-block clause-bad">
+  <p class="clause-text">We can provide personalised advertisements you see online, if you have consented to cookies.</p>
+  <p class="clause-meta">
+    <span class="law-chip">ePrivacy Directive violation + Art.7 Consent</span>
+    <span class="clause-confidence">confidence 0.69</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Recital 58] The Principle of Transparency 1. The principle of transparency requires that any information addressed to the public or to the data subject be concise, easily accessible and easy to understand, and that clear and plain language and, additionally, where appropriate, visualisation be...</p>
+</div>
+<div class="clause-block clause-bad">
+  <p class="clause-text">Visit our Data Privacy and Cookie Policy for more information.</p>
+  <p class="clause-meta">
+    <span class="law-chip">ePrivacy Directive violation + Art.7 Consent</span>
+    <span class="clause-confidence">confidence 0.67</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Recital 6] Ensuring a High Level of Data Protection Despite the Increased Exchange of Data 1. Rapid technological developments and globalisation have brought new challenges for the protection of personal data. 2. The scale of the collection and sharing of personal data has increased significan...</p>
+</div>
+</section>
+<section class="clauses">
+  <h4>Cleared clauses · what TermsGuard reads as protective</h4>
+  <p class="clauses-meta">Top 4 of 26 by confidence. These are the clauses the engine read as GDPR-compliant.</p>
+  <div class="clause-block clause-good">
+  <p class="clause-text">We do not sell individual data to third-parties.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.5(1)(b) Purpose Limitation</span>
+    <span class="clause-confidence">confidence 0.95</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 5] Principles relating to processing of personal data 1. Personal data shall be: (1) processed lawfully, fairly and in a transparent manner in relation to the data subject (‘lawfulness, fairness and transparency’); (2) collected for specified, explicit and legitimate purposes and not furt...</p>
+</div>
+<div class="clause-block clause-good">
+  <p class="clause-text">For example, customers can express their opt-in consent to the use of their communications metadata for marketing purposes or for receiving third party marketing messages, or they can opt-out from marketing entirely.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.7 Conditions for Consent</span>
+    <span class="clause-confidence">confidence 0.74</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 7] Conditions for consent 1. Where processing is based on consent, the controller shall be able to demonstrate that the data subject has consented to processing of his or her personal data. 1. If the data subject’s consent is given in the context of a written declaration which also concer...</p>
+</div>
+<div class="clause-block clause-good">
+  <p class="clause-text">All permissions can be revoked and choices can be changed at any time.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.7(3) Right to Withdraw Consent</span>
+    <span class="clause-confidence">confidence 0.71</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 7] Conditions for consent It shall be as easy to withdraw as to give consent. 8. When assessing whether consent is freely given, utmost account shall be taken of whether, inter alia, the performance of a contract, including the provision of a service, is conditional on consent to the proc...</p>
+</div>
+<div class="clause-block clause-good">
+  <p class="clause-text">We do not share customers’ personal data otherwise, unless required by law or with the consent of the customer.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.7 Conditions for Consent</span>
+    <span class="clause-confidence">confidence 0.69</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 7] Conditions for consent 1. Where processing is based on consent, the controller shall be able to demonstrate that the data subject has consented to processing of his or her personal data. 1. If the data subject’s consent is given in the context of a written declaration which also concer...</p>
+</div>
+</section>
+  </section>
+
+  <section class="overall">
+    <h4 class="section-h">Overall analysis</h4>
+    <p>The policy contains 16 flagged clauses and 26 cleared clauses among 82 analysed, with a mean flagged-clause confidence of 0.56. The flagged text permits marketing and personalised advertising based on customer data and cookie consent; the cleared text states that individual data is not sold, consent can be opted in or out, permissions can be revoked, and sharing is limited absent law or customer consent. The shape of the results is mixed. The engine saw specific concerns about purpose and consent conditions alongside stated limits and user controls.</p>
+  </section>
+
+  
+
+  <section class="notes-block">
+    <h4 class="section-h">Notes and caveats</h4>
+    <ul class="notes-list">  <li>40 clauses were left uncertain. They sit between the fair and unfair reference sets and the engine did not commit.</li>
+  <li>The verification model is not configured for this corpus run. Cosine similarity + GDPR-article retrieval are the only signals.</li>
+  <li>This is a measurement of the published policy text, not the company&#39;s actual data-handling practice. The policy can be more or less protective than the practice.</li>
+</ul>
+  </section>
+
   <div class="diff-section">
     <p class="diff-section-label">Latest diff</p>
     <p class="empty-state">No diff yet (first snapshot).</p>
@@ -961,9 +2394,121 @@
     </div>
   </div>
   <p class="latest-meta">
-    Last fetched <span class="mono">2026-10-29</span>
-     · first snapshot
+    Last fetched <span class="mono">2026-10-29</span> · first snapshot
   </p>
+
+  <section class="analyst">
+    <h4 class="section-h">Analyst summary</h4>
+    <p>TermsGuard&#39;s reading: This is a medium risk policy centered on purpose limitation, tracking, and disclosure of personal data. The engine flagged cross-session and cross-device linking, broad sharing with third parties and business partners, and sharing with advertising partners. The dominant basis is Article 5(1)(b) Purpose Limitation, alongside ePrivacy Directive findings, Article 28 findings, and Article 44 International Transfers findings.</p>
+  </section>
+
+  <section class="method-block">
+    <h4 class="section-h">How this was scored</h4>
+    <p class="methodology">
+      How this was scored: <span class="mono">460</span> clauses were extracted from the
+      policy and matched against the <span class="mono">102</span> hand-labelled reference clauses
+      (<span class="mono">52</span> fair, <span class="mono">50</span> unfair). The top match for each
+      clause was checked against the
+      <span class="mono">550</span>-chunk reference index of the actual GDPR text
+      (<span class="mono">99</span> articles + <span class="mono">173</span> recitals), and the matching
+      article was attached to the flag. The score is the mean confidence of the
+      <span class="mono">131</span> flagged clauses
+      .
+      No model verification on this run; cosine + GDPR retrieval only.
+    </p>
+  </section>
+
+  <section class="clauses-block">
+    
+<section class="clauses">
+  <h4>Flagged clauses · what TermsGuard thinks you should read</h4>
+  <p class="clauses-meta">Top 4 of 131 by confidence. Each clause shows the matched GDPR article and the passage the engine used.</p>
+  <div class="clause-block clause-bad">
+  <p class="clause-text">If you have an account on our platform, we link your browsing activity across different sessions and devices to give you a continuous experience.</p>
+  <p class="clause-meta">
+    <span class="law-chip">ePrivacy Directive violation + Art.5(1)(b)</span>
+    <span class="clause-confidence">confidence 0.77</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Recital 18] Not Applicable to Personal or Household Activities 1. This Regulation does not apply to the processing of personal data by a natural person in the course of a purely personal or household activity and thus with no connection to a professional or commercial activity. 2. Personal or ...</p>
+</div>
+<div class="clause-block clause-bad">
+  <p class="clause-text">In certain circumstances, we’ll share your personal data with third parties.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.5(1)(b) Purpose Limitation</span>
+    <span class="clause-confidence">confidence 0.77</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 5] Principles relating to processing of personal data (5) kept in a form which permits identification of data subjects for no longer than is necessary for the purposes for which the personal data are processed; personal data may be stored for longer periods insofar as the personal data wi...</p>
+</div>
+<div class="clause-block clause-bad">
+  <p class="clause-text">We may share some of your personal data (such as identifiers) with advertising partners, as part of the marketing of our trip services through third parties (to ensure that relevant advertisements are shown to the right audience and to measure the effectiveness of different marketing activities).</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.5(1)(b) Purpose Limitation</span>
+    <span class="clause-confidence">confidence 0.74</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 5] Principles relating to processing of personal data 1. Personal data shall be: (1) processed lawfully, fairly and in a transparent manner in relation to the data subject (‘lawfulness, fairness and transparency’); (2) collected for specified, explicit and legitimate purposes and not furt...</p>
+</div>
+<div class="clause-block clause-bad">
+  <p class="clause-text">We may share personal data in other instances with other business partners.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.5(1)(b) Purpose Limitation</span>
+    <span class="clause-confidence">confidence 0.74</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 5] Principles relating to processing of personal data (5) kept in a form which permits identification of data subjects for no longer than is necessary for the purposes for which the personal data are processed; personal data may be stored for longer periods insofar as the personal data wi...</p>
+</div>
+</section>
+<section class="clauses">
+  <h4>Cleared clauses · what TermsGuard reads as protective</h4>
+  <p class="clauses-meta">Top 4 of 72 by confidence. These are the clauses the engine read as GDPR-compliant.</p>
+  <div class="clause-block clause-good">
+  <p class="clause-text">You can ask us for a copy of the personal data we hold about you.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.15 Right of Access</span>
+    <span class="clause-confidence">confidence 0.89</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 15] Right of access by the data subject 1. The data subject shall have the right to obtain from the controller confirmation as to whether or not personal data concerning him or her are being processed, and, where that is the case, access to the personal data and the following information:...</p>
+</div>
+<div class="clause-block clause-good">
+  <p class="clause-text">You can ask us to erase the personal data we hold about you when, for example, it is no longer needed or we have asked for your consent and you later withdraw it.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.17 Right to Erasure</span>
+    <span class="clause-confidence">confidence 0.80</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 17] Right to erasure (‘right to be forgotten’) (4) the personal data have been unlawfully processed; (5) the personal data have to be erased for compliance with a legal obligation in Union or Member State law to which the controller is subject; (6) the personal data have been collected in...</p>
+</div>
+<div class="clause-block clause-good">
+  <p class="clause-text">Where we have collected and processed your personal data on the basis of your consent, you can withdraw that consent at any time, subject to applicable law.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.7(3) Right to Withdraw Consent</span>
+    <span class="clause-confidence">confidence 0.80</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 7] Conditions for consent 1. Where processing is based on consent, the controller shall be able to demonstrate that the data subject has consented to processing of his or her personal data. 1. If the data subject’s consent is given in the context of a written declaration which also concer...</p>
+</div>
+<div class="clause-block clause-good">
+  <p class="clause-text">We use retention practices to keep and, where possible under applicable law, dispose of personal data.</p>
+  <p class="clause-meta">
+    <span class="law-chip">Art.5(1)(e) Storage Limitation</span>
+    <span class="clause-confidence">confidence 0.74</span>
+  </p>
+  <p class="clause-evidence"><em>Retrieved context:</em> [GDPR Art. 5] Principles relating to processing of personal data (5) kept in a form which permits identification of data subjects for no longer than is necessary for the purposes for which the personal data are processed; personal data may be stored for longer periods insofar as the personal data wi...</p>
+</div>
+</section>
+  </section>
+
+  <section class="overall">
+    <h4 class="section-h">Overall analysis</h4>
+    <p>The flagged set contains 131 clauses, including 46 with no basis match and 38 marked as Article 5(1)(b) Purpose Limitation violations. The cleared set contains 72 clauses covering access, erasure, consent withdrawal, and storage limitation. The policy therefore combines stated data subject rights and retention practices with broader tracking and sharing provisions that the engine treats as insufficiently limited.</p>
+  </section>
+
+  
+
+  <section class="notes-block">
+    <h4 class="section-h">Notes and caveats</h4>
+    <ul class="notes-list">  <li>257 clauses were left uncertain. They sit between the fair and unfair reference sets and the engine did not commit.</li>
+  <li>The verification model is not configured for this corpus run. Cosine similarity + GDPR-article retrieval are the only signals.</li>
+  <li>This is a measurement of the published policy text, not the company&#39;s actual data-handling practice. The policy can be more or less protective than the practice.</li>
+</ul>
+  </section>
+
   <div class="diff-section">
     <p class="diff-section-label">Latest diff</p>
     <p class="empty-state">No diff yet (first snapshot).</p>
@@ -988,6 +2533,18 @@
       <a href="https://newtazer-terms-guard-ai.hf.space" target="_blank" rel="noopener">newtazer-terms-guard-ai.hf.space</a>.
     </p>
   </section>
+
+  <section class="how-to-read-footer">
+  <h2 class="section-h">How to read this</h2>
+  <p>
+    The score is a measurement of one document at one point in time, not a verdict.
+    Treat it like a temperature reading: useful as a signal, not a diagnosis.
+    The flagged-clause list is the engine's best read of where a privacy-aware reader would push back, not a legal determination.
+    The cleared-clause list is the engine's best read of where the policy is committing to user protection.
+    The diff between two snapshots is a literal text diff; the prose around it is the engine's interpretation of what changed.
+    None of this replaces legal review.
+  </p>
+</section>
 
   <footer style="margin-top: var(--space-12); padding-top: var(--space-5); border-top: 1px solid var(--border);
                  color: var(--text-3); font-size: var(--text-xs);">
