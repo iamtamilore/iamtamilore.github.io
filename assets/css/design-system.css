@@ -1136,6 +1136,7 @@ label {
   color: var(--live); text-transform: uppercase; letter-spacing: 0.08em;
 }
 .channel-card {
+  display: block; text-decoration: none; color: inherit;
   background: var(--surface);
   border: 1px solid var(--border);
   padding: var(--space-5);

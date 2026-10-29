@@ -125,7 +125,7 @@
   <section class="meet-section" aria-label="Projects">
     <header class="strip-heading">
       <span class="eyebrow">Projects</span>
-      <h2>What I shipped, with the numbers that matter</h2>
+      <h2>The one that ships</h2>
     </header>
 
     <div class="meet-grid">
@@ -148,54 +148,6 @@
           </div>
         </div>
         <span class="live-tag">Live demo ↗</span>
-      </a>
-
-      <a class="project-card" href="/p/clinical-rag/" aria-label="Smart Medical Records Engine">
-        <span class="num">02</span>
-        <h3>Smart Medical Records</h3>
-        <p class="blurb">Retrieval over patient notes that surfaces critical history, scoped so nothing crosses between patients. Self-hosted on the hospital machine so records never leave it.</p>
-        <div class="stat-row">
-          <div>
-            <span class="stat">30</span>
-            <span class="stat-label">Adversarial probes designed to leak cross-patient</span>
-          </div>
-          <div>
-            <span class="stat">0</span>
-            <span class="stat-label">Probes that leaked</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="project-card" href="/p/care-agent/" aria-label="Customer Care Process Automation">
-        <span class="num">03</span>
-        <h3>Care Agent</h3>
-        <p class="blurb">Automated ticket triage for a mobile network's customer care, with a human fallback below confidence. The accuracy number is the least interesting part of this project.</p>
-        <div class="stat-row">
-          <div>
-            <span class="stat">95.2%</span>
-            <span class="stat-label">Routing accuracy on 42 held-out tickets (40 of 42)</span>
-          </div>
-          <div>
-            <span class="stat">0.55</span>
-            <span class="stat-label">Confidence threshold below which a human decides</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="project-card" href="/p/image-qa/" aria-label="Automated QA Gate">
-        <span class="num">04</span>
-        <h3>Image QA Gate</h3>
-        <p class="blurb">Automated quality gate for generated product imagery. The threshold came from a sweep, not a guess, and the sweep exposed the overfit point.</p>
-        <div class="stat-row">
-          <div>
-            <span class="stat">F1 0.90</span>
-            <span class="stat-label">Held-out F1 at chosen threshold</span>
-          </div>
-          <div>
-            <span class="stat">0.4821</span>
-            <span class="stat-label">Decision threshold, set by sweep not guess</span>
-          </div>
-        </div>
       </a>
     </div>
   </section>
@@ -240,23 +192,7 @@
 
     <div class="channel-grid">
       <article class="channel-card">
-        <img class="thumb" src="/assets/img/channels/anime_hive.jpg" alt="Anime Hive channel cover art">
-        <h3>Anime Hive</h3>
-        <p class="desc">Blur-whip short-form, 1080x1920. Subject and pacing measured from a real published reference.</p>
-        <div class="metric-row">
-          <div>
-            <span class="metric">44.9s / 15 shots</span>
-            <span class="metric-label">EP_BEN10 reference cut</span>
-          </div>
-          <div>
-            <span class="metric">3.00s</span>
-            <span class="metric-label">Shot grid, 17 of 18 marks hit</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="channel-card">
-        <img class="thumb wide" src="/assets/img/channels/pipeline.jpg" alt="Pipeline diagram - production chain overview">
+        <img class="thumb" src="/assets/img/channels/zenpai.jpg" alt="Super Zenpai channel cover art">
         <h3>Super Zenpai</h3>
         <p class="desc">Hard-cut short-form, 18-25 shots per episode. Subject selection measured against a real 366-video reference census.</p>
         <div class="metric-row">
@@ -274,6 +210,30 @@
           </div>
         </div>
       </article>
+
+      <a class="channel-card" href="/products/forgotten-fronts/" aria-label="Forgotten Fronts - reverse-engineered history shorts">
+        <img class="thumb" src="/assets/img/channels/forgotten_fronts.jpg" alt="Forgotten Fronts channel cover art - reverse-engineered history shorts">
+        <h3>Forgotten Fronts</h3>
+        <p class="desc">Reverse-engineered history shorts built from primary sources. Each episode ships with the contact sheet, the source-vs-claim audit, and the drift-bug fix if one was needed.</p>
+        <div class="metric-row">
+          <div>
+            <span class="metric">19 shots</span>
+            <span class="metric-label">EP_MUSASHI contact sheet</span>
+          </div>
+          <div>
+            <span class="metric">40.1s</span>
+            <span class="metric-label">EP_MUSASHI duration, 1080x1920</span>
+          </div>
+          <div>
+            <span class="metric">33 / 16</span>
+            <span class="metric-label">Claims confirmed / dropped by audit</span>
+          </div>
+          <div>
+            <span class="metric">876</span>
+            <span class="metric-label">24h YouTube views, EP_MUSASHI</span>
+          </div>
+        </div>
+      </a>
     </div>
   </section>
 
