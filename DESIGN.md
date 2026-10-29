@@ -1,4 +1,4 @@
-# DESIGN.md — site-build design system
+# DESIGN.md - site-build design system
 
 The design language for the site I build. This is a grammar, not a cage.
 Everything here is a default I can depart from when the work calls for
@@ -389,6 +389,19 @@ is not recorded here is drift.
 **None yet.** The system has not been bent since it was written, so
 this section is empty rather than absent. It exists so the first
 real departure has somewhere to go.
+
+**Departure 1 (2026-10-29, `/meet/` page).** The "no human faces on
+the homepage" rule at lines 314-319 is **lifted for `/meet/` only**.
+The DP (`/assets/img/taiwo.jpg`) is the recruiter's primary credibility
+signal at the moment of scan, and removing it costs more than the
+affinity signal it would otherwise introduce. The homepage is unaffected.
+The departure is local to `/meet/` and does not propagate.
+
+**Departure 2 (2026-10-29, `/meet/` page).** The page follows the
+system's standard `prefers-color-scheme` default (light or dark per OS)
+plus the `tw-theme` toggle, identical to every other page on the site.
+There is no separate `/meet/` light/dark default. The earlier `/meet/`
+was dark-only; that was a one-off, not a system property.
 
 ## Versioning
 

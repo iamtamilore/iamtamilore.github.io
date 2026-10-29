@@ -4,181 +4,401 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Taiwo Alabi</title>
-<meta name="description" content="Taiwo Alabi - data governance, AI, and a receptionist's sense of what actually breaks.">
+<title>Taiwo Alabi - AI systems engineer</title>
+<meta name="description" content="Taiwo Alabi. AI systems engineer who ships measured product, runs a measured channel pipeline, and verifies every claim against the actual measurement.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231a1816'/><text y='72' x='50' font-size='62' text-anchor='middle' fill='%235B9BD5' font-family='sans-serif' font-weight='bold'>T</text></svg>">
+<link rel="stylesheet" href="/assets/css/design-system.css">
+<script>document.documentElement.setAttribute("data-theme",localStorage.getItem("tw-theme")||"")</script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%231a1816'/><text y='68' x='50' font-size='62' text-anchor='middle' fill='%23c45a1f' font-family='sans-serif' font-weight='bold'>T</text></svg>">
 <style>
-  :root {
-    --bg: #0f0e0c;
-    --text: #e8e4de;
-    --text-2: #b8b3ab;
-    --blue: #5B9BD5;
-    --border: #2b2620;
+  .skip-link {
+    position: absolute; top: -40px; left: 0;
+    background: var(--text); color: var(--bg);
+    padding: 8px 16px; z-index: 100;
+    font-family: var(--font-mono); font-size: var(--text-xs);
+    text-transform: uppercase; letter-spacing: 0.08em;
   }
-  * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
-  body {
-    margin: 0;
-    min-height: 100vh;
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Quicksand', system-ui, sans-serif;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px 20px;
+  .skip-link:focus { top: 0; }
+  .meet-grid {
+    display: grid; gap: var(--space-4);
+    grid-template-columns: 1fr 1fr;
   }
-  .card {
-    width: 100%;
-    max-width: 420px;
+  @media (max-width: 768px) {
+    .meet-grid { grid-template-columns: 1fr; }
+    .meet-hero .claim-display { font-size: var(--text-xl); max-width: 30ch; }
   }
-  .photo {
-    width: 68px;
-    height: 68px;
-    border-radius: 50%;
-    object-fit: cover;
-    object-position: 50% 20%;
-    border: 2px solid var(--blue);
-    display: block;
-    margin: 0 0 10px;
+  .channel-grid { display: grid; gap: var(--space-4); grid-template-columns: 1fr 1fr; }
+  @media (max-width: 768px) { .channel-grid { grid-template-columns: 1fr; } }
+  .recipe-grid { display: grid; gap: var(--space-4); grid-template-columns: 1fr 1fr; }
+  @media (max-width: 768px) { .recipe-grid { grid-template-columns: 1fr; } }
+  .meet-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 var(--edge);
   }
-  h1 {
-    font-size: clamp(24px, 7vw, 28px);
-    font-weight: 700;
-    margin: 0 0 2px;
-    color: var(--text);
+  .meet-section { padding: var(--space-10) 0; }
+  .identity {
+    font-size: var(--text-base); color: var(--text);
+    margin-top: var(--space-4);
   }
-  .tagline {
-    font-size: 13.5px;
-    color: var(--blue);
-    font-weight: 600;
-    margin: 0 0 14px;
-  }
-  .now {
-    font-size: 13.5px;
-    line-height: 1.45;
-    color: var(--text-2);
-    margin: 0 0 14px;
-  }
-  .now strong { color: var(--text); font-weight: 600; }
+  .identity strong { font-weight: 700; }
   .proof {
-    border-left: 2px solid var(--blue);
-    padding: 1px 0 1px 12px;
-    margin: 0 0 16px;
-    font-size: 13px;
-    line-height: 1.4;
-    color: var(--text-2);
+    font-size: var(--text-sm); color: var(--text-3);
+    max-width: 50ch; line-height: 1.45;
   }
-  h2 {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--blue);
-    font-weight: 700;
-    margin: 0 0 8px;
+  .endcta-row {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    padding-top: var(--space-8); margin-top: var(--space-10);
+    border-top: 1px solid var(--border);
   }
-  ul.work {
-    list-style: none;
-    margin: 0 0 16px;
-    padding: 0;
+  .endcta-row .cta { flex: 0 1 auto; }
+
+  /* Corpus callout (TermsGuard weekly corpus) */
+  .corpus-callout {
+    display: grid; gap: var(--space-5);
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    padding: var(--space-5);
   }
-  ul.work li {
-    padding: 7px 0;
-    border-bottom: 1px solid var(--border);
-    font-size: 13px;
-    line-height: 1.4;
+  @media (max-width: 768px) {
+    .corpus-callout { grid-template-columns: 1fr; }
   }
-  ul.work li:last-child { border-bottom: none; }
-  ul.work a {
+  .corpus-callout .eyebrow {
+    font-family: var(--font-mono); font-size: var(--text-xs);
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--accent); margin-bottom: var(--space-2);
+  }
+  .corpus-callout h3 {
+    font-size: var(--text-lg); font-weight: 700; margin: 0 0 var(--space-3);
     color: var(--text);
-    text-decoration: none;
-    font-weight: 600;
   }
-  ul.work a:hover, ul.work a:focus { color: var(--blue); }
-  ul.work .desc { color: var(--text-2); display: block; margin-top: 1px; }
-  ul.work .live-link {
-    display: inline-block;
-    margin-top: 4px;
-    color: var(--blue);
-    text-decoration: underline;
-    font-weight: 600;
-    font-size: 12.5px;
+  .corpus-callout p {
+    font-size: var(--text-sm); color: var(--text-2);
+    margin: 0; line-height: 1.5; max-width: 60ch;
   }
-  .cta {
-    display: flex;
-    gap: 10px;
+  .corpus-callout .stats {
+    display: flex; gap: var(--space-5); margin-top: var(--space-3);
     flex-wrap: wrap;
   }
-  .cta a {
-    flex: 1;
-    text-align: center;
-    padding: 11px 16px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: none;
-    white-space: nowrap;
+  .corpus-callout .stat {
+    font-family: var(--font-mono); font-size: var(--text-base);
+    color: var(--text); font-weight: 500;
   }
-  .cta .primary {
-    background: var(--blue);
-    color: #14100c;
+  .corpus-callout .stat-label {
+    font-size: var(--text-xs); color: var(--text-3); display: block;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    margin-top: 2px;
   }
-  .cta .ghost {
-    background: transparent;
-    color: var(--text);
-    border: 1px solid var(--border);
+  .corpus-callout .live-tag {
+    display: inline-block; margin-top: var(--space-3);
+    font-family: var(--font-mono); font-size: var(--text-xs);
+    color: var(--live); text-transform: uppercase; letter-spacing: 0.08em;
   }
-  footer {
-    margin-top: 16px;
-    text-align: center;
-    font-size: 13px;
-    color: var(--text-2);
+
+  @media print {
+    .meet-hero { background: white; }
+    .project-card, .channel-card, .recipe-card, .corpus-callout { break-inside: avoid; border-color: #ccc; }
+    .cta, .endcta-row .cta { display: none; }
   }
-  footer a { color: var(--text-2); text-decoration: underline; }
-  footer a:hover, footer a:focus { color: var(--blue); }
 </style>
 </head>
 <body>
-<div class="card">
-  <img class="photo" src="/assets/img/taiwo.jpg" alt="Taiwo Alabi">
-  <h1>Taiwo Alabi</h1>
-  <p class="tagline">Data Governance &amp; AI</p>
 
-  <p class="now">Currently a part-time <strong>Receptionist</strong> at Temple Bar Townhouse, finishing an
-  <strong>MSc in Artificial Intelligence</strong> at National College of Ireland. Previously worked in
-  data governance on a telecom migration at Huawei &middot; Globacom.</p>
+<a class="skip-link" href="#main">Skip to main content</a>
 
-  <p class="proof">Found a reporting gap that had been sending the wrong subscriber numbers upstream
-  for months, and fixed it.</p>
-
-  <h2>Live work</h2>
-  <ul class="work">
-    <li>
-      <a href="/p/termsguard/">TermsGuard AI</a>
-      <span class="desc">Reads privacy policies and flags risky clauses, grounded in the exact rule text.</span>
-      <a class="live-link" href="https://newtazer-terms-guard-ai.hf.space" target="_blank" rel="noopener">Try it live &rarr;</a>
-    </li>
-    <li>
-      <a href="/p/clinical-rag/">Smart Medical Records</a>
-      <span class="desc">Retrieval over patient notes that surfaces critical history, scoped so nothing crosses between patients.</span>
-    </li>
-    <li>
-      <a href="/p/care-agent/">Care Agent</a>
-      <span class="desc">Automated ticket triage for a mobile network's customer care, with a human fallback below confidence.</span>
-    </li>
-  </ul>
-
-  <div class="cta">
-    <a class="primary" href="/cv/">View full CV</a>
-    <a class="ghost" href="mailto:newalabitaiwo625@gmail.com">Email me</a>
+<section class="meet-hero" aria-label="Identity">
+  <img class="dp" src="/assets/img/taiwo.jpg" alt="Taiwo Alabi">
+  <div>
+    <span class="live-status" aria-label="Available for work"><span class="status-dot live" aria-hidden="true"></span>Available for AI engineering roles, Dublin and remote</span>
+    <h1 class="claim-display">An <strong>AI systems engineer</strong> who ships measured product, runs a measured channel pipeline, and verifies every claim against the actual measurement.</h1>
+    <p class="proof">Found a reporting gap that had been sending the wrong subscriber numbers upstream for months, and fixed it. Currently a part-time Receptionist at Temple Bar Townhouse, finishing an MSc in Artificial Intelligence at NCI Dublin.</p>
+    <p class="identity"><strong>Taiwo Alabi</strong> · MSc AI, NCI Dublin</p>
   </div>
+</section>
 
-  <footer>
-    <a href="/">iamtamilore.github.io</a> &middot; <a href="https://www.linkedin.com/in/tami-alabi/">LinkedIn</a>
-  </footer>
-</div>
+<main id="main" class="meet-wrap">
+
+  <!-- ============================ PROJECTS ============================ -->
+  <section class="meet-section" aria-label="Projects">
+    <header class="strip-heading">
+      <span class="eyebrow">Projects</span>
+      <h2>What I shipped, with the numbers that matter</h2>
+    </header>
+
+    <div class="meet-grid">
+      <a class="project-card" href="/p/termsguard/" aria-label="TermsGuard AI - privacy policy risk flagging">
+        <span class="num">01</span>
+        <h3>TermsGuard AI</h3>
+        <p class="blurb">Reads privacy policies and flags risky clauses, grounded in the exact rule text. A pure cosine classifier gets negation backwards, so the classifier proposes and a model rules.</p>
+        <div class="stat-row">
+          <div>
+            <span class="stat">102</span>
+            <span class="stat-label">Reference clauses (52 fair, 50 unfair)</span>
+          </div>
+          <div>
+            <span class="stat">4,527</span>
+            <span class="stat-label">Chunks in retrieval index</span>
+          </div>
+          <div>
+            <span class="stat">15</span>
+            <span class="stat-label">Clauses routed to model per analysis</span>
+          </div>
+        </div>
+        <span class="live-tag">Live demo ↗</span>
+      </a>
+
+      <a class="project-card" href="/p/clinical-rag/" aria-label="Smart Medical Records Engine">
+        <span class="num">02</span>
+        <h3>Smart Medical Records</h3>
+        <p class="blurb">Retrieval over patient notes that surfaces critical history, scoped so nothing crosses between patients. Self-hosted on the hospital machine so records never leave it.</p>
+        <div class="stat-row">
+          <div>
+            <span class="stat">30</span>
+            <span class="stat-label">Adversarial probes designed to leak cross-patient</span>
+          </div>
+          <div>
+            <span class="stat">0</span>
+            <span class="stat-label">Probes that leaked</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="project-card" href="/p/care-agent/" aria-label="Customer Care Process Automation">
+        <span class="num">03</span>
+        <h3>Care Agent</h3>
+        <p class="blurb">Automated ticket triage for a mobile network's customer care, with a human fallback below confidence. The accuracy number is the least interesting part of this project.</p>
+        <div class="stat-row">
+          <div>
+            <span class="stat">95.2%</span>
+            <span class="stat-label">Routing accuracy on 42 held-out tickets (40 of 42)</span>
+          </div>
+          <div>
+            <span class="stat">0.55</span>
+            <span class="stat-label">Confidence threshold below which a human decides</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="project-card" href="/p/image-qa/" aria-label="Automated QA Gate">
+        <span class="num">04</span>
+        <h3>Image QA Gate</h3>
+        <p class="blurb">Automated quality gate for generated product imagery. The threshold came from a sweep, not a guess, and the sweep exposed the overfit point.</p>
+        <div class="stat-row">
+          <div>
+            <span class="stat">F1 0.90</span>
+            <span class="stat-label">Held-out F1 at chosen threshold</span>
+          </div>
+          <div>
+            <span class="stat">0.4821</span>
+            <span class="stat-label">Decision threshold, set by sweep not guess</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============================ TERMSGUARD CORPUS ============================ -->
+  <section class="meet-section" aria-label="TermsGuard corpus">
+    <header class="strip-heading">
+      <span class="eyebrow">TermsGuard corpus</span>
+      <h2>A weekly privacy audit run, scored live</h2>
+    </header>
+
+    <a class="corpus-callout" href="/corpus/" aria-label="Open the weekly corpus tracker">
+      <div>
+        <span class="eyebrow">Last run 2026-10-29 · 14 of 17 fetched · 101 seconds</span>
+        <h3>Weekly run across EU banks, retailers, telecoms, and Big Tech</h3>
+        <p>Each week the corpus tracker re-pulls the privacy policies of the indexed companies, runs the latest TermsGuard build against the fetched text, and writes the per-company score, risk label, and flagged-clause count to a dated snapshot. The corpus page renders the score table, per-company detail cards, and the change-since-last-run diff.</p>
+        <div class="stats">
+          <div>
+            <span class="stat">953</span>
+            <span class="stat-label">Flagged clauses this run</span>
+          </div>
+          <div>
+            <span class="stat">0.54</span>
+            <span class="stat-label">Median score across 14 working companies</span>
+          </div>
+          <div>
+            <span class="stat">14</span>
+            <span class="stat-label">Companies at Medium risk this run</span>
+          </div>
+        </div>
+        <span class="live-tag">Live corpus ↗</span>
+      </div>
+    </a>
+  </section>
+
+  <!-- ============================ CHANNEL WORK ============================ -->
+  <section class="meet-section" aria-label="Channel work">
+    <header class="strip-heading">
+      <span class="eyebrow">Channel work</span>
+      <h2>AI-driven creative production, measured end to end</h2>
+    </header>
+
+    <div class="channel-grid">
+      <article class="channel-card">
+        <img class="thumb" src="/assets/img/channels/anime_hive.jpg" alt="Anime Hive channel cover art">
+        <h3>Anime Hive</h3>
+        <p class="desc">Blur-whip short-form, 1080x1920. Subject and pacing measured from a real published reference.</p>
+        <div class="metric-row">
+          <div>
+            <span class="metric">44.9s / 15 shots</span>
+            <span class="metric-label">EP_BEN10 reference cut</span>
+          </div>
+          <div>
+            <span class="metric">3.00s</span>
+            <span class="metric-label">Shot grid, 17 of 18 marks hit</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="channel-card">
+        <img class="thumb wide" src="/assets/img/channels/pipeline.jpg" alt="Pipeline diagram - production chain overview">
+        <h3>Super Zenpai</h3>
+        <p class="desc">Hard-cut short-form, 18-25 shots per episode. Subject selection measured against a real 366-video reference census.</p>
+        <div class="metric-row">
+          <div>
+            <span class="metric">366</span>
+            <span class="metric-label">Reference census, run 2026-10-29</span>
+          </div>
+          <div>
+            <span class="metric">TRUTH 3.00x</span>
+            <span class="metric-label">Strongest title pattern in census</span>
+          </div>
+          <div>
+            <span class="metric">WHY 1.03x</span>
+            <span class="metric-label">Baseline at n=117, not a lift</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============================ WORKFLOWS ============================ -->
+  <section class="meet-section" aria-label="Workflows">
+    <header class="strip-heading">
+      <span class="eyebrow">Workflows</span>
+      <h2>ask.py blueprint recipes I actually run</h2>
+    </header>
+
+    <div class="recipe-grid">
+      <article class="recipe-card">
+        <span class="recipe-num">Recipe 01</span>
+        <h3>Generate a 60-second short-form anime episode</h3>
+        <p class="model">qwen3-vl-235b (select) / qwen-image (stills) / gpt-audio (narration) / ffmpeg (assembly)</p>
+        <ol>
+          <li>Source 50 candidate frames per shot-need from kie.ai, scoped per beat</li>
+          <li>Score each candidate with qwen3-vl against the brief's NEVER rules</li>
+          <li>Pick top 12-14 stills per episode, crop to 1080x1920</li>
+          <li>Generate narration via gpt-audio, time-stamp against the beat structure</li>
+          <li>Assemble with ffmpeg, hard-cuts on narration, one yellow word per shot</li>
+        </ol>
+        <p class="cost">~ 1.50 USD inbound, 0.5 credits outbound per episode</p>
+      </article>
+
+      <article class="recipe-card">
+        <span class="recipe-num">Recipe 02</span>
+        <h3>Capture a hero image from a real reference</h3>
+        <p class="model">flux-2/pro-image-to-image</p>
+        <ol>
+          <li>Pass the reference as the only input_url, no other text</li>
+          <li>Prompt for natural skin texture, visible pores, no retouching</li>
+          <li>Set resolution 1K, nsfw_checker false, aspect_ratio 3:4</li>
+          <li>Generate best-of-5, pick the lock, never the prettiest</li>
+          <li>Verify EMB_SIM against the reference (target above 0.98)</li>
+        </ol>
+        <p class="cost">~ 5 credits per capture, EMB_SIM 0.9906 vs 0.9802 on the benchmark</p>
+      </article>
+
+      <article class="recipe-card">
+        <span class="recipe-num">Recipe 03</span>
+        <h3>Edit a product photo on a reference</h3>
+        <p class="model">gpt-image-2-image-to-image, quality high</p>
+        <ol>
+          <li>Subject ref first, garment or product ref second, plain prompt</li>
+          <li>No cropped detail ref, no colour swatch, no colour-naming</li>
+          <li>Set aspect_ratio to target surface, 3:4 for cards, 1:1 for thumbnails</li>
+          <li>Keep negatives light, aggressive negatives cause drift on this model</li>
+          <li>Best-of-5, verify text and product match by eye, OCR lies</li>
+        </ol>
+        <p class="cost">~ 6 credits per edit, text-in-image and complex multi-ref both clean</p>
+      </article>
+
+      <article class="recipe-card">
+        <span class="recipe-num">Recipe 04</span>
+        <h3>Score a contact sheet of stills</h3>
+        <p class="model">qwen3-vl-235b via OpenRouter</p>
+        <ol>
+          <li>Compose 16-22 stills into one contact sheet at 768px wide</li>
+          <li>Send image plus brief's per-frame rules in the same prompt</li>
+          <li>Ask for one-line verdict per frame plus a single overall verdict</li>
+          <li>Reject if "NO VERDICTS" returned, usually means per-need queries were identical</li>
+          <li>Keep verdicts as text, never rely on the model's confidence score</li>
+        </ol>
+        <p class="cost">0 USD per call on OpenRouter, rate-limit the only real constraint</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============================ ELSEWHERE ============================ -->
+  <section class="meet-section" aria-label="Profile elsewhere">
+    <header class="strip-heading">
+      <span class="eyebrow">Elsewhere</span>
+      <h2>Find the work</h2>
+    </header>
+
+    <div class="resources">
+      <a href="/">iamtamilore.github.io<span class="tag">site</span></a>
+      <a href="https://www.linkedin.com/in/tami-alabi/" target="_blank" rel="noopener">linkedin.com/in/tami-alabi<span class="tag">linkedin</span></a>
+      <a href="https://github.com/iamtamilore" target="_blank" rel="noopener">github.com/iamtamilore<span class="tag">github</span></a>
+      <a href="https://newtazer-terms-guard-ai.hf.space" target="_blank" rel="noopener">TermsGuard live demo<span class="tag">hf space</span></a>
+      <a href="/corpus/">Privacy corpus tracker<span class="tag">weekly</span></a>
+    </div>
+  </section>
+
+  <!-- ============================ CONTACT ============================ -->
+  <section class="meet-section" aria-label="Contact">
+    <header class="strip-heading">
+      <span class="eyebrow">Contact</span>
+      <h2>If you'd like</h2>
+    </header>
+
+    <div class="endcta-row">
+      <a class="cta" href="/cv/">View full CV</a>
+      <a class="cta cta-ghost" href="mailto:newalabitaiwo625@gmail.com">Email me</a>
+      <a class="cta cta-ghost" href="/meet/wallpaper.png" download>Download wallpaper</a>
+    </div>
+
+    <footer style="margin-top: var(--space-10); padding-top: var(--space-5); border-top: 1px solid var(--border); font-size: var(--text-xs); color: var(--text-3);">
+      <p>This page routes to a single QR on a phone lock screen. Scannable at 60cm, in event light, with no zoom. Every number on this page traces to a measurement in a project README or a dated journey observation. Departures from the site design system are recorded in <code>DESIGN.md</code>.</p>
+    </footer>
+  </section>
+
+</main>
+
+<button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">◐</button>
+
+<script>
+(function () {
+  var K = "tw-theme", R = document.documentElement;
+  function apply(t) {
+    if (t === "dark") R.setAttribute("data-theme", "dark");
+    else if (t === "light") R.setAttribute("data-theme", "light");
+    else R.removeAttribute("data-theme");
+  }
+  document.getElementById("themeToggle").addEventListener("click", function () {
+    var cur = R.getAttribute("data-theme");
+    var next = cur === "dark" ? "light" : cur === "light" ? "" : "dark";
+    apply(next);
+    if (next) localStorage.setItem(K, next); else localStorage.removeItem(K);
+  });
+  var stored = localStorage.getItem(K);
+  if (stored) apply(stored);
+})();
+</script>
+
 </body>
 </html>
