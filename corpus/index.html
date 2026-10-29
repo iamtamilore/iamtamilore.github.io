@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta property="og:title" content="TermsGuard corpus — EU + Big Tech privacy tracker" />
-<meta property="og:description" content="A weekly snapshot of TermsGuard scores for 9 EU and Big Tech companies' privacy policies. Built by Taiwo Alabi." />
+<meta property="og:title" content="TermsGuard corpus · EU + Big Tech privacy tracker" />
+<meta property="og:description" content="A weekly snapshot of TermsGuard scores for 14 EU + Big Tech companies' privacy policies. Built by Taiwo Alabi." />
 <meta property="og:type" content="website" />
 <title>TermsGuard corpus | Taiwo Alabi</title>
 <link rel="stylesheet" href="/assets/css/design-system.css">
@@ -123,8 +123,8 @@
 .diff-gutter { flex: 0 0 7rem; display: flex; justify-content: flex-end;
   gap: 0.25rem; padding: 0 0.5rem; color: var(--text-3);
   user-select: none; border-right: 1px solid var(--border); }
-.diff-line.add .diff-gutter { color: #1a7a32; }
-.diff-line.remove .diff-gutter { color: #a02a2a; }
+.diff-line.add .diff-gutter { color: var(--live); }
+.diff-line.remove .diff-gutter { color: var(--error); }
 .diff-gutter .marker { font-weight: 700; width: 1ch; text-align: center; }
 .diff-content { flex: 1; padding: 0 0.5rem; white-space: pre-wrap;
   word-break: break-word; }
@@ -153,14 +153,15 @@
       either (a) the largest data processors operating under GDPR scope,
       or (b) among the top five in their EU category. The list is the
       sample, not a ranking. Each entry justifies itself by size or
-      category, not by score.
+      category, not by score. 14 of 17 fetched successfully this run;
+      3 were rate-limited or bot-blocked and will retry next run.
     </div>
   </header>
 
   <section>
     <h2>Latest scores</h2>
     <p style="color: var(--text-3); font-size: var(--text-sm); max-width: var(--content-max);">
-      All 9 companies with a successful fetch. Score is the mean cosine
+      All 14 companies with a successful fetch. Score is the mean cosine
       confidence of the policy's flagged (non-ethical) clauses, range
       0-1. Higher means more concerning clauses with higher model
       confidence. Last fetched 2026-10-29.
@@ -192,7 +193,7 @@
   <td class="corpus-num">84</td>
   <td class="corpus-num">224</td>
   <td class="corpus-date">2026-10-29</td>
-  <td class="corpus-date">—</td>
+  <td class="corpus-date">·</td>
   <td><span class="change none">.</span></td>
 </tr>
 
@@ -208,7 +209,7 @@
   <td class="corpus-num">1</td>
   <td class="corpus-num">4</td>
   <td class="corpus-date">2026-10-29</td>
-  <td class="corpus-date">—</td>
+  <td class="corpus-date">·</td>
   <td><span class="change none">.</span></td>
 </tr>
 
@@ -224,7 +225,7 @@
   <td class="corpus-num">372</td>
   <td class="corpus-num">804</td>
   <td class="corpus-date">2026-10-29</td>
-  <td class="corpus-date">—</td>
+  <td class="corpus-date">·</td>
   <td><span class="change none">.</span></td>
 </tr>
 
@@ -240,7 +241,7 @@
   <td class="corpus-num">15</td>
   <td class="corpus-num">25</td>
   <td class="corpus-date">2026-10-29</td>
-  <td class="corpus-date">—</td>
+  <td class="corpus-date">·</td>
   <td><span class="change none">.</span></td>
 </tr>
 
@@ -256,7 +257,7 @@
   <td class="corpus-num">20</td>
   <td class="corpus-num">41</td>
   <td class="corpus-date">2026-10-29</td>
-  <td class="corpus-date">—</td>
+  <td class="corpus-date">·</td>
   <td><span class="change none">.</span></td>
 </tr>
 
@@ -272,7 +273,7 @@
   <td class="corpus-num">2</td>
   <td class="corpus-num">8</td>
   <td class="corpus-date">2026-10-29</td>
-  <td class="corpus-date">—</td>
+  <td class="corpus-date">·</td>
   <td><span class="change none">.</span></td>
 </tr>
 
@@ -288,7 +289,7 @@
   <td class="corpus-num">63</td>
   <td class="corpus-num">285</td>
   <td class="corpus-date">2026-10-29</td>
-  <td class="corpus-date">—</td>
+  <td class="corpus-date">·</td>
   <td><span class="change none">.</span></td>
 </tr>
 
@@ -304,7 +305,7 @@
   <td class="corpus-num">0</td>
   <td class="corpus-num">6</td>
   <td class="corpus-date">2026-10-29</td>
-  <td class="corpus-date">—</td>
+  <td class="corpus-date">·</td>
   <td><span class="change none">.</span></td>
 </tr>
 
@@ -320,7 +321,7 @@
   <td class="corpus-num">18</td>
   <td class="corpus-num">37</td>
   <td class="corpus-date">2026-10-29</td>
-  <td class="corpus-date">—</td>
+  <td class="corpus-date">·</td>
   <td><span class="change none">.</span></td>
 </tr>
 
@@ -336,7 +337,7 @@
   <td class="corpus-num">74</td>
   <td class="corpus-num">170</td>
   <td class="corpus-date">2026-10-29</td>
-  <td class="corpus-date">—</td>
+  <td class="corpus-date">·</td>
   <td><span class="change none">.</span></td>
 </tr>
 
@@ -352,7 +353,7 @@
   <td class="corpus-num">55</td>
   <td class="corpus-num">138</td>
   <td class="corpus-date">2026-10-29</td>
-  <td class="corpus-date">—</td>
+  <td class="corpus-date">·</td>
   <td><span class="change none">.</span></td>
 </tr>
 
@@ -368,7 +369,7 @@
   <td class="corpus-num">30</td>
   <td class="corpus-num">94</td>
   <td class="corpus-date">2026-10-29</td>
-  <td class="corpus-date">—</td>
+  <td class="corpus-date">·</td>
   <td><span class="change none">.</span></td>
 </tr>
 
@@ -384,7 +385,7 @@
   <td class="corpus-num">26</td>
   <td class="corpus-num">40</td>
   <td class="corpus-date">2026-10-29</td>
-  <td class="corpus-date">—</td>
+  <td class="corpus-date">·</td>
   <td><span class="change none">.</span></td>
 </tr>
 
@@ -400,7 +401,7 @@
   <td class="corpus-num">72</td>
   <td class="corpus-num">257</td>
   <td class="corpus-date">2026-10-29</td>
-  <td class="corpus-date">—</td>
+  <td class="corpus-date">·</td>
   <td><span class="change none">.</span></td>
 </tr>
 
@@ -977,7 +978,7 @@
       This page is a record of TermsGuard's measurement of the consumer-facing
       privacy policy each company publishes. It is not a legal audit. It is
       not a comparison (each company's score is independent). It is not a
-      guarantee of freshness — companies change their policies without
+      guarantee of freshness. Companies change their policies without
       notice. The numbers reflect the policy as it was on the date shown.
     </p>
     <p style="max-width: var(--content-max); color: var(--text-2); font-size: var(--text-base); line-height: 1.6;">
