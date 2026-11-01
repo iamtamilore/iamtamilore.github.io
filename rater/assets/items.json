@@ -296,100 +296,100 @@
   },
   {
    "id": "Rater-0043",
+   "image": "assets/img/Rater-0026.png",
+   "ocr_accuracy": 0.0,
+   "ocr_detected_text": "[L rot=0] = = 7\n\nRIA",
+   "target_wordmark": "MULLAY"
+  },
+  {
+   "id": "Rater-0044",
+   "image": "assets/img/Rater-0026.png",
+   "ocr_accuracy": 0.0,
+   "ocr_detected_text": "[L rot=0] = = 7\n\nRIA",
+   "target_wordmark": "MULLAY"
+  },
+  {
+   "id": "Rater-0045",
    "image": "assets/img/Rater-0042.png",
    "ocr_accuracy": 1.0,
    "ocr_detected_text": "[redness rot=180] MULLAY\u2122, 2",
    "target_wordmark": "MULLAY"
   },
   {
-   "id": "Rater-0044",
+   "id": "Rater-0046",
    "image": "assets/img/Rater-0043.png",
    "ocr_accuracy": 0.0,
    "ocr_detected_text": "[L rot=0] Vig\n\ny,",
    "target_wordmark": "MULLAY"
   },
   {
-   "id": "Rater-0045",
+   "id": "Rater-0047",
    "image": "assets/img/Rater-0044.png",
    "ocr_accuracy": 1.0,
    "ocr_detected_text": "[redness rot=180] MULLAY\n\n(>\n3",
    "target_wordmark": "MULLAY"
   },
   {
-   "id": "Rater-0046",
+   "id": "Rater-0048",
    "image": "assets/img/Rater-0045.png",
    "ocr_accuracy": 0.0,
    "ocr_detected_text": "NO_TEXT_DETECTED [L rot=0]",
    "target_wordmark": "MULLAY"
   },
   {
-   "id": "Rater-0047",
+   "id": "Rater-0049",
    "image": "assets/img/Rater-0046.png",
    "ocr_accuracy": 1.0,
    "ocr_detected_text": "[redness rot=180] MULLAY\u2122,\n,\n\nW",
    "target_wordmark": "MULLAY"
   },
   {
-   "id": "Rater-0048",
+   "id": "Rater-0050",
    "image": "assets/img/Rater-0047.png",
    "ocr_accuracy": 0.0,
    "ocr_detected_text": "[redness rot=0] MULLAY\n\nee Se",
    "target_wordmark": "MULLAY"
   },
   {
-   "id": "Rater-0049",
+   "id": "Rater-0051",
    "image": "assets/img/Rater-0048.png",
    "ocr_accuracy": 0.0,
    "ocr_detected_text": "[redness rot=180] \u201cMULLAYS,\n3",
    "target_wordmark": "MULLAY"
   },
   {
-   "id": "Rater-0050",
+   "id": "Rater-0052",
    "image": "assets/img/Rater-0049.png",
    "ocr_accuracy": 1.0,
    "ocr_detected_text": "[redness rot=180] MULLAY\u2122,\nwe\n\n@\n\nZi",
    "target_wordmark": "MULLAY"
   },
   {
-   "id": "Rater-0051",
+   "id": "Rater-0053",
    "image": "assets/img/Rater-0050.png",
    "ocr_accuracy": 1.0,
    "ocr_detected_text": "[redness rot=180] MULLAY,\n(>\n_ \u00a5",
    "target_wordmark": "MULLAY"
   },
   {
-   "id": "Rater-0052",
+   "id": "Rater-0054",
    "image": "assets/img/Rater-0051.png",
    "ocr_accuracy": 0.0,
    "ocr_detected_text": "NO_TEXT_DETECTED [L rot=0]",
    "target_wordmark": "MULLAY"
   },
   {
-   "id": "Rater-0053",
+   "id": "Rater-0055",
    "image": "assets/img/Rater-0052.png",
    "ocr_accuracy": 0.0,
    "ocr_detected_text": "[L rot=0] Mae\n\na | BS\n\nf\n\nJ",
    "target_wordmark": "MULLAY"
   },
   {
-   "id": "Rater-0054",
+   "id": "Rater-0056",
    "image": "assets/img/Rater-0053.png",
    "ocr_accuracy": 0.0,
    "ocr_detected_text": "NO_TEXT_DETECTED [L rot=0]",
-   "target_wordmark": "MULLAY"
-  },
-  {
-   "id": "Rater-0055",
-   "image": "assets/img/Rater-0054.png",
-   "ocr_accuracy": 1.0,
-   "ocr_detected_text": "[L rot=90] MULLAY",
-   "target_wordmark": "MULLAY"
-  },
-  {
-   "id": "Rater-0056",
-   "image": "assets/img/Rater-0055.png",
-   "ocr_accuracy": 1.0,
-   "ocr_detected_text": "[redness rot=270] MULLAY",
    "target_wordmark": "MULLAY"
   },
   {
@@ -401,58 +401,58 @@
   },
   {
    "id": "Rater-0058",
+   "image": "assets/img/Rater-0054.png",
+   "ocr_accuracy": 1.0,
+   "ocr_detected_text": "[L rot=90] MULLAY",
+   "target_wordmark": "MULLAY"
+  },
+  {
+   "id": "Rater-0059",
+   "image": "assets/img/Rater-0033.png",
+   "ocr_accuracy": 1.0,
+   "ocr_detected_text": "[redness rot=180] MULLAY,",
+   "target_wordmark": "MULLAY"
+  },
+  {
+   "id": "Rater-0060",
+   "image": "assets/img/Rater-0055.png",
+   "ocr_accuracy": 1.0,
+   "ocr_detected_text": "[redness rot=270] MULLAY",
+   "target_wordmark": "MULLAY"
+  },
+  {
+   "id": "Rater-0061",
+   "image": "assets/img/Rater-0033.png",
+   "ocr_accuracy": 1.0,
+   "ocr_detected_text": "[redness rot=180] MULLAY,",
+   "target_wordmark": "MULLAY"
+  },
+  {
+   "id": "Rater-0062",
    "image": "assets/img/Rater-0056.png",
    "ocr_accuracy": 0.0,
    "ocr_detected_text": "[L rot=180] MULLAY\n\nxo",
    "target_wordmark": "MULLAY"
   },
   {
-   "id": "Rater-0059",
+   "id": "Rater-0063",
    "image": "assets/img/Rater-0057.png",
    "ocr_accuracy": 1.0,
    "ocr_detected_text": "[L rot=180] MULLAY",
    "target_wordmark": "MULLAY"
   },
   {
-   "id": "Rater-0060",
+   "id": "Rater-0064",
    "image": "assets/img/Rater-0058.png",
    "ocr_accuracy": 0.0,
    "ocr_detected_text": "[redness rot=180] ~\n\nMULLAY\noe \u00b0",
    "target_wordmark": "MULLAY"
   },
   {
-   "id": "Rater-0061",
+   "id": "Rater-0065",
    "image": "assets/img/Rater-0059.png",
    "ocr_accuracy": 1.0,
    "ocr_detected_text": "[redness rot=180] \u201cMULLAY\u2122,\n3\n4",
-   "target_wordmark": "MULLAY"
-  },
-  {
-   "id": "Rater-0062",
-   "image": "assets/img/Rater-0060.png",
-   "ocr_accuracy": 0.0,
-   "ocr_detected_text": "[redness rot=270] \u201cMULLAYS,\n2 '",
-   "target_wordmark": "MULLAY"
-  },
-  {
-   "id": "Rater-0063",
-   "image": "assets/img/Rater-0061.png",
-   "ocr_accuracy": 0.0,
-   "ocr_detected_text": "[redness rot=270] \u201cMULLAYS,",
-   "target_wordmark": "MULLAY"
-  },
-  {
-   "id": "Rater-0064",
-   "image": "assets/img/Rater-0062.png",
-   "ocr_accuracy": 1.0,
-   "ocr_detected_text": "[L rot=180] MULLAY /",
-   "target_wordmark": "MULLAY"
-  },
-  {
-   "id": "Rater-0065",
-   "image": "assets/img/Rater-0063.png",
-   "ocr_accuracy": 0.0,
-   "ocr_detected_text": "NO_TEXT_DETECTED [L rot=0]",
    "target_wordmark": "MULLAY"
   },
   {
@@ -464,138 +464,139 @@
   },
   {
    "id": "Rater-0067",
-   "image": "assets/img/Rater-0064.png",
+   "image": "assets/img/Rater-0060.png",
    "ocr_accuracy": 0.0,
-   "ocr_detected_text": "[redness rot=270] MULLAYS,\n:",
+   "ocr_detected_text": "[redness rot=270] \u201cMULLAYS,\n2 '",
    "target_wordmark": "MULLAY"
   },
   {
    "id": "Rater-0068",
-   "image": "assets/img/Rater-0065.png",
+   "image": "assets/img/Rater-0061.png",
    "ocr_accuracy": 0.0,
-   "ocr_detected_text": "[L rot=0] ~ = Y",
+   "ocr_detected_text": "[redness rot=270] \u201cMULLAYS,",
    "target_wordmark": "MULLAY"
   },
   {
    "id": "Rater-0069",
-   "image": "assets/img/Rater-0066.png",
+   "image": "assets/img/Rater-0034.png",
    "ocr_accuracy": 1.0,
-   "ocr_detected_text": "[L rot=270] Zz SS Sei. Niss fr ae S12 oS.\n\nMULLAY ,._\n\nA",
+   "ocr_detected_text": "[redness rot=180] MULLAY\n=",
    "target_wordmark": "MULLAY"
   },
   {
    "id": "Rater-0070",
-   "image": "assets/img/Rater-0046.png",
+   "image": "assets/img/Rater-0044.png",
    "ocr_accuracy": 1.0,
-   "ocr_detected_text": "[redness rot=180] MULLAY\u2122,\n,\n\nW",
+   "ocr_detected_text": "[redness rot=180] MULLAY\n\n(>\n3",
    "target_wordmark": "MULLAY"
   },
   {
    "id": "Rater-0071",
-   "image": "assets/img/Rater-0067.png",
-   "ocr_accuracy": 0.0,
-   "ocr_detected_text": "[redness rot=180] \u201cMULLAYS,,",
+   "image": "assets/img/Rater-0062.png",
+   "ocr_accuracy": 1.0,
+   "ocr_detected_text": "[L rot=180] MULLAY /",
    "target_wordmark": "MULLAY"
   },
   {
    "id": "Rater-0072",
-   "image": "assets/img/Rater-0068.png",
-   "ocr_accuracy": 1.0,
-   "ocr_detected_text": "[redness rot=270] =~\n\nMULLAY\u2122,\n:\n\n3\n\nee\noe ee",
+   "image": "assets/img/Rater-0063.png",
+   "ocr_accuracy": 0.0,
+   "ocr_detected_text": "NO_TEXT_DETECTED [L rot=0]",
    "target_wordmark": "MULLAY"
   },
   {
    "id": "Rater-0073",
-   "image": "assets/img/Rater-0069.png",
+   "image": "assets/img/Rater-0034.png",
    "ocr_accuracy": 1.0,
-   "ocr_detected_text": "[redness rot=270] MULLAY,",
+   "ocr_detected_text": "[redness rot=180] MULLAY\n=",
    "target_wordmark": "MULLAY"
   },
   {
    "id": "Rater-0074",
-   "image": "assets/img/Rater-0070.png",
+   "image": "assets/img/Rater-0045.png",
    "ocr_accuracy": 0.0,
    "ocr_detected_text": "NO_TEXT_DETECTED [L rot=0]",
    "target_wordmark": "MULLAY"
   },
   {
    "id": "Rater-0075",
-   "image": "assets/img/Rater-0071.png",
-   "ocr_accuracy": 1.0,
-   "ocr_detected_text": "[L rot=90] MULLAY",
+   "image": "assets/img/Rater-0064.png",
+   "ocr_accuracy": 0.0,
+   "ocr_detected_text": "[redness rot=270] MULLAYS,\n:",
    "target_wordmark": "MULLAY"
   },
   {
    "id": "Rater-0076",
-   "image": "assets/img/Rater-0072.png",
+   "image": "assets/img/Rater-0065.png",
    "ocr_accuracy": 0.0,
-   "ocr_detected_text": "[redness rot=180] \u201cMULLAYS,\nea \u00ab:",
+   "ocr_detected_text": "[L rot=0] ~ = Y",
    "target_wordmark": "MULLAY"
   },
   {
    "id": "Rater-0077",
-   "image": "assets/img/Rater-0073.png",
+   "image": "assets/img/Rater-0066.png",
    "ocr_accuracy": 1.0,
-   "ocr_detected_text": "[redness rot=270] MULLAY,\n(>\n- 4",
+   "ocr_detected_text": "[L rot=270] Zz SS Sei. Niss fr ae S12 oS.\n\nMULLAY ,._\n\nA",
    "target_wordmark": "MULLAY"
   },
   {
    "id": "Rater-0078",
-   "image": "assets/img/Rater-0074.png",
+   "image": "assets/img/Rater-0046.png",
    "ocr_accuracy": 1.0,
-   "ocr_detected_text": "[redness rot=270] MULL AY\n\u2014",
+   "ocr_detected_text": "[redness rot=180] MULLAY\u2122,\n,\n\nW",
    "target_wordmark": "MULLAY"
   },
   {
    "id": "Rater-0079",
-   "image": "assets/img/Rater-0075.png",
-   "ocr_accuracy": 1.0,
-   "ocr_detected_text": "[redness rot=180] MULLAY\u00ae,,\n| \u00b0",
+   "image": "assets/img/Rater-0067.png",
+   "ocr_accuracy": 0.0,
+   "ocr_detected_text": "[redness rot=180] \u201cMULLAYS,,",
    "target_wordmark": "MULLAY"
   },
   {
    "id": "Rater-0080",
-   "image": "assets/img/Rater-0076.png",
-   "ocr_accuracy": 0.0,
-   "ocr_detected_text": "NO_TEXT_DETECTED [L rot=0]",
+   "image": "assets/img/Rater-0068.png",
+   "ocr_accuracy": 1.0,
+   "ocr_detected_text": "[redness rot=270] =~\n\nMULLAY\u2122,\n:\n\n3\n\nee\noe ee",
    "target_wordmark": "MULLAY"
   },
   {
    "id": "Rater-0081",
+   "image": "assets/img/Rater-0034.png",
+   "ocr_accuracy": 1.0,
+   "ocr_detected_text": "[redness rot=180] MULLAY\n=",
+   "target_wordmark": "MULLAY"
+  },
+  {
+   "id": "Rater-0082",
    "image": "assets/img/Rater-0069.png",
    "ocr_accuracy": 1.0,
    "ocr_detected_text": "[redness rot=270] MULLAY,",
    "target_wordmark": "MULLAY"
   },
   {
-   "id": "Rater-0082",
-   "image": "assets/img/Rater-0077.png",
+   "id": "Rater-0083",
+   "image": "assets/img/Rater-0070.png",
    "ocr_accuracy": 0.0,
    "ocr_detected_text": "NO_TEXT_DETECTED [L rot=0]",
    "target_wordmark": "MULLAY"
   },
   {
-   "id": "Rater-0083",
-   "image": "assets/img/Rater-0078.png",
+   "id": "Rater-0084",
+   "image": "assets/img/Rater-0071.png",
    "ocr_accuracy": 1.0,
    "ocr_detected_text": "[L rot=90] MULLAY",
    "target_wordmark": "MULLAY"
   },
   {
-   "id": "Rater-0084",
-   "image": "assets/img/Rater-0079.png",
-   "ocr_accuracy": 0.0,
-   "ocr_detected_text": "[L rot=0] a\n\nMULLAY\n\nme",
-   "target_wordmark": "MULLAY"
-  },
-  {
    "id": "Rater-0085",
-   "image": "assets/img/Rater-0080.png",
+   "image": "assets/img/Rater-0072.png",
    "ocr_accuracy": 0.0,
-   "ocr_detected_text": "NO_TEXT_DETECTED [L rot=0]",
+   "ocr_detected_text": "[redness rot=180] \u201cMULLAYS,\nea \u00ab:",
    "target_wordmark": "MULLAY"
   }
  ],
  "n": 85,
+ "total": 85,
  "note": "80 study items plus 5 hidden repeats of existing items, for the drift check specified in RATER_RUBRIC.md. Repeats are marked is_repeat in PRIVATE_unblinding_map.json, which is not served to the rater."
 }

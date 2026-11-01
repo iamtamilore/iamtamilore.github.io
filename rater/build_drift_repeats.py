@@ -53,6 +53,31 @@ def main():
     umap = m["unblinding_map"]
 
     n = len(items)
+    # The script has to be idempotent, because running it twice must not
+    # produce 90 items with 10 repeats. If the file already carries the
+    # repeats, the previous run's state is rolled back first: the repeats
+    # are removed and the originals are restored to their source order.
+    if n != 80:
+        if "n_original" not in m:
+            raise SystemExit(
+                f"items.json has {n} items and the map has no n_original, so "
+                f"the original 80 cannot be recovered. Restore from backup."
+            )
+        n_original = m["n_original"]
+        keep = []
+        for it, e in zip(items, umap):
+            if e.get("is_repeat"):
+                continue
+            keep.append((it, e))
+        items = [it for it, _ in keep]
+        umap = [e for _, e in keep]
+        # restore the original ids, which the previous run renumbered
+        for i, (it, e) in enumerate(keep):
+            it["id"] = f"Rater-{i + 1:04d}"
+            e["id"] = f"Rater-{i + 1:04d}"
+        print(f"  rolled back a previous run: {n} items -> {len(items)} originals")
+        n = len(items)
+
     assert n == 80, f"expected 80 original items, found {n}"
     assert len(umap) == 80, f"expected 80 unblinding entries, found {len(umap)}"
 
@@ -109,6 +134,10 @@ def main():
     items_out = {
         "items": new_items,
         "n": len(new_items),
+        # "total" is the key the existing check_rater.py reads, and it was
+        # the key the original file used. Both are written so the format is
+        # not changed under any consumer that reads one or the other.
+        "total": len(new_items),
         "note": (
             f"{n} study items plus {N_REPEATS} hidden repeats of existing "
             f"items, for the drift check specified in RATER_RUBRIC.md. "
