@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Garment rating, item 1 of 80</title>
-<meta name="description" content="Rating interface for a garment construction detail study. 80 images, one at a time.">
+<title>Garment rating, item 1 of <span data-item-count>85</span></title>
+<meta name="description" content="Rating interface for a garment construction detail study. 85 images, one at a time.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,10 +29,11 @@
   <section class="brief" id="brief">
     <div class="brief-head">
       <span class="pill">How this works</span>
-      <span class="brief-time">about 12 minutes for all 80</span>
+      <span class="brief-time">about 12 minutes for all <span data-item-count>80</span></span>
     </div>
     <p class="brief-lead">You are judging what a generated garment image actually shows, not whether it
-      looks good. Eighty images, one at a time. Nobody will see your answers and nobody will grade you.</p>
+      looks good. <span data-item-count>85</span> images, one at a time. Nobody will see your answers and nobody will
+      grade you.</p>
     <div class="brief-grid">
       <div>
         <h3>Judge the picture, not the garment</h3>
@@ -63,20 +64,20 @@
     </div>
     <div class="brief-foot">
       <p>Your progress saves in this browser as you go. Bookmark this page, because it carries your
-        reference and is how you come back. When you finish all 80, click
+        reference and is how you come back. When you finish all <span data-item-count>80</span>, click
         <b>Download my ratings</b> and send the file back.</p>
-      <button class="brief-go" id="brief-go" type="button">Start, item 1 of 80</button>
+      <button class="brief-go" id="brief-go" type="button">Start, item 1 of <span data-item-count>80</span></button>
     </div>
   </section>
 
   <header class="rate-head">
     <div class="rate-topline">
       <span class="pill" id="rater-pill">rater, loading</span>
-      <span class="pill" id="progress-pill">0 of 80 complete</span>
+      <span class="pill" id="progress-pill">0 of <span data-item-count>80</span> complete</span>
       <span class="pill pill-quiet" id="free-pill">free text: 0 required</span>
     </div>
     <h1 class="rate-h1">Judge what the picture shows</h1>
-    <p class="rate-sub">Eighty garment images, one at a time. Answer only what you can see in this frame.
+    <p class="rate-sub"><span data-item-count>85</span> garment images, one at a time. Answer only what you can see in this frame.
       Describe the construction, not whether you like it.</p>
   </header>
 
@@ -197,7 +198,7 @@
 
     <nav class="pager">
       <button class="pbtn" id="btn-prev" type="button">&larr; Previous</button>
-      <span class="pnum" id="idx-display">1 / 80</span>
+      <span class="pnum" id="idx-display">1 / <span data-item-count>80</span></span>
       <button class="pbtn" id="btn-next" type="button">Next &rarr;</button>
     </nav>
   </main>

@@ -471,6 +471,16 @@
       if (!ITEMS.length) throw new Error('no items in items.json');
       load();
       elPill.textContent = 'rater ' + STATE.rater_id + (TOKEN ? ' · verified link' : '');
+      // The item count is written into the page rather than hardcoded in the
+      // HTML. It changed from 80 to 85 when the 5 hidden drift repeats were
+      // added, and a hardcoded count in four places is exactly the kind of
+      // stale number that makes a rater think the tool is broken. One source
+      // of truth: ITEMS.length.
+      var countEls = document.querySelectorAll('[data-item-count]');
+      for (var i = 0; i < countEls.length; i++) {
+        countEls[i].textContent = String(ITEMS.length);
+      }
+      document.title = 'Garment rating, item 1 of ' + ITEMS.length;
       // A rater who is part way through and comes back to the bookmarked URL
       // should land on the image, not re-read the brief. The brief is only for
       // a first visit, or for a rater with no answers saved yet.
