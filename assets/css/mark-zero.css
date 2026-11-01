@@ -134,6 +134,28 @@ body {
 .util a:hover { color: var(--text); }
 .util a[aria-current="page"] { color: var(--accent); }
 
+/* Narrow viewports: the nav is one row that scrolls sideways.
+   Measured on a 360px viewport: the ten links need 491px and the strip
+   is 345px wide, so CHANNELS, JOBS and CORPUS were clipped and could
+   not be reached at all. A scrolling row keeps every link reachable and
+   keeps the nav one line tall, which matters on a phone. */
+@media (max-width: 768px) {
+  .util {
+    gap: var(--space-3);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    /* Room for the last link to breathe once scrolled to the end. */
+    padding-right: var(--space-6);
+  }
+
+  .util::-webkit-scrollbar { display: none; }
+
+  /* Links keep their width instead of being squeezed by the flex
+     container, so nothing is cut in half. */
+  .util a { flex: 0 0 auto; }
+}
+
 /*,, - shell,, - */
 
 .wrap {
@@ -165,6 +187,28 @@ body {
  color: var(--text-2);
  max-width: var(--measure);
  margin: 0 0 var(--space-6);
+}
+
+/*,, - the booking ask: sits directly under the claim,, - */
+
+/* The headline is the claim. The ask comes next, before the explanation,
+ so the reader knows what the page is for before it tells them why. The
+ note under the button answers the question a reader has at this point,
+ which is what happens after they click. */
+.callcta {
+ display: flex;
+ flex-wrap: wrap;
+ align-items: baseline;
+ gap: var(--space-2) var(--space-4);
+ margin: 0 0 var(--space-5);
+}
+
+.callcta-note {
+ margin: 0;
+ font-family: var(--font-mono);
+ font-size: 0.74rem;
+ letter-spacing: 0.06em;
+ color: var(--text-3);
 }
 
 /*,, - the number: the loudest element on the page,, - */

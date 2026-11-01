@@ -220,7 +220,15 @@ otherwise run together. `.rule`.
 
 **The utility nav.** Fixed top, full width, small uppercase mono
 links in `--text-3`, one hairline bottom border, backdrop blur.
-`.util`.
+`.util`. On a narrow viewport the row scrolls sideways rather than
+clipping. Measured on a 360px viewport, the ten links need 491px and the
+strip is 345px, so three of them could not be reached at all. The row
+stays one line tall, which matters on a phone.
+
+**The booking ask.** The call button that sits directly under the hero
+headline, with a mono note beside it saying what happens after the
+click. The headline is the claim, the ask comes next, the explanation
+follows. `.callcta`, `.callcta-note`.
 
 **The top bar.** Not fixed. Name and role on the left, links on the
 right, `--text-sm`. `.topbar`.
@@ -230,7 +238,8 @@ right, `--text-sm`. `.topbar`.
 All in `assets/css/design-system.css`.
 
 `.cta` primary action, `.cta-ghost` secondary, `.cta-cv-bridge` the
-blue bridge to the CV page, `.card`, `.cardlinks`, `.metric`,
+blue bridge to the CV page, `.callcta` the booking ask under the hero
+headline, `.callcta-note` its mono note, `.card`, `.cardlinks`, `.metric`,
 `.metric-label`, `.eyebrow`, `.claim-display`, `.identity`,
 `.proof`, `.anchor`, `.anchor-num`, `.anchor-label`, `.exp`, `.when`,
 `.endcta`, `.rule`, `.util`, `.util-footer`, `.topbar`, `.meta`,
@@ -410,4 +419,4 @@ Every change to the live CSS in `assets/css/` should show up here.
 If they drift, the CSS is the implementation and this file is the
 spec, and the spec wins when someone asks why.
 
-Last updated: 27 October 2026.
+Last updated: 1 November 2026.
