@@ -116,10 +116,24 @@ def main():
         rep_entry = dict(src_entry)
         rep_entry["id"] = rep_id
         rep_entry["is_repeat"] = True
-        rep_entry["repeat_of"] = src_entry["id"]
+        # The link is resolved to a final id after the renumbering, because
+        # the source's id itself changes when a repeat lands before it.
+        rep_entry["_source_id"] = src_entry["id"]
 
         new_items.insert(real_slot, rep_item)
         new_umap.insert(real_slot, rep_entry)
+
+    # The ids are renumbered by position after the inserts, because the
+    # insertion shifted the sequence. That renumbering must NOT break the
+    # repeat_of links, so the link is recorded by POSITION here and resolved
+    # to an id after the renumbering. Recording it by id at insert time is
+    # wrong: the source's own id changes when a repeat lands before it.
+    repeat_positions = []  # (repeat_position, source_position)
+    for i, e in enumerate(new_umap):
+        if e.get("is_repeat"):
+            src_pos = next(j for j, x in enumerate(new_umap)
+                            if x["id"] == e["_source_id"])
+            repeat_positions.append((i, src_pos))
 
     # mark the originals as not-repeats
     for e in new_umap:
@@ -130,6 +144,12 @@ def main():
         it["id"] = f"Rater-{i + 1:04d}"
     for i, e in enumerate(new_umap):
         e["id"] = f"Rater-{i + 1:04d}"
+
+    # now that the ids are final, resolve the repeat links
+    for rep_pos, src_pos in repeat_positions:
+        new_umap[rep_pos]["repeat_of"] = new_umap[src_pos]["id"]
+    for e in new_umap:
+        e.pop("_source_id", None)
 
     items_out = {
         "items": new_items,
@@ -147,6 +167,7 @@ def main():
     }
     ITEMS.write_text(json.dumps(items_out, indent=1))
 
+    m["unblinding_map"] = new_umap
     m["n"] = len(new_umap)
     m["n_original"] = n
     m["n_repeats"] = N_REPEATS
