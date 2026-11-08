@@ -1,0 +1,420 @@
+/* Rater interface.
+ * Built on the site design system (/assets/css/design-system.css) so the study
+ * tool reads as part of the same body of work as the portfolio, rather than as a
+ * form somebody bolted on.
+ *
+ * FUNCTIONAL colour only. Selection is the one accent. Everything else is the
+ * neutral surface language of the site, per its grammar: high-contrast
+ * monochrome with one surviving colour.
+ */
+
+.rate-wrap {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: calc(56px + env(safe-area-inset-top, 0px)) var(--edge) var(--space-12);
+}
+
+/* ---- head ---- */
+
+.rate-topline {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-6);
+}
+
+.pill {
+  display: inline-block;
+  padding: 5px 12px;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  font-size: var(--text-xs);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-3);
+}
+
+.pill-quiet { opacity: 0.7; }
+
+.rate-h1 {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0 0 var(--space-3);
+  max-width: 22ch;
+}
+
+.rate-sub {
+  font-size: var(--text-sm);
+  color: var(--text-2);
+  max-width: 62ch;
+  margin: 0 0 var(--space-8);
+  line-height: 1.6;
+}
+
+/* ---- the image stage ---- */
+
+.stage {
+  position: relative;
+  margin: 0 0 var(--space-6);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.stage-scroll {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44vh;
+  max-height: 66vh;
+  overflow: auto;
+  padding: var(--space-4);
+  cursor: grab;
+}
+
+.stage-scroll.dragging { cursor: grabbing; }
+
+.stage-scroll img {
+  max-width: 100%;
+  max-height: 62vh;
+  width: auto;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+  transition: max-height 0.15s ease;
+}
+
+.stage-scroll img.zoomed {
+  max-width: none;
+  max-height: none;
+  width: 240%;
+  height: auto;
+  cursor: grab;
+}
+
+.stage-zoom {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  display: flex;
+  gap: var(--space-1);
+  z-index: 2;
+}
+
+.zoom-btn {
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-2);
+  cursor: pointer;
+  padding: 0;
+}
+
+.zoom-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+.stage-cap {
+  padding: var(--space-2) var(--space-4) var(--space-3);
+  font-size: var(--text-xs);
+  color: var(--text-3);
+  border-top: 1px solid var(--border);
+  margin: 0;
+}
+
+/* ---- panels ---- */
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: var(--space-5) var(--space-6);
+  margin-bottom: var(--space-4);
+}
+
+.panel-lock { border-color: var(--accent); }
+
+.q-head {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  margin-bottom: var(--space-4);
+}
+
+.q-num {
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  color: var(--bg);
+  border-radius: 50%;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.q-ask {
+  font-size: var(--text-base);
+  font-weight: 500;
+  line-height: 1.4;
+  max-width: 60ch;
+}
+
+.opts {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.opts-3 { grid-template-columns: repeat(3, 1fr); }
+.opts-4 { grid-template-columns: repeat(4, 1fr); }
+.opts-6 { grid-template-columns: repeat(6, 1fr); }
+
+.opt {
+  appearance: none;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: var(--space-3) var(--space-2);
+  font-family: var(--font);
+  font-size: var(--text-sm);
+  color: var(--text-2);
+  cursor: pointer;
+  transition: border-color var(--motion-duration) var(--motion-ease),
+              background var(--motion-duration) var(--motion-ease),
+              color var(--motion-duration) var(--motion-ease);
+  min-height: 44px;
+}
+
+.opt:hover { border-color: var(--text-3); color: var(--text); }
+.opt:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.opt[aria-pressed="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+  font-weight: 500;
+}
+
+.q-note {
+  margin: var(--space-3) 0 0;
+  font-size: var(--text-xs);
+  color: var(--text-3);
+  line-height: 1.5;
+}
+
+/* ---- operational definitions, collapsed ---- */
+
+.defn {
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border);
+}
+
+.defn summary {
+  cursor: pointer;
+  font-size: var(--text-xs);
+  color: var(--text-3);
+  user-select: none;
+  list-style: none;
+}
+
+.defn summary::before { content: "› "; font-family: var(--font-mono); }
+.defn[open] summary::before { content: "⌄ "; }
+
+.defn p {
+  margin: var(--space-3) 0 0;
+  font-size: var(--text-xs);
+  color: var(--text-2);
+  line-height: 1.6;
+  max-width: 70ch;
+}
+
+/* ---- free text ---- */
+
+#free-text, #skip-text {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: var(--space-3);
+  font-family: var(--font);
+  font-size: var(--text-sm);
+  color: var(--text);
+  resize: vertical;
+  line-height: 1.5;
+}
+
+#free-text:focus, #skip-text:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.free-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.free-count {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-3);
+}
+
+.free-count.over { color: var(--error); }
+.free-count.ok { color: var(--success); }
+
+.skip-note {
+  background: var(--surface);
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  padding: var(--space-5) var(--space-6);
+  margin-bottom: var(--space-4);
+}
+
+.skip-note p {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--text-2);
+}
+
+/* ---- pager ---- */
+
+.pager {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin: var(--space-6) 0 var(--space-8);
+}
+
+.pbtn {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: var(--space-3) var(--space-5);
+  font-family: var(--font);
+  font-size: var(--text-sm);
+  color: var(--text-2);
+  cursor: pointer;
+  transition: border-color var(--motion-duration) var(--motion-ease),
+              color var(--motion-duration) var(--motion-ease);
+}
+
+.pbtn:hover:not(:disabled) { border-color: var(--text-3); color: var(--text); }
+.pbtn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+.pnum { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--text-3); }
+
+/* ---- foot ---- */
+
+.rate-foot { border-top: 1px solid var(--border); padding-top: var(--space-6); }
+
+.foot-actions { display: flex; gap: var(--space-3); flex-wrap: wrap; margin-bottom: var(--space-4); }
+
+.fbtn {
+  padding: var(--space-3) var(--space-6);
+  border-radius: 6px;
+  font-family: var(--font);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-2);
+  transition: opacity var(--motion-duration) var(--motion-ease),
+              border-color var(--motion-duration) var(--motion-ease),
+              background var(--motion-duration) var(--motion-ease);
+}
+
+.fbtn-main { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+.fbtn-main:hover { background: var(--accent-2); border-color: var(--accent-2); }
+.fbtn:disabled { opacity: 0.4; cursor: not-allowed; }
+.fbtn:not(.fbtn-main):hover { border-color: var(--text-3); color: var(--text); }
+
+.foot-note {
+  font-size: var(--text-xs);
+  color: var(--text-3);
+  max-width: 68ch;
+  line-height: 1.6;
+  margin: 0 0 var(--space-3);
+}
+
+.foot-legal { font-size: var(--text-xs); color: var(--text-3); margin: 0; opacity: 0.8; }
+.foot-legal a { color: var(--text-3); }
+
+/* ---- phone ----
+ * Three things that were wrong on a real handset, caught by opening the page on
+ * one rather than by reading the CSS:
+ *   1. the zoom buttons were 30px, under the 44px touch minimum
+ *   2. the stage could take 66vh, leaving the questions below the fold on a short
+ *      screen, which is the opposite of what a rating session needs
+ *   3. the fixed util nav overlapped the pill row at the top
+ */
+
+@media (max-width: 700px) {
+  .opts-4, .opts-6 { grid-template-columns: repeat(2, 1fr); }
+  .rate-h1 { font-size: var(--text-xl); }
+  .panel { padding: var(--space-4); }
+
+  /* Keep at least one answer row above the fold. */
+  .stage-scroll { min-height: 26vh; max-height: 44vh; }
+  .stage-scroll img { max-height: 40vh; }
+  .stage-scroll img.zoomed { width: 300%; }
+
+  /* 44px minimum touch target. */
+  .zoom-btn { width: 44px; height: 44px; font-size: 0.95rem; }
+
+  /* The zoom controls sit OVER the top right of the image. On a phone the
+     image fills nearly the full width, so they land on the garment's shoulder
+     and hood. Q2 asks whether the hood is visible and Q3 asks about the
+     eyelets, so the controls must not cover the thing being judged.
+     On a narrow screen the figure becomes a flex column and the controls
+     move below the image. Order does the work, so the HTML does not change. */
+  .stage { display: flex; flex-direction: column; }
+  .stage-scroll { order: 1; }
+  .stage-zoom {
+    order: 2;
+    position: static;
+    justify-content: flex-end;
+    gap: var(--space-2);
+    padding: 0 var(--space-4) var(--space-2);
+  }
+  .stage-cap { order: 3; padding-top: var(--space-2); }
+
+  .rate-wrap { padding-top: calc(64px + env(safe-area-inset-top, 0px)); }
+  .rate-topline { gap: var(--space-2); }
+  .pill { padding: 6px 11px; }
+
+  /* The pager sits above the footer actions on a phone, not below three panels. */
+  .pager { position: sticky; bottom: 0; background: var(--bg); padding: var(--space-3) 0; border-top: 1px solid var(--border); margin-bottom: var(--space-6); }
+  .pbtn { padding: var(--space-4) var(--space-5); }
+
+  /* Give the free-text field room for an actual sentence. */
+  #free-text, #skip-text { font-size: 16px; } /* below 16px iOS Safari zooms on focus */
+}
+
+/* Very short screens, landscape phones. Questions must stay reachable. */
+@media (max-height: 560px) {
+  .stage-scroll { min-height: 20vh; max-height: 34vh; }
+  .rate-sub { display: none; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .stage-scroll img { transition: max-height 0.15s ease; }
+}

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Serpentine zip rating v2, item 1 of <span data-item-count>80</span></title>
+<meta name="description" content="Rating interface for serpentine zip geometry study. 80 images, one at a time.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="/assets/css/design-system.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230f0e0c'/><path d='M20 50 Q30 30 50 50 Q70 70 80 50' stroke='%23c45a1f' stroke-width='4' fill='none' stroke-linecap='round'/></svg>">
+<link rel="stylesheet" href="rater.css">
+<script>document.documentElement.setAttribute("data-theme",localStorage.getItem("tw-theme")||"g5")</script>
+</head>
+<body>
+
+<nav class="util" aria-label="Site">
+  <a href="/">portfolio</a>
+  <a href="/tools/">tools</a>
+  <a href="/corpus/">corpus</a>
+  <a href="/">home</a>
+</nav>
+
+<div class="rate-wrap">
+
+
+  <section class="brief" id="brief">
+    <div class="brief-head">
+      <span class="pill">How this works</span>
+      <span class="brief-time">about 10 minutes for all <span data-item-count>80</span></span>
+    </div>
+    <p class="brief-lead">You are judging the geometry of a generated serpentine zip, not whether the garment looks good.
+      <span data-item-count>80</span> images, one at a time. Nobody will see your answers and nobody will grade you.</p>
+    <div class="brief-grid">
+      <div>
+        <h3>Count curves exactly</h3>
+        <p>A serpentine zip has S-shaped waves. Count each full S-curve (one left-to-right-to-left oscillation) as one.
+          If you see three waves, say three. Exact numbers, no bins.</p>
+      </div>
+      <div>
+        <h3>Measure the swing</h3>
+        <p>Does the zip path lean left, lean right, or stay centred? Pick the dominant direction of the overall path.</p>
+      </div>
+      <div>
+        <h3>Say when you cannot tell</h3>
+        <p>"Cannot determine" is a real answer. A guess is worse than a gap.</p>
+      </div>
+      <div>
+        <h3>Zoom in</h3>
+        <p>The zip teeth and curves are small. Use <b>+</b> and scroll or drag to look closely before you answer.</p>
+      </div>
+    </div>
+    <div class="brief-gate">
+      <h3>Question 3 is the visibility gate</h3>
+      <p>If the zip region is too obscured or too small to judge, answer <b>no</b> and the rest is skipped.
+        That is not giving up. It is the most useful thing you can do.</p>
+    </div>
+    <div class="brief-foot">
+      <p>Your progress saves in this browser as you go. Bookmark this page, because it carries your
+        reference and is how you come back. When you finish all <span data-item-count>80</span>, click
+        <b>Download my ratings</b> and send the file back.</p>
+      <button class="brief-go" id="brief-go" type="button">Start, item 1 of <span data-item-count>80</span></button>
+    </div>
+  </section>
+
+  <header class="rate-head">
+    <div class="rate-topline">
+      <span class="pill" id="rater-pill">rater, loading</span>
+      <span class="pill" id="progress-pill">0 of <span data-item-count>80</span> complete</span>
+      <span class="pill pill-quiet" id="free-pill">free text: 0 required</span>
+    </div>
+    <h1 class="rate-h1">Judge the serpentine zip geometry</h1>
+    <p class="rate-sub"><span data-item-count>80</span> zip crops, one at a time. Answer only what you can see in this frame.
+      Describe the construction, not whether you like it.</p>
+  </header>
+
+  <main id="work" hidden>
+    <figure class="stage">
+      <div class="stage-zoom">
+        <button class="zoom-btn" id="zoom-in" type="button" title="Zoom in" aria-label="Zoom in">+</button>
+        <button class="zoom-btn" id="zoom-out" type="button" title="Zoom out" aria-label="Zoom out">&minus;</button>
+        <button class="zoom-btn" id="zoom-reset" type="button" title="Fit to frame" aria-label="Fit to frame">fit</button>
+      </div>
+      <div class="stage-scroll" id="stage-scroll">
+        <img id="zip-image" alt="Serpentine zip crop under review" width="1254" height="1254">
+      </div>
+      <figcaption class="stage-cap">Small detail? Zoom in. Scroll or drag to pan.</figcaption>
+    </figure>
+
+    <section class="panel" id="q1-block">
+      <div class="q-head">
+        <span class="q-num">1</span>
+        <span class="q-ask">How many complete S-curves (waves) does the serpentine zip have?</span>
+      </div>
+      <div class="opts" data-q="q1" role="group" aria-label="Curve count">
+        <button class="opt" data-v="0" type="button">0</button>
+        <button class="opt" data-v="1" type="button">1</button>
+        <button class="opt" data-v="2" type="button">2</button>
+        <button class="opt" data-v="3" type="button">3</button>
+        <button class="opt" data-v="4" type="button">4</button>
+        <button class="opt" data-v="5" type="button">5</button>
+        <button class="opt" data-v="6" type="button">6</button>
+        <button class="opt" data-v="7" type="button">7</button>
+        <button class="opt" data-v="8" type="button">8</button>
+        <button class="opt" data-v="9" type="button">9</button>
+        <button class="opt" data-v="10plus" type="button">10 or more</button>
+        <button class="opt" data-v="cannot_determine" type="button">cannot determine</button>
+      </div>
+      <p class="q-note">One full S-shape = one curve. Count exactly, no grouping.</p>
+    </section>
+
+    <section class="panel" id="q2-block">
+      <div class="q-head">
+        <span class="q-num">2</span>
+        <span class="q-ask">Which way does the overall zip path swing?</span>
+      </div>
+      <div class="opts opts-4" data-q="q2" role="group" aria-label="Swing direction">
+        <button class="opt" data-v="left" type="button">left</button>
+        <button class="opt" data-v="centre" type="button">centre</button>
+        <button class="opt" data-v="right" type="button">right</button>
+        <button class="opt" data-v="cannot_determine" type="button">cannot determine</button>
+      </div>
+      <details class="defn">
+        <summary>what counts as left, centre, right</summary>
+        <p><b>left</b> the zip path curves predominantly toward the wearer's left (viewer's right).<br>
+           <b>centre</b> the path stays roughly centred on the centre-front seam.<br>
+           <b>right</b> the path curves predominantly toward the wearer's right (viewer's left).<br>
+           Judge the dominant tendency of the whole visible path.</p>
+      </details>
+    </section>
+
+    <section class="panel" id="q3-block">
+      <div class="q-head">
+        <span class="q-num">3</span>
+        <span class="q-ask">Is the zip region clear enough in this image to count curves and measure swing?</span>
+      </div>
+      <div class="opts opts-3" data-q="q3" role="group" aria-label="Visibility">
+        <button class="opt" data-v="yes" type="button">yes</button>
+        <button class="opt" data-v="partly" type="button">partly</button>
+        <button class="opt" data-v="no" type="button">no</button>
+      </div>
+      <p class="q-note" id="q3-note">If <b>no</b>, the rest is skipped and only the note below is asked.</p>
+    </section>
+
+    <div id="detail-block">
+      <!-- Q1 and Q2 are always visible above -->
+    </div>
+
+    <section class="panel panel-lock" id="q4-block" hidden>
+      <div class="q-head">
+        <span class="q-num">4</span>
+        <span class="q-ask">In one short phrase, name the visible detail that decided your answer.</span>
+      </div>
+      <p class="q-note">5 to 25 words. Only what is in the picture. If something stopped you judging reliably, say what.
+        For example: <i>three clear waves, gentle right lean</i>. Not useful: <i>looks fine</i>.</p>
+      <textarea id="free-text" rows="3" placeholder="what decided it, or what blocked you"></textarea>
+      <div class="free-actions">
+        <button class="fbtn fbtn-main" id="btn-lock" type="button">Lock this item</button>
+        <span class="free-count" id="free-count">0 words</span>
+      </div>
+    </section>
+
+    <div class="skip-note" id="skip-note" hidden>
+      <p>Visibility answered <b>no</b>, so the curve and swing questions are skipped for this item.
+        Add the note below and lock it.</p>
+      <textarea id="skip-text" rows="3" placeholder="what blocked the view"></textarea>
+      <div class="free-actions">
+        <button class="fbtn fbtn-main" id="btn-skip-lock" type="button">Lock this item</button>
+      </div>
+    </div>
+
+    <nav class="pager">
+      <button class="pbtn" id="btn-prev" type="button">&larr; Previous</button>
+      <span class="pnum" id="idx-display">1 / <span data-item-count>80</span></span>
+      <button class="pbtn" id="btn-next" type="button">Next &rarr;</button>
+    </nav>
+  </main>
+
+  <footer class="rate-foot">
+    <div class="foot-actions">
+      <button class="fbtn fbtn-main" id="btn-export" type="button" disabled>Download my ratings</button>
+      <button class="fbtn" id="btn-reset" type="button">Reset my progress</button>
+    </div>
+    <p class="foot-note">
+      Everything stays in this browser. Nothing is sent anywhere until you download the file.
+      Bookmark this page: it carries your rater id and is how you return to where you stopped.
+    </p>
+    <p class="foot-legal">
+      Serpentine zip geometry study. Conditions, item order and filenames are masked from this interface.
+      <a href="/tools/">About the tooling</a>
+    </p>
+  </footer>
+
+</div>
+
+<div class="theme-picker" role="group" aria-label="colour theme">
+  <button type="button" class="theme-dot" data-set-theme="g5" style="--sw:#ff7a3d" title="G5 Tri-X" aria-pressed="true"></button>
+  <button type="button" class="theme-dot" data-set-theme="teal" style="--sw:#3fc2b4" title="Teal & Orange" aria-pressed="false"></button>
+  <button type="button" class="theme-dot" data-set-theme="contact" style="--sw:#b8541f" title="Contact Sheet" aria-pressed="false"></button>
+  <button type="button" class="theme-dot" data-set-theme="cyano" style="--sw:#175a9c" title="Cyanotype" aria-pressed="false"></button>
+</div>
+<script>
+(function () {
+  var K = "tw-theme", R = document.documentElement;
+  function M() {
+    var c = R.getAttribute("data-theme") || "g5";
+    var d = document.querySelectorAll("[data-set-theme]");
+    for (var i = 0; i < d.length; i++) {
+      d[i].setAttribute("aria-pressed", d[i].getAttribute("data-set-theme") === c ? "true" : "false");
+    }
+  }
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest ? e.target.closest("[data-set-theme]") : null;
+    if (!b) return;
+    var t = b.getAttribute("data-set-theme");
+    R.setAttribute("data-theme", t);
+    localStorage.setItem(K, t);
+    M();
+  });
+  M();
+})();
+</script>
+<script src="rater_v2.js"></script>
+</body>
+</html>

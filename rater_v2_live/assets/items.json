@@ -1,0 +1,567 @@
+{
+ "items": [
+  {
+   "id": "ZipV2-0001",
+   "image": "assets/img/ZipV2-0021.png",
+   "condition": "B",
+   "replicate": 0,
+   "original_image": "B/Product/P1/P1_r00_B.png"
+  },
+  {
+   "id": "ZipV2-0002",
+   "image": "assets/img/ZipV2-0073.png",
+   "condition": "D",
+   "replicate": 12,
+   "original_image": "D/Product/P1/P1_r12_D.png"
+  },
+  {
+   "id": "ZipV2-0003",
+   "image": "assets/img/ZipV2-0054.png",
+   "condition": "C",
+   "replicate": 13,
+   "original_image": "C/Product/P1/P1_r13_C.png"
+  },
+  {
+   "id": "ZipV2-0004",
+   "image": "assets/img/ZipV2-0076.png",
+   "condition": "D",
+   "replicate": 15,
+   "original_image": "D/Product/P1/P1_r15_D.png"
+  },
+  {
+   "id": "ZipV2-0005",
+   "image": "assets/img/ZipV2-0071.png",
+   "condition": "D",
+   "replicate": 10,
+   "original_image": "D/Product/P1/P1_r10_D.png"
+  },
+  {
+   "id": "ZipV2-0006",
+   "image": "assets/img/ZipV2-0032.png",
+   "condition": "B",
+   "replicate": 11,
+   "original_image": "B/Product/P1/P1_r11_B.png"
+  },
+  {
+   "id": "ZipV2-0007",
+   "image": "assets/img/ZipV2-0020.png",
+   "condition": "A",
+   "replicate": 19,
+   "original_image": "A/Product/P1/P1_r19_A.png"
+  },
+  {
+   "id": "ZipV2-0008",
+   "image": "assets/img/ZipV2-0075.png",
+   "condition": "D",
+   "replicate": 14,
+   "original_image": "D/Product/P1/P1_r14_D.png"
+  },
+  {
+   "id": "ZipV2-0009",
+   "image": "assets/img/ZipV2-0057.png",
+   "condition": "C",
+   "replicate": 16,
+   "original_image": "C/Product/P1/P1_r16_C.png"
+  },
+  {
+   "id": "ZipV2-0010",
+   "image": "assets/img/ZipV2-0067.png",
+   "condition": "D",
+   "replicate": 6,
+   "original_image": "D/Product/P1/P1_r06_D.png"
+  },
+  {
+   "id": "ZipV2-0011",
+   "image": "assets/img/ZipV2-0029.png",
+   "condition": "B",
+   "replicate": 8,
+   "original_image": "B/Product/P1/P1_r08_B.png"
+  },
+  {
+   "id": "ZipV2-0012",
+   "image": "assets/img/ZipV2-0044.png",
+   "condition": "C",
+   "replicate": 3,
+   "original_image": "C/Product/P1/P1_r03_C.png"
+  },
+  {
+   "id": "ZipV2-0013",
+   "image": "assets/img/ZipV2-0013.png",
+   "condition": "A",
+   "replicate": 12,
+   "original_image": "A/Product/P1/P1_r12_A.png"
+  },
+  {
+   "id": "ZipV2-0014",
+   "image": "assets/img/ZipV2-0006.png",
+   "condition": "A",
+   "replicate": 5,
+   "original_image": "A/Product/P1/P1_r05_A.png"
+  },
+  {
+   "id": "ZipV2-0015",
+   "image": "assets/img/ZipV2-0014.png",
+   "condition": "A",
+   "replicate": 13,
+   "original_image": "A/Product/P1/P1_r13_A.png"
+  },
+  {
+   "id": "ZipV2-0016",
+   "image": "assets/img/ZipV2-0065.png",
+   "condition": "D",
+   "replicate": 4,
+   "original_image": "D/Product/P1/P1_r04_D.png"
+  },
+  {
+   "id": "ZipV2-0017",
+   "image": "assets/img/ZipV2-0049.png",
+   "condition": "C",
+   "replicate": 8,
+   "original_image": "C/Product/P1/P1_r08_C.png"
+  },
+  {
+   "id": "ZipV2-0018",
+   "image": "assets/img/ZipV2-0007.png",
+   "condition": "A",
+   "replicate": 6,
+   "original_image": "A/Product/P1/P1_r06_A.png"
+  },
+  {
+   "id": "ZipV2-0019",
+   "image": "assets/img/ZipV2-0008.png",
+   "condition": "A",
+   "replicate": 7,
+   "original_image": "A/Product/P1/P1_r07_A.png"
+  },
+  {
+   "id": "ZipV2-0020",
+   "image": "assets/img/ZipV2-0041.png",
+   "condition": "C",
+   "replicate": 0,
+   "original_image": "C/Product/P1/P1_r00_C.png"
+  },
+  {
+   "id": "ZipV2-0021",
+   "image": "assets/img/ZipV2-0005.png",
+   "condition": "A",
+   "replicate": 4,
+   "original_image": "A/Product/P1/P1_r04_A.png"
+  },
+  {
+   "id": "ZipV2-0022",
+   "image": "assets/img/ZipV2-0028.png",
+   "condition": "B",
+   "replicate": 7,
+   "original_image": "B/Product/P1/P1_r07_B.png"
+  },
+  {
+   "id": "ZipV2-0023",
+   "image": "assets/img/ZipV2-0001.png",
+   "condition": "A",
+   "replicate": 0,
+   "original_image": "A/Product/P1/P1_r00_A.png"
+  },
+  {
+   "id": "ZipV2-0024",
+   "image": "assets/img/ZipV2-0012.png",
+   "condition": "A",
+   "replicate": 11,
+   "original_image": "A/Product/P1/P1_r11_A.png"
+  },
+  {
+   "id": "ZipV2-0025",
+   "image": "assets/img/ZipV2-0060.png",
+   "condition": "C",
+   "replicate": 19,
+   "original_image": "C/Product/P1/P1_r19_C.png"
+  },
+  {
+   "id": "ZipV2-0026",
+   "image": "assets/img/ZipV2-0077.png",
+   "condition": "D",
+   "replicate": 16,
+   "original_image": "D/Product/P1/P1_r16_D.png"
+  },
+  {
+   "id": "ZipV2-0027",
+   "image": "assets/img/ZipV2-0035.png",
+   "condition": "B",
+   "replicate": 14,
+   "original_image": "B/Product/P1/P1_r14_B.png"
+  },
+  {
+   "id": "ZipV2-0028",
+   "image": "assets/img/ZipV2-0009.png",
+   "condition": "A",
+   "replicate": 8,
+   "original_image": "A/Product/P1/P1_r08_A.png"
+  },
+  {
+   "id": "ZipV2-0029",
+   "image": "assets/img/ZipV2-0042.png",
+   "condition": "C",
+   "replicate": 1,
+   "original_image": "C/Product/P1/P1_r01_C.png"
+  },
+  {
+   "id": "ZipV2-0030",
+   "image": "assets/img/ZipV2-0036.png",
+   "condition": "B",
+   "replicate": 15,
+   "original_image": "B/Product/P1/P1_r15_B.png"
+  },
+  {
+   "id": "ZipV2-0031",
+   "image": "assets/img/ZipV2-0011.png",
+   "condition": "A",
+   "replicate": 10,
+   "original_image": "A/Product/P1/P1_r10_A.png"
+  },
+  {
+   "id": "ZipV2-0032",
+   "image": "assets/img/ZipV2-0016.png",
+   "condition": "A",
+   "replicate": 15,
+   "original_image": "A/Product/P1/P1_r15_A.png"
+  },
+  {
+   "id": "ZipV2-0033",
+   "image": "assets/img/ZipV2-0080.png",
+   "condition": "D",
+   "replicate": 19,
+   "original_image": "D/Product/P1/P1_r19_D.png"
+  },
+  {
+   "id": "ZipV2-0034",
+   "image": "assets/img/ZipV2-0064.png",
+   "condition": "D",
+   "replicate": 3,
+   "original_image": "D/Product/P1/P1_r03_D.png"
+  },
+  {
+   "id": "ZipV2-0035",
+   "image": "assets/img/ZipV2-0051.png",
+   "condition": "C",
+   "replicate": 10,
+   "original_image": "C/Product/P1/P1_r10_C.png"
+  },
+  {
+   "id": "ZipV2-0036",
+   "image": "assets/img/ZipV2-0043.png",
+   "condition": "C",
+   "replicate": 2,
+   "original_image": "C/Product/P1/P1_r02_C.png"
+  },
+  {
+   "id": "ZipV2-0037",
+   "image": "assets/img/ZipV2-0018.png",
+   "condition": "A",
+   "replicate": 17,
+   "original_image": "A/Product/P1/P1_r17_A.png"
+  },
+  {
+   "id": "ZipV2-0038",
+   "image": "assets/img/ZipV2-0062.png",
+   "condition": "D",
+   "replicate": 1,
+   "original_image": "D/Product/P1/P1_r01_D.png"
+  },
+  {
+   "id": "ZipV2-0039",
+   "image": "assets/img/ZipV2-0066.png",
+   "condition": "D",
+   "replicate": 5,
+   "original_image": "D/Product/P1/P1_r05_D.png"
+  },
+  {
+   "id": "ZipV2-0040",
+   "image": "assets/img/ZipV2-0059.png",
+   "condition": "C",
+   "replicate": 18,
+   "original_image": "C/Product/P1/P1_r18_C.png"
+  },
+  {
+   "id": "ZipV2-0041",
+   "image": "assets/img/ZipV2-0022.png",
+   "condition": "B",
+   "replicate": 1,
+   "original_image": "B/Product/P1/P1_r01_B.png"
+  },
+  {
+   "id": "ZipV2-0042",
+   "image": "assets/img/ZipV2-0024.png",
+   "condition": "B",
+   "replicate": 3,
+   "original_image": "B/Product/P1/P1_r03_B.png"
+  },
+  {
+   "id": "ZipV2-0043",
+   "image": "assets/img/ZipV2-0017.png",
+   "condition": "A",
+   "replicate": 16,
+   "original_image": "A/Product/P1/P1_r16_A.png"
+  },
+  {
+   "id": "ZipV2-0044",
+   "image": "assets/img/ZipV2-0068.png",
+   "condition": "D",
+   "replicate": 7,
+   "original_image": "D/Product/P1/P1_r07_D.png"
+  },
+  {
+   "id": "ZipV2-0045",
+   "image": "assets/img/ZipV2-0058.png",
+   "condition": "C",
+   "replicate": 17,
+   "original_image": "C/Product/P1/P1_r17_C.png"
+  },
+  {
+   "id": "ZipV2-0046",
+   "image": "assets/img/ZipV2-0015.png",
+   "condition": "A",
+   "replicate": 14,
+   "original_image": "A/Product/P1/P1_r14_A.png"
+  },
+  {
+   "id": "ZipV2-0047",
+   "image": "assets/img/ZipV2-0050.png",
+   "condition": "C",
+   "replicate": 9,
+   "original_image": "C/Product/P1/P1_r09_C.png"
+  },
+  {
+   "id": "ZipV2-0048",
+   "image": "assets/img/ZipV2-0004.png",
+   "condition": "A",
+   "replicate": 3,
+   "original_image": "A/Product/P1/P1_r03_A.png"
+  },
+  {
+   "id": "ZipV2-0049",
+   "image": "assets/img/ZipV2-0048.png",
+   "condition": "C",
+   "replicate": 7,
+   "original_image": "C/Product/P1/P1_r07_C.png"
+  },
+  {
+   "id": "ZipV2-0050",
+   "image": "assets/img/ZipV2-0019.png",
+   "condition": "A",
+   "replicate": 18,
+   "original_image": "A/Product/P1/P1_r18_A.png"
+  },
+  {
+   "id": "ZipV2-0051",
+   "image": "assets/img/ZipV2-0055.png",
+   "condition": "C",
+   "replicate": 14,
+   "original_image": "C/Product/P1/P1_r14_C.png"
+  },
+  {
+   "id": "ZipV2-0052",
+   "image": "assets/img/ZipV2-0025.png",
+   "condition": "B",
+   "replicate": 4,
+   "original_image": "B/Product/P1/P1_r04_B.png"
+  },
+  {
+   "id": "ZipV2-0053",
+   "image": "assets/img/ZipV2-0039.png",
+   "condition": "B",
+   "replicate": 18,
+   "original_image": "B/Product/P1/P1_r18_B.png"
+  },
+  {
+   "id": "ZipV2-0054",
+   "image": "assets/img/ZipV2-0030.png",
+   "condition": "B",
+   "replicate": 9,
+   "original_image": "B/Product/P1/P1_r09_B.png"
+  },
+  {
+   "id": "ZipV2-0055",
+   "image": "assets/img/ZipV2-0070.png",
+   "condition": "D",
+   "replicate": 9,
+   "original_image": "D/Product/P1/P1_r09_D.png"
+  },
+  {
+   "id": "ZipV2-0056",
+   "image": "assets/img/ZipV2-0002.png",
+   "condition": "A",
+   "replicate": 1,
+   "original_image": "A/Product/P1/P1_r01_A.png"
+  },
+  {
+   "id": "ZipV2-0057",
+   "image": "assets/img/ZipV2-0078.png",
+   "condition": "D",
+   "replicate": 17,
+   "original_image": "D/Product/P1/P1_r17_D.png"
+  },
+  {
+   "id": "ZipV2-0058",
+   "image": "assets/img/ZipV2-0063.png",
+   "condition": "D",
+   "replicate": 2,
+   "original_image": "D/Product/P1/P1_r02_D.png"
+  },
+  {
+   "id": "ZipV2-0059",
+   "image": "assets/img/ZipV2-0072.png",
+   "condition": "D",
+   "replicate": 11,
+   "original_image": "D/Product/P1/P1_r11_D.png"
+  },
+  {
+   "id": "ZipV2-0060",
+   "image": "assets/img/ZipV2-0023.png",
+   "condition": "B",
+   "replicate": 2,
+   "original_image": "B/Product/P1/P1_r02_B.png"
+  },
+  {
+   "id": "ZipV2-0061",
+   "image": "assets/img/ZipV2-0056.png",
+   "condition": "C",
+   "replicate": 15,
+   "original_image": "C/Product/P1/P1_r15_C.png"
+  },
+  {
+   "id": "ZipV2-0062",
+   "image": "assets/img/ZipV2-0061.png",
+   "condition": "D",
+   "replicate": 0,
+   "original_image": "D/Product/P1/P1_r00_D.png"
+  },
+  {
+   "id": "ZipV2-0063",
+   "image": "assets/img/ZipV2-0037.png",
+   "condition": "B",
+   "replicate": 16,
+   "original_image": "B/Product/P1/P1_r16_B.png"
+  },
+  {
+   "id": "ZipV2-0064",
+   "image": "assets/img/ZipV2-0079.png",
+   "condition": "D",
+   "replicate": 18,
+   "original_image": "D/Product/P1/P1_r18_D.png"
+  },
+  {
+   "id": "ZipV2-0065",
+   "image": "assets/img/ZipV2-0038.png",
+   "condition": "B",
+   "replicate": 17,
+   "original_image": "B/Product/P1/P1_r17_B.png"
+  },
+  {
+   "id": "ZipV2-0066",
+   "image": "assets/img/ZipV2-0045.png",
+   "condition": "C",
+   "replicate": 4,
+   "original_image": "C/Product/P1/P1_r04_C.png"
+  },
+  {
+   "id": "ZipV2-0067",
+   "image": "assets/img/ZipV2-0040.png",
+   "condition": "B",
+   "replicate": 19,
+   "original_image": "B/Product/P1/P1_r19_B.png"
+  },
+  {
+   "id": "ZipV2-0068",
+   "image": "assets/img/ZipV2-0027.png",
+   "condition": "B",
+   "replicate": 6,
+   "original_image": "B/Product/P1/P1_r06_B.png"
+  },
+  {
+   "id": "ZipV2-0069",
+   "image": "assets/img/ZipV2-0052.png",
+   "condition": "C",
+   "replicate": 11,
+   "original_image": "C/Product/P1/P1_r11_C.png"
+  },
+  {
+   "id": "ZipV2-0070",
+   "image": "assets/img/ZipV2-0010.png",
+   "condition": "A",
+   "replicate": 9,
+   "original_image": "A/Product/P1/P1_r09_A.png"
+  },
+  {
+   "id": "ZipV2-0071",
+   "image": "assets/img/ZipV2-0053.png",
+   "condition": "C",
+   "replicate": 12,
+   "original_image": "C/Product/P1/P1_r12_C.png"
+  },
+  {
+   "id": "ZipV2-0072",
+   "image": "assets/img/ZipV2-0003.png",
+   "condition": "A",
+   "replicate": 2,
+   "original_image": "A/Product/P1/P1_r02_A.png"
+  },
+  {
+   "id": "ZipV2-0073",
+   "image": "assets/img/ZipV2-0047.png",
+   "condition": "C",
+   "replicate": 6,
+   "original_image": "C/Product/P1/P1_r06_C.png"
+  },
+  {
+   "id": "ZipV2-0074",
+   "image": "assets/img/ZipV2-0074.png",
+   "condition": "D",
+   "replicate": 13,
+   "original_image": "D/Product/P1/P1_r13_D.png"
+  },
+  {
+   "id": "ZipV2-0075",
+   "image": "assets/img/ZipV2-0031.png",
+   "condition": "B",
+   "replicate": 10,
+   "original_image": "B/Product/P1/P1_r10_B.png"
+  },
+  {
+   "id": "ZipV2-0076",
+   "image": "assets/img/ZipV2-0046.png",
+   "condition": "C",
+   "replicate": 5,
+   "original_image": "C/Product/P1/P1_r05_C.png"
+  },
+  {
+   "id": "ZipV2-0077",
+   "image": "assets/img/ZipV2-0069.png",
+   "condition": "D",
+   "replicate": 8,
+   "original_image": "D/Product/P1/P1_r08_D.png"
+  },
+  {
+   "id": "ZipV2-0078",
+   "image": "assets/img/ZipV2-0026.png",
+   "condition": "B",
+   "replicate": 5,
+   "original_image": "B/Product/P1/P1_r05_B.png"
+  },
+  {
+   "id": "ZipV2-0079",
+   "image": "assets/img/ZipV2-0034.png",
+   "condition": "B",
+   "replicate": 13,
+   "original_image": "B/Product/P1/P1_r13_B.png"
+  },
+  {
+   "id": "ZipV2-0080",
+   "image": "assets/img/ZipV2-0033.png",
+   "condition": "B",
+   "replicate": 12,
+   "original_image": "B/Product/P1/P1_r12_B.png"
+  }
+ ],
+ "n": 80,
+ "total": 80,
+ "note": "Serpentine zip rating v2. 80 images (20 per condition \u00d7 4 conditions), shuffled with seed 20261023. Q1=curve count (exact), Q2=swing measurement."
+}
