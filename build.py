@@ -266,7 +266,7 @@ TEMPLATE = """<!DOCTYPE html>
   <div>Taiwo Alabi &middot; <a href="mailto:newalabitaiwo625@gmail.com">newalabitaiwo625@gmail.com</a>
    &middot; <a href="https://www.linkedin.com/in/tami-alabi/">LinkedIn</a>
    &middot; <a href="https://github.com/iamtamilore">GitHub</a></div>
-  <div class="util-footer"><a href="/study/eeai/">study</a>
+  <div class="util-footer"><a href="/work/">work</a>
    &middot; <a href="/jobs/">tracker</a>
    &middot; <a href="/bank-pwa/">bank</a></div>
 </footer>
@@ -348,6 +348,67 @@ def transform(html: str, imgmap: dict) -> str:
     return html
 
 
+def write_404():
+    """Generate the fallback page from published projects only.
+
+    A route that is not published must not remain in the fallback page. The
+    list is derived from PROJECTS so a publication change cannot leave an
+    orphaned link behind.
+    """
+    items = []
+    for p in published():
+        items.append(
+            f'<li><a href="/p/{p["slug"]}/">{p["title"]}</a>'
+            f'<span class="when">{p["clabel"]}</span></li>'
+        )
+    items_html = "\n    ".join(items)
+    doc = f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Not found | Taiwo Alabi</title>
+<script>document.documentElement.setAttribute("data-theme",localStorage.getItem("tw-theme")||"g5")</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="/assets/css/design-system.css">
+<link rel="stylesheet" href="/assets/css/mark-zero.css">
+</head>
+<body>
+<nav class="util" aria-label="Site">
+  <a href="/">index</a>
+  <a href="/work/">work</a>
+  <a href="/case-studies/">cases</a>
+  <a href="/process/">process</a>
+  <a href="/gallery/">gallery</a>
+  <a href="/cv/">cv</a>
+  <a href="/products/">episodes</a>
+</nav>
+<main class="wrap">
+  <header style="padding-top: var(--space-16)">
+    <p class="eyebrow">404</p>
+    <h1 class="claim-display">That page is not here.</h1>
+    <p class="lede">The complete engineering index and the published case studies are both available.</p>
+    <div class="cta-row">
+      <a class="cta" href="/work/">Browse all work</a>
+      <a class="cta cta-ghost" href="/cv/">View the Agent Foundations CV</a>
+    </div>
+  </header>
+  <div class="rule"></div>
+  <section>
+    <h2>Published case studies</h2>
+    <ul class="exp">
+    {items_html}
+    </ul>
+  </section>
+</main>
+</body>
+</html>
+'''
+    (ROOT / "404.html").write_text(doc, encoding="utf8")
+    print(f"  rewrote 404.html ({len(published())} published projects)")
+
+
 def main():
     hidden = []
     for p in PROJECTS:
@@ -384,6 +445,7 @@ def main():
         print(f"  built /p/{p['slug']}/")
 
     update_index_cards()
+    write_404()
     print(f"published: {len(published())}  |  hidden: {', '.join(hidden) or 'none'}")
 
 

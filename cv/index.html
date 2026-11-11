@@ -1,342 +1,269 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="">
+<html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>CV | Taiwo Alabi</title>
-<meta name="description" content="Taiwo Alabi - AI, data governance, process automation, and telecom analytics. Full CV with project write-ups, diagrams, source code, and a downloadable PDF.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent Foundations CV | Taiwo Alabi</title>
+<meta name="description" content="Taiwo Alabi's application CV for Backend Engineer, Python, AI Engineering: Agent Foundations.">
 <script>document.documentElement.setAttribute("data-theme",localStorage.getItem("tw-theme")||"")</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
 <link rel="stylesheet" href="/assets/css/design-system.css">
+<link rel="stylesheet" href="/assets/css/mark-zero.css">
 <style>
-.cv-page { color: var(--text); font-family: var(--font); line-height: 1.5; }
-.cv-wrap { max-width: 860px; margin: 0 auto; padding: var(--space-6) var(--space-4); }
-.cv-topbar { display: flex; justify-content: space-between; align-items: center; padding: var(--space-4) 0; margin-bottom: var(--space-6); border-bottom: 1px solid var(--border); }
-.cv-topbar a { color: var(--text-3); font-size: var(--text-sm); text-decoration: none; border-bottom: none; }
-.cv-topbar a:hover { color: var(--text); }
-.cv-header { margin-bottom: var(--space-10); }
-.cv-h1 { font-size: var(--text-3xl); font-weight: 700; line-height: 1.1; margin-bottom: var(--space-2); }
-.cv-tagline { font-size: var(--text-base); color: var(--text-2); margin-bottom: var(--space-3); line-height: 1.4; font-weight: 500; }
-.cv-identity { font-size: var(--text-base); color: var(--text-2); margin-bottom: var(--space-4); line-height: 1.3; }
-.cv-meta { display: flex; gap: var(--space-3); flex-wrap: wrap; font-size: var(--text-sm); color: var(--text-3); }
-.cv-meta a { color: var(--accent); text-decoration: none; border-bottom: none; }
-.cv-meta a:hover { text-decoration: underline; }
-.cv-permit { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-3); margin: 0 0 var(--space-4); }
-.cv-section { margin-bottom: var(--space-10); }
-.cv-sec-title { font-size: var(--text-2xl); font-weight: 700; color: var(--accent); margin-bottom: var(--space-6); padding-bottom: var(--space-3); border-bottom: 1px solid var(--border); }
-.cv-body-text { font-size: var(--text-sm); color: var(--text-2); line-height: 1.6; max-width: none; }
-.cv-body-text p { margin-bottom: var(--space-4); }
-.cv-body-text strong { color: var(--text); font-weight: 500; }
-.cv-entry { margin-bottom: var(--space-6); padding-bottom: var(--space-4); border-bottom: 1px dashed var(--border); }
-.cv-entry:last-child { border-bottom: none; }
-.cv-entry-title { font-weight: 700; font-size: var(--text-base); color: var(--text); margin-bottom: var(--space-1); }
-.cv-entry-subtitle { color: var(--text-3); font-size: var(--text-sm); margin-bottom: var(--space-3); }
-.cv-entry-body { font-size: var(--text-sm); color: var(--text-2); line-height: 1.6; }
-.cv-entry-body ul { margin: 0.5rem 0 0.5rem 1.25rem; }
-.cv-entry-body li { margin-bottom: 0.35rem; }
-.cv-entry-bullets { margin: 0.5rem 0 0.5rem 0; padding-left: 1.25rem; }
-.cv-entry-bullets li { margin-bottom: 0.4rem; }
-.cv-project-tag {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--text-3);
-  background: var(--surface-1);
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  padding: 1px 8px;
-  margin-left: 6px;
-  vertical-align: middle;
-}
-.cv-links { display: flex; gap: 0.4rem 0.85rem; flex-wrap: wrap; margin-top: 0.4rem; font-size: var(--text-sm); }
-.cv-links a { color: var(--accent); text-decoration: none; border-bottom: none; }
-.cv-links a:hover { text-decoration: underline; }
-.cv-meta-pair { font-size: var(--text-sm); color: var(--text-2); margin-bottom: 0.25rem; }
-.cv-meta-pair span { color: var(--text-3); }
-.cv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--space-3) var(--space-4); }
-.cv-grid dt { font-weight: 500; color: var(--text); font-size: var(--text-sm); margin-bottom: 0.15rem; }
-.cv-grid dd { color: var(--text-2); font-size: var(--text-sm); margin-bottom: var(--space-3); }
-.cv-aside { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: var(--space-5); margin-bottom: var(--space-8); }
-.cv-aside h3 { font-size: var(--text-base); font-weight: 700; margin-bottom: var(--space-3); color: var(--text); }
-.cv-aside p { font-size: var(--text-sm); color: var(--text-2); margin-bottom: var(--space-2); line-height: 1.55; }
-.cv-cta { display: flex; gap: var(--space-3); flex-wrap: wrap; margin-top: var(--space-6); }
-.cv-cta a {
-  display: inline-block; padding: 10px 18px; border-radius: 999px;
-  background: var(--accent); color: #0c1018 !important; font-weight: 700;
-  text-decoration: none; border-bottom: none;
-}
-.cv-cta a.ghost { background: transparent; color: var(--text) !important; border: 1px solid var(--border); }
-.cv-cta a:hover { filter: brightness(1.1); }
-.cv-toc { display: flex; flex-wrap: wrap; gap: 0.4rem 0.8rem; margin-bottom: var(--space-6); font-size: var(--text-sm); }
-.cv-toc a { color: var(--text-3); text-decoration: none; border-bottom: none; padding: 2px 8px; border-radius: 999px; background: var(--surface-1); border: 1px solid var(--border); }
-.cv-toc a:hover { color: var(--text); }
-.cv-pdf-link { display: inline-block; float: right; margin-top: calc(var(--space-4) * -1); padding: 4px 12px; border: 1px solid var(--border); border-radius: 999px; font-size: var(--text-xs); color: var(--text-2); text-decoration: none; }
-.cv-pdf-link:hover { color: var(--accent); border-color: var(--accent); }
-@media (max-width: 640px) { .cv-pdf-link { float: none; display: inline-block; margin-top: var(--space-3); } }
+  .cv-wrap { max-width: 900px; margin: 0 auto; padding: var(--space-6) var(--space-4) var(--space-16); }
+  .cv-actions { display: flex; gap: var(--space-3); flex-wrap: wrap; margin: var(--space-5) 0 var(--space-8); }
+  .cv-actions a { display: inline-block; padding: 10px 18px; border: 1px solid var(--border); text-decoration: none; font-weight: 700; }
+  .cv-actions a.primary { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+  .cv-note { border: 1px solid var(--border); border-left: 3px solid var(--accent); padding: var(--space-5); margin: var(--space-6) 0; }
+  .cv-note h2 { margin-top: 0; }
+  .cv-glossary { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: var(--space-4); }
+  .cv-glossary dt { font-weight: 700; margin-bottom: var(--space-1); }
+  .cv-glossary dd { margin: 0; color: var(--text-3); font-size: var(--text-sm); }
+  .cv-body { max-width: 78ch; }
+  .cv-body h1 { font-size: var(--text-2xl); margin-bottom: var(--space-2); }
+  .cv-body h2 { font-size: var(--text-xl); margin: var(--space-10) 0 var(--space-4); padding-bottom: var(--space-2); border-bottom: 1px solid var(--border); }
+  .cv-body h3 { font-size: var(--text-base); margin: var(--space-6) 0 var(--space-2); }
+  .cv-body p, .cv-body li { font-size: var(--text-sm); line-height: 1.65; }
+  .cv-body ul { padding-left: var(--space-5); }
+  .cv-body li { margin-bottom: var(--space-2); }
+  .cv-body hr { margin: var(--space-8) 0; }
+  .cv-body a { color: var(--accent); }
 </style>
 </head>
-<body class="cv-page">
-<div class="cv-wrap">
-
-  <nav class="util" aria-label="Site">
+<body>
+<nav class="util" aria-label="Site">
   <a href="/">index</a>
+  <a href="/work/">work</a>
+  <a href="/case-studies/">cases</a>
+  <a href="/process/">process</a>
+  <a href="/gallery/">gallery</a>
   <a href="/cv/" aria-current="page">cv</a>
-  <a href="/skim/">skim</a>
+  <a href="/products/">episodes</a>
   <a href="/how/">how</a>
   <a href="/provenance/">logs</a>
   <a href="/tools/">tools</a>
-  <a href="/products/">episodes</a>
-  <a href="/channels/">channels</a>
-  <a href="/jobs/">jobs</a>
 </nav>
-<a class="cv-pdf-link" href="/Alabi_Taiwo_CV.pdf" download>Download PDF &darr;</a>
-
-  <header class="cv-header">
-    <h1 class="cv-h1">Taiwo Alabi</h1>
-    <p class="cv-tagline">I build systems that know when they are unsure.</p>
-    <p class="cv-identity"><strong>AI, data governance &amp; process automation.</strong> Dublin, Ireland. Open to graduate &amp; junior roles from January 2027.</p>
-    <p class="cv-meta">
-      <a href="mailto:newalabitaiwo625@gmail.com">newalabitaiwo625@gmail.com</a>
-      <span>&middot;</span>
-      <a href="tel:+353870042838">+353 87 00 42838</a>
-      <span>&middot;</span>
-      <a href="https://www.linkedin.com/in/tami-alabi/" target="_blank" rel="noopener">LinkedIn</a>
-      <span>&middot;</span>
-      <a href="https://github.com/iamtamilore" target="_blank" rel="noopener">GitHub</a>
-      <span>&middot;</span>
-      <a href="/" target="_blank" rel="noopener">iamtamilore.github.io</a>
-    </p>
-    <p class="cv-permit">STAMP 2, AVAILABLE TO WORK 20 HOURS PER WEEK. CRITICAL SKILLS EMPLOYMENT PERMIT SPONSORSHIP REQUIRED FOR FULL-TIME WORK.</p>
-  </header>
-
-  <nav class="cv-toc">
-    <a href="#summary">Summary</a>
-    <a href="#experience">Experience</a>
-    <a href="#projects">Projects</a>
-    <a href="#education">Education</a>
-    <a href="#skills">Skills</a>
-    <a href="#interests">Interests</a>
-    <a href="#contact">Contact</a>
-  </nav>
-
-  <aside class="cv-aside">
-    <h3>What this CV is, in one sentence</h3>
-    <p>I build, audit, and ship systems where a wrong decision has a real cost, telecom customer records, patient histories, contract law, AI-generated imagery. The job is to know when a model is unsure, build that in as a feature, and leave evidence behind.</p>
-    <p>Most of my work falls in the gap between <em>what the model said</em> and <em>what we should ship</em>. That gap is where AI engineers live who actually catch production failures. That is the work I want.</p>
+<main class="cv-wrap">
+  <div class="cv-actions">
+    <a class="primary" href="/Alabi_Taiwo_CV.pdf" download>Download the Agent Foundations PDF</a>
+    <a href="/work/">Browse all 37 systems</a>
+  </div>
+  <aside class="cv-note">
+    <p class="eyebrow">How to read this CV</p>
+    <h2>Terms used in the application</h2>
+    <p>The CV keeps the exact wording used for applications. The definitions below explain the engineering terms for a reader who has not worked with AI systems.</p>
+    <dl class="cv-glossary"><div><dt>Agent</dt><dd>A program that can choose and call tools to complete a task, rather than returning one fixed answer.</dd></div><div><dt>MCP</dt><dd>Model Context Protocol, a standard that lets an AI application call tools through a defined interface.</dd></div><div><dt>RAG</dt><dd>Retrieval-augmented generation. The system finds relevant source text before asking a model to answer from it.</dd></div><div><dt>Vector search</dt><dd>A way of comparing records by the numerical meaning of their text, rather than only matching exact words.</dd></div><div><dt>Evaluation harness</dt><dd>A controlled test that runs a system on known inputs and applies a fixed scoring rule.</dd></div><div><dt>Confidence gate</dt><dd>A rule that sends an uncertain prediction to a person instead of forcing a decision.</dd></div><div><dt>Orchestration</dt><dd>The layer that decides what runs, when it runs, and what happens when it fails.</dd></div><div><dt>Append-only ledger</dt><dd>A record that adds new outcomes without changing earlier entries.</dd></div></dl>
   </aside>
+  <article class="cv-body">
+<h1>Taiwo Alabi</h1>
+<p><strong>Backend Engineer (Python), AI Engineering: Agent
+Foundations</strong></p>
+<p>newalabitaiwo625@gmail.com | +353 87 004 2838 |
+linkedin.com/in/tami-alabi | github.com/iamtamilore |
+iamtamilore.github.io | County Dublin D03 K0Y3, Ireland</p>
+<hr />
+<h2 id="profile">Profile</h2>
+<p>I build Python backend services that run AI agents in production, and
+I write the evaluations that prove the agents behave. I built the
+multi-model gateway that every model call on my machine passes through,
+with a response cache, a per-call budget guard, a daily spend ceiling
+and a detector that quarantines reasoning burns. On 10 November 2026,
+its ledger held 33,104 calls with token counts, endpoint and cost.
+Around it I wired eight MCP servers into one agent layer, added a
+watchdog that restores a dead server with no human intervention, and
+built the scheduling layer for 18 production jobs so a job that fires
+and fails is distinguishable from a job that never fires. The Smart
+Medical Records Engine is a clinical assistant on FastAPI and PostgreSQL
+with 768 dimensional vector search, running across four Docker Compose
+services with retrieval scoped per patient, physician authorization, PII
+redaction and an audit log of every access. The Customer Care Process
+Automation system is an AI routing agent reaching 95.2% routing accuracy
+on 42 held out tickets, behind a confidence gate that escalates
+uncertain tickets to a human instead of guessing. At Huawei I automated
+CRM extraction in Python, validated 100k+ rows of engagement data in
+SQL, and helped design over 440 User Acceptance Test cases for a data
+migration covering 400 million daily call records. MSc Artificial
+Intelligence, National College of Ireland, completing January 2027, and
+available for full time work from that date. Based in Dublin, working
+remotely across Irish and UK timezones.</p>
+<hr />
+<h2 id="selected-systems">Selected Systems</h2>
+<p><strong><a href="https://github.com/iamtamilore">Multi-model LLM
+gateway</a></strong>: Python, sqlite, kie.ai, OpenRouter, NVIDIA NIM</p>
+<ul>
+<li>Problem: Every model call was a direct provider call, so there was
+no cache, no per-call budget, no spend ceiling, no lineage, and no way
+to tell a reasoning burn from a real answer.</li>
+<li>Action: I built one chokepoint for every call, with a sha256
+response cache keyed on model, messages and parameters, a per-call
+budget guard, a daily cumulative ceiling read from the ledger, and a
+detector that quarantines a response where completion tokens equal
+reasoning tokens and content is empty.</li>
+<li>Result: The ledger held 33,104 calls on 10 November 2026, with token
+counts, endpoint and cost. The registry separates vendor facts, which
+are fetched and overwritten, from user facts, which are hand-kept and
+never overwritten by a fetch, so a scheduled catalogue sync cannot
+silently drop a routing decision.</li>
+</ul>
+<p><strong><a href="https://github.com/iamtamilore">Multi-agent MCP
+layer</a></strong>: MCP protocol, Python, Node.js, opencode, Claude
+Code</p>
+<ul>
+<li>Problem: Each AI client on the machine had its own route to models,
+memory, code, the web and the browser, so every client drifted into
+different behaviour.</li>
+<li>Action: I wired eight MCP servers into one layer, unified-log,
+kie-ai, code-search, claude-mem, ask, comfyui, wikipedia and browser,
+with six also in the global config so a chat outside the project gets
+the same core set. The model gateway is exposed as MCP tools, so an
+agent inside a chat reaches models through the same budget, cache and
+ledger as the command line.</li>
+<li>Result: A watchdog tails the transport error log, bumps the affected
+server’s restart marker in both config files, and the client respawns
+the server, verified end to end on a SIGTERM with no human
+intervention.</li>
+</ul>
+<p><strong><a href="https://github.com/iamtamilore">Cron orchestration
+with a verification ledger</a></strong>: bash, Python, JSONL ledger,
+systemd</p>
+<ul>
+<li>Problem: 18 scheduled jobs were failing silently. A job that fires
+and fails and a job that never fires leave identical evidence in a log
+file.</li>
+<li>Action: I routed every crontab line through one runner with a job
+name argument and made the orchestrator compare the job registry against
+an append-only ledger, writing an explicit per-run outcome so the two
+failure modes are distinguishable. The orchestrator self-heals the one
+repairable drift, and notifications fire only on a state change, because
+a monitor that reports a known-bad state every fifteen minutes trains
+the reader to ignore it.</li>
+<li>Result: 18 jobs under one registry and 3,284 ledger records, with
+the exit code visible to anything watching it, 0 healthy and 1 not.</li>
+</ul>
+<p><strong><a href="https://iamtamilore.github.io/p/clinical-rag/">Smart
+Medical Records Engine</a></strong>: FastAPI, PostgreSQL with pgvector,
+Docker Compose</p>
+<ul>
+<li>Problem: A doctor has ten minutes and a patient history spread
+across years of notes, and the one critical line, a past reaction to a
+medicine, gets missed.</li>
+<li>Action: I built a clinical assistant that answers plain English
+questions from that patient’s own records, with retrieval scoped per
+patient so no other patient’s notes can surface, plus physician
+authorization, PII redaction, and an audit log of every access. Thirty
+adversarial probes tried to pull another patient’s note and none got
+through.</li>
+<li>Result: I ran the whole stack, the API, PostgreSQL with 768
+dimensional vector search and a self hosted Llama 3.1, across four
+Docker Compose services, so patient data never leaves the hospital’s own
+network.</li>
+</ul>
+<hr />
+<h2 id="evaluation-and-quality-engineering">Evaluation and Quality
+Engineering</h2>
+<p><strong>Turing, Remote (Dublin)</strong>: Apr 2026 to May 2026
+<strong>AI Quality Analyst, Google Gemini evaluation
+programme</strong></p>
+<ul>
+<li>Measured the quality of Google Gemini responses on personalization
+features.</li>
+<li>Wrote prompts to test the models and documented the process for a
+Reinforcement Learning from Human Feedback project.</li>
+</ul>
+<p><strong>Automated QA Gate for AI Generated Imagery</strong>:
+TensorFlow/Keras, ResNet50, scikit-learn</p>
+<ul>
+<li>Built a gate over frozen ResNet50 Siamese features that reaches
+precision 1.00 at F1 0.90 on 90 sealed test pairs, against pixel
+difference and kNN baselines at F1 0.59 and 0.26.</li>
+<li>Tuning the decision threshold from the sigmoid default of 0.5 to
+0.4821, on validation data only, recovered all eight missed pairs
+without adding a single false positive and lifted F1 from 0.90 to
+1.00.</li>
+<li>Public write up with ROC curve and confusion matrix. <a
+href="https://iamtamilore.github.io/p/image-qa/">Read the write-up
+(PDF)</a></li>
+</ul>
+<hr />
+<h2 id="professional-experience">Professional Experience</h2>
+<p><strong>Huawei Technologies (via RGS), Globacom Telecommunications
+department, Lagos</strong></p>
+<p><strong>Data Analyst Intern</strong>: Mar 2025 to Jul 2025</p>
+<ul>
+<li>Worked with stakeholders to identify data and reporting
+requirements, turning raw data into relevant and meaningful
+insights.</li>
+<li>Managed Power BI assets, including reports, dashboards, workspaces,
+and underlying datasets, and designed scalable data models with advanced
+analytics enabled in the reporting.</li>
+</ul>
+<p><strong>Data Specialist</strong>: Jul 2025 to Dec 2025 (internship
+extended by the team)</p>
+<ul>
+<li>Created database structures and tables from 20+ business
+requirements, and dashboards in SSRS and Tableau showing 30+ KPIs across
+departmental operations.</li>
+<li>Wrote Python scripts to automate daily CRM data extraction, cutting
+manual reporting time by 15 hours per week.</li>
+<li>Ran SQL queries to clean and validate 100k+ rows of user engagement
+data, which surfaced a 14% discrepancy in monthly active user
+metrics.</li>
+<li>Worked with the solutions architect on a data migration architecture
+for 400 million daily call records, partitioning customer data into
+domain specific buckets, and with the test team designed over 440 User
+Acceptance Test cases across Q2 to Q4 so faults were caught before
+anything went live.</li>
+</ul>
+<hr />
+<h2 id="education">Education</h2>
+<p><strong>National College of Ireland, Dublin</strong>: Jan 2026 to Jan
+2027 <strong>MSc Artificial Intelligence</strong> Modules: Machine
+Learning, Intelligent Agents and Process Automation, AI Driven Decision
+Making, Engineering and Evaluating AI, Natural Language Processing, Data
+Governance and Ethics, Database Programming, Foundations of AI.</p>
+<p><strong>Afe Babalola University, Lagos</strong>: Sep 2021 to Feb 2025
+<strong>BSc Computer Science, Second Class Honours, Upper Division
+(2.1)</strong></p>
+<hr />
+<h2 id="technical-skills">Technical Skills</h2>
+<p><strong>Python backend and APIs:</strong> Python, FastAPI, Flask,
+REST services, asynchronous and background processing patterns, data
+models, PostgreSQL, SQL, data modeling, SQLite.</p>
+<p><strong>Agent platforms:</strong> MCP servers, agent orchestration,
+multi agent flows, tool calling, model routing, fallback chains, LLM
+gateways, RAG pipelines, LLM evaluation, vector search (pgvector,
+FAISS), Claude API, LangGraph, confidence gating and human
+escalation.</p>
+<p><strong>Testing and operations:</strong> pytest patterns, automated
+evaluation harnesses, confusion matrix analysis, ROC curves, cron and
+scheduler orchestration, append-only ledgers, self-healing watchdogs,
+Docker, Docker Compose, Kubernetes, Google Cloud, autoscaling.</p>
+<p><strong>Data and governance:</strong> Power BI, SSRS, Tableau, GDPR
+data cataloging, data lineage, data quality validation, UAT design.</p>
+<p><strong>Tools:</strong> Git, GitHub, Claude Code, native Linux,
+Microsoft 365.</p>
+<hr />
+<h2 id="certifications">Certifications</h2>
+<p><strong>Kubernetes: clusters, pods, auto scaling, memory management,
+distributed systems</strong> (Udemy, 2026): <a
+href="https://www.udemy.com/certificate/UC-ba3bf541-de9d-4505-9868-d80dfd766b2b/">View
+certificate</a></p>
+<hr />
+<h2 id="work-authorisation">Work Authorisation</h2>
+<p>Irish Stamp 2 during my MSc: 20 hours per week in term and 40 hours
+per week over the college holidays, including December. I complete my
+MSc in Artificial Intelligence in January 2027 and am eligible for Irish
+Stamp 1G post-study graduate work permission from that date, which
+permits full time employment at 40 hours per week. Based in Dublin,
+Ireland, working remotely in Irish and UK timezones.</p>
 
-  <section class="cv-section" id="summary">
-    <h2 class="cv-sec-title">Professional summary</h2>
-    <div class="cv-body-text">
-      <p>Master's student in Artificial Intelligence at National College of Ireland (January 2026 to January 2027), available for graduate roles from January 2027 and internships or part-time contracts before then. Two summers in the Globacom Telecommunications Department at Huawei gave me a foundation in production data engineering and process quality, 100k+ record audits, 440+ UAT cases, 30+ KPIs, a 14% reporting discrepancy I found and fixed.</p>
-      <p>Since then I have built five end-to-end systems on top of that foundation: a customer-care triage bot with a confidence-gate human escalation (95.2% routing accuracy), a patient-history retrieval system that never leaks, a privacy-policy analyser with 4,527 chunks of evidence-backed citations, and an AI-image quality gate tuned so it never once raised a false alarm. Four live demos, code on GitHub.</p>
-      <p><strong>What I bring beyond models:</strong> BPMN 2.0 process modelling before any code, UAT case design, data-governance documentation that survives an audit, stakeholder translation between data teams and product teams. These are the things the AI/ML literature does not teach, and they are what makes an AI system actually shippable.</p>
-    </div>
-  </section>
-
-  <section class="cv-section" id="experience">
-    <h2 class="cv-sec-title">Experience</h2>
-    <div class="cv-body-text">
-
-      <div class="cv-entry">
-        <p class="cv-entry-title">Data Specialist</p>
-        <p class="cv-entry-subtitle">Huawei Technologies, Globacom Telecommunications Department, Lagos &middot; <span>Mar 2025-Dec 2025 &middot; 10 mos</span></p>
-        <div class="cv-entry-body">
-          <p>Progressed from Data Analyst Intern; the team extended the placement. Worked inside a network that carries 400 million call records a day, which is where I learned what scale does to a mistake.</p>
-          <ul class="cv-entry-bullets">
-            <li><strong>Data governance &amp; migration</strong>, Supported customer data migration with the solutions architect; classified records by type and sensitivity for auditable migration. Designed 440+ UAT cases with the test team, validating migration integrity and data controls before cutover. Documented data handling rules and GDPR-aligned data cataloguing for migrated datasets.</li>
-            <li><strong>Data quality &amp; analytics</strong>, Profiled, cleaned and validated 100k+ user engagement rows in SQL; found and fixed a 14% MAU reporting discrepancy. Gathered stakeholder requirements and turned them into governed, reusable datasets and measures. Owned Power BI reports, dashboards, workspaces and datasets; added advanced analytics for self-service.</li>
-            <li><strong>Reporting &amp; automation</strong>, Built SSRS and Tableau dashboards tracking 30+ KPIs across departmental operations. Automated daily CRM data extraction in Python; saved ~15 hours of manual reporting weekly. Designed database tables from 20+ business requirements; supported rollout of new software systems.</li>
-            <li><strong>Process modelling</strong>, Modelled the customer-care triage process in BPMN 2.0 before writing any code, so the implementation matched a diagram a non-engineer could review. The same BPMN scaffold is what the automated triage bot (see Projects) was built on.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="cv-entry">
-        <p class="cv-entry-title">AI Quality Analyst, Google Gemini evaluation programme</p>
-        <p class="cv-entry-subtitle">Turing &middot; Contract &middot; <span>Apr 2026-May 2026 &middot; 2 mos</span></p>
-        <div class="cv-entry-body">
-          <p>Eighty hours of contract work, remote. Evaluated LLM outputs against structured rubrics for factual accuracy, safety, and hallucination. Wrote deliberately tricky prompts to find where the rubric broke down; documented the decision rules so a second annotator would agree.</p>
-        </div>
-      </div>
-
-      <div class="cv-entry">
-        <p class="cv-entry-title">Data Analyst Intern</p>
-        <p class="cv-entry-subtitle">Huawei Technologies, Globacom Telecommunications Department, Lagos &middot; <span>Mar 2025-Jul 2025 &middot; 5 mos</span></p>
-        <div class="cv-entry-body">
-          <p>Translated raw data into actionable business insights by engaging with stakeholders to define reporting requirements. Managed Power BI assets including reports, dashboards, workspaces and underlying datasets. Built scalable data models and integrated advanced analytics into reporting pipelines. Led data profiling, cleaning and transformation workflows. Internship extended by the team due to strong performance.</p>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <section class="cv-section" id="projects">
-    <h2 class="cv-sec-title">Projects</h2>
-    <div class="cv-body-text">
-
-      <div class="cv-entry">
-        <p class="cv-entry-title">Customer Care Process Automation <span class="cv-project-tag">IAPA MODULE 2</span></p>
-        <p class="cv-entry-subtitle">Python, scikit-learn, BPMN 2.0, pandas &middot; <span>Jul 2026 - Aug 2026</span> &middot; <span>IAPA MODULE 2, NCI</span></p>
-        <div class="cv-entry-body">
-          <p>The customer-care process at a mobile-network operator routes complaints about SIM, billing and network issues to three different back-end teams. I modelled the as-is process in BPMN 2.0, automated it with a TF-IDF + Naive Bayes classifier, and gated the classifier behind a confidence threshold so uncertain tickets escalate to a human instead of being forced into the wrong bucket.</p>
-          <ul class="cv-entry-bullets">
-            <li><strong>95.2% routing accuracy on held-out tickets</strong>, the held-out set is the right measure, not training accuracy.</li>
-            <li><strong>0.55 confidence gate</strong>, tickets below this score are escalated, not guessed. The threshold was tuned on validation, not chosen by default.</li>
-            <li><strong>BPMN first, code second</strong>, the implementation matched a diagram a non-engineer could review before any line of Python was written.</li>
-            <li><strong>Second-bot validation</strong>, a separate process validates each routing decision against the operator's CRM, catches drift, writes the daily report. The two manual processes it replaced (intake log + dispatch log) are auditable from the bot's output.</li>
-          </ul>
-          <p class="cv-meta-pair"><span>Why I list this:</span> this is the project that has the strongest case for a CSEP role. It was the live work, the BPMN is the proof, and the escalation gate is the rule that says "I know when I am not sure."</p>
-          <div class="cv-links">
-            <a href="/assets/docs/care_agent_writeup.pdf" target="_blank" rel="noopener">Write-up PDF</a>
-            <a href="/assets/img/as_is.jpg" target="_blank" rel="noopener">As-Is BPMN</a>
-            <a href="/assets/img/to_be.jpg" target="_blank" rel="noopener">To-Be BPMN</a>
-            <a href="/p/care-agent/" target="_blank" rel="noopener">7-min walkthrough</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="cv-entry">
-        <p class="cv-entry-title">Smart Medical Records Engine <span class="cv-project-tag">HEALTHCARE AI</span></p>
-        <p class="cv-entry-subtitle">FastAPI, PostgreSQL/pgvector, LangGraph, Docker &middot; <span>Sep 2025-Feb 2026</span></p>
-        <div class="cv-entry-body">
-          <p>Retrieval system over patient notes: surfaces critical history (e.g., prior allergies, contraindications) in seconds. The interesting design constraint was not accuracy, it was scoping, wrong-patient records have to be excluded BEFORE ranking, not filtered after, or the model will surface the wrong patient's allergy list and the clinician will see it first.</p>
-          <ul class="cv-entry-bullets">
-            <li><strong>Schema-level scoping</strong>, patient identity is enforced at the database layer, so even a misconfigured query cannot leak across patients.</li>
-            <li><strong>30 adversarial probes, zero leaks</strong>, the test set was designed to break the model, not pass it.</li>
-            <li><strong>On-premise LLM</strong>, data never leaves the hospital network. The PII is stripped before inference. There is a full audit log on every access.</li>
-            <li><strong>Four Docker services</strong>, LangGraph orchestrates retrieval, ranking, generation, and the audit log. Each service is independently deployable.</li>
-          </ul>
-          <div class="cv-links">
-            <a href="/assets/docs/clinical_rag_writeup.pdf" target="_blank" rel="noopener">Write-up PDF</a>
-            <a href="/assets/img/rag_architecture.jpg" target="_blank" rel="noopener">Architecture</a>
-            <a href="https://github.com/iamtamilore/agentic_rag_fastapi" target="_blank" rel="noopener">Code</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="cv-entry">
-        <p class="cv-entry-title">TermsGuard AI <span class="cv-project-tag">LIVE</span></p>
-        <p class="cv-entry-subtitle">Sentence Transformers, FAISS, Claude API, Flask &middot; <span>Feb 2026-Apr 2026</span></p>
-        <div class="cv-entry-body">
-          <p>Flags risky clauses in privacy policies. Grounded in a 102-clause reference set (52 fair, 50 unfair). Every flag carries the exact clause text it was drawn from, so the answer is "this clause, this law, this is why", not "the model said so."</p>
-          <ul class="cv-entry-bullets">
-            <li><strong>87% F1</strong> on the sealed test set, with 0.78 precision and 0.97 recall.</li>
-            <li><strong>Latency cut from 28 s to under 10 s</strong> by re-ranking with a smaller cross-encoder only on the top-k candidates from FAISS.</li>
-            <li><strong>4,527-chunk retrieval index</strong> of GDPR, EU consumer law, and Irish Data Protection Commission guidance, updated as the regulations update.</li>
-            <li><strong>Up to 15 flagged clauses</strong> per analysis are passed to Claude for a second-pass verification. The final answer is the conjunction of the two.</li>
-          </ul>
-          <div class="cv-links">
-            <a href="https://newtazer-terms-guard-ai.hf.space" target="_blank" rel="noopener">Live demo</a>
-            <a href="/assets/docs/termsguard_writeup.pdf" target="_blank" rel="noopener">Write-up PDF</a>
-            <a href="/assets/img/tg_architecture.png" target="_blank" rel="noopener">Architecture</a>
-            <a href="https://github.com/iamtamilore/terms-guard-ai" target="_blank" rel="noopener">Code</a>
-            <a href="/corpus/">Corpus</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="cv-entry">
-        <p class="cv-entry-title">Automated QA Gate for AI-Generated Imagery</p>
-        <p class="cv-entry-subtitle">TensorFlow/Keras, ResNet50, scikit-learn &middot; <span>Jun 2026-Present</span></p>
-        <div class="cv-entry-body">
-          <p>A similarity gate that blocks non-compliant AI-generated product imagery before it reaches a client. The interesting bit is the threshold: it was tuned on validation data so the model never once raised a false alarm, because a false alarm was the error that would have reached a client.</p>
-          <ul class="cv-entry-bullets">
-            <li><strong>F1 0.90, precision 1.00</strong> on the sealed test pairs.</li>
-            <li><strong>Baselines measured first</strong>: pixel difference F1 0.59, kNN F1 0.26. The gap between 0.26, 0.59 and 0.90 is the result.</li>
-            <li><strong>Acceptance cutoff moved off the model's default 0.5</strong> to 0.4821. That one change recovered all 8 misses and created no new false positives. The default 0.5 was not a fact, it was a habit.</li>
-          </ul>
-          <div class="cv-links">
-            <a href="/assets/docs/image_qa_writeup.pdf" target="_blank" rel="noopener">Write-up PDF</a>
-            <a href="/assets/img/cm_siamese.jpg" target="_blank" rel="noopener">Confusion matrix</a>
-            <a href="/assets/img/architecture.jpg" target="_blank" rel="noopener">Architecture</a>
-            <a href="https://github.com/iamtamilore/campaign-image-qa" target="_blank" rel="noopener">Code</a>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <section class="cv-section" id="education">
-    <h2 class="cv-sec-title">Education</h2>
-    <div class="cv-body-text">
-      <div class="cv-entry">
-        <p class="cv-entry-title">MSc Artificial Intelligence</p>
-        <p class="cv-entry-subtitle">National College of Ireland, Dublin &middot; <span>Jan 2026-Jan 2027</span></p>
-        <div class="cv-entry-body">
-          <p>Focus: AI evaluation and critique, evaluation design, deployment patterns, sliced evaluation, confidence calibration.</p>
-          <p>Modules covered: applied machine learning, deep learning, natural language processing, knowledge representation, data governance, ethics of AI. Practicum modules on the Master's include the IAPA module that produced the Customer Care Process Automation (see Projects).</p>
-        </div>
-      </div>
-      <div class="cv-entry">
-        <p class="cv-entry-title">BSc Computer Science (2.1)</p>
-        <p class="cv-entry-subtitle">Afe Babalola University, Lagos &middot; <span>Sep 2021-Feb 2025</span></p>
-        <div class="cv-entry-body">
-          <p>Final-year project: a process-modelled complaint-routing proof of concept. That work became the seed of the Customer Care Process Automation I built at Huawei.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="cv-section" id="skills">
-    <h2 class="cv-sec-title">Skills</h2>
-    <div class="cv-body-text">
-      <p style="font-size: var(--text-sm); color: var(--text-3); margin-bottom: var(--space-4);">Listed roughly in the order of &ldquo;things I would be useful on day one,&rdquo; not as a flat skill inventory. If a tool is here, I have shipped it in production or used it to defend an audit decision, not just read about it.</p>
-      <dl class="cv-grid">
-        <div><dt>AI &amp; ML</dt><dd>RAG pipelines (pgvector, FAISS), LangGraph, LLM evaluation &amp; calibration, model evaluation (ROC, precision/recall trade-offs), scikit-learn, TensorFlow/Keras, ResNet50, sentence-transformers, prompt engineering, OCR, document AI</dd></div>
-        <div><dt>Data engineering</dt><dd>Python ETL, SQL, PostgreSQL, pgvector, FAISS, MySQL, Hadoop HDFS, HBase, Google BigQuery, GaussDB, data lineage, schema design, UAT, ETL automation, Python ETL on production datasets</dd></div>
-        <div><dt>Data governance &amp; quality</dt><dd>Data classification, GDPR-aligned data cataloguing, data lineage documentation, data quality audits, UAT / controls testing, BPMN 2.0 process modelling, GDPR Article 30 record-of-processing, stakeholder translation</dd></div>
-        <div><dt>Visualisation &amp; reporting</dt><dd>Power BI (reports, dashboards, workspaces, datasets), Tableau, SSRS, MAU/DAU operational KPI design</dd></div>
-        <div><dt>Process automation</dt><dd>Robotic process automation (RPA), workflow automation, escalation gates, ticket triage, CRM automation, build-then-test-then-document, BPMN 2.0 modelling, as-is / to-be process capture</dd></div>
-        <div><dt>Telecom &amp; business analytics</dt><dd>Subscriber metrics (MAU/DAU/ARPU), operational KPI reporting, CRM analytics, churn analysis, call-detail-record (CDR) workflows, network KPI dashboards, 400-million-record scale data engineering</dd></div>
-        <div><dt>Backend &amp; infrastructure</dt><dd>FastAPI, Flask, Docker, Kubernetes, Google Cloud, GA4, REST API design, audit logging, observability</dd></div>
-        <div><dt>Compliance &amp; privacy</dt><dd>GDPR, EU consumer law (UCPD), privacy-policy analysis, on-premise deployment for patient data, PII redaction, ROPA documentation</dd></div>
-      </dl>
-    </div>
-  </section>
-
-  <section class="cv-section" id="languages">
-    <h2 class="cv-sec-title">Languages</h2>
-    <div class="cv-body-text">
-      <p><strong>English</strong>, Native.</p>
-    </div>
-  </section>
-
-  <section class="cv-section" id="interests">
-    <h2 class="cv-sec-title">Interests &amp; achievements</h2>
-    <div class="cv-body-text">
-      <ul class="cv-entry-bullets">
-        <li><strong>Filmmaking &amp; Photography Club, NCI</strong>, shoot planning, editing, event photography. The club is where I learned to leave evidence behind in a folder someone else could audit, which is the same habit that shows up in my CV write-ups and BPMN diagrams.</li>
-        <li><strong>CV / portfolio tooling</strong>, the rater UI on this site (Tools tab) was built for a graduate OCR accuracy study. It is open-source, client-side, no backend, no tracking. It is also the pattern I want to apply to recruitment tooling, auditable, not algorithmic.</li>
-        <li><strong>Practitioner track record</strong>, one published module (IAPA module 2), one professional services contract (Turing Gemini evaluation, 80 hours), one extended internship placement (Huawei/Globacom).</li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="cv-section" id="contact">
-    <h2 class="cv-sec-title">Get in touch</h2>
-    <div class="cv-body-text">
-      <p>Best ways to reach me, in order:</p>
-      <ul class="cv-entry-bullets">
-        <li><strong>Email:</strong> <a href="mailto:newalabitaiwo625@gmail.com">newalabitaiwo625@gmail.com</a>, fastest, and I read everything within 24 hours.</li>
-        <li><strong>WhatsApp:</strong> <a href="https://wa.me/353870042838">+353 87 00 42838</a>, for chats that need a back-and-forth.</li>
-        <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/tami-alabi/" target="_blank" rel="noopener">tami-alabi</a>, for formal reach-out, recruiter contact, references.</li>
-      </ul>
-      <p>If you are hiring for a graduate role in AI engineering, data science, data governance, or process automation in Dublin, I would love to hear from you. I am available for graduate roles from January 2027, and for part-time or contract work in the meantime.</p>
-      <p><em>One sentence I would say out loud to a recruiter:</em> "I build systems that know when they are unsure, and I leave the evidence behind."</p>
-    </div>
-
-    <div class="cv-cta">
-      <a href="/Alabi_Taiwo_CV.pdf">Download CV (PDF)</a>
-      <a href="mailto:newalabitaiwo625@gmail.com" class="ghost">Email me</a>
-      <a href="/corpus/" class="ghost">Privacy corpus</a>
-      <a href="/jobs/" class="ghost">See applications tracker</a>
-    </div>
-  </section>
-
-</div>
+  </article>
+  <div class="endcta">
+    <a class="cta" href="mailto:newalabitaiwo625@gmail.com?subject=Agent%20Foundations%20application">Email Taiwo</a>
+    <a class="cta cta-ghost" href="/work/">See the complete work index</a>
+  </div>
+</main>
 </body>
 </html>

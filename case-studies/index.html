@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Case studies | Taiwo Alabi</title>
+<meta name="description" content="Four deep cases. Each one starts with the failure it prevents, then explains the mechanism, the measured result and the limit.">
+<script>document.documentElement.setAttribute("data-theme",localStorage.getItem("tw-theme")||"")</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="/assets/css/design-system.css">
+<link rel="stylesheet" href="/assets/css/mark-zero.css">
+<style>
+  .route-intro { max-width: 72ch; }
+  .index-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: var(--space-5); margin-top: var(--space-6); }
+  .index-card { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid transparent; padding: var(--space-5); }
+  .index-card:hover { border-left-color: var(--accent); }
+  .index-card h2 { font-size: var(--text-xl); margin: var(--space-3) 0; }
+  .index-card h3 { font-size: var(--text-base); margin: var(--space-4) 0 var(--space-2); }
+  .index-card p, .index-card li { font-size: var(--text-sm); line-height: 1.65; }
+  .index-card ul { padding-left: var(--space-5); }
+  .index-card .cta { display: inline-block; margin-top: var(--space-3); font-size: var(--text-sm); }
+  .definition { border: 1px solid var(--border); border-left: 3px solid var(--accent); padding: var(--space-5); margin: var(--space-6) 0; }
+  .definition h2 { margin-top: 0; }
+  .media-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: var(--space-4); margin-top: var(--space-6); }
+  .media-card { border: 1px solid var(--border); padding: var(--space-4); background: var(--surface); }
+  .media-card h2 { font-size: var(--text-lg); margin: var(--space-2) 0; }
+  .media-card p { font-size: var(--text-sm); color: var(--text-3); }
+  .media-card img { width: 100%; height: auto; display: block; margin-bottom: var(--space-3); }
+</style>
+</head>
+<body>
+<nav class="util" aria-label="Site">
+  <a href="/">index</a>
+  <a href="/work/">work</a>
+  <a href="/case-studies/" aria-current="page">cases</a>
+  <a href="/process/">process</a>
+  <a href="/gallery/">gallery</a>
+  <a href="/cv/">cv</a>
+  <a href="/products/">episodes</a>
+</nav>
+<main class="wrap">
+  <header style="padding-top: var(--space-16)">
+    <p class="eyebrow">cases</p>
+    <h1 class="claim-display">Case studies</h1>
+    <p class="route-intro">Four deep cases. Each one starts with the failure it prevents, then explains the mechanism, the measured result and the limit.</p>
+  </header>
+  <div class="rule"></div>
+  
+<section class="definition">
+  <h2>What a case study is</h2>
+  <p>A case study explains one engineering decision from the problem through the mechanism, the measured result and the limit. It does not treat a working file as proof by itself. The reader should be able to check what was built, what it was compared against and what remains unproven.</p>
+</section>
+<section class="index-grid" aria-label="Published case studies">
+  <article class="index-card">
+    <span class="eyebrow">Contract analysis</span>
+    <h2>TermsGuard AI</h2>
+    <h3>The problem</h3>
+    <p>Similarity alone can treat a sentence that says data is <em>not</em> sold in the same way as a sentence that says it is sold.</p>
+    <h3>The decision</h3>
+    <p>Rule checks run around the similarity result, and every flagged clause carries the reference material used to justify it.</p>
+    <h3>The evidence</h3>
+    <ul><li>102 hand-labelled reference clauses</li><li>4,527 searchable reference chunks</li><li>Matching-only fallback when the model service is unavailable</li></ul>
+    <a class="cta cta-ghost" href="/p/termsguard/">Read the case study</a>
+  </article>
+  <article class="index-card">
+    <span class="eyebrow">Clinical retrieval</span>
+    <h2>Smart Medical Records</h2>
+    <h3>The problem</h3>
+    <p>A similarity search across many patients can return the wrong patient's note when both records use similar words.</p>
+    <h3>The decision</h3>
+    <p>The patient's identifier is applied before ranking, so other patients' notes are excluded before the model can read them.</p>
+    <h3>The evidence</h3>
+    <ul><li>30 adversarial probes designed to retrieve another patient's note</li><li>30 of 30 passed and zero leaked</li><li>Four services on one private network</li></ul>
+    <a class="cta cta-ghost" href="/p/clinical-rag/">Read the case study</a>
+  </article>
+  <article class="index-card">
+    <span class="eyebrow">Human escalation</span>
+    <h2>Care Agent</h2>
+    <h3>The problem</h3>
+    <p>A wrong automatic route sends a customer to a team that cannot resolve the complaint.</p>
+    <h3>The decision</h3>
+    <p>The confidence gate sends uncertain tickets to a person instead of forcing every ticket into one of five categories.</p>
+    <h3>The evidence</h3>
+    <ul><li>210 labelled tickets, with 42 in each category</li><li>40 of 42 held-out tickets routed correctly</li><li>Confidence threshold of 0.55 before human escalation</li></ul>
+    <a class="cta cta-ghost" href="/p/care-agent/">Read the case study</a>
+  </article>
+  <article class="index-card">
+    <span class="eyebrow">Image quality</span>
+    <h2>Image QA Gate</h2>
+    <h3>The problem</h3>
+    <p>An image can have the correct pose while showing the wrong identity. Accepting that image is the more serious error.</p>
+    <h3>The decision</h3>
+    <p>A Siamese network compares identity features, and the threshold was selected on validation data before the sealed test was opened.</p>
+    <h3>The evidence</h3>
+    <ul><li>90 sealed test pairs</li><li>Precision 1.00, recall 0.82 and F1 0.90</li><li>Pixel difference F1 0.59 and kNN F1 0.26 as simpler comparisons</li></ul>
+    <a class="cta cta-ghost" href="/p/image-qa/">Read the case study</a>
+  </article>
+</section>
+
+  <div class="endcta">
+    <a class="cta" href="/work/">Browse all 37 systems</a>
+    <a class="cta cta-ghost" href="/cv/">See the Agent Foundations CV</a>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Process walkthroughs | Taiwo Alabi</title>
+<meta name="description" content="The order of work, explained slowly. These pages show what enters each process, what changes at each step and where a check refuses the result.">
+<script>document.documentElement.setAttribute("data-theme",localStorage.getItem("tw-theme")||"")</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="/assets/css/design-system.css">
+<link rel="stylesheet" href="/assets/css/mark-zero.css">
+<style>
+  .route-intro { max-width: 72ch; }
+  .index-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: var(--space-5); margin-top: var(--space-6); }
+  .index-card { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid transparent; padding: var(--space-5); }
+  .index-card:hover { border-left-color: var(--accent); }
+  .index-card h2 { font-size: var(--text-xl); margin: var(--space-3) 0; }
+  .index-card h3 { font-size: var(--text-base); margin: var(--space-4) 0 var(--space-2); }
+  .index-card p, .index-card li { font-size: var(--text-sm); line-height: 1.65; }
+  .index-card ul { padding-left: var(--space-5); }
+  .index-card .cta { display: inline-block; margin-top: var(--space-3); font-size: var(--text-sm); }
+  .definition { border: 1px solid var(--border); border-left: 3px solid var(--accent); padding: var(--space-5); margin: var(--space-6) 0; }
+  .definition h2 { margin-top: 0; }
+  .media-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: var(--space-4); margin-top: var(--space-6); }
+  .media-card { border: 1px solid var(--border); padding: var(--space-4); background: var(--surface); }
+  .media-card h2 { font-size: var(--text-lg); margin: var(--space-2) 0; }
+  .media-card p { font-size: var(--text-sm); color: var(--text-3); }
+  .media-card img { width: 100%; height: auto; display: block; margin-bottom: var(--space-3); }
+</style>
+</head>
+<body>
+<nav class="util" aria-label="Site">
+  <a href="/">index</a>
+  <a href="/work/">work</a>
+  <a href="/case-studies/">cases</a>
+  <a href="/process/" aria-current="page">process</a>
+  <a href="/gallery/">gallery</a>
+  <a href="/cv/">cv</a>
+  <a href="/products/">episodes</a>
+</nav>
+<main class="wrap">
+  <header style="padding-top: var(--space-16)">
+    <p class="eyebrow">process</p>
+    <h1 class="claim-display">Process walkthroughs</h1>
+    <p class="route-intro">The order of work, explained slowly. These pages show what enters each process, what changes at each step and where a check refuses the result.</p>
+  </header>
+  <div class="rule"></div>
+  
+<section class="definition">
+  <h2>What a process walkthrough is</h2>
+  <p>A process walkthrough shows the order of work. It explains what enters the process, what each step changes, where a check refuses the result and what leaves the process. A pipeline is a sequence of automated steps. A workflow also includes the decisions and handovers made by people or services.</p>
+</section>
+<section class="index-grid" aria-label="Process walkthroughs">
+  <article class="index-card">
+    <span class="eyebrow">Production method</span>
+    <h2>How I build things</h2>
+    <p>This walkthrough explains the general method used across the media systems: define the failure, choose the gate, keep the evidence, and check the result before release.</p>
+    <h3>What it shows</h3>
+    <ul><li>The order of production steps</li><li>Where human review enters</li><li>Why the order is part of correctness</li></ul>
+    <a class="cta cta-ghost" href="/how/">Open the walkthrough</a>
+  </article>
+  <article class="index-card">
+    <span class="eyebrow">Episode pipeline</span>
+    <h2>Episode production workflow</h2>
+    <p>This page follows one short-form episode through source selection, frame filtering, rotation correction, model selection, cropping, verification and rendering. The order is fixed because a later check depends on an earlier correction.</p>
+    <h3>What it shows</h3>
+    <ul><li>Each pipeline stage and its input</li><li>The quality checks that can refuse a render</li><li>Contact sheets for the selected shots</li></ul>
+    <a class="cta cta-ghost" href="/products/workflow/">Open the workflow</a>
+  </article>
+  <article class="index-card">
+    <span class="eyebrow">Production specification</span>
+    <h2>Episode blueprint</h2>
+    <p>This specification records the production contract: what a shot must contain, how narration becomes timed beats, which checks run before rendering and what the finished file must contain.</p>
+    <h3>What it shows</h3>
+    <ul><li>The input and output contract</li><li>The gate sequence</li><li>The known failure modes</li></ul>
+    <a class="cta cta-ghost" href="/products/blueprint.html">Open the blueprint</a>
+  </article>
+  <article class="index-card">
+    <span class="eyebrow">Evaluation interface</span>
+    <h2>Human rating systems</h2>
+    <p>The rating interfaces let a reviewer compare candidates against a fixed rubric. They are tools for recording judgements, not proof that the chosen candidate is correct.</p>
+    <h3>What it shows</h3>
+    <ul><li>How a candidate enters the review</li><li>How a verdict is recorded</li><li>Why model agreement is not the same as validity</li></ul>
+    <a class="cta cta-ghost" href="/rater/">Open the first rater</a>
+  </article>
+</section>
+
+  <div class="endcta">
+    <a class="cta" href="/work/">Browse all 37 systems</a>
+    <a class="cta cta-ghost" href="/cv/">See the Agent Foundations CV</a>
+  </div>
+</main>
+</body>
+</html>

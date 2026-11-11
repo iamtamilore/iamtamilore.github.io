@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Evidence gallery | Taiwo Alabi</title>
+<meta name="description" content="Diagrams, evaluation tables, episode stills, contact sheets and raw logs, grouped by the question each artefact can answer.">
+<script>document.documentElement.setAttribute("data-theme",localStorage.getItem("tw-theme")||"")</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="/assets/css/design-system.css">
+<link rel="stylesheet" href="/assets/css/mark-zero.css">
+<style>
+  .route-intro { max-width: 72ch; }
+  .index-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: var(--space-5); margin-top: var(--space-6); }
+  .index-card { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid transparent; padding: var(--space-5); }
+  .index-card:hover { border-left-color: var(--accent); }
+  .index-card h2 { font-size: var(--text-xl); margin: var(--space-3) 0; }
+  .index-card h3 { font-size: var(--text-base); margin: var(--space-4) 0 var(--space-2); }
+  .index-card p, .index-card li { font-size: var(--text-sm); line-height: 1.65; }
+  .index-card ul { padding-left: var(--space-5); }
+  .index-card .cta { display: inline-block; margin-top: var(--space-3); font-size: var(--text-sm); }
+  .definition { border: 1px solid var(--border); border-left: 3px solid var(--accent); padding: var(--space-5); margin: var(--space-6) 0; }
+  .definition h2 { margin-top: 0; }
+  .media-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: var(--space-4); margin-top: var(--space-6); }
+  .media-card { border: 1px solid var(--border); padding: var(--space-4); background: var(--surface); }
+  .media-card h2 { font-size: var(--text-lg); margin: var(--space-2) 0; }
+  .media-card p { font-size: var(--text-sm); color: var(--text-3); }
+  .media-card img { width: 100%; height: auto; display: block; margin-bottom: var(--space-3); }
+</style>
+</head>
+<body>
+<nav class="util" aria-label="Site">
+  <a href="/">index</a>
+  <a href="/work/">work</a>
+  <a href="/case-studies/">cases</a>
+  <a href="/process/">process</a>
+  <a href="/gallery/" aria-current="page">gallery</a>
+  <a href="/cv/">cv</a>
+  <a href="/products/">episodes</a>
+</nav>
+<main class="wrap">
+  <header style="padding-top: var(--space-16)">
+    <p class="eyebrow">gallery</p>
+    <h1 class="claim-display">Evidence gallery</h1>
+    <p class="route-intro">Diagrams, evaluation tables, episode stills, contact sheets and raw logs, grouped by the question each artefact can answer.</p>
+  </header>
+  <div class="rule"></div>
+  
+<section class="definition">
+  <h2>What a gallery is here</h2>
+  <p>This gallery groups evidence by what it proves. An architecture diagram shows how a system is separated. A confusion matrix shows which mistakes remained after a decision rule. A contact sheet shows which frames entered a video. A raw log shows that a scheduled job ran and recorded an outcome. Nothing is included only as decoration.</p>
+</section>
+<section class="media-grid" aria-label="Evidence galleries">
+  <article class="media-card">
+    <img src="/assets/img/rag_architecture.jpg" alt="Architecture diagram for the Smart Medical Records Engine" loading="lazy">
+    <h2>Clinical architecture</h2>
+    <p>Shows the API, database, model service, patient boundary and audit path used by the clinical retrieval system.</p>
+    <a class="cta cta-ghost" href="/p/clinical-rag/">Open the case study</a>
+  </article>
+  <article class="media-card">
+    <img src="/assets/img/fig2_confusion_matrix.jpg" alt="Confusion matrix for the customer care routing agent" loading="lazy">
+    <h2>Routing confusion matrix</h2>
+    <p>Shows which ticket categories the classifier confused during the held-out evaluation.</p>
+    <a class="cta cta-ghost" href="/p/care-agent/">Open the case study</a>
+  </article>
+  <article class="media-card">
+    <img src="/assets/img/roc_curves.jpg" alt="Receiver operating characteristic curves for the image quality gate" loading="lazy">
+    <h2>Image QA curves</h2>
+    <p>Shows how the acceptance threshold changed the balance between correct acceptances and missed pairs.</p>
+    <a class="cta cta-ghost" href="/p/image-qa/">Open the case study</a>
+  </article>
+  <article class="media-card">
+    <img src="/assets/img/tg_architecture.png" alt="Architecture diagram for TermsGuard AI" loading="lazy">
+    <h2>Contract analysis architecture</h2>
+    <p>Shows the first-stage classifier, reference retrieval, model verification and visible fallback path.</p>
+    <a class="cta cta-ghost" href="/p/termsguard/">Open the case study</a>
+  </article>
+  <article class="media-card">
+    <h2>Episode gallery</h2>
+    <p>Published episodes, production stills, narration timing and the quality-check records for the rendered files.</p>
+    <a class="cta cta-ghost" href="/products/">Open the episode gallery</a>
+  </article>
+  <article class="media-card">
+    <h2>Process contact sheets</h2>
+    <p>The selected frames for a short-form episode, shown as a sequence so the visual rhythm and repeated-frame checks can be inspected.</p>
+    <a class="cta cta-ghost" href="/products/workflow/contact-sheets.html">Open the contact sheets</a>
+  </article>
+  <article class="media-card">
+    <h2>Channel gallery</h2>
+    <p>The creative channels built with the production pipeline, including the visual identity and published work for each channel.</p>
+    <a class="cta cta-ghost" href="/channels/">Open the channel gallery</a>
+  </article>
+  <article class="media-card">
+    <h2>Provenance logs</h2>
+    <p>Raw evidence that scheduled work ran, media calls were recorded and evaluation decisions were written down.</p>
+    <a class="cta cta-ghost" href="/provenance/">Open the logs</a>
+  </article>
+</section>
+
+  <div class="endcta">
+    <a class="cta" href="/work/">Browse all 37 systems</a>
+    <a class="cta cta-ghost" href="/cv/">See the Agent Foundations CV</a>
+  </div>
+</main>
+</body>
+</html>
