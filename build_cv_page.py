@@ -12,7 +12,7 @@ import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-SOURCE = Path("/home/newtazer/Desktop/NCI/2ND/IMAGE VID GEN/research/ca2_submission/Taiwo_Alabi_CV_AgentFoundations_2026-11-04.md")
+SOURCE = Path("/home/newtazer/Desktop/NCI/2ND/IMAGE VID GEN/research/ca2_submission/Taiwo_Alabi_CV_AgentFoundations.md")
 OUT = ROOT / "cv" / "index.html"
 
 GLOSSARY = [
