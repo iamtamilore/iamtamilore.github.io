@@ -134,7 +134,7 @@ fi
 cd "$SITE"
 git add Alabi_Taiwo_CV.pdf assets/Taiwo_Alabi_CV.pdf cv/index.html work/index.html \
   case-studies/index.html process/index.html gallery/index.html 404.html index.html skim/index.html \
-  build_cv_page.py update_cv.sh
+  tools/index.html build_cv_page.py update_cv.sh
 if ! git diff --cached --quiet; then
   git commit -m "Refresh the CV and the published indexes"
   echo "site repo committed"
