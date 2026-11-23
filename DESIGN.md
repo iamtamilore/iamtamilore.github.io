@@ -327,6 +327,50 @@ the system and its metrics, for an affinity signal, whether you like
 the look of me. One photo, on the CV page, where the rest of the
 page is also about me. Everywhere else the work is the subject.
 
+## Recruiter-facing copy
+
+These rules govern every public surface that a recruiter is likely to skim:
+the homepage, project pages, work index, CV page, `/meet/`, and linked
+write-ups.
+
+### The three-second skim
+
+A recruiter who lands on a page must understand who Taiwo is, what he builds,
+and why the work is credible without scrolling. The first viewport carries the
+identity, the claim, and the strongest proof. Project depth comes after that.
+
+Every page must pass this order:
+
+1. Who this person is.
+2. What system or decision he owns.
+3. The strongest verified evidence.
+4. The route to the detail.
+
+Do not open with a biography, a generic statement about curiosity, or a list
+of tools. Do not make the reader decode a job title before they see the work.
+
+### Zero AI fluff and filler vocabulary
+
+Copy states the decision, the mechanism, and the evidence. It does not use
+corporate filler to make a small claim sound larger.
+
+Banned on public recruiter surfaces:
+
+- `leverage`, `unlock`, `seamless`, `cutting-edge`, `revolutionary`,
+  `game-changing`, `powered by AI`, `innovative`, `synergy`, `robust`,
+  `world-class`, `best-in-class`, `passionate`, `results-driven`, and
+  `spearheaded`
+- Empty intensifiers such as `highly`, `very`, `extremely`, `dynamic`, and
+  `forward-thinking`
+- Claims with no artefact, test, source, or measured result behind them
+
+Prefer a concrete noun, a concrete verb, and a verified number with its
+baseline. State the limitation when it matters. Do not use an em dash or en
+dash in recruiter-facing copy.
+
+The project pages may carry more technical depth because the reader chose to
+enter them. The skim rules still govern the first viewport of each page.
+
 ## Do's
 
 - Use the tokens. Every space is `--space-N`, every colour is a CSS
@@ -378,9 +422,9 @@ page is also about me. Everywhere else the work is the subject.
 
 ## What is not in this file
 
-- **Content and copy.** That is the writing contract, not the
-  design contract. Copy lives in `WRITING_THE_PAPER.md` for the
-  thesis and in each project's README for the project pages.
+- **Long-form project copy.** The recruiter-facing copy rules live above.
+  Full project narratives live in each project's README and the thesis writing
+  contract, then flow into the generated project pages.
 - **The build pipeline.** The site is built by `build.py`.
 - **Deployment.** `git push origin main`, and the Pages build picks
   it up.
@@ -419,4 +463,4 @@ Every change to the live CSS in `assets/css/` should show up here.
 If they drift, the CSS is the implementation and this file is the
 spec, and the spec wins when someone asks why.
 
-Last updated: 1 November 2026.
+Last updated: 23 November 2026.

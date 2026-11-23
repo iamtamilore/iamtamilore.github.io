@@ -1,50 +1,42 @@
-# _CURRENT.md — personal-site
-# Last updated: 2026-08-24 by Claude (seeded from engineering-log/personal-site.jsonl)
+# _CURRENT.md: personal site
+# Last updated: 2026-11-23 by OpenCode
 # DO NOT append to this file. Overwrite it at session start/close.
 
-## Broken (ordered by severity)
-- None currently open. Atom Browser, O.A.P. Trainer, and /bank/ dashboard were all
-  recovered/fixed and verified live on 2026-08-24.
+## Broken
+
+- None verified in this sync pass. The site build and link check were not run in this pass, so this is not a release-readiness claim.
 
 ## In Progress
-- Nothing active on this project right now.
+
+- The public portfolio is at `https://iamtamilore.github.io`. The repository is `/home/newtazer/site-build`, branch `main`, remote `iamtamilore/iamtamilore.github.io`.
+- The Agent Foundations CV family is generated from `/home/newtazer/Desktop/NCI/2ND/IMAGE VID GEN/research/ca2_submission/Taiwo_Alabi_CV_AgentFoundations.md` through `bash /home/newtazer/site-build/update_cv.sh`. The script builds the DOCX and PDF, regenerates the CV and project routes, verifies the output, then commits and pushes both repositories.
+- The rater v2 route was committed on 8 November 2026. The independent human rater evaluation is still pending. No final rater metric may be stated on the site or in a CV until that execution is verified.
+- The portfolio source for project pages remains the README files under `~/Desktop/NCI/CV VARIANTS/symplicity/<project>/`. Generated files under `p/*/index.html` must not be hand-edited.
 
 ## Blocked
-- **Open decision, not defaulted into any action**: whether/how to make the Atom
-  Browser's real frame images publicly visible on GitHub Pages. GitHub Pages is fully
-  public regardless of "it's my own site" framing — this was explicitly raised and left
-  unresolved. Do not publish the real `atoms/frames` symlink target without this being
-  decided first.
 
-## Next Up (prioritized)
-1. Confirm the two `github_token.txt` files (`Young Mooch/github_token.txt`,
-   `streaming/github_token.txt`) have actually been deleted after use — advised, not
-   confirmed. Both are LIVE credentials.
-2. Decide the Atom Browser public-visibility question (demo-with-safe-images vs
-   screen-recording vs private-sharing vs publish-as-is) — user's call.
+- Final thesis and human-rater claims are blocked on execution and verification. The public rater route existing is not evidence that human evaluation has happened.
+- Any CV claim that has already been sent to an ATS cannot be silently retired from the live site. Check the CV variants in circulation before removing a metric or capability.
 
-## Rejected Approaches
-- `oap/index.html` `API_BASE = ''` (same-origin assumption): 404s every API call when
-  the static site and the FastAPI backend are served on different ports. Replaced with
-  a hardcoded `http://localhost:8000` — user's explicit choice over changing the
-  backend's serving route. `entry: 01M0RS3SWDCNP4WE`.
+## Next Up
 
-## Open Ideas
-- None logged yet for this project beyond what's in Next Up.
+1. Audit the portfolio against the synced master documents and `DESIGN.md`.
+2. Edit the CV master Markdown and project READMEs only.
+3. Run `bash /home/newtazer/site-build/update_cv.sh --no-push`.
+4. Run the site build and link sanity check.
+5. Show a compact diff summary and ask Taiwo before any live push.
 
-## Recent Log Entries (last 5, personal-site.jsonl)
-- `01M0RS3SWD33C7RM` session_close — library filters/pagination fixed+verified; 2
-  more real bugs found+fixed (script corruption, cross-origin API calls)
-- `01M0RS3SWDEJK0W0` verification — live end-to-end: OAP count 866, pagination,
-  dashboard 1212, all real DB numbers
-- `01M0RS3SWDCNP4WE` fix — restored broken constructor; hardcoded API_BASE; fixed
-  checkBackend/loadStats race
-- `01M0RS3SWDKCD0Q8` diagnosis — cross-origin 404 + JS syntax corruption found while
-  testing (not the original report)
-- `01M0RPRV39SB7R04` fix — rebuilt /bank/ as a real dashboard into idea_bank repo
+## Source-of-truth map
 
-## Handoff for Non-Filesystem AI (Kimi/Qwen)
-If you have no file access: read this file. Do NOT assume the Atom Browser's images
-are safe to reference/link publicly — that's an explicitly open, unresolved decision,
-not an oversight. Draft designs, prose, or research only; flag anything needing
-file/DB verification for the next Claude Code session.
+| Surface | Source |
+|---|---|
+| Public site | `/home/newtazer/site-build/` |
+| CV content | `/home/newtazer/Desktop/NCI/2ND/IMAGE VID GEN/research/ca2_submission/Taiwo_Alabi_CV_AgentFoundations.md` |
+| Project pages | `~/Desktop/NCI/CV VARIANTS/symplicity/*/README.md` |
+| Design and recruiter-copy rules | `/home/newtazer/site-build/DESIGN.md` |
+| Career handling rules | `~/Desktop/NCI/CV VARIANTS/_HANDOFF_CAREER.md` |
+| Laura call rules | `~/Desktop/NCI/CV VARIANTS/LAURA_CV_RULES.md` |
+
+## Handoff for a non-filesystem AI
+
+Read this file and `DESIGN.md`. Do not edit generated pages. Do not claim that human-rater or thesis metrics are final. Flag any proposed public copy that needs source verification.
