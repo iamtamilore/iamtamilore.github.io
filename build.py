@@ -22,12 +22,12 @@ SRC = Path(os.environ.get("SYMPLICITY_SRC", Path.home() / "Desktop/NCI/CV VARIAN
 PROJECTS = [
     dict(slug="termsguard", src=SRC / "termsguard/README.md",
          title="TermsGuard AI",
-         desc="Reads the small print and flags what is unfair to you, grounded in GDPR "
-              "so citations can't be invented. Live on the internet.",
+         desc="Reads the small print and flags what is unfair to you, showing the source "
+              "passage behind every flag. Live on the internet.",
          card="termsguard.jpg",
          published=True,
          blurb="grounding against hallucination",
-         cmetric="grounded", clabel="every flag cites the GDPR article it came from, so nothing is invented",
+         cmetric="grounded", clabel="shows the passage a flag came from, not an article it claims to quote",
          cdesc="Cosine similarity alone marks \"we do not sell your data\" as a violation,\n"
                "        because the model can barely tell \"sell\" from \"do not sell\" apart. Rule\n"
                "        guards sit on top of the score, not instead of it.",
@@ -326,11 +326,11 @@ def transform(html: str, imgmap: dict) -> str:
         src, alt = m.group("src"), m.group("alt")
         return (f'<figure><a href="{src}" target="_blank" rel="noopener">'
                 f'<img src="{src}" alt="{alt}" loading="lazy"></a>')
-    html = re.sub(r'<p><img src="(?P<src>[^"]+)" alt="(?P<alt>[^"]*)"[^>]*>\s*'
+    html = re.sub(r'<p><img src="(?P<src>[^"]+)"\s+alt="(?P<alt>[^"]*)"[^>]*>\s*'
                   r'<em>(?P<cap>.*?)</em></p>',
                   lambda m: fig(m) + f'<figcaption>{m.group("cap")}</figcaption></figure>',
                   html, flags=re.S)
-    html = re.sub(r'<p><img src="(?P<src>[^"]+)" alt="(?P<alt>[^"]*)"[^>]*></p>',
+    html = re.sub(r'<p><img src="(?P<src>[^"]+)"\s+alt="(?P<alt>[^"]*)"[^>]*></p>',
                   lambda m: fig(m) + '</figure>', html)
 
     # tables scroll horizontally on a phone instead of breaking the layout

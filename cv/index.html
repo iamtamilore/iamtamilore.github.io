@@ -65,32 +65,32 @@ linkedin.com/in/tami-alabi | github.com/iamtamilore |
 iamtamilore.github.io | County Dublin D03 K0Y3, Ireland</p>
 <hr />
 <h2 id="profile">Profile</h2>
-<p>I build Python backend services that run AI agents in production, and
-I write the evaluations that prove the agents behave. I built the
-multi-model gateway that every model call on my machine passes through,
-with a response cache, a per-call budget guard, a daily spend ceiling
-and a detector that quarantines reasoning burns. On 10 November 2026,
-its ledger held 33,104 calls with token counts, endpoint and cost.
-Around it I wired eight MCP servers into one agent layer, added a
-watchdog that restores a dead server with no human intervention, and
-built the scheduling layer for 18 production jobs so a job that fires
-and fails is distinguishable from a job that never fires. The Smart
-Medical Records Engine is a clinical assistant on FastAPI and PostgreSQL
-with 768 dimensional vector search, running across four Docker Compose
-services with retrieval scoped per patient, physician authorization, PII
-redaction and an audit log of every access. The Customer Care Process
-Automation system is an AI routing agent reaching 95.2% routing accuracy
-on 42 held out tickets, behind a confidence gate that escalates
-uncertain tickets to a human instead of guessing. At Huawei I automated
-CRM extraction in Python, validated 100k+ rows of engagement data in
-SQL, and helped design over 440 User Acceptance Test cases for a data
+<p>I build Python backend services that run AI agents, and I write the
+evaluations that prove they behave. The system I own is the multi-model
+gateway every model call on my machine passes through, with a response
+cache, a per-call budget guard, a daily spend ceiling and a detector
+that quarantines reasoning burns. Around it I wired eight MCP servers
+into one agent layer and added a watchdog that restores a dead server
+with no human intervention, plus a scheduling layer for 18 scheduled
+jobs so a job that fires and fails is distinguishable from a job that
+never fires. The Smart Medical Records Engine is a clinical assistant on
+FastAPI and PostgreSQL with retrieval scoped per patient in the query,
+an audit log of every access and name redaction on the stored log. The
+Customer Care Process Automation system is an AI routing agent reaching
+95.2% routing accuracy on 42 held out tickets, 40 of 42, behind a
+confidence gate that escalates uncertain tickets to a human instead of
+guessing. <a href="https://iamtamilore.github.io/p/care-agent/">Read the
+case study</a>. At Huawei, across two summer placements, I automated CRM
+extraction in Python, validated 100k+ rows of engagement data in SQL,
+tested a bank’s customer care line integration interface by interface,
+and helped design over 440 User Acceptance Test cases for a data
 migration covering 400 million daily call records. MSc Artificial
-Intelligence, National College of Ireland, completing January 2027, and
-available for full time work from that date. Based in Dublin, working
-remotely across Irish and UK timezones.</p>
+Intelligence (part-time), National College of Ireland, completing
+January 2027. Based in Dublin, working remotely across Irish and UK
+timezones.</p>
 <hr />
 <h2 id="selected-systems">Selected Systems</h2>
-<p><strong><a href="https://github.com/iamtamilore">Multi-model LLM
+<p><strong><a href="https://iamtamilore.github.io/work/">Multi-model LLM
 gateway</a></strong>: Python, sqlite, kie.ai, OpenRouter, NVIDIA NIM</p>
 <ul>
 <li>Problem: Every model call was a direct provider call, so there was
@@ -101,13 +101,14 @@ response cache keyed on model, messages and parameters, a per-call
 budget guard, a daily cumulative ceiling read from the ledger, and a
 detector that quarantines a response where completion tokens equal
 reasoning tokens and content is empty.</li>
-<li>Result: The ledger held 33,104 calls on 10 November 2026, with token
-counts, endpoint and cost. The registry separates vendor facts, which
-are fetched and overwritten, from user facts, which are hand-kept and
-never overwritten by a fetch, so a scheduled catalogue sync cannot
-silently drop a routing decision.</li>
+<li>Result: The ledger held 52,215 calls on 23 November 2026, with token
+counts, endpoint and cost. The registry separates vendor facts, which a
+fetch overwrites, from user facts, which are hand-kept, so a scheduled
+catalogue sync cannot silently drop a routing decision.</li>
+<li>Limit: The gateway runs on one machine. It has no failover, so a
+host outage takes every dependent client with it.</li>
 </ul>
-<p><strong><a href="https://github.com/iamtamilore">Multi-agent MCP
+<p><strong><a href="https://iamtamilore.github.io/work/">Multi-agent MCP
 layer</a></strong>: MCP protocol, Python, Node.js, opencode, Claude
 Code</p>
 <ul>
@@ -116,29 +117,32 @@ memory, code, the web and the browser, so every client drifted into
 different behaviour.</li>
 <li>Action: I wired eight MCP servers into one layer, unified-log,
 kie-ai, code-search, claude-mem, ask, comfyui, wikipedia and browser,
-with six also in the global config so a chat outside the project gets
-the same core set. The model gateway is exposed as MCP tools, so an
-agent inside a chat reaches models through the same budget, cache and
-ledger as the command line.</li>
+and the global config now registers nine, including the browser
+orchestrator. The gateway is exposed as MCP tools, so an agent in a chat
+reaches models through the same budget, cache and ledger as the command
+line.</li>
 <li>Result: A watchdog tails the transport error log, bumps the affected
 server’s restart marker in both config files, and the client respawns
 the server, verified end to end on a SIGTERM with no human
 intervention.</li>
+<li>Limit: The recovery path was exercised against a SIGTERM on one
+server. It has not been tested against a hung process or a crashed
+dependency.</li>
 </ul>
-<p><strong><a href="https://github.com/iamtamilore">Cron orchestration
-with a verification ledger</a></strong>: bash, Python, JSONL ledger,
-systemd</p>
+<p><strong><a href="https://iamtamilore.github.io/work/">Cron
+orchestration with a verification ledger</a></strong>: bash, Python,
+JSONL ledger, systemd</p>
 <ul>
-<li>Problem: 18 scheduled jobs were failing silently. A job that fires
-and fails and a job that never fires leave identical evidence in a log
-file.</li>
+<li>Problem: 18 scheduled jobs could fail without anyone noticing. A job
+that fires and fails and a job that never fires leave identical evidence
+in a log file.</li>
 <li>Action: I routed every crontab line through one runner with a job
 name argument and made the orchestrator compare the job registry against
 an append-only ledger, writing an explicit per-run outcome so the two
-failure modes are distinguishable. The orchestrator self-heals the one
-repairable drift, and notifications fire only on a state change, because
-a monitor that reports a known-bad state every fifteen minutes trains
-the reader to ignore it.</li>
+failure modes are distinguishable. It self-heals the one repairable
+drift, and notifications fire only on a state change, because a monitor
+that repeats a known-bad state every fifteen minutes trains the reader
+to ignore it.</li>
 <li>Result: 18 jobs under one registry and 3,284 ledger records, with
 the exit code visible to anything watching it, 0 healthy and 1 not.</li>
 </ul>
@@ -150,15 +154,20 @@ Docker Compose</p>
 across years of notes, and the one critical line, a past reaction to a
 medicine, gets missed.</li>
 <li>Action: I built a clinical assistant that answers plain English
-questions from that patient’s own records, with retrieval scoped per
-patient so no other patient’s notes can surface, plus physician
-authorization, PII redaction, and an audit log of every access. Thirty
-adversarial probes tried to pull another patient’s note and none got
-through.</li>
+questions from that patient’s own records, with the patient_id carried
+into the retrieval query so no other patient’s notes can surface, an
+audit log of every access, and the patient’s name redacted from the
+stored log. Thirty adversarial probes tried to pull another patient’s
+note and none got through.</li>
 <li>Result: I ran the whole stack, the API, PostgreSQL with 768
 dimensional vector search and a self hosted Llama 3.1, across four
-Docker Compose services, so patient data never leaves the hospital’s own
-network.</li>
+Docker Compose services, designed to run inside a hospital network so no
+patient record leaves it.</li>
+<li>Limit: The data is synthetic and the system has not been tested with
+clinicians. Scoping trusts the patient_id on the request, so it stops
+one query mixing two patients but not a doctor opening the wrong file.
+Redaction covers the name only. Answer quality against a labelled
+benchmark is unmeasured.</li>
 </ul>
 <hr />
 <h2 id="evaluation-and-quality-engineering">Evaluation and Quality
@@ -177,60 +186,69 @@ TensorFlow/Keras, ResNet50, scikit-learn</p>
 <ul>
 <li>Built a gate over frozen ResNet50 Siamese features that reaches
 precision 1.00 at F1 0.90 on 90 sealed test pairs, against pixel
-difference and kNN baselines at F1 0.59 and 0.26.</li>
+difference at F1 0.59 and kNN at F1 0.26. Pixel difference also reaches
+precision 1.00, so the gain over that baseline is recall, 0.82 against
+0.42.</li>
 <li>Tuning the decision threshold from the sigmoid default of 0.5 to
 0.4821, on validation data only, recovered all eight missed pairs
-without adding a single false positive and lifted F1 from 0.90 to
-1.00.</li>
+without adding a false positive and lifted F1 from 0.90 to 1.00 on the
+same 90 sealed pairs.</li>
+<li>The advantage is not statistically settled. McNemar’s test against
+pixel difference returned p = 0.19, so 90 pairs cannot rule out
+luck.</li>
 <li>Public write up with ROC curve and confusion matrix. <a
-href="https://iamtamilore.github.io/p/image-qa/">Read the write-up
-(PDF)</a></li>
+href="https://iamtamilore.github.io/p/image-qa/">Read the
+write-up</a></li>
 </ul>
 <hr />
 <h2 id="professional-experience">Professional Experience</h2>
 <p><strong>Huawei Technologies (via RGS), Globacom Telecommunications
 department, Lagos</strong></p>
-<p><strong>Data Analyst Intern</strong>: Mar 2025 to Jul 2025</p>
+<p><strong>Data Analyst Intern</strong>: Summer 2024, 5 months</p>
 <ul>
 <li>Worked with stakeholders to identify data and reporting
 requirements, turning raw data into relevant and meaningful
 insights.</li>
-<li>Managed Power BI assets, including reports, dashboards, workspaces,
-and underlying datasets, and designed scalable data models with advanced
-analytics enabled in the reporting.</li>
+<li>Profiled and transformed the source data, then managed the Power BI
+assets built on it, including reports, dashboards, workspaces and
+underlying datasets, and designed scalable data models with advanced
+analytics enabled.</li>
 </ul>
-<p><strong>Data Specialist</strong>: Jul 2025 to Dec 2025 (internship
-extended by the team)</p>
+<p><strong>Product Manager and Data Specialist Intern</strong>: Summer
+2025, 5 months, returned for a second placement</p>
 <ul>
+<li>Designed and tested the API layer for a cloud integration between
+the contact centre platform and a commercial bank’s customer care line,
+testing every interface by hand with a command-line tool before it went
+near a voice prompt.</li>
 <li>Created database structures and tables from 20+ business
 requirements, and dashboards in SSRS and Tableau showing 30+ KPIs across
 departmental operations.</li>
 <li>Wrote Python scripts to automate daily CRM data extraction, cutting
-manual reporting time by 15 hours per week.</li>
-<li>Ran SQL queries to clean and validate 100k+ rows of user engagement
-data, which surfaced a 14% discrepancy in monthly active user
-metrics.</li>
+manual reporting time by 15 hours per week, and validated 100k+ rows of
+engagement data in SQL, surfacing a 14% discrepancy in monthly active
+user metrics.</li>
 <li>Worked with the solutions architect on a data migration architecture
 for 400 million daily call records, partitioning customer data into
 domain specific buckets, and with the test team designed over 440 User
-Acceptance Test cases across Q2 to Q4 so faults were caught before
-anything went live.</li>
+Acceptance Test cases so faults were caught before launch.</li>
 </ul>
 <hr />
 <h2 id="education">Education</h2>
 <p><strong>National College of Ireland, Dublin</strong>: Jan 2026 to Jan
-2027 <strong>MSc Artificial Intelligence</strong> Modules: Machine
-Learning, Intelligent Agents and Process Automation, AI Driven Decision
-Making, Engineering and Evaluating AI, Natural Language Processing, Data
-Governance and Ethics, Database Programming, Foundations of AI.</p>
+2027 <strong>MSc Artificial Intelligence (part-time)</strong> Modules:
+Machine Learning, Intelligent Agents and Process Automation, AI Driven
+Decision Making, Engineering and Evaluating AI, Natural Language
+Processing, Data Governance and Ethics, Database Programming,
+Foundations of AI.</p>
 <p><strong>Afe Babalola University, Lagos</strong>: Sep 2021 to Feb 2025
 <strong>BSc Computer Science, Second Class Honours, Upper Division
 (2.1)</strong></p>
 <hr />
 <h2 id="technical-skills">Technical Skills</h2>
 <p><strong>Python backend and APIs:</strong> Python, FastAPI, Flask,
-REST services, asynchronous and background processing patterns, data
-models, PostgreSQL, SQL, data modeling, SQLite.</p>
+REST services, asynchronous and background processing, data models,
+PostgreSQL, SQL, data modeling, SQLite.</p>
 <p><strong>Agent platforms:</strong> MCP servers, agent orchestration,
 multi agent flows, tool calling, model routing, fallback chains, LLM
 gateways, RAG pipelines, LLM evaluation, vector search (pgvector,
@@ -256,8 +274,7 @@ certificate</a></p>
 per week over the college holidays, including December. I complete my
 MSc in Artificial Intelligence in January 2027 and am eligible for Irish
 Stamp 1G post-study graduate work permission from that date, which
-permits full time employment at 40 hours per week. Based in Dublin,
-Ireland, working remotely in Irish and UK timezones.</p>
+permits full time employment at 40 hours per week.</p>
 
   </article>
   <div class="endcta">

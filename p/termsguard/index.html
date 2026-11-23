@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TermsGuard AI | Taiwo Alabi</title>
-<meta name="description" content="Reads the small print and flags what is unfair to you, grounded in GDPR so citations can't be invented. Live on the internet.">
+<meta name="description" content="Reads the small print and flags what is unfair to you, showing the source passage behind every flag. Live on the internet.">
 <script>document.documentElement.setAttribute("data-theme",localStorage.getItem("tw-theme")||"g5")</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="/assets/css/design-system.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%232E2C6E'/><text y='72' x='50' font-size='62' text-anchor='middle' fill='%23FF7A3D' font-family='sans-serif' font-weight='bold'>T</text></svg>">
 <meta property="og:title" content="TermsGuard AI | Taiwo Alabi">
-<meta property="og:description" content="Reads the small print and flags what is unfair to you, grounded in GDPR so citations can't be invented. Live on the internet.">
+<meta property="og:description" content="Reads the small print and flags what is unfair to you, showing the source passage behind every flag. Live on the internet.">
 <meta property="og:image" content="https://iamtamilore.github.io/assets/img/termsguard.jpg">
 <meta property="og:url" content="https://iamtamilore.github.io/p/termsguard/">
 <meta property="og:type" content="article">
@@ -23,9 +23,15 @@
 </div>
 <div class="wrap">
 <hr class="rule"><h1 id="termsguard-ai">TermsGuard AI</h1>
-<p class="readtime">7 min read</p>
+<p class="readtime">8 min read</p>
 <p>Reads the small print and flags the parts that are unfair to you, in
 plain English.</p>
+<p><strong>Built by Taiwo Alabi.</strong> MSc Artificial Intelligence,
+National College of Ireland</p>
+<p>Live demo: <a
+href="https://newtazer-terms-guard-ai.hf.space">https://newtazer-terms-guard-ai.hf.space</a>
+Source: <a
+href="https://github.com/iamtamilore/terms-guard-ai">https://github.com/iamtamilore/terms-guard-ai</a></p>
 <p>Cosine similarity alone marks "we do not sell your data" as a
 violation, so the classifier proposes and a model rules. 102
 hand-labelled reference clauses, a 4,527-chunk retrieval index, and up
@@ -37,12 +43,6 @@ an article it claims to quote.</p>
 evaluation design. The interesting problem is not detection, it is that
 a purely semantic classifier gets negation exactly backwards, and what
 you do about it.</p>
-<p>Taiwo Alabi · MSc Artificial Intelligence, National College of
-Ireland</p>
-<p>Live demo: <a
-href="https://newtazer-terms-guard-ai.hf.space">https://newtazer-terms-guard-ai.hf.space</a>
-Source: <a
-href="https://github.com/iamtamilore/terms-guard-ai">https://github.com/iamtamilore/terms-guard-ai</a></p>
 <hr />
 <div class="toc"><h3 style="margin-top:0">Contents</h3><ol>
 <li><a href="#1-the-problem">The problem</a></li>
@@ -54,9 +54,11 @@ against</a></li>
 is not enough</a></li>
 <li><a href="#6-the-verification-layer">The verification layer</a></li>
 <li><a href="#7-saying-how-sure-it-is">Saying how sure it is</a></li>
-<li><a href="#8-honest-limitations">Honest limitations</a></li>
-<li><a href="#9-run-it">Run it</a></li>
-<li><a href="#10-terms-used-in-this-report">Terms used in this
+<li><a href="#8-where-it-fails">Where it fails</a></li>
+<li><a href="#9-unexpected-finding">Unexpected finding</a></li>
+<li><a href="#10-honest-limitations">Honest limitations</a></li>
+<li><a href="#11-run-it">Run it</a></li>
+<li><a href="#12-terms-used-in-this-report">Terms used in this
 report</a></li>
 </ol></div><div class="resources"><a class="cta" href="https://newtazer-terms-guard-ai.hf.space" target="_blank" rel="noopener">Try it</a><a href="/assets/docs/termsguard_writeup.pdf">Read the detail<span class="tag">pdf</span></a><a href="https://github.com/iamtamilore/terms-guard-ai">Check the code</a></div>
 <h2 id="1-the-problem">1. The problem</h2>
@@ -79,7 +81,7 @@ among forty that do not.</p>
 <tbody>
 <tr class="odd">
 <td>End-to-end latency</td>
-<td>28 seconds to under 10 for short policies</td>
+<td>28 s, or under 10 s on short policies</td>
 </tr>
 <tr class="even">
 <td>Reference clauses</td>
@@ -92,6 +94,11 @@ among forty that do not.</p>
 <tr class="even">
 <td>Clauses sent to the verification model per analysis</td>
 <td>up to 15</td>
+</tr>
+<tr class="odd">
+<td>Regression suite</td>
+<td>12 cases, measured live on 25 October 2026 against the deployed
+service</td>
 </tr>
 </tbody>
 </table></div>
@@ -130,15 +137,16 @@ search), and Claude Haiku double-checks the flag before it is shown.</p>
 <hr />
 <h2 id="4-what-it-compares-against">4. What it compares against</h2>
 <p>The system carries 102 hand-labelled reference clauses: 52 examples
-of fair terms and 50 examples of unfair ones. A new clause is judged by
+of fair terms and 50 examples of unfair ones. A new clause is scored by
 how close it sits to each set.</p>
 <p>Separately, a FAISS index holds 4,527 chunks of reference material on
 data governance and GDPR. When a clause is flagged, retrieval pulls the
 passage closest to it, so the reader can see the context the flag was
 drawn from rather than taking the model's word.</p>
-<p>That split matters. The labelled clauses decide <em>whether</em>
-something is a problem. The GDPR corpus supplies <em>why</em>, and it is
-the second half that makes a flag worth acting on.</p>
+<p>That split matters. The labelled clauses and the similarity score
+propose <em>whether</em> something might be a problem. The rule guards
+and then the verifier decide. The GDPR corpus supplies <em>why</em>, and
+it is the second half that makes a flag worth acting on.</p>
 <hr />
 <h2 id="5-why-similarity-alone-is-not-enough">5. Why similarity alone is
 not enough</h2>
@@ -179,6 +187,13 @@ the tool runs in matching-only mode rather than failing. It degrades to
 a less precise version of itself instead of refusing to work, which
 means the demo is always live and the tool is not hostage to a paid
 dependency.</p>
+<p>The trade-off is that a degraded mode has to announce itself, and the
+earlier build did not. It returned cosine scores while still reporting
+that the model had verified the clause, so a clause was labelled
+"Checked by the model" when no model had looked at it. The response now
+carries <code>verification_source</code> and
+<code>verification_error</code>, so a fallback shows up in the output
+instead of hiding behind a flag that said true.</p>
 <hr />
 <h2 id="7-saying-how-sure-it-is">7. Saying how sure it is</h2>
 <p>Flags are tiered by confidence rather than presented as flat
@@ -190,7 +205,44 @@ fifteen strong ones.</p>
 <p>This is the same instinct that runs through my other projects: state
 uncertainty rather than hide it behind a single number.</p>
 <hr />
-<h2 id="8-honest-limitations">8. Honest limitations</h2>
+<h2 id="8-where-it-fails">8. Where it fails</h2>
+<ul>
+<li><strong>The retrieval corpus is mostly not regulation.</strong> Of
+the 4,527 chunks, only about two percent cite a GDPR article at all. The
+tool shows the passage a flag was drawn from and says it is context, but
+a reader looking for a legal citation will not find one.</li>
+<li><strong>The rule guards are written patterns.</strong> Negation
+detection, protective-context detection, the children's-data check and
+keyword boosting cover inversion expressed the ways those patterns
+cover. A clause that inverts meaning in a wording none of them matches
+passes them.</li>
+<li><strong>The reference set bounds what similarity can see.</strong> A
+new clause is scored against 52 fair and 50 unfair examples. An unfair
+clause worded unlike all 50 scores low against both sets, and the
+similarity stage does not fire at all.</li>
+<li><strong>Only 15 clauses reach the verifier per analysis.</strong>
+Anything flagged beyond that is presented on the similarity score alone,
+with no model ruling behind it.</li>
+<li><strong>The regression suite is 12 cases.</strong> It exists to
+catch the failures that were found, not to measure how much of the space
+is covered.</li>
+</ul>
+<hr />
+<h2 id="9-unexpected-finding">9. Unexpected finding</h2>
+<p>The bugs that mattered were found by the part of the system that was
+broken.</p>
+<p>The verifier had never actually run on the deployed service, so for
+as long as it was switched off, nothing checked whether the layers below
+it were right. Switching it on exposed two real defects that had been
+there the whole time: a benign refund-policy clause flagged as an Art.82
+violation, and a politely worded third-party analytics clause read as
+compliant because asking permission was being read as reasoning as
+lawful.</p>
+<p>Both were in the classifier and the prompt, not in the verifier. The
+layer that was supposed to be the last word was the only thing that ever
+asked the question.</p>
+<hr />
+<h2 id="10-honest-limitations">10. Honest limitations</h2>
 <ul>
 <li>It is not legal advice. The page says so. It surfaces clauses worth
 reading properly; it does not tell you your rights.</li>
@@ -213,7 +265,7 @@ retrieval pipeline, the grounding, the rule guards and the latency
 reduction.</li>
 </ul>
 <hr />
-<h2 id="9-run-it">9. Run it</h2>
+<h2 id="11-run-it">11. Run it</h2>
 <p>Easiest is the live demo: <a
 href="https://newtazer-terms-guard-ai.hf.space">https://newtazer-terms-guard-ai.hf.space</a></p>
 <p>Locally:</p>
@@ -226,7 +278,7 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="
 <p>Stack: Python · Flask · sentence-transformers (MiniLM) · FAISS ·
 Anthropic API · Docker</p>
 <hr />
-<h2 id="10-terms-used-in-this-report">10. Terms used in this report</h2>
+<h2 id="12-terms-used-in-this-report">12. Terms used in this report</h2>
 <p>The terms below are defined the way this report uses them, for a
 reader who wants to check the reasoning rather than take it on
 trust.</p>

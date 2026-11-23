@@ -69,6 +69,17 @@ python3 build_indexes.py        # /case-studies/, /process/, /gallery/
 python3 build_cv_page.py        # /cv/ from the same master Markdown
 python3 build.py                # project pages and 404.html
 
+# The full-site content export is a snapshot of the built HTML, so it is
+# regenerated here, after the build. Regenerating it in the same command is
+# what stops it going stale.
+say "Regenerate the full-site content export"
+if python3 -c "import bs4" 2>/dev/null; then
+  python3 extract_site_content.py
+else
+  echo "WARNING: bs4 is not installed, SITE_CONTENT_EXPORT.md was NOT regenerated."
+  echo "         Install bs4 or run 'python3 extract_site_content.py' by hand."
+fi
+
 # ------------------------------------------------------------------ verify
 say "Verify"
 python3 - "$SITE" "$PDF" <<'PY'
@@ -103,14 +114,20 @@ for route in ("cv", "work", "case-studies", "process", "gallery"):
     elif "<h1" not in page.read_text(encoding="utf-8"):
         failures.append(f"/{route}/ has no h1")
 
-# no machine paths leaked into the public pages
-for route in ("cv", "work", "case-studies", "process", "gallery", "skim"):
-    page = site / route / "index.html"
-    if page.exists():
-        body = page.read_text(encoding="utf-8")
-        for needle in ("/home/newtazer", "/mnt/2tb"):
-            if needle in body:
-                failures.append(f"/{route}/ leaks the path {needle}")
+# no machine paths leaked into any public page. Every tracked HTML file is
+# served by GitHub Pages from the repo root, so the check covers all of them,
+# not just the generated routes.
+tracked = subprocess.run(
+    ["git", "ls-files", "*.html"], cwd=str(site), capture_output=True, text=True
+).stdout.splitlines()
+for rel in tracked:
+    page = site / rel
+    if not page.exists():
+        continue
+    body = page.read_text(encoding="utf-8")
+    for needle in ("/home/newtazer", "/mnt/2tb"):
+        if needle in body:
+            failures.append(f"{rel} leaks the path {needle}")
 
 if failures:
     print("VERIFICATION FAILED")
@@ -132,9 +149,13 @@ else
 fi
 
 cd "$SITE"
-git add Alabi_Taiwo_CV.pdf assets/Taiwo_Alabi_CV.pdf cv/index.html work/index.html \
-  case-studies/index.html process/index.html gallery/index.html 404.html index.html skim/index.html \
-  tools/index.html build_cv_page.py update_cv.sh
+# "git add -u" stages every modification to a TRACKED file, so a file edited by
+# hand or by a generator is never silently left out of the commit. That class
+# of bug already bit once: p/*/index.html and build.py were changed but not
+# staged. Untracked directories (rater_v2/, rater_v2_deploy/) are untouched.
+git add -u
+git add Alabi_Taiwo_CV.pdf assets/Taiwo_Alabi_CV.pdf SITE_CONTENT_EXPORT.md \
+  build_cv_page.py build.py extract_site_content.py update_cv.sh
 if ! git diff --cached --quiet; then
   git commit -m "Refresh the CV and the published indexes"
   echo "site repo committed"

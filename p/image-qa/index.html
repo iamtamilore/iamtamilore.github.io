@@ -24,9 +24,11 @@
 <div class="wrap">
 <hr class="rule"><h1 id="automated-qa-gate-for-ai-generated-campaign-imagery">Automated
 QA Gate for AI-Generated Campaign Imagery</h1>
-<p class="readtime">8 min read</p>
+<p class="readtime">9 min read</p>
 <p>Catching identity drift and colour drift in generated fashion
 photography, before a client sees it.</p>
+<p><strong>Built by Taiwo Alabi.</strong> MSc Artificial Intelligence,
+National College of Ireland · July to August 2026</p>
 <p>A quality gate that flags good images gets switched off inside a
 week, so the target was precision, not coverage: every image it called
 "same person" had to be the same person. A Siamese network over frozen
@@ -34,8 +36,6 @@ ResNet50 features reached F1 0.90 at precision 1.00 on 90 sealed test
 pairs, against pixel difference at 0.59 and kNN at 0.26. Ninety pairs is
 too few to rule out luck as the explanation for the gap, and McNemar's
 test is underpowered to settle it.</p>
-<p>Taiwo Alabi · MSc Artificial Intelligence, National College of
-Ireland · July to August 2026</p>
 <p><strong>What this evidences:</strong> critiquing model quality and
 evaluation design. A score with no baseline beside it is decoration, so
 this one carries two.</p>
@@ -47,8 +47,7 @@ this one carries two.</p>
 <li><a href="#4-the-identity-check">The identity check</a></li>
 <li><a href="#5-the-colour-check">The colour check</a></li>
 <li><a href="#6-where-it-fails">Where it fails</a></li>
-<li><a href="#7-the-finding-i-did-not-expect">The finding I did not
-expect</a></li>
+<li><a href="#7-unexpected-finding">Unexpected finding</a></li>
 <li><a href="#8-honest-limitations">Honest limitations</a></li>
 <li><a href="#9-reproduce-it">Reproduce it</a></li>
 <li><a href="#10-terms-used-in-this-report">Terms used in this
@@ -94,20 +93,27 @@ training or tuning.</p>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Siamese (proposed)</td>
+<td>Siamese, default threshold 0.5</td>
 <td>1.00</td>
 <td>0.82</td>
 <td>0.90</td>
 <td>1.00</td>
 </tr>
 <tr class="even">
+<td>Siamese, threshold 0.4821 tuned on validation</td>
+<td>1.00</td>
+<td>1.00</td>
+<td>1.00</td>
+<td>1.00</td>
+</tr>
+<tr class="odd">
 <td>Pixel difference</td>
 <td>1.00</td>
 <td>0.42</td>
 <td>0.59</td>
 <td>n/a</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>kNN over same embeddings</td>
 <td>0.39</td>
 <td>0.20</td>
@@ -121,32 +127,44 @@ when it said "same person"; recall is how many of the true same-person
 pairs it actually caught; F1 blends the two; ROC-AUC scores how well the
 model separates the two classes overall, 1.00 is perfect, 0.5 is a coin
 flip.</p>
-<p>The number that matters is precision: 1.00. Every time the gate said
-"same person", it was right. It never once passed the wrong subject
-through to a client. Under the cost model for this problem that is the
-expensive error, and the system made none of it.</p>
-<p>kNN is the useful comparison. It reads the identical fingerprints as
-the proposed model and still scores worst of the three, because it
-weighs all 128 dimensions equally, so background tint votes as loudly as
-jaw shape. Same information, no learning, and the score collapses. That
-gap is the argument for the design.</p>
+<p>The first row is the honest headline: precision 1.00 at the threshold
+the model shipped with, 0.5, which is just the sigmoid default. Every
+time the gate said "same person", it was right. It never once passed the
+wrong subject through the gate. Under the cost model for this problem
+that is the expensive error, and the system made none of it.</p>
+<p>Pixel difference also reaches precision 1.00. So the gate is not
+unique in never passing the wrong subject through; the gain over that
+baseline is recall, 0.82 against 0.42. That is the number worth putting
+next to it, because a router that is right when it speaks and silent
+when it is not is a different system from one that catches most of the
+true pairs.</p>
+<p>kNN is the other useful comparison. It reads the identical
+fingerprints as the proposed model and still scores worst of the three,
+because it weighs all 128 dimensions equally, so background tint votes
+as loudly as jaw shape. Same information, no learning, and the score
+collapses. That gap is the argument for the design.</p>
 <figure><a href="/assets/img/cm_siamese.jpg" target="_blank" rel="noopener"><img src="/assets/img/cm_siamese.jpg" alt="Confusion matrix" loading="lazy"></a><figcaption>45
-different-person pairs rejected, 37 same-person pairs accepted. The
-empty false-positive cell is what the project was tuned for: zero images
-called "same person" that were not. The 8 missed same-person pairs are
-in the false-negative figure.</figcaption></figure>
-<p><img src="/assets/img/roc_curves.jpg" alt="ROC curves" /> *The Siamese network
-reaches the top-left corner. AUC 1.000. The diagonal is what a random
-classifier would draw. The gap between the curve and the diagonal is
-what the project proves.*<em>ROC curve on the held-out test
-set.</em></p>
+different-person pairs rejected, 37 same-person pairs accepted, at the
+default threshold 0.5. The empty false-positive cell is what the project
+was tuned for: zero images called "same person" that were not. The 8
+missed same-person pairs are in the false-negative figure.</figcaption></figure>
+<figure><a href="/assets/img/roc_curves.jpg" target="_blank" rel="noopener"><img src="/assets/img/roc_curves.jpg" alt="ROC curves" loading="lazy"></a><figcaption>The Siamese network
+reaches the top-left corner. AUC 1.000 on 90 pairs. The diagonal is what
+a random classifier would draw.</figcaption></figure>
+<p><em>The ROC curve on the held-out test set. Only the proposed model
+and the random diagonal are plotted here; the baseline scores are in the
+table above. A curve this close to the corner says the two classes are
+separable on this data; it does not say the margin would survive 90 more
+pairs from a third subject.</em></p>
 <hr />
 <h2 id="3-how-the-system-works">3. How the system works</h2>
-<figure><a href="/assets/img/architecture.jpg" target="_blank" rel="noopener"><img src="/assets/img/architecture.jpg" alt="Architecture" loading="lazy"></a><figcaption>Three branches.
-The Siamese network scores identity. The autoencoder scores grade fit on
-the same input. The pixel difference and kNN baselines run on the same
-test set and lose to both. Pass only if identity is high AND grade fit
-is below threshold.</figcaption></figure>
+<figure><a href="/assets/img/architecture.jpg" target="_blank" rel="noopener"><img src="/assets/img/architecture.jpg" alt="Architecture" loading="lazy"></a><figcaption>One image,
+scored twice, plus two baselines. The Siamese network scores identity.
+The autoencoder scores grade fit on the same input. The pixel difference
+and kNN baselines run on the same sealed 90-pair test set and both score
+below the proposed model. The shipped gate passes an image only if
+identity is at least 0.5 and the reconstruction error is below the grade
+threshold.</figcaption></figure>
 <p>One image comes in. It is prepared once, then scored twice, and it
 passes only if both checks clear. The two faults are independent: an
 image can be exactly the right person in exactly the wrong light.</p>
@@ -186,13 +204,16 @@ lighting I care about.</p>
 <p>Feed it an image with the wrong colours and the redraw comes out
 badly wrong. The size of that failure is the alarm. It detects bad
 images without ever having seen one.</p>
-<p><img src="/assets/img/grade_drift_examples.jpg" alt="Grade drift probes" />
-*Generated campaign images where the model kept most of the brief and
-lost the details that matter: the face changed, the lighting drifted,
-the product colour shifted. These are the kind of images the gate is
-built to catch.*<em>Both subjects at the same camera angle, so the only
-variable across each row is the distortion. Red frames mark the probes
-the gate should reject.</em></p>
+<figure><a href="/assets/img/grade_drift_examples.jpg" target="_blank" rel="noopener"><img src="/assets/img/grade_drift_examples.jpg" alt="Grade drift probes" loading="lazy"></a><figcaption>Two subjects, four columns. The first column is the compliant
+original. The other three are the same frame with the grade damaged on
+purpose: a 60 degree hue shift, a 1.8x overexposure, and a desaturation
+to 0.1 of the original colour. The camera angle is held constant across
+each row, so the only variable is the grade. Red frames mark the damaged
+variants.</figcaption></figure>
+<p><em>These are deliberately damaged inputs, not drift caught in a real
+campaign. The face never changes in this figure, only the grade does,
+and real drift is likely subtler than the shifts applied here, which is
+why the catch rate below is optimistic.</em></p>
 <p>Good images reconstruct at 0.00374 mean squared error. Damaged ones
 at 0.00865, a factor of 2.3. Where the rejection line sits is a business
 decision, not a technical one:</p>
@@ -229,23 +250,29 @@ rejects them unattended.</p>
 <hr />
 <h2 id="6-where-it-fails">6. Where it fails</h2>
 <figure><a href="/assets/img/fn_siamese.jpg" target="_blank" rel="noopener"><img src="/assets/img/fn_siamese.jpg" alt="False negatives" loading="lazy"></a><figcaption>The 8
-same-person pairs the gate missed. Different angle, different lighting,
-different hairstyle. The honest read is that 90 pairs is too few to
-claim the gap to the baselines is not luck.</figcaption></figure>
+same-person pairs the gate rejected, at the default threshold 0.5. Each
+row is one pair: the left frame is frontal or near-frontal, the right
+frame is the same person turned away, in profile or from behind. The
+grade recorded for each frame is unknown.</figcaption></figure>
+<p><em>The honest read is that 90 pairs is too few to claim the gap to
+the baselines is not luck.</em></p>
 <p>Every single error is the same error. All eight are same-subject
-pairs the model scored as different, and all eight are back or profile
-shots, the angles where least of the face is visible. The model was not
+pairs the model scored as different, and in every one the second image
+is a profile or back view while the first is frontal or near-frontal,
+the angles where least of the face is visible. The model was not
 confused about the face. It could not see the face.</p>
 <p>When all your errors share one shape, you know what to fix.</p>
 <hr />
-<h2 id="7-the-finding-i-did-not-expect">7. The finding I did not
-expect</h2>
+<h2 id="7-unexpected-finding">7. Unexpected finding</h2>
 <p>The biggest single improvement came from a number nobody chose.</p>
 <p>The network outputs a score from 0 to 1, and anything above 0.5 was
-being called "same person". That 0.5 is just the sigmoid default. Tuned
-on the validation set only, never the test set, the right value is
-0.4821. That one change recovered all 8 misses and created no new false
-positives, lifting F1 from 0.90 to 1.00.</p>
+being called "same person". That 0.5 is just the sigmoid default, and it
+is the threshold the shipped gate still uses. Tuned on the validation
+set only, never the sealed test set, the right value is 0.4821. Applied
+to the same 90 sealed pairs, that one change recovered all 8 misses and
+created no new false positives, lifting F1 from 0.90 to 1.00. That is
+the second row of the results table, and it is a result on the test set,
+not on the data the threshold was chosen on.</p>
 <p>The best result in the project came from questioning a setting that
 was never a decision in the first place.</p>
 <hr />

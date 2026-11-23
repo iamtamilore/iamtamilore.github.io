@@ -24,9 +24,11 @@
 <div class="wrap">
 <hr class="rule"><h1 id="customer-care-process-automation">Customer Care Process
 Automation</h1>
-<p class="readtime">7 min read</p>
-<p>Two bots replacing two manual back-office jobs, with a rule about
-when not to decide.</p>
+<p class="readtime">8 min read</p>
+<p>Two bots built to replace two manual back-office jobs, with a rule
+about when not to decide.</p>
+<p><strong>Built by Taiwo Alabi.</strong> MSc Artificial Intelligence,
+National College of Ireland.</p>
 <p>One bot validates records against rules with known right answers, the
 other reads complaints and routes them to one of five back-end teams.
 TF-IDF and Naive Bayes reach 95.2% on 42 held-out tickets, and below
@@ -37,8 +39,8 @@ swept.</p>
 <p><strong>What this evidences:</strong> critiquing model quality and
 evaluation design. A headline accuracy is not the result. What the agent
 does with the tickets it is unsure about is.</p>
-<p>Taiwo Alabi · MSc Artificial Intelligence, National College of
-Ireland</p>
+<p>The model section is 5, the escalation decision is 6, where it fails
+is 8, and the unexpected finding is 9.</p>
 <hr />
 <div class="toc"><h3 style="margin-top:0">Contents</h3><ol>
 <li><a href="#1-the-problem">The problem</a></li>
@@ -51,9 +53,11 @@ works</a></li>
 decision that matters: when not to decide</a></li>
 <li><a href="#7-the-second-bot-rule-based-validation">The second bot:
 rule-based validation</a></li>
-<li><a href="#8-honest-limitations">Honest limitations</a></li>
-<li><a href="#9-running-it">Running it</a></li>
-<li><a href="#10-terms-used-in-this-report">Terms used in this
+<li><a href="#8-where-it-fails">Where it fails</a></li>
+<li><a href="#9-unexpected-finding">Unexpected finding</a></li>
+<li><a href="#10-honest-limitations">Honest limitations</a></li>
+<li><a href="#11-running-it">Running it</a></li>
+<li><a href="#12-terms-used-in-this-report">Terms used in this
 report</a></li>
 </ol></div><div class="resources"><a href="/assets/docs/care_agent_writeup.pdf">Read the detail<span class="tag">pdf</span></a><a href="https://github.com/iamtamilore/customer-care-automation">Check the code</a></div>
 <h2 id="1-the-problem">1. The problem</h2>
@@ -79,7 +83,7 @@ business a second handling pass on work it already paid for once.</p>
 <tbody>
 <tr class="odd">
 <td>Confidence threshold for escalation</td>
-<td>0.55, below which a human decides</td>
+<td>0.55, set by design from the cost asymmetry, not swept</td>
 </tr>
 <tr class="even">
 <td>Routing accuracy on held-out tickets</td>
@@ -108,16 +112,12 @@ is section 6.</p>
 lanes, one decision: a person reads the ticket and decides which of five
 back-end teams it belongs to. The bottleneck is the second swimlane, the
 manual decision.</figcaption></figure>
-<figure><a href="/assets/img/to_be.jpg" target="_blank" rel="noopener"><img src="/assets/img/to_be.jpg" alt="To-be process" loading="lazy"></a><figcaption>After the bot. The
-classifier proposes a team. The escalation gate, the diamond at 0.55
-confidence, is what the project is really about. Tickets scoring below
-the line go to a human instead of being forced through.</figcaption></figure>
 <p>I mapped out the existing process as a flowchart, using BPMN 2.0 (a
 standard way of drawing business processes), before writing any code.
 That order was deliberate: it meant the automation replaced a process I
-actually understood, rather than my assumption of one, and the model is
-what made the manual touchpoints explicit enough to decide which were
-worth automating.</p>
+actually understood, rather than my assumption of one, and the process
+model is what made the manual touchpoints explicit enough to decide
+which were worth automating.</p>
 <hr />
 <h2 id="4-the-process-after">4. The process, after</h2>
 <figure><a href="/assets/img/to_be.jpg" target="_blank" rel="noopener"><img src="/assets/img/to_be.jpg" alt="To-be process" loading="lazy"></a><figcaption>Two pools, two bots.
@@ -136,28 +136,28 @@ word by how much it tells you about the topic, then sorted into one of
 the five routing categories by Naive Bayes, a simple, fast classifier
 built on word probabilities.</p>
 <p>Naive Bayes is a deliberate choice rather than a default. The corpus
-is 210 tickets, which is small, and Naive Bayes stays reliable at that
-size where a heavier, more complex model would start memorising the
-training tickets instead of learning the pattern. It is also
-inspectable: I can see which words drive a routing decision, which
-matters when somebody asks why a ticket went where it did.</p>
-<p><img src="/assets/img/fig1_classification_report.png"
-alt="Classification report" /> *Precision, recall and F1 per category on
-the 42 held-out tickets. P_BILL is the weak class at 0.88. The other
+is 210 tickets, which is small, and Naive Bayes is reliable at that
+size. I did not benchmark a heavier model against it, so this choice is
+argued from the corpus size and from inspectability, not from a measured
+comparison. It is also inspectable: I can see which words drive a
+routing decision, which matters when somebody asks why a ticket went
+where it did.</p>
+<figure><a href="/assets/img/fig1_classification_report.png" target="_blank" rel="noopener"><img src="/assets/img/fig1_classification_report.png" alt="Classification report" loading="lazy"></a><figcaption>Precision, recall and F1 per category
+on the 42 held-out tickets. P_BILL is the weak class at 0.88. The other
 four categories are at 1.00. The weakness is visible in the confusion
-matrix that follows.*<em>Per-class precision, recall and F1: precision
-is how often a category the model picked was actually right, recall is
-how many of the true cases for that category it actually caught, and F1
-blends the two into one number.</em></p>
+matrix that follows.</figcaption></figure>
+<p><em>Per-class precision, recall and F1: precision is how often a
+category the model picked was actually right, recall is how many of the
+true cases for that category it actually caught, and F1 blends the two
+into one number.</em></p>
 <p>Reported per category rather than as a single figure, because a
 router that is strong on common categories and weak on rare ones is a
 different system from one that is evenly good, and an average hides that
 difference.</p>
-<p><img src="/assets/img/fig2_confusion_matrix.jpg" alt="Confusion matrix" /> *Where
-the model loses. Two tickets, both P_BILL and REFUND, swap with each
-other. Every other prediction is on the diagonal. This is the failure
-mode the escalation gate is meant to absorb.*<em>Where the classifier
-confuses one team with another.</em></p>
+<figure><a href="/assets/img/fig2_confusion_matrix.jpg" target="_blank" rel="noopener"><img src="/assets/img/fig2_confusion_matrix.jpg" alt="Confusion matrix" loading="lazy"></a><figcaption>Where the model loses. Two tickets, both P_BILL and REFUND, swap
+with each other. Every other prediction is on the diagonal. This is the
+failure mode the escalation gate is meant to absorb.</figcaption></figure>
+<p><em>Where the classifier confuses one team with another.</em></p>
 <p>The matrix shows where errors concentrate. Confusion between
 neighbouring categories is a routing problem worth fixing; errors
 scattered evenly would suggest the features themselves are too weak, and
@@ -165,11 +165,10 @@ that is not the pattern.</p>
 <hr />
 <h2 id="6-the-decision-that-matters-when-not-to-decide">6. The decision
 that matters: when not to decide</h2>
-<p><img src="/assets/img/fig4_confidence_scores.png"
-alt="Confidence distribution" /> <em>Five tickets. Two of them (red, at
+<figure><a href="/assets/img/fig4_confidence_scores.png" target="_blank" rel="noopener"><img src="/assets/img/fig4_confidence_scores.png" alt="Confidence distribution" loading="lazy"></a><figcaption>Five tickets. Two of them (red, at
 0.37 and 0.41) fall under the 0.55 line and go to a human. Three of them
 (teal, above the line) get auto-routed. The bar chart is the escalation
-decision in its rawest form.</em></p>
+decision in its rawest form.</figcaption></figure>
 <p>A classifier will always return an answer. Asked to route a ticket it
 has never seen anything like, it will still pick the closest of the five
 categories and report a number. That is the failure mode worth designing
@@ -182,15 +181,20 @@ five minutes. A confident misroute costs the customer days. When one
 error is two orders of magnitude more expensive than the other, the
 correct system is one that escalates freely, and <strong>I would rather
 report a lower automation rate than a higher misroute rate</strong>.</p>
+<p>The 0.55 is a design setting, not a tuned one. It was chosen from
+that cost asymmetry and held fixed, because sweeping it without real
+escalation costs would only produce a number that looks measured without
+being measured.</p>
 <hr />
 <h2 id="7-the-second-bot-rule-based-validation">7. The second bot:
 rule-based validation</h2>
-<p><img src="/assets/img/fig3_rpa_validation.jpg" alt="RPA validation" /> *The
+<figure><a href="/assets/img/fig3_rpa_validation.jpg" target="_blank" rel="noopener"><img src="/assets/img/fig3_rpa_validation.jpg" alt="RPA validation" loading="lazy"></a><figcaption>The
 second bot, the rule-based one, ran on 120 records and flagged 5. Each
 of the five exceptions is named in the right panel: bad date, unknown
 segment, bad MSISDN prefix, bad MSISDN digits, missing field. The 4%
-exception rate is what the bot costs the team in manual review.*<em>The
-validator checking each record against its requirements.</em></p>
+exception rate is what the bot costs the team in manual review.</figcaption></figure>
+<p><em>The validator checking each record against its
+requirements.</em></p>
 <p>The second automation produces the daily customer creation report: it
 reads the customer records, validates each field, writes the clean
 report to Excel and Word, and writes everything that failed validation
@@ -203,7 +207,37 @@ is as much a design decision as choosing to.</p>
 <code>validation_exceptions.csv</code>, and the daily report in both
 <code>.xlsx</code> and <code>.docx</code>.</p>
 <hr />
-<h2 id="8-honest-limitations">8. Honest limitations</h2>
+<h2 id="8-where-it-fails">8. Where it fails</h2>
+<ul>
+<li><strong>Neighbouring categories swap.</strong> The confusion matrix
+shows two errors, both between P_BILL and REFUND. Billing and refund
+complaints share vocabulary, and the model picked the wrong one of the
+two in each case. Every other prediction landed on the diagonal.</li>
+<li><strong>The gate moves uncertainty, it does not remove it.</strong>
+A ticket below 0.55 is not answered more accurately, it is handed to a
+person. The cost shifts from a misroute to an escalation, and the
+accuracy figure stops counting it either way.</li>
+<li><strong>The rule bot only catches the rules it was written
+with.</strong> Five checks are implemented, so a record that breaks
+something outside them, a well-formed value that belongs to the wrong
+segment, passes through clean.</li>
+<li><strong>The evaluation is 42 tickets.</strong> 95.2% is 40 of 42, so
+one ticket moves the figure by more than two points. The error pattern
+is the finding here; the percentage is not.</li>
+</ul>
+<hr />
+<h2 id="9-unexpected-finding">9. Unexpected finding</h2>
+<p>The part I did not expect was how much one half of the project
+resisted machine learning. I went in planning to automate two jobs with
+models. Mapping the first one as a process, before writing any code,
+made its manual touchpoints explicit, and what that showed was that the
+daily customer report has known correct answers. A classifier there
+would add uncertainty where none is needed, so that half became rules
+with named exceptions instead.</p>
+<p>The useful output of the process model was not the diagram. It was
+the decision to leave machine learning out of one of the two jobs.</p>
+<hr />
+<h2 id="10-honest-limitations">10. Honest limitations</h2>
 <ul>
 <li>The corpus is small and synthetic. 210 generated tickets across five
 categories. Real complaints are messier: code-switching, abbreviations,
@@ -219,7 +253,7 @@ reflects the cost asymmetry described above, but a proper sweep against
 real escalation costs would be the honest way to fix it.</li>
 </ul>
 <hr />
-<h2 id="9-running-it">9. Running it</h2>
+<h2 id="11-running-it">11. Running it</h2>
 <div class="sourceCode" id="cb1"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> gen_data.py          <span class="co"># build the labelled corpus</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> triage_bot.py        <span class="co"># train, evaluate, route</span></span>
@@ -229,7 +263,7 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="
 <p>Stack: Python · scikit-learn (TF-IDF, Naive Bayes) · pandas · BPMN
 2.0 · openpyxl · python-docx</p>
 <hr />
-<h2 id="10-terms-used-in-this-report">10. Terms used in this report</h2>
+<h2 id="12-terms-used-in-this-report">12. Terms used in this report</h2>
 <p>The terms below are defined the way this report uses them, for a
 reader who wants to check the reasoning rather than take it on
 trust.</p>
