@@ -127,6 +127,7 @@ def render(spec) -> Path:
 THUMBNAILS = [
     {
         "file": "li-thumb-pipeline.jpg",
+        "square_file": "li-thumb-pipeline-sq.jpg",
         "metric": "68",
         "metric_label": "videos published",
         "title": "Multi-channel short-form video pipeline",
@@ -135,6 +136,7 @@ THUMBNAILS = [
     },
     {
         "file": "li-thumb-gateway.jpg",
+        "square_file": "li-thumb-gateway-sq.jpg",
         "metric": "53,376",
         "metric_label": "model calls logged",
         "title": "Multi-model LLM gateway and MCP agent layer",
@@ -143,6 +145,7 @@ THUMBNAILS = [
     },
     {
         "file": "li-thumb-termsguard.jpg",
+        "square_file": "li-thumb-termsguard-sq.jpg",
         "metric": "87%",
         "metric_label": "F1 score",
         "title": "TermsGuard AI",
@@ -152,7 +155,96 @@ THUMBNAILS = [
 ]
 
 
+# ---------------------------------------------------------------------------
+# Square variants.
+#
+# LinkedIn's project list shows each media item as a near-square tile and
+# centre-crops the source. A 1200x627 landscape card loses its first digit
+# ("68" rendered as "8"), which is a false number on a public profile. The
+# square card below is rendered so the crop cannot cut a metric.
+# ---------------------------------------------------------------------------
+
+SW, SH = 1200, 1200
+SMARGIN = 90
+SUSABLE = SW - 2 * SMARGIN
+
+
+def render_square(spec) -> Path:
+    fig = plt.figure(figsize=(SW / 100, SH / 100), dpi=100)
+    ax = fig.add_axes([0, 0, 1, 1])
+    ax.set_xlim(0, SW)
+    ax.set_ylim(0, SH)
+    ax.axis("off")
+    ax.add_patch(FancyBboxPatch((-10, -10), SW + 20, SH + 20, boxstyle="square,pad=0",
+                                facecolor=BG, edgecolor="none", zorder=0))
+    renderer = fig.canvas.get_renderer()
+
+    def measure(text, fontsize, weight):
+        probe = ax.text(0, 0, text, fontsize=fontsize, weight=weight, family=SANS)
+        width = probe.get_window_extent(renderer=renderer).width
+        probe.remove()
+        return width
+
+    def wrap(text, fontsize, weight, max_px):
+        words = text.split()
+        lines, current = [], ""
+        for word in words:
+            candidate = word if not current else current + " " + word
+            if measure(candidate, fontsize, weight) <= max_px or not current:
+                current = candidate
+            else:
+                lines.append(current)
+                current = word
+        if current:
+            lines.append(current)
+        return lines
+
+    def put(y_from_top, text, fontsize, weight, color):
+        ax.text(SMARGIN, SH - y_from_top, text, fontsize=fontsize, weight=weight, color=color,
+                ha="left", va="top", family=SANS, zorder=3)
+
+    cursor = 120
+    ax.add_patch(FancyBboxPatch((SMARGIN, SH - cursor - 16), 260, 16,
+                                boxstyle="square,pad=0",
+                                facecolor=ORANGE, edgecolor="none", zorder=2))
+    cursor += 16 + 66
+
+    metric = spec["metric"]
+    msize = 200
+    while measure(metric, msize, "bold") > SUSABLE and msize > 80:
+        msize -= 6
+    put(cursor, metric, msize, "bold", ORANGE)
+    cursor += msize * 100 / 72 * 0.72 + 26
+
+    put(cursor, spec["metric_label"], 40, "normal", MUTED)
+    cursor += 40 * 100 / 72 + 58
+
+    title_lines = wrap(spec["title"], 56, "bold", SUSABLE)
+    title_lead = 64
+    for i, line in enumerate(title_lines):
+        put(cursor + i * title_lead, line, 56, "bold", WHITE)
+    cursor += (len(title_lines) - 1) * title_lead + 56 * 100 / 72 * 0.73 + 34
+
+    sub_lines = wrap(spec["sub"], 32, "normal", SUSABLE)
+    sub_lead = 44
+    for i, line in enumerate(sub_lines):
+        put(cursor + i * sub_lead, line, 32, "normal", MUTED)
+    cursor += (len(sub_lines) - 1) * sub_lead + 32 * 100 / 72 + 34
+
+    ax.plot([SMARGIN, SW - SMARGIN], [110, 110], color="#2A2724", lw=1.5, zorder=2)
+    foot_lines = wrap(spec["foot"], 26, "normal", SUSABLE)
+    for i, line in enumerate(foot_lines):
+        put(SH - 90 + i * 34, line, 26, "normal", FAINT)
+
+    out = OUT / spec["square_file"]
+    fig.savefig(out, dpi=100, facecolor=BG)
+    plt.close(fig)
+    return out
+
+
 if __name__ == "__main__":
     for spec in THUMBNAILS:
         path = render(spec)
         print(f"wrote {path}  {W}x{H}")
+        sq = render_square(spec)
+        print(f"wrote {sq}  {SW}x{SH}")
