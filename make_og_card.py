@@ -34,7 +34,10 @@ FAINT = "#6A6257"
 SANS = "DejaVu Sans"
 
 W, H = 1200, 1200
-MARGIN = 90
+# The link preview service renders an og image at 4:3 (480x360) and the
+# project tile then keeps only the central 65% of that width. The content
+# therefore has to sit inside x 210..990 of the canvas, or the metric is cut.
+MARGIN = 210
 USABLE = W - 2 * MARGIN
 
 # the band that survives a 1.91:1 crop of a 1200x1200 canvas
@@ -42,7 +45,7 @@ TOP, BOTTOM = 320, 880
 
 CARDS = [
     {
-        "file": "episode_pipeline_og.jpg",
+        "file": "episode_pipeline_card.jpg",
         "metric": "68",
         "metric_label": "videos published",
         "title": "Episode Pipeline",
@@ -50,12 +53,20 @@ CARDS = [
         "foot": "Taiwo Alabi",
     },
     {
-        "file": "og_site.jpg",
+        "file": "site_card.jpg",
         "metric": "37",
-        "metric_label": "verified systems, indexed in public",
+        "metric_label": "verified systems",
         "title": "Portfolio index",
-        "sub": "68 videos and 53,376 model calls, every one dated.",
+        "sub": "Indexed in public. 68 videos, 53,376 model calls, all dated.",
         "foot": "iamtamilore.github.io",
+    },
+    {
+        "file": "termsguard_card.jpg",
+        "metric": "87%",
+        "metric_label": "F1 score",
+        "title": "TermsGuard AI",
+        "sub": "unfair clauses, flagged in plain English, from 102 hand labelled reference clauses",
+        "foot": "TermsGuard AI, live",
     },
 ]
 
@@ -111,8 +122,11 @@ def render(spec) -> Path:
     put(cursor, metric, msize, "bold", ORANGE)
     cursor += msize * 100 / 72 * 0.72 + 22
 
-    put(cursor, spec["metric_label"], 36, "normal", MUTED)
-    cursor += 36 * 100 / 72 + 46
+    label_size = 36
+    while measure(spec["metric_label"], label_size, "normal") > USABLE and label_size > 20:
+        label_size -= 2
+    put(cursor, spec["metric_label"], label_size, "normal", MUTED)
+    cursor += label_size * 100 / 72 + 46
 
     title_lines = wrap(spec["title"], 62, "bold", USABLE)
     title_lead = 70
@@ -128,7 +142,7 @@ def render(spec) -> Path:
         sub_lines = wrap(spec["sub"], sub_size, "normal", USABLE)
         sub_lead = sub_size * 100 / 72 * 1.35
         end = cursor + (len(sub_lines) - 1) * sub_lead + sub_size * 100 / 72
-        if end <= rule_y - 26:
+        if end <= rule_y - 44:
             break
         sub_size -= 2
     for i, line in enumerate(sub_lines):

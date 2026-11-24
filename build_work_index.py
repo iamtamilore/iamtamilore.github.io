@@ -281,7 +281,7 @@ def main() -> None:
 <meta property="og:url" content="https://iamtamilore.github.io/work/">
 <meta property="og:title" content="Work index | Taiwo Alabi">
 <meta property="og:description" content="A complete, public-safe index of Taiwo Alabi's verified engineering systems, workflows, pipelines and research.">
-<meta property="og:image" content="https://iamtamilore.github.io/assets/img/og_site.jpg">
+<meta property="og:image" content="https://iamtamilore.github.io/assets/img/site_card.jpg">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>

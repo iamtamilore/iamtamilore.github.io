@@ -24,7 +24,7 @@ PROJECTS = [
          title="TermsGuard AI",
          desc="Reads the small print and flags what is unfair to you, showing the source "
               "passage behind every flag. Live on the internet.",
-         card="termsguard.jpg",
+         card="termsguard_card.jpg",
          published=True,
          blurb="grounding against hallucination",
          cmetric="grounded", clabel="shows the passage a flag came from, not an article it claims to quote",
@@ -93,7 +93,7 @@ PROJECTS = [
          title="Video Production Pipeline",
          desc="One pipeline builds every episode on three channels publishing at volume, and a "
               "gate refuses any episode that fails it. 68 videos public on YouTube.",
-         card="episode_pipeline_og.jpg",
+         card="episode_pipeline_card.jpg",
          published=True,
          blurb="a gate that refuses the episode",
          cmetric="68 videos published", clabel="on YouTube across three channels, read from each channel's Shorts listing on 24 November 2026",
