@@ -317,6 +317,12 @@ def main() -> None:
   .work-status {{ color: var(--text-3); }}
   .work-card .cta {{ display: inline-block; margin-top: var(--space-4); font-size: var(--text-sm); }}
 </style>
+<link rel="canonical" href="https://iamtamilore.github.io/work/">
+<meta property="og:url" content="https://iamtamilore.github.io/work/">
+<meta property="og:title" content="Work index | Taiwo Alabi">
+<meta property="og:description" content="A complete, public-safe index of Taiwo Alabi's verified engineering systems, workflows, pipelines and research.">
+<meta property="og:image" content="https://iamtamilore.github.io/assets/img/banner.jpg">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
 <nav class="util" aria-label="Site">

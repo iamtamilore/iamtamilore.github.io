@@ -162,6 +162,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--a
 .btn-primary:hover { background: var(--accent-2); border-color: var(--accent-2); }
 
 .fbtn {
+  min-height: 44px;
   padding: var(--space-2) var(--space-4);
   background: transparent;
   border: 1px solid var(--border);

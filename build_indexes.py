@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parent
 
 COMMON_CSS = """
   .route-intro { max-width: 72ch; }
+  .index-grid .group-label { grid-column: 1 / -1; }
   .index-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: var(--space-5); margin-top: var(--space-6); }
   .index-card { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid transparent; padding: var(--space-5); }
   .index-card:hover { border-left-color: var(--accent); }
@@ -31,7 +32,8 @@ COMMON_CSS = """
 """
 
 
-def page(title: str, description: str, active: str, body: str) -> str:
+def page(title: str, description: str, active: str, body: str, path: str = "") -> str:
+    canonical = "https://iamtamilore.github.io" + path
     return f'''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,6 +48,12 @@ def page(title: str, description: str, active: str, body: str) -> str:
 <link rel="stylesheet" href="/assets/css/design-system.css">
 <link rel="stylesheet" href="/assets/css/mark-zero.css">
 <style>{COMMON_CSS}</style>
+<link rel="canonical" href="{canonical}">
+<meta property="og:url" content="{canonical}">
+<meta property="og:title" content="{title} | Taiwo Alabi">
+<meta property="og:description" content="{description}">
+<meta property="og:image" content="https://iamtamilore.github.io/assets/img/banner.jpg">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
 <nav class="util" aria-label="Site">
@@ -81,6 +89,19 @@ CASE_BODY = '''
   <p>A case study explains one engineering decision from the problem through the mechanism, the measured result and the limit. It does not treat a working file as proof by itself. The reader should be able to check what was built, what it was compared against and what remains unproven.</p>
 </section>
 <section class="index-grid" aria-label="Published case studies">
+  <p class="group-label">Current work</p>
+  <article class="index-card">
+    <span class="eyebrow">Video production</span>
+    <h2>Episode Pipeline</h2>
+    <h3>The problem</h3>
+    <p>A short video published with the wrong frame or a missing caption track cannot be quietly re-shot. The people who already watched it are not watching the correction.</p>
+    <h3>The decision</h3>
+    <p>One driver runs eight stages in a fixed order, and two gates refuse the episode when they fail. The gates sit inside the driver, so a refusal stops the build instead of producing a file.</p>
+    <h3>The evidence</h3>
+    <ul><li>57 videos public on YouTube across three channels, counted from the posting ledger on 24 November 2026</li><li>19 more scheduled, each through the same eight stages</li><li>Five checks on the rendered file: audio, caption track, on-screen captions, visual, frame loop</li></ul>
+    <a class="cta cta-ghost" href="/p/episode-pipeline/">Read the case study</a>
+  </article>
+  <p class="group-label">Earlier work</p>
   <article class="index-card">
     <span class="eyebrow">Contract analysis</span>
     <h2>TermsGuard AI</h2>
@@ -91,6 +112,17 @@ CASE_BODY = '''
     <h3>The evidence</h3>
     <ul><li>102 hand-labelled reference clauses</li><li>4,527 searchable reference chunks</li><li>Matching-only fallback when the model service is unavailable</li></ul>
     <a class="cta cta-ghost" href="/p/termsguard/">Read the case study</a>
+  </article>
+  <article class="index-card">
+    <span class="eyebrow">Image quality</span>
+    <h2>Image QA Gate</h2>
+    <h3>The problem</h3>
+    <p>An image can have the correct pose while showing the wrong identity. Accepting that image is the more serious error.</p>
+    <h3>The decision</h3>
+    <p>A Siamese network compares identity features, and the threshold was selected on validation data before the sealed test was opened.</p>
+    <h3>The evidence</h3>
+    <ul><li>90 sealed test pairs</li><li>Precision 1.00, recall 0.82 and F1 0.90</li><li>Pixel difference F1 0.59 and kNN F1 0.26 as simpler comparisons</li></ul>
+    <a class="cta cta-ghost" href="/p/image-qa/">Read the case study</a>
   </article>
   <article class="index-card">
     <span class="eyebrow">Clinical retrieval</span>
@@ -113,17 +145,6 @@ CASE_BODY = '''
     <h3>The evidence</h3>
     <ul><li>210 labelled tickets, with 42 in each category</li><li>40 of 42 held-out tickets routed correctly</li><li>Confidence threshold of 0.55 before human escalation</li></ul>
     <a class="cta cta-ghost" href="/p/care-agent/">Read the case study</a>
-  </article>
-  <article class="index-card">
-    <span class="eyebrow">Image quality</span>
-    <h2>Image QA Gate</h2>
-    <h3>The problem</h3>
-    <p>An image can have the correct pose while showing the wrong identity. Accepting that image is the more serious error.</p>
-    <h3>The decision</h3>
-    <p>A Siamese network compares identity features, and the threshold was selected on validation data before the sealed test was opened.</p>
-    <h3>The evidence</h3>
-    <ul><li>90 sealed test pairs</li><li>Precision 1.00, recall 0.82 and F1 0.90</li><li>Pixel difference F1 0.59 and kNN F1 0.26 as simpler comparisons</li></ul>
-    <a class="cta cta-ghost" href="/p/image-qa/">Read the case study</a>
   </article>
 </section>
 '''
@@ -225,9 +246,9 @@ GALLERY_BODY = '''
 
 def main() -> None:
     routes = {
-        "case-studies/index.html": page("Case studies", "Four deep cases. Each one starts with the failure it prevents, then explains the mechanism, the measured result and the limit.", "cases", CASE_BODY),
-        "process/index.html": page("Process walkthroughs", "The order of work, explained slowly. These pages show what enters each process, what changes at each step and where a check refuses the result.", "process", PROCESS_BODY),
-        "gallery/index.html": page("Evidence gallery", "Diagrams, evaluation tables, episode stills, contact sheets and raw logs, grouped by the question each artefact can answer.", "gallery", GALLERY_BODY),
+        "case-studies/index.html": page("Case studies", "Five deep cases, newest first. The pipeline is the current work; the other four are earlier systems, dated so you can read the order. Each one starts with the failure it prevents, then explains the mechanism, the measured result and the limit.", "cases", CASE_BODY, "/case-studies/"),
+        "process/index.html": page("Process walkthroughs", "The order of work, explained slowly. These pages show what enters each process, what changes at each step and where a check refuses the result.", "process", PROCESS_BODY, "/process/"),
+        "gallery/index.html": page("Evidence gallery", "Diagrams, evaluation tables, episode stills, contact sheets and raw logs, grouped by the question each artefact can answer.", "gallery", GALLERY_BODY, "/gallery/"),
     }
     for relative, content in routes.items():
         path = ROOT / relative

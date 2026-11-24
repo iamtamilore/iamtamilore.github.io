@@ -251,6 +251,28 @@ headline, `.callcta-note` its mono note, `.card`, `.cardlinks`, `.metric`,
 `.component-row`, `.component-key`, `.component-val`,
 `.component-copy`, `.oap-grid`, `.oap-panel`.
 
+**The group label.** A small uppercase mono line that splits a list of
+entries into groups without adding a card. It names the group and the
+period it covers, nothing clever. `.group-label`.
+
+## The phone
+
+The site has to survive a 375px screen with the body clipping its own
+horizontal overflow. That rule makes three things load bearing.
+
+- **The nav scrolls sideways.** The row is one flex line. It is wider
+  than a phone, so it scrolls inside its own box. The rule is in
+  `.util` and it must never be removed, because the body clips
+  anything that overflows and the links past the edge would be
+  unreachable.
+- **Wide things scroll inside their own box.** A table wider than the
+  screen goes in `.table-wrap` or `.tablewrap`, a long line of code
+  goes in a `pre` with `overflow-x: auto`, and an image is capped at
+  `max-width: 100%`. A heading never pushes the page sideways
+  either, so `h1` to `h4` break inside a long token.
+- **Tap targets are 44px.** Under 768px the CTA classes get
+  `min-height: 44px`. A recruiter on a phone should not have to aim.
+
 ## Image generation
 
 Every image on a public surface comes from `ask.py generate`. The
