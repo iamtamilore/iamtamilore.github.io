@@ -291,6 +291,20 @@ body::after {
 .util a:hover { color: var(--text); }
 .util a:focus-visible { outline: 1px dashed var(--muted); outline-offset: 2px; }
 
+/* The nav is one flex row. On a phone it is wider than the screen, so the
+   row scrolls sideways instead of being clipped by the body. The links keep
+   their size and the strip stays one line tall. */
+@media (max-width: 768px) {
+  .util {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .util::-webkit-scrollbar { display: none; }
+  .util a { flex: 0 0 auto; padding: 0.3rem 0; }
+}
+
 /* ---------- /study/ shelf index (grows as more subjects are built) ---------- */
 .study-index { max-width: 40rem; margin: 0 auto; padding: 2.5rem 1.25rem; }
 .study-index h1 { font-size: 1.4rem; }

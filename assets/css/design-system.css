@@ -202,9 +202,75 @@ a:hover {
 }
 
 @media (max-width: 768px) {
+  /* The nav is one flex row. On a phone it is wider than the screen, so the
+     row scrolls sideways instead of being clipped by the body. The links
+     keep their size and the strip stays one line tall. */
+  .util {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .util::-webkit-scrollbar {
+    display: none;
+  }
+
+  .util a {
+    flex: 0 0 auto;
+    padding: 4px 0;
+  }
+
+  /* Touch targets. A recruiter on a phone should be able to hit these
+     without aiming. */
+  .cta,
+  .cta-ghost,
+  .cta-cv-bridge,
+  .primary,
+  .tool-cta,
+  .tool-cta-ghost,
+  .frm-cta,
+  .bp-cta,
+  .ch-cta {
+    min-height: 44px;
+  }
+
   .asymmetric {
     grid-template-columns: 1fr;
   }
+}
+
+/* Responsive tables. A wide table scrolls inside its own box instead of
+   pushing the whole page sideways on a phone. Applied to the table itself
+   so pages that are hand-written do not need a wrapper element. */
+.table-wrap,
+.tablewrap {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-wrap table,
+.tablewrap table {
+  width: max-content;
+  min-width: 100%;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* A long line of code must not push the page sideways. */
+pre {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+pre code {
+  word-break: normal;
+  overflow-wrap: anywhere;
 }
 
 /* Cards */

@@ -18,21 +18,21 @@
       ],
       "metrics": [
         {
-          "value": "61 rendered EP_*.mp4 episodes on disk",
-          "explanation": "This counted 61 finished video files whose names matched the EP_*.mp4 pattern on the computer. The unit is rendered episode files.",
-          "proves": "It directly supports that 61 episode files existed in the checked location.",
+          "value": "140 rendered EP_*.mp4 files on disk, 118 distinct episode ids, measured 24 November 2026",
+          "explanation": "This counted the finished video files whose names match the EP_*.mp4 pattern in the episode folder. The count is 140 files, of which 22 are gate proxies written during the quality gate, leaving 118 distinct episode ids. Both numbers were taken on 24 November 2026.",
+          "proves": "It directly supports that 140 rendered episode files, covering 118 distinct episodes, existed in the checked location on that date.",
           "does_not_prove": "It does not prove that every file was watched, published, error-free, unique, or produced without any human work before the render stage."
         },
         {
-          "value": "6 channel configurations: anime_hive, capital_postmortem, forgotten_fronts, luxury_archive, zenpai",
-          "explanation": "This records six channel configurations. A configuration is a set of settings and rules for one channel. The source lists six as the count but names five channel identifiers.",
-          "proves": "It directly supports that the inventory records six channel configurations.",
-          "does_not_prove": "It does not prove that all six named configurations are currently complete or that the five displayed names account for all six."
+          "value": "6 channel configurations, 3 of them publishing on YouTube",
+          "explanation": "The posting layer holds six channel configuration folders. Three of them publish on YouTube today: Proof Tested, Forgotten Fronts and Zenpai. The count is the number of folders; the three names are the channels with published videos.",
+          "proves": "It directly supports that the pipeline carries six channel configurations and that three of them are live on YouTube with published videos.",
+          "does_not_prove": "It does not prove that the three configurations which are not publishing yet are finished, scheduled or approved to launch."
         },
         {
-          "value": "149 commits",
-          "explanation": "This counted 149 saved changes in the project's Git history. Git is a tool that records versions of files over time, and a commit is one saved group of changes.",
-          "proves": "It directly supports that the repository history contains 149 commits at the measurement point.",
+          "value": "486 commits, measured 24 November 2026",
+          "explanation": "This counted the saved changes in the pipeline repository's Git history. Git records versions of files over time, and a commit is one saved group of changes. The count was taken on 24 November 2026.",
+          "proves": "It directly supports that the repository history contains 486 commits at that measurement point.",
           "does_not_prove": "It does not measure video quality, reliability, team size, or the amount of useful work in each commit."
         },
         {
@@ -66,22 +66,22 @@
       ],
       "metrics": [
         {
-          "value": "18 distinct scheduled jobs, 18 crontab lines",
-          "explanation": "There are 18 different named jobs in the schedule and 18 nonempty schedule lines that start those jobs. A crontab is the schedule file used by cron, the service that starts commands at specified times.",
-          "proves": "This directly supports that 18 scheduled jobs and 18 schedule entries were counted.",
-          "does_not_prove": "It does not prove that all 18 jobs ran successfully, ran on time, or remained healthy."
+          "value": "28 crontab lines, 27 registered jobs, measured 24 November 2026",
+          "explanation": "The crontab has 28 lines that are not comments or blank, and the job registry the orchestrator compares against holds 27 named jobs. Both were counted on 24 November 2026. The two numbers are not the same thing: a crontab line can run something that is not a registered job.",
+          "proves": "It directly supports that the machine runs 28 scheduled lines and that the orchestrator tracks 27 named jobs.",
+          "does_not_prove": "It does not prove that every registered job runs on time, that every line succeeds, or that the extra lines are intentionally outside the registry."
         },
         {
-          "value": "3,284 append-only ledger records",
-          "explanation": "The ledger contains 3,284 recorded lines. Each line is an added record of an observed event or job outcome, and append-only means existing records are not replaced by newer ones.",
-          "proves": "This directly supports that 3,284 ledger records existed when counted.",
-          "does_not_prove": "It does not prove that every expected run was recorded, that every record is correct, or that the jobs succeeded."
+          "value": "10,349 append-only ledger records, measured 24 November 2026",
+          "explanation": "The ledger contains 10,349 recorded lines. Each line is an added record of an observed event or job outcome, and append-only means existing records are not replaced by newer ones. The count was taken on 24 November 2026.",
+          "proves": "It directly supports that 10,349 ledger records existed when counted.",
+          "does_not_prove": "It does not prove that every record corresponds to a successful run, or that a job that never fired is distinguishable without the registry."
         },
         {
-          "value": "registry names: sync_registry, sync_kie_catalog, ingest_findings, ingest_transcripts, verify_llm, termsguard, modelwatch, release_watch, perfume_stock, sync_zenpai_docs, sync_zenpai_repo, cron_orchestrator, outreach_reply_check, outreach_pre_send_gate, zenpai_analytics, zenpai_replenish, zenpai_upload, zenpai_outreach",
-          "explanation": "This is the exact list of 18 names stored in the job registry. Each name identifies one expected scheduled job, such as a job that synchronizes information, checks a condition, or performs an upload.",
-          "proves": "This directly supports which 18 job names were present in the registry.",
-          "does_not_prove": "It does not prove that these jobs ran, completed successfully, produced correct results, or matched every schedule entry."
+          "value": "registry names: auto_enqueue, cron_orchestrator, ff_crosspost, hub_card_art, ingest_findings, ingest_transcripts, modelwatch, outreach_pre_send_gate, outreach_reply_check, perfume_stock, platform_truth_sync, pt_ig_queue, release_watch, supervisor, sync_kie_catalog, sync_registry, sync_zenpai_docs, sync_zenpai_repo, termsguard, verify_llm, zenpai_analytics, zenpai_attribution, zenpai_instagram, zenpai_outreach, zenpai_replenish, zenpai_trending, zenpai_upload",
+          "explanation": "This lists the job names the orchestrator knows about, read from the registry file on 24 November 2026.",
+          "proves": "It directly supports that the registry held those 27 job names at that date.",
+          "does_not_prove": "It does not prove that each job is healthy, that each one is still needed, or that no job runs outside the registry."
         }
       ],
       "honest_limit": "The supplied evidence does not measure job duration, missed-run frequency over a defined period, notification delivery, repair success rates, or the correctness of each job's work. The system self-heals only the stated document-mirror drift, and no broader automatic repair capability is established.",
@@ -151,10 +151,10 @@
       ],
       "metrics": [
         {
-          "value": "23,459 logged calls",
-          "explanation": "This is the exact number of model call records counted in the system's database. A call means one recorded attempt to use a language model service.",
-          "proves": "The database contains 23,459 recorded model call events at the time of measurement.",
-          "does_not_prove": "It does not prove that all calls were successful, useful, unique, correctly routed, or paid for."
+          "value": "53,113 logged calls, measured 24 November 2026",
+          "explanation": "The gateway ledger holds one row per model call: the model, the tokens, the endpoint and the cost. The count was taken on 24 November 2026 and it grows with every call, so the figure is a dated snapshot rather than a total.",
+          "proves": "It directly supports that the database contained 53,113 recorded model call events at that measurement point.",
+          "does_not_prove": "It does not prove that every call returned a useful answer, that the token counts are exact, or that the cost column matches any invoice."
         },
         {
           "value": "572 media jobs and 40 uploads logged",
@@ -199,7 +199,7 @@
           "does_not_prove": "It does not prove that every command works correctly in all situations or that every command is used regularly."
         }
       ],
-      "honest_limit": "The inventory does not report the percentage of requests served from cache, the number of blocked calls, the number of quarantined reasoning burns, cache savings, retry success rates, provider uptime, answer quality, or the accuracy of cost estimates. It also does not show whether every listed route has been tested end to end. The source contains a different call count in a separate resume bullet, but this system's supplied metric is 23,459 logged calls, so the reason for that discrepancy is not measured here.",
+      "honest_limit": "The inventory does not report the percentage of requests served from cache, the number of blocked calls, the number of quarantined reasoning burns, cache savings, retry success rates, provider uptime, answer quality, or the accuracy of cost estimates. It also does not show whether every listed route has been tested end to end. The call count is a dated snapshot of a ledger that grows every day, so it describes the volume at that moment and not a rate of success.",
       "status": "Production",
       "status_note": "Budget, cache, model routing and spend limits run behind one gateway.",
       "proof_label": "Inventory",

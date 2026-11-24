@@ -271,6 +271,7 @@ TEMPLATE = """<!DOCTYPE html>
 <meta property="og:description" content="{desc}">
 <meta property="og:image" content="https://iamtamilore.github.io/assets/img/{card}">
 <meta property="og:url" content="https://iamtamilore.github.io/p/{slug}/">
+<link rel="canonical" href="https://iamtamilore.github.io/p/{slug}/">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -363,7 +364,7 @@ def transform(html: str, imgmap: dict) -> str:
     # style the contents block
     # pandoc emits <ol type="1">, so match any attributes
     html = re.sub(r'<h2 id="contents">Contents</h2>\s*<ol[^>]*>',
-                  '<div class="toc"><h3 style="margin-top:0">Contents</h3><ol>', html, count=1)
+                  '<div class="toc"><h2 id="contents" style="margin-top:0">Contents</h2><ol>', html, count=1)
     html = re.sub(r'</ol>\s*<hr />', '</ol></div>', html, count=1)
 
     # the h1 gets the accent rule above it, matching the home page

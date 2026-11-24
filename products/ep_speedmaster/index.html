@@ -38,6 +38,8 @@ body { color: var(--text); font-family: 'Quicksand', var(--font); line-height: 1
 .frm-cta { display: inline-block; padding: 10px 18px; border-radius: 999px; background: #5B9BD5; color: #0c1018 !important; font-weight: 700; text-decoration: none; border-bottom: none; }
 .frm-cta.ghost { background: transparent; color: var(--text) !important; border: 1px solid var(--border); }
 </style>
+<link rel="canonical" href="https://iamtamilore.github.io/products/ep_speedmaster/">
+<meta property="og:url" content="https://iamtamilore.github.io/products/ep_speedmaster/">
 </head>
 <body>
 <div class="frm-wrap">
@@ -68,14 +70,14 @@ body { color: var(--text); font-family: 'Quicksand', var(--font); line-height: 1
  <figure><img src="s1_establish_f98.png" alt="frame 3 t=98"><figcaption>t=98% (exit)</figcaption></figure>
  </div>
  <div class="q-msg"><strong>QA gate passes.</strong> vs-seed: 0.325, 0.324, 0.329. vs-hero: 0.317, 0.316, 0.320. Both similarity metrics show stable alignment across all three frames. No regeneration triggered.</div>
- <table class="qa-table">
+ <div class="table-wrap"><table class="qa-table">
  <thead><tr><th>Frame</th><th>vs-seed</th><th>vs-hero</th><th>Status</th></tr></thead>
  <tbody>
  <tr><td>f00 (t=0%)</td><td>0.3248</td><td>0.3175</td><td class="pass">PASS</td></tr>
  <tr><td>f50 (t=50%)</td><td>0.3244</td><td>0.3158</td><td class="pass">PASS</td></tr>
  <tr><td>f98 (t=98%)</td><td>0.3292</td><td>0.3202</td><td class="pass">PASS</td></tr>
  </tbody>
- </table>
+ </table></div>
  <video src="s1_establish.mp4" controls style="width:100%; border-radius:8px; margin-bottom: var(--space-4);"></video>
  </section>
 
@@ -88,14 +90,14 @@ body { color: var(--text); font-family: 'Quicksand', var(--font); line-height: 1
  <figure><img src="s2_deepen_f98.png" alt="frame 3 t=98"><figcaption>t=98%</figcaption></figure>
  </div>
  <div class="q-msg"><strong>QA gate passes, drift detected.</strong> vs-seed climbs from 0.335 (entry) to 0.369 (exit), vs-hero from 0.327 to 0.362. This ~10% drift over the 7.6s scene is intentional (the scene's job is to deepen, not stay static), the gate catches catastrophic failures, not stylistic drift.</div>
- <table class="qa-table">
+ <div class="table-wrap"><table class="qa-table">
  <thead><tr><th>Frame</th><th>vs-seed</th><th>vs-hero</th><th>Status</th></tr></thead>
  <tbody>
  <tr><td>f00</td><td>0.3352</td><td>0.3266</td><td class="pass">PASS</td></tr>
  <tr><td>f50</td><td>0.3531</td><td>0.3460</td><td class="pass">PASS (drift within tolerance)</td></tr>
  <tr><td>f98</td><td>0.3692</td><td>0.3617</td><td class="pass">PASS (drift within tolerance)</td></tr>
  </tbody>
- </table>
+ </table></div>
  <video src="s2_deepen.mp4" controls style="width:100%; border-radius:8px; margin-bottom: var(--space-4);"></video>
  </section>
 
@@ -108,14 +110,14 @@ body { color: var(--text); font-family: 'Quicksand', var(--font); line-height: 1
  <figure><img src="s3_exit_f98.png" alt="frame 3 t=98"><figcaption>t=98%</figcaption></figure>
  </div>
  <div class="q-msg"><strong>QA gate passes (lowest of the three, as expected).</strong> vs-seed 0.231 → 0.211, vs-hero 0.230 → 0.213. The <em>lowest</em> scores in the episode are the correct ones, a character walking away SHOULD diverge from the reference. The QA gate is calibrated to flag <em>catastrophic</em> divergence, not stylistic movement.</div>
- <table class="qa-table">
+ <div class="table-wrap"><table class="qa-table">
  <thead><tr><th>Frame</th><th>vs-seed</th><th>vs-hero</th><th>Status</th></tr></thead>
  <tbody>
  <tr><td>f00</td><td>0.2314</td><td>0.2302</td><td class="pass">PASS</td></tr>
  <tr><td>f50</td><td>0.2276</td><td>0.2260</td><td class="pass">PASS</td></tr>
  <tr><td>f98</td><td>0.2111</td><td>0.2130</td><td class="pass">PASS</td></tr>
  </tbody>
- </table>
+ </table></div>
  <video src="s3_exit.mp4" controls style="width:100%; border-radius:8px; margin-bottom: var(--space-4);"></video>
  </section>
 

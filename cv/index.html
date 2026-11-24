@@ -62,7 +62,7 @@
 Foundations</strong></p>
 <p>newalabitaiwo625@gmail.com | +353 87 004 2838 |
 linkedin.com/in/tami-alabi | github.com/iamtamilore |
-iamtamilore.github.io | County Dublin D03 K0Y3, Ireland</p>
+iamtamilore.github.io | Dublin, Ireland</p>
 <hr />
 <h2 id="profile">Profile</h2>
 <p>I build Python backend services that run AI agents, and I write the
@@ -71,7 +71,7 @@ gateway every model call on my machine passes through, with a response
 cache, a per-call budget guard, a daily spend ceiling and a detector
 that quarantines reasoning burns. Around it I wired eight MCP servers
 into one agent layer and added a watchdog that restores a dead server
-with no human intervention, plus a scheduling layer for 18 scheduled
+with no human intervention, plus a scheduling layer for 27 scheduled
 jobs that separates a job which fired and failed from one that never
 fired. The Smart Medical Records Engine is a clinical assistant on
 FastAPI and PostgreSQL with retrieval scoped per patient in the query,
@@ -100,7 +100,7 @@ response cache keyed on model, messages and parameters, a per-call
 budget guard, a daily cumulative ceiling read from the ledger, and a
 detector that quarantines a response where completion tokens equal
 reasoning tokens and content is empty.</li>
-<li>Result: The ledger held 52,215 calls on 23 November 2026, with token
+<li>Result: The ledger held 53,113 calls on 24 November 2026, with token
 counts, endpoint and cost. The registry separates vendor facts, which a
 fetch overwrites, from user facts, which are hand-kept, so a scheduled
 catalogue sync cannot silently drop a routing decision.</li>
@@ -132,7 +132,7 @@ dependency.</li>
 orchestration with a verification ledger</a></strong>: bash, Python,
 JSONL ledger, systemd</p>
 <ul>
-<li>Problem: 18 scheduled jobs could fail without anyone noticing. A job
+<li>Problem: 27 scheduled jobs could fail without anyone noticing. A job
 that fires and fails and a job that never fires leave identical evidence
 in a log file.</li>
 <li>Action: I routed every crontab line through one runner with a job
@@ -142,7 +142,7 @@ failure modes are distinguishable. It self-heals the one repairable
 drift, and notifications fire only on a state change, because a monitor
 that repeats a known-bad state every fifteen minutes trains the reader
 to ignore it.</li>
-<li>Result: 18 jobs under one registry and 3,284 ledger records, with
+<li>Result: 27 jobs under one registry and 10,349 ledger records, with
 the exit code visible to anything watching it, 0 healthy and 1 not.</li>
 </ul>
 <p><strong><a href="https://iamtamilore.github.io/p/clinical-rag/">Smart

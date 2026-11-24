@@ -20,28 +20,73 @@ Generated on 2026-11-24 directly from the built HTML in this repo, which is the 
 - LINK: [tools](/tools/)
 - LINK: [episodes](/products/)
 - LINK: [channels](/channels/)
-- LINK: [jobs](/jobs/)
 - LINK: [corpus](/corpus/)
 MSc Artificial Intelligence, NCI  ·  graduating January 2027
 
 ## I make AI output verifiable before it ships.
-- LINK: [Book a 30-minute call](mailto:newalabitaiwo625@gmail.com?subject=30-minute%20call)
-One email. I reply with two times that work.
+- LINK: [View the CV](/cv/)
+- LINK: [Download the PDF](/Alabi_Taiwo_CV.pdf)
+- LINK: [Email me](mailto:newalabitaiwo625@gmail.com?subject=Graduation%20role%20enquiry)
+Open to 2027 graduate and early-career roles in Dublin and remote. One email, I reply with two times that work.
 Every system below names the failure it defends against before the thing it adds. That order
       is the argument, and it is the reason this site has a log page instead of a testimonials section.
-Stack Python  ·  SQL  ·  FastAPI  ·  Flask  ·  Docker  ·  Kubernetes  ·  PostgreSQL  ·  pgvector  ·  FAISS  ·  RAG  ·  LangGraph  ·  sentence-transformers  ·  scikit-learn  ·  TensorFlow/Keras  ·  LLM evaluation  ·  confidence calibration  ·  Power BI  ·  BPMN 2.0  ·  GDPR data lineage
-Browse all 37 systems Case studies See the CV Episodes Workflow blueprint How I build things The raw logs
+Stack Python  ·  SQL  ·  FastAPI  ·  Flask  ·  Docker  ·  ffmpeg  ·  ffprobe  ·  cron  ·  Kubernetes  ·  PostgreSQL  ·  pgvector  ·  FAISS  ·  RAG  ·  LangGraph  ·  sentence-transformers  ·  scikit-learn  ·  TensorFlow/Keras  ·  LLM evaluation  ·  confidence calibration  ·  Power BI  ·  BPMN 2.0  ·  GDPR data lineage
+Browse all 37 systems Case studies See the CV Episodes Channels Workflow blueprint How I build things The raw logs
 - LINK: [Browse all 37 systems](/work/)
 - LINK: [Case studies](/case-studies/)
 - LINK: [See the CV](/cv/)
 - LINK: [Episodes](/products/)
+- LINK: [Channels](/channels/)
 - LINK: [Workflow blueprint](/products/blueprint.html)
 - LINK: [How I build things](/how/)
 - LINK: [The raw logs](/provenance/)
 
-### Four case studies, the failure each one defends against
+### The production machine
 
-#### TermsGuard AI
+#### Multi-channel short-form video pipeline
+One pipeline builds every episode on every channel, in eight stages and a fixed
+          order: source, prefilter, rotation check, prefilter again, select, crop, verify,
+          build. A model ranks the candidate stills and a person chooses. The cut follows
+          the narration, so the frames change when the narration does. The channels are
+          Forgotten Fronts, Proof Tested and Super Zenpai, and the same episodes also run
+          on TikTok, Instagram and Facebook.
+- LINK: [The three channels →](/channels/)
+- LINK: [The episodes →](/products/)
+- LINK: [The system record →](/work/)
+
+#### The gate that refuses an episode
+A gate that lives in a document is a warning, a gate that lives in the driver is
+          a gate. The frame gate checks that every shot need has its own usable candidate
+          and that no two frames share a source picture. The post-render gate reads the
+          finished file for audio, caption track, burned-in captions, visual match to the
+          brief and frame loops, and refuses the episode if any one of them fails. It
+          exists because a build once looked finished and was not: 3 of 16 shot needs had
+          verdicts, the crop skipped the rest, and the build spread three stills across
+          sixteen shots.
+- LINK: [The workflow →](/products/workflow/)
+- LINK: [How an episode is made →](/how/)
+
+#### One gateway and one ledger
+Every model call goes through a single gateway that applies a spend ceiling,
+          caches repeated answers, routes the job to a model and a fallback, and writes
+          one record per call. 27 scheduled jobs run under one registry and write to an
+          append-only ledger, 10,349 records so far, so a job that failed is different
+          from a job that never ran.
+- LINK: [The system records →](/work/)
+- LINK: [The raw logs →](/provenance/)
+
+### The current system, and the four that came before it
+
+#### Episode Pipeline Oct to Nov 2026
+One driver builds every short video for three channels: source images, narration,
+          captions, cut, render, post. Eight stages in a fixed order, then two gates that
+          refuse the episode when a check fails. A wrong frame or a missing caption track
+          never reaches a channel, because the build stops instead of producing a file.
+- LINK: [Case study →](/p/episode-pipeline/)
+- LINK: [The channels →](/channels/)
+Earlier work
+
+#### TermsGuard AI May to Oct 2026
 Reads the small print in a privacy policy and flags the unfair parts. A live demo on
           HuggingFace, source on GitHub, and a 12-case regression suite that runs against the
           deployed service (not a notebook). When the verification fails, the page says so
@@ -51,22 +96,7 @@ Reads the small print in a privacy policy and flags the unfair parts. A live dem
 - LINK: [Weekly corpus of 9 EU + Big Tech policies →](/corpus/)
 - LINK: [code](https://github.com/iamtamilore/terms-guard-ai)
 
-#### Care Agent
-Two bots that took over two jobs I used to do by hand every morning at Huawei. One
-          reads complaints and decides which of five teams they belong to. The other runs the
-          process. Below 0.55 confidence it hands the ticket to a human instead of forcing a
-          label. 95.2% on the held-out set; the process was mapped in BPMN before any code.
-- LINK: [Case study →](/p/care-agent/)
-- LINK: [code](https://github.com/iamtamilore/customer-care-automation)
-
-#### Smart Medical Records
-A doctor asks in plain English and gets the answer out of that patient's own notes.
-          The search filters to one patient before it ranks, so a different patient's note
-          cannot surface. Self-hosted on the hospital's own machine, so the data never leaves.
-- LINK: [Case study →](/p/clinical-rag/)
-- LINK: [code](https://github.com/iamtamilore/agentic_rag_fastapi)
-
-#### Image QA Gate
+#### Image QA Gate Jul to Aug 2026
 The moment an AI-generated model stops being the person you asked for, this catches
           it. Built so the agency can ship AI-generated imagery without the wrong face going
           out. A neural net reads the generated image against a locked reference, with a
@@ -74,14 +104,29 @@ The moment an AI-generated model stops being the person you asked for, this catc
 - LINK: [Case study →](/p/image-qa/)
 - LINK: [code](https://github.com/iamtamilore/campaign-image-qa)
 
+#### Smart Medical Records Sep 2025 to Feb 2026
+A doctor asks in plain English and gets the answer out of that patient's own notes.
+          The search filters to one patient before it ranks, so a different patient's note
+          cannot surface. Self-hosted on the hospital's own machine, so the data never leaves.
+- LINK: [Case study →](/p/clinical-rag/)
+- LINK: [code](https://github.com/iamtamilore/agentic_rag_fastapi)
+
+#### Care Agent Mar to Dec 2025
+Two bots that took over two jobs I used to do by hand every morning at Huawei. One
+          reads complaints and decides which of five teams they belong to. The other runs the
+          process. Below 0.55 confidence it hands the ticket to a human instead of forcing a
+          label. 95.2% on the held-out set; the process was mapped in BPMN before any code.
+- LINK: [Case study →](/p/care-agent/)
+- LINK: [code](https://github.com/iamtamilore/customer-care-automation)
+
 #### Huawei, Globacom data team
 Telecom mediation moves call records to fourteen downstream consumers. The constraint
           was never throughput, it was trust: a bad deploy means a customer is billed twice.
           On a 100k+ row validation pass, found a 14% reporting discrepancy nobody had seen.
 - LINK: [On the CV →](/cv/)
-Browse all 37 systems The four case studies How the pipelines run The evidence gallery
+Browse all 37 systems The five case studies How the pipelines run The evidence gallery
 - LINK: [Browse all 37 systems](/work/)
-- LINK: [The four case studies](/case-studies/)
+- LINK: [The five case studies](/case-studies/)
 - LINK: [How the pipelines run](/process/)
 - LINK: [The evidence gallery](/gallery/)
 
@@ -99,7 +144,7 @@ The interesting part is not the score. It is that an automatic OCR score and a h
 - LINK: [The instrument →](/tools/)
 - LINK: [Every call behind it →](/provenance/)
 
-### 03 Get in touch
+### 04 Get in touch
 I make AI output verifiable before it ships. Every system here names the failure it
     defends against, and every number was measured, not estimated.
 Email me 60-second skim CV as PDF
@@ -114,7 +159,6 @@ Email me 60-second skim CV as PDF
 - LINK: [how](/how/)
 - LINK: [logs](/provenance/)
 - LINK: [tools](/tools/)
-- LINK: [jobs](/jobs/)
 
 ---
 
@@ -142,7 +186,7 @@ Backend Engineer (Python), AI Engineering: Agent
 Foundations
 newalabitaiwo625@gmail.com | +353 87 004 2838 |
 linkedin.com/in/tami-alabi | github.com/iamtamilore |
-iamtamilore.github.io | County Dublin D03 K0Y3, Ireland
+iamtamilore.github.io | Dublin, Ireland
 
 ### Profile
 I build Python backend services that run AI agents, and I write the
@@ -151,7 +195,7 @@ gateway every model call on my machine passes through, with a response
 cache, a per-call budget guard, a daily spend ceiling and a detector
 that quarantines reasoning burns. Around it I wired eight MCP servers
 into one agent layer and added a watchdog that restores a dead server
-with no human intervention, plus a scheduling layer for 18 scheduled
+with no human intervention, plus a scheduling layer for 27 scheduled
 jobs that separates a job which fired and failed from one that never
 fired. The Smart Medical Records Engine is a clinical assistant on
 FastAPI and PostgreSQL with retrieval scoped per patient in the query,
@@ -182,7 +226,7 @@ response cache keyed on model, messages and parameters, a per-call
 budget guard, a daily cumulative ceiling read from the ledger, and a
 detector that quarantines a response where completion tokens equal
 reasoning tokens and content is empty.
-Result: The ledger held 52,215 calls on 23 November 2026, with token
+Result: The ledger held 53,113 calls on 24 November 2026, with token
 counts, endpoint and cost. The registry separates vendor facts, which a
 fetch overwrites, from user facts, which are hand-kept, so a scheduled
 catalogue sync cannot silently drop a routing decision.
@@ -214,7 +258,7 @@ orchestration with a verification ledger : bash, Python,
 JSONL ledger, systemd
 - LINK: [Cron
 orchestration with a verification ledger](https://iamtamilore.github.io/work/)
-Problem: 18 scheduled jobs could fail without anyone noticing. A job
+Problem: 27 scheduled jobs could fail without anyone noticing. A job
 that fires and fails and a job that never fires leave identical evidence
 in a log file.
 Action: I routed every crontab line through one runner with a job
@@ -224,7 +268,7 @@ failure modes are distinguishable. It self-heals the one repairable
 drift, and notifications fire only on a state change, because a monitor
 that repeats a known-bad state every fifteen minutes trains the reader
 to ignore it.
-Result: 18 jobs under one registry and 3,284 ledger records, with
+Result: 27 jobs under one registry and 10,349 ledger records, with
 the exit code visible to anything watching it, 0 healthy and 1 not.
 Smart
 Medical Records Engine : FastAPI, PostgreSQL with pgvector,
@@ -392,19 +436,19 @@ BUILD uses ffmpeg to create the final video. The fixed order is enforced by the 
 
 #### What the measurements mean
 
-##### 61 rendered EP_*.mp4 episodes on disk
-What was measured: This counted 61 finished video files whose names matched the EP_*.mp4 pattern on the computer. The unit is rendered episode files.
-What it supports: It directly supports that 61 episode files existed in the checked location.
+##### 140 rendered EP_*.mp4 files on disk, 118 distinct episode ids, measured 24 November 2026
+What was measured: This counted the finished video files whose names match the EP_*.mp4 pattern in the episode folder. The count is 140 files, of which 22 are gate proxies written during the quality gate, leaving 118 distinct episode ids. Both numbers were taken on 24 November 2026.
+What it supports: It directly supports that 140 rendered episode files, covering 118 distinct episodes, existed in the checked location on that date.
 What it does not prove: It does not prove that every file was watched, published, error-free, unique, or produced without any human work before the render stage.
 
-##### 6 channel configurations: anime_hive, capital_postmortem, forgotten_fronts, luxury_archive, zenpai
-What was measured: This records six channel configurations. A configuration is a set of settings and rules for one channel. The source lists six as the count but names five channel identifiers.
-What it supports: It directly supports that the inventory records six channel configurations.
-What it does not prove: It does not prove that all six named configurations are currently complete or that the five displayed names account for all six.
+##### 6 channel configurations, 3 of them publishing on YouTube
+What was measured: The posting layer holds six channel configuration folders. Three of them publish on YouTube today: Proof Tested, Forgotten Fronts and Zenpai. The count is the number of folders; the three names are the channels with published videos.
+What it supports: It directly supports that the pipeline carries six channel configurations and that three of them are live on YouTube with published videos.
+What it does not prove: It does not prove that the three configurations which are not publishing yet are finished, scheduled or approved to launch.
 
-##### 149 commits
-What was measured: This counted 149 saved changes in the project's Git history. Git is a tool that records versions of files over time, and a commit is one saved group of changes.
-What it supports: It directly supports that the repository history contains 149 commits at the measurement point.
+##### 486 commits, measured 24 November 2026
+What was measured: This counted the saved changes in the pipeline repository's Git history. Git records versions of files over time, and a commit is one saved group of changes. The count was taken on 24 November 2026.
+What it supports: It directly supports that the repository history contains 486 commits at that measurement point.
 What it does not prove: It does not measure video quality, reliability, team size, or the amount of useful work in each commit.
 
 ##### select_frames.py uses MODEL = 'qwen3-vl-235b'
@@ -436,20 +480,20 @@ Finally, it returns 0 for a healthy check and 1 for an unhealthy check. This let
 
 #### What the measurements mean
 
-##### 18 distinct scheduled jobs, 18 crontab lines
-What was measured: There are 18 different named jobs in the schedule and 18 nonempty schedule lines that start those jobs. A crontab is the schedule file used by cron, the service that starts commands at specified times.
-What it supports: This directly supports that 18 scheduled jobs and 18 schedule entries were counted.
-What it does not prove: It does not prove that all 18 jobs ran successfully, ran on time, or remained healthy.
+##### 28 crontab lines, 27 registered jobs, measured 24 November 2026
+What was measured: The crontab has 28 lines that are not comments or blank, and the job registry the orchestrator compares against holds 27 named jobs. Both were counted on 24 November 2026. The two numbers are not the same thing: a crontab line can run something that is not a registered job.
+What it supports: It directly supports that the machine runs 28 scheduled lines and that the orchestrator tracks 27 named jobs.
+What it does not prove: It does not prove that every registered job runs on time, that every line succeeds, or that the extra lines are intentionally outside the registry.
 
-##### 3,284 append-only ledger records
-What was measured: The ledger contains 3,284 recorded lines. Each line is an added record of an observed event or job outcome, and append-only means existing records are not replaced by newer ones.
-What it supports: This directly supports that 3,284 ledger records existed when counted.
-What it does not prove: It does not prove that every expected run was recorded, that every record is correct, or that the jobs succeeded.
+##### 10,349 append-only ledger records, measured 24 November 2026
+What was measured: The ledger contains 10,349 recorded lines. Each line is an added record of an observed event or job outcome, and append-only means existing records are not replaced by newer ones. The count was taken on 24 November 2026.
+What it supports: It directly supports that 10,349 ledger records existed when counted.
+What it does not prove: It does not prove that every record corresponds to a successful run, or that a job that never fired is distinguishable without the registry.
 
-##### registry names: sync_registry, sync_kie_catalog, ingest_findings, ingest_transcripts, verify_llm, termsguard, modelwatch, release_watch, perfume_stock, sync_zenpai_docs, sync_zenpai_repo, cron_orchestrator, outreach_reply_check, outreach_pre_send_gate, zenpai_analytics, zenpai_replenish, zenpai_upload, zenpai_outreach
-What was measured: This is the exact list of 18 names stored in the job registry. Each name identifies one expected scheduled job, such as a job that synchronizes information, checks a condition, or performs an upload.
-What it supports: This directly supports which 18 job names were present in the registry.
-What it does not prove: It does not prove that these jobs ran, completed successfully, produced correct results, or matched every schedule entry.
+##### registry names: auto_enqueue, cron_orchestrator, ff_crosspost, hub_card_art, ingest_findings, ingest_transcripts, modelwatch, outreach_pre_send_gate, outreach_reply_check, perfume_stock, platform_truth_sync, pt_ig_queue, release_watch, supervisor, sync_kie_catalog, sync_registry, sync_zenpai_docs, sync_zenpai_repo, termsguard, verify_llm, zenpai_analytics, zenpai_attribution, zenpai_instagram, zenpai_outreach, zenpai_replenish, zenpai_trending, zenpai_upload
+What was measured: This lists the job names the orchestrator knows about, read from the registry file on 24 November 2026.
+What it supports: It directly supports that the registry held those 27 job names at that date.
+What it does not prove: It does not prove that each job is healthy, that each one is still needed, or that no job runs outside the registry.
 
 #### The honest limit
 The supplied evidence does not measure job duration, missed-run frequency over a defined period, notification delivery, repair success rates, or the correctness of each job's work. The system self-heals only the stated document-mirror drift, and no broader automatic repair capability is established.
@@ -515,10 +559,10 @@ Finally, the gateway stores the request outcome, token counts, cost, and endpoin
 
 #### What the measurements mean
 
-##### 23,459 logged calls
-What was measured: This is the exact number of model call records counted in the system's database. A call means one recorded attempt to use a language model service.
-What it supports: The database contains 23,459 recorded model call events at the time of measurement.
-What it does not prove: It does not prove that all calls were successful, useful, unique, correctly routed, or paid for.
+##### 53,113 logged calls, measured 24 November 2026
+What was measured: The gateway ledger holds one row per model call: the model, the tokens, the endpoint and the cost. The count was taken on 24 November 2026 and it grows with every call, so the figure is a dated snapshot rather than a total.
+What it supports: It directly supports that the database contained 53,113 recorded model call events at that measurement point.
+What it does not prove: It does not prove that every call returned a useful answer, that the token counts are exact, or that the cost column matches any invoice.
 
 ##### 572 media jobs and 40 uploads logged
 What was measured: This counts 572 recorded media-generation or media-related jobs and 40 recorded upload events. A media job is a tracked request involving media generation or processing, while an upload is a tracked transfer of data to a service.
@@ -556,7 +600,7 @@ What it supports: The program's help output lists these 16 command functions or 
 What it does not prove: It does not prove that every command works correctly in all situations or that every command is used regularly.
 
 #### The honest limit
-The inventory does not report the percentage of requests served from cache, the number of blocked calls, the number of quarantined reasoning burns, cache savings, retry success rates, provider uptime, answer quality, or the accuracy of cost estimates. It also does not show whether every listed route has been tested end to end. The source contains a different call count in a separate resume bullet, but this system's supplied metric is 23,459 logged calls, so the reason for that discrepancy is not measured here.
+The inventory does not report the percentage of requests served from cache, the number of blocked calls, the number of quarantined reasoning burns, cache savings, retry success rates, provider uptime, answer quality, or the accuracy of cost estimates. It also does not show whether every listed route has been tested end to end. The call count is a dated snapshot of a ledger that grows every day, so it describes the volume at that moment and not a rate of success.
 Current status: Production. Budget, cache, model routing and spend limits run behind one gateway.
 - LINK: [Inventory →](/cv/)
 
@@ -2191,11 +2235,10 @@ Raw evidence that scheduled work ran, media calls were recorded and evaluation d
 - LINK: [tools](/tools/)
 - LINK: [episodes](/products/)
 - LINK: [channels](/channels/)
-- LINK: [jobs](/jobs/)
 skim  ·  60 seconds
 
-## Four projects, what each one prevents going wrong.
-Four projects, the failure mode each one defends against, the one number a recruiter
+## Five systems, what each one prevents going wrong.
+Five systems, the failure mode each one defends against, the one number a recruiter
   needs. The full write-up is one click deeper on every entry. Behind them sits the
   complete index of 37 verified systems.
 All 37 systems → The four case studies → How the pipelines run → The evidence gallery →
@@ -2203,6 +2246,12 @@ All 37 systems → The four case studies → How the pipelines run → The evide
 - LINK: [The four case studies →](/case-studies/)
 - LINK: [How the pipelines run →](/process/)
 - LINK: [The evidence gallery →](/gallery/)
+
+### Multi-channel short-form video pipeline
+One pipeline builds every episode on three live channels, and a gate refuses any episode that fails it.
+- LINK: [The three channels →](/channels/)
+- LINK: [The episodes →](/products/)
+- LINK: [Full write-up →](/p/episode-pipeline/)
 
 ### TermsGuard AI
 Reads the small print in a privacy policy and flags the unfair parts.
@@ -2233,7 +2282,7 @@ One more system, indexed without a public write-up. RL vs Genetic Algorithm for 
 ### What this page is and is not
 This is: the 60-second skim. Each entry leads with what the project prevents going wrong, what that mistake costs, the headline number, and the honest limit. The full write-up is one click away.
 This is not: the full write-up. The full write-ups have the architecture, the diagrams, the per-section honest limits, and the reproduction instructions. They are linked from each entry.
-This is not: the complete index. The work index holds all 37 verified systems with what each one prevents and what it does not prove. This page is the 60-second slice of the four that have full write-ups.
+This is not: the complete index. The work index holds all 37 verified systems with what each one prevents and what it does not prove. This page is the 60-second slice of the five that have full write-ups.
 - LINK: [The work index](/work/)
 This is not: an alternative to the homepage. The homepage is the project card grid for someone choosing what to read. This page is for the recruiter who wants to read more than a card but less than a write-up.
 - LINK: [← Home](/)
@@ -2252,7 +2301,6 @@ This is not: an alternative to the homepage. The homepage is the project card gr
 - LINK: [tools](/tools/)
 - LINK: [episodes](/products/)
 - LINK: [channels](/channels/)
-- LINK: [jobs](/jobs/)
 
 ## Applications
 Sending an application is not an outcome. Record what came back, and the rate tells you whether
@@ -2310,7 +2358,7 @@ evaluation design. The interesting problem is not detection, it is that
 a purely semantic classifier gets negation exactly backwards, and what
 you do about it.
 
-#### Contents
+### Contents
 The problem
 - LINK: [The problem](#1-the-problem)
 Results
@@ -2533,7 +2581,6 @@ sentence's meaning, like turning "we sell your data" into "we do not sell your d
 - LINK: [LinkedIn](https://www.linkedin.com/in/tami-alabi/)
 - LINK: [GitHub](https://github.com/iamtamilore)
 - LINK: [work](/work/)
-- LINK: [tracker](/jobs/)
 - LINK: [bank](/bank-pwa/)
 
 ---
@@ -2560,7 +2607,7 @@ principles under a hard constraint. The model is the easy part. Scoping
 retrieval so the wrong patient cannot surface, and proving it, is the
 system.
 
-#### Contents
+### Contents
 The problem
 - LINK: [The problem](#1-the-problem)
 What it does
@@ -2776,7 +2823,6 @@ filtering afterwards.
 - LINK: [LinkedIn](https://www.linkedin.com/in/tami-alabi/)
 - LINK: [GitHub](https://github.com/iamtamilore)
 - LINK: [work](/work/)
-- LINK: [tracker](/jobs/)
 - LINK: [bank](/bank-pwa/)
 
 ---
@@ -2805,7 +2851,7 @@ does with the tickets it is unsure about is.
 The model section is 5, the escalation decision is 6, where it fails
 is 8, and the unexpected finding is 9.
 
-#### Contents
+### Contents
 The problem
 - LINK: [The problem](#1-the-problem)
 Results
@@ -3008,7 +3054,6 @@ process as a flowchart, before automating any of it.
 - LINK: [LinkedIn](https://www.linkedin.com/in/tami-alabi/)
 - LINK: [GitHub](https://github.com/iamtamilore)
 - LINK: [work](/work/)
-- LINK: [tracker](/jobs/)
 - LINK: [bank](/bank-pwa/)
 
 ---
@@ -3035,7 +3080,7 @@ What this evidences: critiquing model quality and
 evaluation design. A score with no baseline beside it is decoration, so
 this one carries two.
 
-#### Contents
+### Contents
 The problem
 - LINK: [The problem](#1-the-problem)
 Results
@@ -3237,7 +3282,7 @@ McNemar's test - a statistical check for whether
 two models genuinely differ, or just got lucky on this particular set of
 test images.
 - LINK: [← Care Agent the confidence gate](/p/care-agent/)
-- LINK: [CV → the short version](/cv/)
+- LINK: [Video Production Pipeline → a gate that refuses the episode](/p/episode-pipeline/)
 - LINK: [← All work](/#image-qa)
 - LINK: [CV](/cv/)
 - LINK: [GitHub](https://github.com/iamtamilore)
@@ -3245,7 +3290,6 @@ test images.
 - LINK: [LinkedIn](https://www.linkedin.com/in/tami-alabi/)
 - LINK: [GitHub](https://github.com/iamtamilore)
 - LINK: [work](/work/)
-- LINK: [tracker](/jobs/)
 - LINK: [bank](/bank-pwa/)
 
 ---
@@ -3275,6 +3319,8 @@ Care Agent below 0.55 a human decides. 95.2% on the 40 of 42 it routed
 - LINK: [Care Agent](/p/care-agent/)
 Image QA Gate against pixel difference at F1 0.59 and kNN at 0.26. Reached 0.90
 - LINK: [Image QA Gate](/p/image-qa/)
+Video Production Pipeline on YouTube across three channels, counted from the posting ledger on 24 November 2026
+- LINK: [Video Production Pipeline](/p/episode-pipeline/)
 
 ---
 
@@ -3283,7 +3329,6 @@ Image QA Gate against pixel difference at F1 0.59 and kNN at 0.26. Reached 0.90
 - LINK: [Home](/)
 - LINK: [CV](/cv/)
 - LINK: [Work](/work/)
-- LINK: [Jobs](/jobs/)
 - LINK: [Atoms](/atoms/)
 - LINK: [OAP](/oap/)
 - LINK: [Bank](/bank/)
@@ -3313,7 +3358,6 @@ Something you liked. Save it here, sort it later.
 - LINK: [Home](/)
 - LINK: [CV](/cv/)
 - LINK: [Work](/work/)
-- LINK: [Jobs](/jobs/)
 - LINK: [Atoms](/atoms/)
 - LINK: [OAP](/oap/)
 - LINK: [Bank](/bank/)
@@ -3341,36 +3385,34 @@ New captures land in inbox/ from bank-pwa . This page is
 - LINK: [tools](/tools/)
 - LINK: [episodes](/products/)
 - LINK: [channels](/channels/)
-- LINK: [jobs](/jobs/)
 
 ## Channels
-Five channels. One five-stage pipeline. Every episode is auditable end to end, the brief, the frames, the gate, the post. Three are live. Two are test-beds where the format is the work.
+Four channels. One pipeline. Every episode is auditable end to end, the brief, the frames, the gate, the post. Three channels are live and publishing. One is a test-bed where the format is the work.
 
 ### Watch the channels
 Dark history. The events, regimes and people history skipped over.
 The first episode kept 65.3% of viewers past the midpoint on Musashi's duel with Kojirō. Retention is the format signal.
-LIVE · EP_MUSASHI · 40.1s · 876 first-day views
+LIVE · 18 published on YouTube · 10 scheduled
 - LINK: [View the 19-shot breakdown →](/products/forgotten-fronts/ep_musashi.html)
 Tested objects. Watches, engines, instruments. Everything claims it works. We put it through the test.
-Episode one is built, gated, and ready to upload . The QA gate ran 9 of 9 frames against the reference bank at vs-seed and vs-hero.
-READY · EP_SPEEDMASTER · 40.0s · 23 shots, 148 words
+16 episodes published on YouTube and 8 more scheduled. The same gate runs on every one of them: five checks on the rendered file, and any failure refuses the episode.
+LIVE · 16 published on YouTube · 8 scheduled
 - LINK: [View the breakdown →](/products/ep_speedmaster/)
 Demon Slayer lore, vertical narration-driven. Hard cuts on beat boundaries, not the blur-whip.
-13 episodes built and gated , proof the pipeline can ship a single franchise to format. Subject ratios measured against the channel median: Tengen 3.77x, Sanemi 1.91x, Upper Moons 1.47x.
-READY · EP_OBANAI · 40.0s · 13 episodes built, awaiting a YouTube channel
+17 episodes published on YouTube , so the pipeline ships a single franchise to format and the format holds. Subject ratios measured against the channel median: Tengen 3.77x, Sanemi 1.91x, Upper Moons 1.47x.
+LIVE · 17 published on YouTube · 1 scheduled
 Format research. 3.00-second grid, blur-whip transitions, one red word at 140px. The opposite of Zenpai, on purpose.
 4 episode folders (Gojo, Madara, Sukuna, Ben 10), the format itself is the experiment. No subject catalogue yet ; building it is the next move.
 R&D · EP_GOJO · 48.0s · 4 experimental episodes
-Money, economy, companies that failed. Money/economy measured 0.09x against the channel median, this needs its own scrape before it ships.
-Not started. The pipeline is ready. The subject list is the work.
-EMPTY · Awaiting scrape + subject list
 
 ### The pipeline every channel runs on
-Plan, select, build, gate, post. Every episode on every channel goes through these five stages. The gate is the load-bearing one, that's why it carries the only warm colour in the diagram.
+Source, prefilter, rotation check, prefilter again, select, crop, verify, build. Prefilter runs twice on purpose, once before rotation correction and again after it. Skip the second pass and a sideways frame reaches the final cut, so the order is a correctness property, not a preference.
 
 #### What the gate actually measures
-The gate runs ResNet50 cosine similarity at three frame positions per scene, then asks a vision model for a modern/anachronism check. The pass/fail criterion is calibrated against the reverse-engineered luxury episode:
-The numbers are vs-seed / vs-hero. The third scene has the lowest scores and that is correct, a character walking away should diverge from the reference. The gate flags catastrophic divergence, not stylistic movement.
+Two gates, and both live in the driver rather than in a checklist. The frame gate runs twice, coverage after the selection and provenance after the crop. The post-render gate runs on the finished file and refuses the episode if one of its five checks fails.
+The frame gate asks two questions. Coverage: does every shot need in the brief have a usable candidate in its own verdicts. Provenance: did every cropped frame come from its own need, does no two frames share a source picture, and does the frame count cover the needs.
+The gate exists because of one episode. On 22 October the GOJO build finished and looked finished. Selection had written verdicts for 3 of 16 needs, the crop skipped every need with no candidate, and the build spread those three stills across all sixteen shots. Frame 06 was the wrong character. Nothing in the pipeline noticed. A human looking at the frames did. A gate that lives in a document is a warning, a gate that lives in the driver is a gate.
+The limits are stated. A shot longer than 3.5 seconds fails and exactly 3.5 passes, call to action card shots are excluded, the OCR pass is advisory because its measured hit rates are weak, and the visual check is one model call that can come back incomplete.
 
 #### The six rules the pipeline enforces
 Each rule closes one class of failure that cost real time or money. Every rule is documented, fileable, and automatic, not convention.
@@ -3380,9 +3422,9 @@ Every NEVER names its beat. "No Kanao" rejected the very need whose line is "The
 UNPARSEABLE means transport, not model failure. A timeout reads as a model fault unless the selector logs transport separately.
 Pixel review at full 1080×1920. Six frames passed at 640px and failed at full resolution. Confirm by opening the source PNG.
 Every claim matches the source verbatim. Two claims dropped from Musashi for being unsourced; one added to Speedmaster because it was sourced.
-- LINK: [See the worked example](/products/)
-- LINK: [Workflow blueprint](/products/workflow/)
+- LINK: [Watch the episodes](/products/)
 - LINK: [How I make an episode](/how/)
+- LINK: [The case studies](/case-studies/)
 
 ---
 
@@ -4606,7 +4648,6 @@ The score is a measurement of one document at one point in time, not a verdict.
 - LINK: [tools](/tools/)
 - LINK: [episodes](/products/)
 - LINK: [channels](/channels/)
-- LINK: [jobs](/jobs/)
 
 ## I can show you every step, not just the result
 Here is one short video I made, from an empty folder to a finished file. The script, the timings,
@@ -4729,7 +4770,6 @@ This page routes to a single QR on a phone lock screen. Scannable at 60cm, in ev
 - LINK: [Home](/)
 - LINK: [CV](/cv/)
 - LINK: [Work](/work/)
-- LINK: [Jobs](/jobs/)
 - LINK: [Atoms](/atoms/)
 - LINK: [OAP](/oap/)
 - LINK: [Bank](/bank/)
@@ -4849,6 +4889,331 @@ Easier on the eyes for night practice
 
 ---
 
+## PAGE: /p/episode-pipeline/
+
+- LINK: [← All work](/#episode-pipeline)
+
+## Multi-Channel
+Short-Form Video Production Pipeline
+12 min read
+One pipeline builds every episode on three live channels, and a gate
+refuses any episode that fails it.
+Built by Taiwo Alabi. Production system, Dublin,
+Ireland · October to November 2026
+57 videos public on YouTube across three channels on 24
+November 2026, with 19 more scheduled, every one through eight build
+stages and two gates that can refuse the episode.
+Three channels publish vertical short-form videos on a schedule, and
+every episode is assembled from source images, narration and captions by
+machine. The system exists because the work is repetitive at scale and
+because a failure in it is public: a wrong frame in a published video
+cannot be quietly re-shot, and the people who already watched it are not
+watching the correction.
+The gates are the load-bearing part. They run inside the driver, they
+refuse the work, and the refusal is written to a record.
+What this evidences: production engineering with a
+hard quality gate. The number that matters is not the video count, it is
+that a build that looked finished once was not, and the pipeline now
+refuses to build that shape of episode again.
+
+### Contents
+The problem
+- LINK: [The problem](#1-the-problem)
+What the system does
+- LINK: [What the system does](#2-what-the-system-does)
+The eight stages
+- LINK: [The eight stages](#3-the-eight-stages)
+The gates
+- LINK: [The gates](#4-the-gates)
+Why the gates exist
+- LINK: [Why the gates exist](#5-why-the-gates-exist)
+The channels and the
+output
+- LINK: [The channels and the
+output](#6-the-channels-and-the-output)
+The publishing layer
+- LINK: [The publishing layer](#7-the-publishing-layer)
+The model gateway
+- LINK: [The model gateway](#8-the-model-gateway)
+Honest limitations
+- LINK: [Honest limitations](#9-honest-limitations)
+Reproduce it
+- LINK: [Reproduce it](#10-reproduce-it)
+Terms used in this
+report
+- LINK: [Terms used in this
+report](#11-terms-used-in-this-report)
+- LINK: [Watch the channels](/channels/)
+- LINK: [Read the workflow](/products/workflow/)
+- LINK: [See the publishing state](/products/)
+
+### 1. The problem
+Short vertical video is cheap to make badly. A pipeline that renders
+an episode from a pile of images will happily render an episode that is
+missing most of its shots, because the renderer takes what it is given
+and pads the gaps.
+The specific failures this system was built to stop:
+Manual work at the render stage. Choosing frames
+and assembling videos by hand does not scale to three channels on a
+schedule.
+The same shot reused across channels. A repeated
+shot reads as a repeated episode, and the channels are watched by the
+same people.
+The same closing promise spent twice. A channel
+that promises the same next episode twice trains its audience not to
+believe it.
+An image that is sideways. Cameras and downloads
+are not always upright, and a rotated frame reaches the finished video
+unless something checks it.
+A missing frame, silently. The most expensive
+failure of all, and the reason the gates exist. Section 5 is about that
+one.
+None of these are visible in a finished episode unless somebody
+looks. That is the problem with a defect that only a careful viewer
+would catch: the pipeline has to be the thing that looks.
+
+### 2. What the system does
+The input is a brief: the channel, the subject, the narration script
+and the list of shots the episode needs. The output is a vertical video
+with burned-in captions, a narration track, a music bed and a
+call-to-action card, plus the records that show how it was made.
+Inside that, four things happen:
+Source. For each shot the pipeline fetches
+candidate stills. A shot is one planned visual moment, and a shot need
+is that shot with the instruction that describes it. Each need gets its
+own search queries, about 50 candidates per need.
+Select. A vision model reads the instruction and
+the candidates and writes a verdict for each one. The model ranks, a
+person decides. The verdicts are written to disk per need.
+Assemble. Every accepted still is cropped to the
+vertical master, 1080 by 1920, and the clip is cut to the narration
+rather than to a fixed grid. The result is burned-in captions that
+follow the spoken words, and the captions use the script's
+spelling.
+Publish. The episode is scheduled, uploaded, and
+written to the posting ledger with its title, its video id and its
+date.
+Each channel carries its own instructions: its own subject list, its
+own measured subject ratios, its own voice preset, and its own format
+rules. Forgotten Fronts is a hard cut on the narration. Super Zenpai is
+the same. The Anime Hive format is deliberately the opposite, a
+3.00-second grid with a blur-whip transition and one red word, and it
+exists to be a counter-example rather than a channel.
+
+### 3. The eight stages
+The driver runs the stages in this order:
+Source. Pull candidate images for each shot that is
+still needed. The single most expensive mistake in the pipeline is
+giving every shot the same search words: the selector dedups globally,
+so needs with identical candidates see an empty pool and the episode
+gets whatever few stills exist, repeated.
+Prefilter. Drop anything unusable before spending
+time on it. Resolution, aspect, duplicates and obvious mismatches go
+here, before the expensive stages run.
+Rotcheck. Detect and fix images that are sideways.
+Correction has to happen before selection, never after, because a frame
+chosen on the wrong orientation is chosen for the wrong reason.
+Prefilter, again. The step people delete because it
+looks redundant. It runs a second time on purpose, after rotation has
+been fixed, so a corrected-but-otherwise-bad frame does not reach
+selection unchecked.
+Select. Rank the candidates and pick the best ones.
+The model scores them, the person chooses. A transport failure is
+recorded as a transport failure, not as a model fault, so a timeout does
+not empty a run silently.
+Crop. Cut every chosen frame to the vertical master.
+The crop is what makes a sourced image usable, and a crop that trims a
+character out of frame produces a technically valid frame that is
+useless.
+Verify. Look at every cropped frame at full size
+before building. Full resolution only, not contact-sheet thumbnails: a
+frame under 400 pixels wide cannot reliably identify a character, and
+that mistake has already happened once.
+Build. Assemble the clips, cut to the narration, add
+the captions, and refuse to write a file that the gates would refuse
+anyway.
+The order is a correctness property, not a preference. Prefilter
+running twice is the clearest example of it.
+
+### 4. The gates
+
+#### The frame gate
+Runs twice inside the driver, not in a checklist.
+Coverage , after selection. Every shot need in the
+brief must have a usable candidate in its own verdicts. A usable
+candidate means a complete, provenance-backed accept with every required
+field true.
+Provenance , after the crop. Every cropped frame
+must come from its own need's accepted candidate, no two frames may
+share a source picture, and the frame count must cover the needs.
+
+#### The shot gate
+Deterministic, and it reads the rendered segments with ffprobe when
+the frame directory has already been cleaned. A shot duration greater
+than 3.5 seconds fails and exactly 3.5 seconds passes. Explicit
+call-to-action card shots are excluded. The gate does not call a model,
+does not publish, does not queue and does not upload anything.
+
+#### The post-render gate
+Five checks on the finished file. Four of them cost nothing at all:
+they read the media with ffprobe, ffmpeg and Python.
+If any one of the five fails, the episode is refused and the process
+exits non-zero, so a caller cannot read a failure as a pass. The driver
+runs the gate with a healing loop, so a repairable defect is repaired
+and re-gated instead of shipped.
+The visual check is the only expensive one, and it is the only one
+that can be incomplete. A still cannot show motion, cut rhythm or
+framing, so the gate passes the clip itself to the model rather than a
+frame.
+
+### 5. Why the gates exist
+On 22 October 2026 the GOJO episode built and looked finished. It was
+not.
+The selector wrote verdicts for only 3 of 16 needs. The crop step
+does not fail on a missing need, it prints NO VERDICTS or nothing usable, every candidate rejected and carries on.
+The build then had fewer frames than the episode had beats, and the
+builder rescaled or repeated to fill the gap. Three stills were spread
+across sixteen shots. Frame 06 was a wrong character.
+Nothing in the pipeline noticed. A human looking at the frames
+noticed.
+A missing frame is a silent defect, because it looks like a finished
+episode. That is why the gates live where they do:
+The coverage check runs after selection, before the crop, while the
+work can still be stopped.
+The provenance check runs after the crop, before the build, and it
+is the one that catches the reused-still signature directly.
+The gate is in the driver. A gate that lives in a document is a
+warning, a gate that lives in the driver is a gate.
+Three more rules came out of the same period and are enforced rather
+than advised:
+Five queries per need. Identical query lists put
+the same candidates in every folder, and the global dedup then leaves
+half the needs with nothing.
+Every never-list names its beat. A global "no
+Kanao" rule once rejected the very need whose line was about meeting
+Kanao. Constraints are per beat.
+Pixel review at full 1080 by 1920. Six frames
+passed at 640 pixels and failed at full resolution.
+
+### 6. The channels and the
+output
+Three channels publish on YouTube, and the same episodes also run on
+TikTok, Instagram and Facebook.
+Counts are distinct published videos counted from the posting ledger
+on 24 November 2026. A further 19 episodes were scheduled and not yet
+public.
+One episode is documented in full on this site as a worked example of
+the gate: Forgotten Fronts EP_MUSASHI, 40.1 seconds, 19 frames, 15
+claims verified against the source and 2 cut, shipped on 27 October
+2026. It kept 65.3% of its viewers past the midpoint on its first day,
+with 876 first-day views. Retention is the format signal for a channel
+like this, and it is the number the pipeline is built to protect.
+
+### 7. The publishing layer
+Publishing is scheduled work, and scheduled work fails quietly. Two
+mechanisms cover that.
+A registry and a ledger. 18 named scheduled jobs run
+under one registry, so every expected run has a known name. Each run
+writes one append-only record to a JSONL ledger, 3,284 records so far. A
+job that fired and failed therefore leaves different evidence from a job
+that never ran, which is the only way to tell those two apart after the
+fact.
+Claims. Before any actor builds or publishes an
+episode, it takes a claim, a lease with an expiry. The cron job, the
+supervisor and an interactive session all take claims through the same
+control script, so the same episode is not built twice, and a crashed
+build releases its claim rather than blocking the channel forever.
+The posting ledger itself is the record of what went out: one line
+per post with the title, the video id, the upload time and the schedule.
+It is the source for the published counts in section 6, and it is what
+makes the difference between "the slot passed" and "the video is public"
+a question with an answer.
+
+### 8. The model gateway
+Every model call in this system goes through one gateway, and that is
+a deliberate constraint rather than a convenience.
+The gateway chooses the model and the service for a job, applies a
+spend ceiling before the call goes out, serves a cached answer when the
+same request has already been made, retries one known transport failure,
+quarantines a response that burned reasoning tokens and returned no
+content, and writes one record per call with the job, the model, the
+token counts and the cost where the provider returned it.
+Measured on the ledger on 24 November 2026:
+That is what makes the rest of the system auditable. A stage that ran
+a model can be read back after the fact: which model, which prompt, how
+many tokens, what it cost, and whether the answer was accepted or
+quarantined.
+
+### 9. Honest limitations
+The published count is not an audience measure. 57
+is what the ledger says is public. It is not a view count, and apart
+from the first Forgotten Fronts episode this report does not carry
+per-episode audience numbers.
+The gates have thresholds, not a published pass
+rate. The shot bound, the duration tolerance and the coverage
+rule are explicit and fileable, but the evidence does not carry a
+measured pass rate for the gates as a whole.
+The visual check can come back incomplete. It is
+one model call on a clip. The OCR pass is advisory, because its measured
+hit rates are weak, and the caption styling check is deterministic but
+narrow.
+The ledger counts attempts, not completions. 46 of
+988 media jobs failed, and the failed ones are recorded as failures
+rather than silently dropped, which is the point, but the completion
+rate is not a claim about quality.
+The channel plans are hand-maintained. The subject
+lists, the subject ratios and the voice presets per channel are curated.
+The pipeline does not discover a new subject, and for the Anime Hive
+format there is no subject catalogue at all, which the format plan says
+out loud.
+This is verified by inspection and by its own
+records. The claims here come from the pipeline's code, the
+posting ledger, the model ledger and the publishing state. No
+independent party has audited them.
+
+### 10. Reproduce it
+The driver runs one episode, one stage at a time, and refuses to run
+a stage by hand:
+The gates can be run on their own, against an episode that already
+exists:
+The publishing state, the claims and the per-channel counts come from
+one read-only command:
+What cannot be reproduced from the repository alone is the media
+generation itself, which needs provider keys and credits, and the
+upload, which needs the signed-in channel accounts.
+
+### 11. Terms used in this report
+Beat. One line of the narration, with its planned
+visual moment.
+Shot need. A beat that still needs an image, with
+the instruction that describes it.
+Frame. One still image from a video, in this report
+a still chosen for a shot.
+Verdict. The record a model writes about a
+candidate image: accept or reject, with the fields that justify it.
+Brief. The file that carries the channel, the
+script and the shot needs for one episode.
+Episode. One finished video and its supporting
+files.
+Gate. A check that can approve or refuse an
+episode.
+Ledger. An append-only record, one line per
+event.
+Claim. A lease an actor takes before it builds or
+publishes, so the same work is not done twice.
+- LINK: [← Image QA Gate which error to make](/p/image-qa/)
+- LINK: [CV → the short version](/cv/)
+- LINK: [← All work](/#episode-pipeline)
+- LINK: [CV](/cv/)
+- LINK: [GitHub](https://github.com/iamtamilore)
+- LINK: [newalabitaiwo625@gmail.com](mailto:newalabitaiwo625@gmail.com)
+- LINK: [LinkedIn](https://www.linkedin.com/in/tami-alabi/)
+- LINK: [GitHub](https://github.com/iamtamilore)
+- LINK: [work](/work/)
+- LINK: [bank](/bank-pwa/)
+
+---
+
 ## PAGE: /products/ep_speedmaster/
 
 - LINK: [← How I make an episode](/how/)
@@ -4873,16 +5238,18 @@ Deepens the rain and the character's posture. The most dramatic frame in the epi
 The character leaves the frame. Lowest similarity scores of the three scenes, that's correct: exit means departing from the reference, not staying close to it.
 
 ### The QA gate that ran
-Every scene was measured against two reference images using the same gate that runs on every frame in every batch, qa_selector.py (ResNet50 cosine similarity, threshold M16.8, 16.9 calibrated on a reference bank held out from the active training run).
-The pass/fail criterion is: both vs-seed and vs-hero stay within the calibrated band for the scene type. Catastrophic divergence triggers an automatic regenerate; stylistic drift within tolerance does not. See the blueprint page for the full gate logic, the regeneration budget, and the calibrated thresholds.
+Every scene was measured against two reference images by the gate that ran on this episode on 4 July 2026, qa_selector.py (ResNet50 cosine similarity, threshold M16.8, 16.9 calibrated on a reference bank held out from the active training run). This page is kept as the record of that run. The channels do not use this gate now: the live pipeline checks coverage, provenance, shot length and five properties of the rendered file instead.
+The pass/fail criterion is: both vs-seed and vs-hero stay within the calibrated band for the scene type. Catastrophic divergence triggers an automatic regenerate; stylistic drift within tolerance does not. The blueprint page describes the pipeline that runs now, and the episode pipeline case study covers the gates that run on every published episode.
 - LINK: [blueprint page](/products/blueprint.html)
+- LINK: [episode pipeline case study](/p/episode-pipeline/)
 
 #### Raw QA JSON
 
 ### What the brand sees vs what the agent does
-The brand receives three video files and a single QA report. They do not see the prompts, the regeneration logic, or the threshold tuning. That's the whole point of the gate, the brand signs off on "the character looks like the character", not on the mechanism that ensures it.
-For brands that want to see the mechanism, to verify the work is auditable, not just trusted, this page is the entry. The full production system is documented in the blueprint ; the higher-end version (the luxury tier that adds a four-ward expert routing panel, an AIDM Thompson-sampling credit allocator, and an EEAI leakage audit) is on the same blueprint at the luxury tier.
+The brand receives three video files and a single QA report. They do not see the prompts, the regeneration logic, or the threshold tuning. That's the whole point of the gate: the brand signs off on "the video is what the brief asked for", not on the mechanism that ensures it.
+For brands that want to see the mechanism, to verify the work is auditable, not just trusted, this page is the entry. The production system that runs today is documented in the blueprint , and the gate behaviour on a real episode, including the findings that were false, is written up in the episode pipeline case study .
 - LINK: [blueprint](/products/blueprint.html)
+- LINK: [episode pipeline case study](/p/episode-pipeline/)
 - LINK: [All episodes](/products/)
 - LINK: [See the blueprint](/products/blueprint.html)
 - LINK: [How I make an episode](/how/)
@@ -4939,18 +5306,9 @@ EP_MUSASHI took 40.1 seconds to ship a real fact-checked history episode with 65
 - LINK: [tools](/tools/)
 - LINK: [episodes](/products/)
 - LINK: [channels](/channels/)
-- LINK: [jobs](/jobs/)
 
 ## Episodes
-The worked example, the workflow blueprint, and the three channels behind them. Every episode on the channels runs through the same five-stage pipeline with the same six hard-won rules.
-
-#### The worked example: EP_SPEEDMASTER (Proof Tested)
-A 24.8-second vertical episode on the Omega Speedmaster surviving NASA’s worst missions. Three scenes, nine frames extracted at t=0%/50%/98%, one QA gate per scene. 9/9 frames passed against the reference bank at vs-seed and vs-hero. Every measurement is shown on the page, what passed, what drifted within tolerance, what the gate’s pass/fail criterion is, and why the lowest scores are still a pass. The Speedmaster episode is built, gated, and ready to upload.
-- LINK: [View the breakdown →](/products/ep_speedmaster/)
-- LINK: [Watch s1 (8.8s)](/products/ep_speedmaster/s1_establish.mp4)
-- LINK: [Watch s2 (7.8s)](/products/ep_speedmaster/s2_deepen.mp4)
-- LINK: [Watch s3 (8.2s)](/products/ep_speedmaster/s3_exit.mp4)
-- LINK: [All channels →](/channels/)
+The workflow blueprint and the three channels behind it. Every episode on the channels runs through the same eight stages and the same six hard-won rules.
 
 #### The QA gate, separately: EP_MUSASHI
 A second worked example on the QA gate, applied to a different shipped episode. 19 frames extracted from one Wikipedia article, every frame gated against a hero reference, every claim cross-checked against the source. EP_MUSASHI shipped live on YouTube and TikTok on 2026-10-27 and kept 65.3% of viewers past the midpoint.
@@ -4959,26 +5317,26 @@ A second worked example on the QA gate, applied to a different shipped episode. 
 - LINK: [Watch the MP4](/products/channels/forgotten_fronts/ep_musashi.mp4)
 
 #### The workflow blueprint
-The five-stage pipeline (plan, select, build, gate, post) plus the six hard-won rules the pipeline enforces automatically. One rule per failure that cost real time or money to learn. Every rule is documented with its measured cost, and the production code that enforces it is named and fileable. A brand can audit this end-to-end without any agent involvement.
+The eight build stages (source, prefilter, rotation check, prefilter again, select, crop, verify, build) plus the six hard-won rules the pipeline enforces automatically. One rule per failure that cost real time or money to learn. Every rule is documented with its measured cost, and the production code that enforces it is named and fileable. A brand can audit this end-to-end without any agent involvement.
 - LINK: [Read the blueprint](/products/blueprint.html)
 
 ### The channels behind the work
-Three channels ship on the same five-stage pipeline. Each has its own measured subject catalog. Click a thumbnail to see the channel breakdown; the handle links to the real platform channel.
+Three channels ship on the same pipeline. Each has its own measured subject catalog. Click a thumbnail to see the channel breakdown; the handle links to the real platform channel.
 - LINK: [@forgottenfronts0](https://www.youtube.com/@forgottenfronts0)
-Status: LIVE. EP_MUSASHI shipped 2026-10-27 with 65.3% retention. Next: EP_CANN AE (216 BC, the named next subject).
+Status: LIVE. 18 episodes published on YouTube, 10 more scheduled. EP_MUSASHI shipped 2026-10-27 with 65.3% retention.
 - LINK: [View breakdown →](/products/forgotten-fronts/)
 - LINK: [Watch EP_MUSASHI](/products/channels/forgotten_fronts/ep_musashi.mp4)
 - LINK: [All channels →](/channels/)
-- LINK: [@prooftested0](https://www.youtube.com/@prooftested0)
-Status: EPISODE 1 BUILT AND GATED. EP_SPEEDMASTER (24.8s, 3 scenes, 9 frames, every claim verified against Wikipedia). Awaiting upload. Next: EP_APOLLO13.
+- LINK: [@proof.tested](https://www.youtube.com/@proof.tested)
+Status: LIVE. 16 episodes published on YouTube and 8 more scheduled, plus TikTok, Instagram and Facebook. EP_SPEEDMASTER (24.8s, 3 scenes, 9 frames, every claim verified against Wikipedia) was the first one.
 - LINK: [View worked example →](/products/ep_speedmaster/)
 - LINK: [Watch EP_SPEEDMASTER](/products/channels/luxury_archive/ep_speedmaster.mp4)
 - LINK: [All channels →](/channels/)
-- LINK: [@zenpaitv_](https://www.tiktok.com/@zenpaitv_)
-Status: FORMAT BUILT, 13 EPISODES SHIPPED INTERNALLY. Proof the pipeline ships Demon Slayer lore. Subject ratios measured: Tengen 3.77x, Sanemi 1.91x, Upper Moons 1.47x.
+- LINK: [@zenpaianime](https://www.youtube.com/@zenpaianime)
+Status: LIVE. 17 episodes published on YouTube, 1 scheduled, plus TikTok and Instagram. Subject ratios measured against the channel median: Tengen 3.77x, Sanemi 1.91x, Upper Moons 1.47x.
 - LINK: [Watch EP_OBANAI](/products/channels/zenpai/ep_obanai.mp4)
 - LINK: [All channels →](/channels/)
-Status: TEST-BED. anime_hive is the format R&D playground (4 experimental episodes). capital_postmortem is empty, needs its own subject scrape before launch.
+Status: TEST-BED. anime_hive is the format R&D playground (4 experimental episodes). The opposite format to Zenpai on purpose: a 3.00-second grid against hard cuts on the narration.
 - LINK: [Watch EP_GOJO](/products/channels/anime_hive/ep_gojo.mp4)
 - LINK: [All channels →](/channels/)
 
@@ -4994,10 +5352,10 @@ The pipeline is in ~/repos/zenpai-pipeline (mirrored from /mnt/2b ). The 6 hard-
 - LINK: [Contact sheets →](/products/workflow/contact-sheets.html)
 
 ## Workflow blueprint
-The five-stage pipeline that runs every channel. Plus six rules the pipeline enforces automatically - one per failure that cost real time or money to learn.
+The eight-stage pipeline that runs every channel, and the gates that can refuse an episode. Plus six rules the pipeline enforces automatically - one per failure that cost real time or money to learn.
 
 ### The pipeline
-Plan, select, build, gate, post. Every episode on every channel goes through these five stages. The gate is the load-bearing one - that's why it carries the only warm colour in the diagram.
+Source, prefilter, rotcheck, select, crop, verify, build. Every episode on every channel goes through these stages in this order, and the order is not a preference: rotation correction after selection cannot converge, so it has to happen first. The gate is the load-bearing part - that's why it carries the only warm colour in the diagram.
 
 ### The six rules
 Each rule closes one class of failure. The cost is the proof - real time, real money, or real defects that would otherwise have shipped.
@@ -5008,13 +5366,24 @@ A timeout reads as a model fault unless the selector logs transport separately. 
 Six frames passed at 640px and failed at full resolution. Confirm any "wrong character" call by opening the source PNG.
 A claim only goes in if the source states it. Two claims dropped from Musashi for being unsourced; one added to Speedmaster because it was sourced.
 
-### The QA gate that actually runs
-The gate runs ResNet50 cosine similarity at three frame positions per scene, then asks a vision model for a modern/anachronism check. The pass/fail criterion is calibrated against the reverse-engineered luxury episode:
-The numbers are vs-seed / vs-hero. The third scene has the lowest scores and that is correct - a character walking away should diverge from the reference. The gate flags catastrophic divergence, not stylistic movement.
+### The gates that can refuse an episode
+A gate is only worth its name if it can stop the work. These run inside the driver, and the driver stops.
+
+#### Before any paid work
+Three gates run before the first source call, so a stale or unsourced brief never spends money. The brief pile gate refuses a brief that has drifted from the batch. The beat alignment gate refuses a brief whose shot needs do not match the narration. The claims gate refuses a claim the source does not state.
+
+#### On the frames
+The frame gate runs twice, and it runs in the driver rather than as an optional script. The coverage pass runs after selection and refuses an episode where a shot need has no judged candidate. The provenance pass runs after cropping and refuses a frame that cannot be traced back to a source image.
+The shot gate reads the finished shot list. A shot longer than 3.5 seconds fails, exactly 3.5 seconds passes, and explicit card shots are excluded because they are meant to sit still.
+
+#### On the rendered file
+The watch gate runs after the build and reads the finished video, not the project files. Five checks:
+Four of the five checks are free: they read the file with ffprobe, ffmpeg and Python. The visual check makes one vision model call, because a still cannot show the cut rhythm or the framing of a shot.
+When the gate fails, the driver does not publish and it does not give up. It parses the failure, rejects the source frame behind that shot, re-sources it, and rebuilds, for up to five iterations. The history of every iteration is written to a file next to the episode.
 
 ### What the workflow proves to a brand
-A brand evaluating this work signs off on "the character looks like the character" - not on the mechanism. The blueprint is the proof that the work is auditable end to end: every claim traces to a source, every frame is gated against a reference, every rule has a name and a measured cost, and every failure mode is documented.
-- LINK: [See Stage 2 (contact sheets)](/products/workflow/contact-sheets.html)
+A brand evaluating this work signs off on "the video is what the brief asked for" - not on the mechanism. The blueprint is the proof that the work is auditable end to end: every claim traces to a source, every frame traces to the source image it was cropped from, every rule has a name and a measured cost, and every failure mode is documented rather than quietly fixed.
+- LINK: [See the selector (contact sheets)](/products/workflow/contact-sheets.html)
 - LINK: [Forgotten Fronts channel](/products/forgotten-fronts/)
 - LINK: [EP_MUSASHI breakdown](/products/forgotten-fronts/ep_musashi.html)
 
@@ -5030,7 +5399,6 @@ A brand evaluating this work signs off on "the character looks like the characte
 - LINK: [tools](/tools/)
 - LINK: [episodes](/products/)
 - LINK: [channels](/channels/)
-- LINK: [jobs](/jobs/)
 
 ## Every image shows its own receipt
 This is the raw record behind every published short on the channel: each generation call, the model
@@ -5165,7 +5533,6 @@ Serpentine zip geometry study. Conditions, item order and filenames are masked f
 - LINK: [tools](/tools/)
 - LINK: [episodes](/products/)
 - LINK: [channels](/channels/)
-- LINK: [jobs](/jobs/)
 
 ## Tools
 The tools behind the work. Each one is something you can click right now to see the engineering, not read about it.
@@ -5201,8 +5568,8 @@ Per-rater URLs carry a token so each rater's progress lives in their browser. Ex
 - LINK: [Open rater UI](/rater/)
 - LINK: [mint.py (CLI)](/rater/mint.py)
 
-### Image Generator (Mohit's UI) Live · Tailscale funnel
+### Image Generator Live · Tailscale funnel
 Flask app for the image-generation study. Four conditions, gallery of generated images, OCR accuracy feed.
-Used by the second author of the study to run the four conditions end to end and inspect outputs without leaving the experiment folder.
+Built from a supervision ask: how would a user run this pipeline. One Flask interface over the four conditions, with progress streamed while a job runs, so the outputs can be inspected on the same machine as the generation.
 - LINK: [Open generator](https://newtazer.tail1075c4.ts.net/)
 Built as part of the dissertation tool chain. Hub regenerates from site-build/tools/index.html ; no build step.
