@@ -124,6 +124,7 @@ exists to be a counter-example rather than a channel.</p>
 <h2 id="3-the-eight-stages">3. The eight stages</h2>
 <p>The driver runs the stages in this order:</p>
 <pre><code>SOURCE -&gt; PREFILTER -&gt; ROTCHECK -&gt; PREFILTER -&gt; SELECT -&gt; CROP -&gt; VERIFY -&gt; BUILD</code></pre>
+<figure><a href="/assets/img/episode_pipeline_architecture.png" target="_blank" rel="noopener"><img src="/assets/img/episode_pipeline_architecture.png" alt="The eight stages and the two gates in the episode pipeline" loading="lazy"></a></figure>
 <p><strong>Source.</strong> Pull candidate images for each shot that is
 still needed. The single most expensive mistake in the pipeline is
 giving every shot the same search words: the selector dedups globally,

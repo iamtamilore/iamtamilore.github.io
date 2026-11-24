@@ -105,7 +105,7 @@ PROJECTS = [
          clinks=[("The channels", "/channels/"),
                  ("The workflow", "/products/workflow/"),
                  ("The episodes", "/products/")],
-         imgmap={}),
+         imgmap={"episode_pipeline_architecture.png": "episode_pipeline_architecture.png"}),
 
     dict(slug="surge-pricing", src=SRC / "surgepricing/README.md",
          title="RL vs Genetic Algorithm",

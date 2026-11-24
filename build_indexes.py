@@ -199,6 +199,12 @@ GALLERY_BODY = '''
 <section class="media-grid" aria-label="Evidence galleries">
   <p class="group-label">Current work</p>
   <article class="media-card">
+    <img src="/assets/img/episode_pipeline_architecture.png" alt="Flow diagram of the eight build stages and the two gates in the episode pipeline" loading="lazy">
+    <h2>Episode pipeline architecture</h2>
+    <p>Shows the eight stages in their fixed order and where the two gates sit, the frame gate before the build and the post-render gate after it.</p>
+    <a class="cta cta-ghost" href="/p/episode-pipeline/">Open the case study</a>
+  </article>
+  <article class="media-card">
     <h2>Episode gallery</h2>
     <p>Published episodes, production stills, narration timing and the quality-check records for the rendered files.</p>
     <a class="cta cta-ghost" href="/products/">Open the episode gallery</a>
