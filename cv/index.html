@@ -76,23 +76,21 @@ evaluations that prove they behave. The system I own is the multi-model
 gateway every model call on my machine passes through, with a response
 cache, a per-call budget guard, a daily spend ceiling and a detector
 that quarantines reasoning burns. Around it I wired eight MCP servers
-into one agent layer and added a watchdog that restores a dead server
-with no human intervention, plus a scheduling layer for 27 scheduled
-jobs that separates a job which fired and failed from one that never
-fired. The Smart Medical Records Engine is a clinical assistant on
-FastAPI and PostgreSQL with retrieval scoped per patient in the query,
-an audit log of every access and name redaction on the stored log. The
-Customer Care Process Automation system is an AI routing agent reaching
-95.2% routing accuracy on 42 held out tickets, behind a confidence gate
-that escalates uncertain tickets to a human instead of guessing. <a
-href="https://iamtamilore.github.io/p/care-agent/">Read the case
-study</a>. At Huawei, I automated CRM extraction in Python, validated
-100k+ rows of engagement data in SQL, tested a bank’s customer care line
-integration interface by interface, and helped design over 440 User
-Acceptance Test cases for a data migration covering 400 million daily
-call records. MSc Artificial Intelligence (part-time), National College
-of Ireland, completing January 2027. Based in Dublin, working remotely
-across Irish and UK timezones.</p>
+into one agent layer, a watchdog that restores a dead server with no
+human intervention, and a scheduling layer for 27 jobs that separates a
+job which fired and failed from one that never fired. I also own the
+short-form video production pipeline behind three YouTube channels,
+where the load-bearing work is not the video count but the gates that
+refuse an episode, because a missing frame looks exactly like a finished
+episode and nothing else catches it. The Customer Care Process
+Automation system is an AI routing agent reaching 95.2% routing accuracy
+on 42 held out tickets, behind a confidence gate that escalates
+uncertain tickets to a human instead of guessing. At Huawei, I automated
+CRM extraction in Python and helped design over 440 User Acceptance Test
+cases for a data migration covering 400 million daily call records. MSc
+Artificial Intelligence (part-time), National College of Ireland,
+completing January 2027. Based in Dublin, working remotely across Irish
+and UK timezones.</p>
 <hr />
 <h2 id="selected-systems">Selected Systems</h2>
 <p><strong><a href="https://iamtamilore.github.io/work/">Multi-model LLM
@@ -106,7 +104,7 @@ response cache keyed on model, messages and parameters, a per-call
 budget guard, a daily cumulative ceiling read from the ledger, and a
 detector that quarantines a response where completion tokens equal
 reasoning tokens and content is empty.</li>
-<li>Result: The ledger held 53,113 calls on 24 November 2026, with token
+<li>Result: The ledger held 53,376 calls on 24 November 2026, with token
 counts, endpoint and cost. The registry separates vendor facts, which a
 fetch overwrites, from user facts, which are hand-kept, so a scheduled
 catalogue sync cannot silently drop a routing decision.</li>
@@ -148,31 +146,32 @@ failure modes are distinguishable. It self-heals the one repairable
 drift, and notifications fire only on a state change, because a monitor
 that repeats a known-bad state every fifteen minutes trains the reader
 to ignore it.</li>
-<li>Result: 27 jobs under one registry and 10,349 ledger records, with
+<li>Result: 27 jobs under one registry and 10,383 ledger records, with
 the exit code visible to anything watching it, 0 healthy and 1 not.</li>
 </ul>
-<p><strong><a href="https://iamtamilore.github.io/p/clinical-rag/">Smart
-Medical Records Engine</a></strong>: FastAPI, PostgreSQL with pgvector,
-Docker Compose</p>
+<p><strong><a href="https://iamtamilore.github.io/products/">Short-form
+video production pipeline</a></strong>: Python, ffmpeg, ffprobe, SQLite,
+YouTube Data API</p>
 <ul>
-<li>Problem: A doctor has ten minutes and a patient history spread
-across years of notes, and the one critical line, a past reaction to a
-medicine, gets missed.</li>
-<li>Action: I built a clinical assistant that answers plain English
-questions from that patient’s own records, with the patient_id carried
-into the retrieval query so no other patient’s notes can surface, an
-audit log of every access, and the patient’s name redacted from the
-stored log. Thirty adversarial probes tried to pull another patient’s
-note and none got through.</li>
-<li>Result: I ran the whole stack, the API, PostgreSQL with 768
-dimensional vector search and a self hosted Llama 3.1, across four
-Docker Compose services, designed to run inside a hospital network so no
-patient record leaves it.</li>
-<li>Limit: The data is synthetic and the system has not been tested with
-clinicians. Scoping trusts the patient_id on the request, so it stops
-one query mixing two patients but not a doctor opening the wrong file.
-Redaction covers the name only. Answer quality against a labelled
-benchmark is unmeasured.</li>
+<li>Problem: A pipeline that renders an episode from a pile of images
+will happily render one missing most of its shots. A missing frame is a
+silent defect because it looks like a finished episode.</li>
+<li>Action: I built one driver running eight fixed stages, with two
+gates inside it. The frame gate runs after selection and again after
+crop, checking every shot need has a usable candidate and that no two
+frames share a source picture. A post-render gate runs five checks on
+the finished file, four by reading the media with ffprobe at zero model
+cost, and refuses the episode with a non-zero exit if any fails.</li>
+<li>Result: 68 videos public on three YouTube channels on 24 November
+2026, 12 more scheduled, every one through the same gates. The gate
+earns its place: on 22 October 2026 a GOJO episode built and looked
+finished, the selector had written verdicts for only 3 of 16 needs, and
+the builder repeated three stills across sixteen shots. Nothing in the
+pipeline noticed. A person looking at the frames did.</li>
+<li>Limit: The video count is not an audience measure. The gates have
+thresholds but no measured pass rate, the visual check is one model call
+on a clip and can come back incomplete, and the channel subject plans
+are hand-maintained. Nothing here has been independently audited.</li>
 </ul>
 <hr />
 <h2 id="evaluation-and-quality-engineering">Evaluation and Quality
@@ -273,12 +272,12 @@ certificate</a></p>
 <hr />
 <h2 id="work-authorisation">Work Authorisation</h2>
 <p>Irish Stamp 2 during my MSc: 20 hours per week in term, 40 hours per
-week over college holidays. My final examinations are in January 2027.
-NCI issues my final results in early 2027, and I am awarded the degree
-at the Spring Graduation ceremony in April 2027. From the final results
-I can apply for Irish Stamp 1G post-study graduate work permission,
-which permits full time employment at 40 hours per week. I am looking
-for a role that will sponsor an employment permit.</p>
+week over college holidays. My final examinations are in January 2027
+and NCI awards the degree at the Spring Graduation ceremony in April
+2027. From the final results I can apply for Irish Stamp 1G post-study
+graduate work permission, which permits full time employment at 40 hours
+per week. I am looking for a role that will sponsor an employment
+permit.</p>
 
   </article>
   <div class="endcta">

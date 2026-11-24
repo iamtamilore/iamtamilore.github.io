@@ -25,6 +25,7 @@ COMMON_CSS = """
   .definition { border: 1px solid var(--border); border-left: 3px solid var(--accent); padding: var(--space-5); margin: var(--space-6) 0; }
   .definition h2 { margin-top: 0; }
   .media-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: var(--space-4); margin-top: var(--space-6); }
+  .media-grid .group-label { grid-column: 1 / -1; }
   .media-card { border: 1px solid var(--border); padding: var(--space-4); background: var(--surface); }
   .media-card h2 { font-size: var(--text-lg); margin: var(--space-2) 0; }
   .media-card p { font-size: var(--text-sm); color: var(--text-3); }
@@ -98,7 +99,7 @@ CASE_BODY = '''
     <h3>The decision</h3>
     <p>One driver runs eight stages in a fixed order, and two gates refuse the episode when they fail. The gates sit inside the driver, so a refusal stops the build instead of producing a file.</p>
     <h3>The evidence</h3>
-    <ul><li>57 videos public on YouTube across three channels, counted from the posting ledger on 24 November 2026</li><li>19 more scheduled, each through the same eight stages</li><li>Five checks on the rendered file: audio, caption track, on-screen captions, visual, frame loop</li></ul>
+    <ul><li>68 videos public on YouTube across the three channels that publish at volume, read from each channel's Shorts listing on 24 November 2026</li><li>12 more scheduled, each through the same eight stages</li><li>Five checks on the rendered file: audio, caption track, on-screen captions, visual, frame loop</li></ul>
     <a class="cta cta-ghost" href="/p/episode-pipeline/">Read the case study</a>
   </article>
   <p class="group-label">Earlier work</p>
@@ -196,30 +197,7 @@ GALLERY_BODY = '''
   <p>This gallery groups evidence by what it proves. An architecture diagram shows how a system is separated. A confusion matrix shows which mistakes remained after a decision rule. A contact sheet shows which frames entered a video. A raw log shows that a scheduled job ran and recorded an outcome. Nothing is included only as decoration.</p>
 </section>
 <section class="media-grid" aria-label="Evidence galleries">
-  <article class="media-card">
-    <img src="/assets/img/rag_architecture.jpg" alt="Architecture diagram for the Smart Medical Records Engine" loading="lazy">
-    <h2>Clinical architecture</h2>
-    <p>Shows the API, database, model service, patient boundary and audit path used by the clinical retrieval system.</p>
-    <a class="cta cta-ghost" href="/p/clinical-rag/">Open the case study</a>
-  </article>
-  <article class="media-card">
-    <img src="/assets/img/fig2_confusion_matrix.jpg" alt="Confusion matrix for the customer care routing agent" loading="lazy">
-    <h2>Routing confusion matrix</h2>
-    <p>Shows which ticket categories the classifier confused during the held-out evaluation.</p>
-    <a class="cta cta-ghost" href="/p/care-agent/">Open the case study</a>
-  </article>
-  <article class="media-card">
-    <img src="/assets/img/roc_curves.jpg" alt="Receiver operating characteristic curves for the image quality gate" loading="lazy">
-    <h2>Image QA curves</h2>
-    <p>Shows how the acceptance threshold changed the balance between correct acceptances and missed pairs.</p>
-    <a class="cta cta-ghost" href="/p/image-qa/">Open the case study</a>
-  </article>
-  <article class="media-card">
-    <img src="/assets/img/tg_architecture.png" alt="Architecture diagram for TermsGuard AI" loading="lazy">
-    <h2>Contract analysis architecture</h2>
-    <p>Shows the first-stage classifier, reference retrieval, model verification and visible fallback path.</p>
-    <a class="cta cta-ghost" href="/p/termsguard/">Open the case study</a>
-  </article>
+  <p class="group-label">Current work</p>
   <article class="media-card">
     <h2>Episode gallery</h2>
     <p>Published episodes, production stills, narration timing and the quality-check records for the rendered files.</p>
@@ -239,6 +217,31 @@ GALLERY_BODY = '''
     <h2>Provenance logs</h2>
     <p>Raw evidence that scheduled work ran, media calls were recorded and evaluation decisions were written down.</p>
     <a class="cta cta-ghost" href="/provenance/">Open the logs</a>
+  </article>
+  <p class="group-label">Earlier work</p>
+  <article class="media-card">
+    <img src="/assets/img/tg_architecture.png" alt="Architecture diagram for TermsGuard AI" loading="lazy">
+    <h2>Contract analysis architecture</h2>
+    <p>Shows the first-stage classifier, reference retrieval, model verification and visible fallback path.</p>
+    <a class="cta cta-ghost" href="/p/termsguard/">Open the case study</a>
+  </article>
+  <article class="media-card">
+    <img src="/assets/img/roc_curves.jpg" alt="Receiver operating characteristic curves for the image quality gate" loading="lazy">
+    <h2>Image QA curves</h2>
+    <p>Shows how the acceptance threshold changed the balance between correct acceptances and missed pairs.</p>
+    <a class="cta cta-ghost" href="/p/image-qa/">Open the case study</a>
+  </article>
+  <article class="media-card">
+    <img src="/assets/img/rag_architecture.jpg" alt="Architecture diagram for the Smart Medical Records Engine" loading="lazy">
+    <h2>Clinical architecture</h2>
+    <p>Shows the API, database, model service, patient boundary and audit path used by the clinical retrieval system.</p>
+    <a class="cta cta-ghost" href="/p/clinical-rag/">Open the case study</a>
+  </article>
+  <article class="media-card">
+    <img src="/assets/img/fig2_confusion_matrix.jpg" alt="Confusion matrix for the customer care routing agent" loading="lazy">
+    <h2>Routing confusion matrix</h2>
+    <p>Shows which ticket categories the classifier confused during the held-out evaluation.</p>
+    <a class="cta cta-ghost" href="/p/care-agent/">Open the case study</a>
   </article>
 </section>
 '''

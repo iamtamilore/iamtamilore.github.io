@@ -18,14 +18,14 @@
       ],
       "metrics": [
         {
-          "value": "140 rendered EP_*.mp4 files on disk, 118 distinct episode ids, measured 24 November 2026",
-          "explanation": "This counted the finished video files whose names match the EP_*.mp4 pattern in the episode folder. The count is 140 files, of which 22 are gate proxies written during the quality gate, leaving 118 distinct episode ids. Both numbers were taken on 24 November 2026.",
+          "value": "68 published videos, 12 more scheduled, and 140 rendered EP_*.mp4 files on disk, measured 24 November 2026",
+          "explanation": "The published figure is 68 distinct public video ids read from the three channels' own Shorts listings on 24 November 2026, with 12 further episodes scheduled and not yet public. The episode folder also holds 140 finished files whose names match the EP_*.mp4 pattern, of which some are gate proxies written during quality checks rather than published episodes.",
           "proves": "It directly supports that 140 rendered episode files, covering 118 distinct episodes, existed in the checked location on that date.",
           "does_not_prove": "It does not prove that every file was watched, published, error-free, unique, or produced without any human work before the render stage."
         },
         {
-          "value": "6 channel configurations, 3 of them publishing on YouTube",
-          "explanation": "The posting layer holds six channel configuration folders. Three of them publish on YouTube today: Proof Tested, Forgotten Fronts and Zenpai. The count is the number of folders; the three names are the channels with published videos.",
+          "value": "6 channel configurations, 4 of them publishing on YouTube",
+          "explanation": "The pipeline holds 6 channel configurations. Four of them have a YouTube channel with public videos: Forgotten Fronts, Proof Tested, Zenpai and Whybit. Anime Hive is a format test-bed with no channel and capital_postmortem is empty.",
           "proves": "It directly supports that the pipeline carries six channel configurations and that three of them are live on YouTube with published videos.",
           "does_not_prove": "It does not prove that the three configurations which are not publishing yet are finished, scheduled or approved to launch."
         },
@@ -54,7 +54,7 @@
       "category": "orchestration",
       "category_label": "Orchestration",
       "decision": "Some scheduled jobs were failing without making it clear whether they had run and failed or had never run at all. This system prevents that specific loss of evidence by recording a separate result for each expected job run.",
-      "what_it_does": "A cron job is a task that a computer starts at a planned time, and each of the 18 jobs first passes through a small script that gives the run a known name. An orchestrator is a program that checks whether the expected jobs are running, and a registry is a list of those expected jobs. A ledger is a record that only adds new entries, so this system writes one JSONL record, meaning one JSON object per line, for each observed job outcome. The system can repair a drifted copy of one document, sends a notification only when the overall condition changes, and returns exit code 0 when healthy or 1 when not healthy.",
+      "what_it_does": "A cron job is a task that a computer starts at a planned time, and each of the 27 registered jobs first passes through a small script that gives the run a known name. An orchestrator is a program that checks whether the expected jobs are running, and a registry is a list of those expected jobs. A ledger is a record that only adds new entries, so this system writes one JSONL record, meaning one JSON object per line, for each observed job outcome. The system can repair a drifted copy of one document, sends a notification only when the overall condition changes, and returns exit code 0 when healthy or 1 when not healthy.",
       "mechanism": [
         "First, every scheduled job is routed through the common runner script with the job name as its first argument. This gives later checks one consistent name for identifying the job.",
         "Next, the runner records whether that named job actually started and what happened during the run. This matters because a failed run must leave different evidence from a run that never started.",
@@ -72,7 +72,7 @@
           "does_not_prove": "It does not prove that every registered job runs on time, that every line succeeds, or that the extra lines are intentionally outside the registry."
         },
         {
-          "value": "10,349 append-only ledger records, measured 24 November 2026",
+          "value": "10,383 append-only ledger records, measured 24 November 2026",
           "explanation": "The ledger contains 10,349 recorded lines. Each line is an added record of an observed event or job outcome, and append-only means existing records are not replaced by newer ones. The count was taken on 24 November 2026.",
           "proves": "It directly supports that 10,349 ledger records existed when counted.",
           "does_not_prove": "It does not prove that every record corresponds to a successful run, or that a job that never fired is distinguishable without the registry."
@@ -151,14 +151,14 @@
       ],
       "metrics": [
         {
-          "value": "53,113 logged calls, measured 24 November 2026",
+          "value": "53,376 logged calls, measured 24 November 2026",
           "explanation": "The gateway ledger holds one row per model call: the model, the tokens, the endpoint and the cost. The count was taken on 24 November 2026 and it grows with every call, so the figure is a dated snapshot rather than a total.",
           "proves": "It directly supports that the database contained 53,113 recorded model call events at that measurement point.",
           "does_not_prove": "It does not prove that every call returned a useful answer, that the token counts are exact, or that the cost column matches any invoice."
         },
         {
-          "value": "572 media jobs and 40 uploads logged",
-          "explanation": "This counts 572 recorded media-generation or media-related jobs and 40 recorded upload events. A media job is a tracked request involving media generation or processing, while an upload is a tracked transfer of data to a service.",
+          "value": "988 media jobs and 58 uploads logged",
+          "explanation": "The same ledger holds 988 media jobs, of which 942 succeeded and 46 failed, and 58 uploads. Each figure was counted on 24 November 2026 and grows with use, so they are a dated snapshot rather than a total.",
           "proves": "The database contains those counts of media jobs and uploads.",
           "does_not_prove": "It does not prove that the jobs or uploads completed successfully, produced acceptable media, or represent all media activity outside the system."
         },
@@ -276,8 +276,8 @@
           "does_not_prove": "It does not prove that all 44 actions work correctly, that the AI chooses correctly, or that the system is fast in real workloads."
         },
         {
-          "value": "29 private browser sessions on disk",
-          "explanation": "There are 29 browser profiles stored on the computer. A profile is a separate collection of browser data and settings.",
+          "value": "35 private browser sessions on disk",
+          "explanation": "The broker manages 35 signed-in browser profiles. Profile contents and private browser state are not published.",
           "proves": "This directly supports that 29 profiles were present in the measured storage location.",
           "does_not_prove": "It does not prove that every profile is usable, current, or tested."
         },
@@ -288,7 +288,7 @@
           "does_not_prove": "It does not prove the same saving for different pages, workloads, browser sessions, or numbers of profiles."
         },
         {
-          "value": "5.4 GB of profiles on disk",
+          "value": "4.6 GB of profiles on disk",
           "explanation": "The stored browser profiles occupied 5.4 gigabytes of disk space. Disk space is long-term storage, not the same thing as active memory use.",
           "proves": "This directly supports the measured storage size of the profiles.",
           "does_not_prove": "It does not prove how much of that data is needed, how quickly it can be read, or how much memory the profiles use while running."
@@ -318,8 +318,8 @@
       ],
       "metrics": [
         {
-          "value": "209 events and 104 vectors",
-          "explanation": "The event database contained 209 event records, and the vector database contained 104 vector records. An event is a stored occurrence, while a vector is a numerical representation used for similarity search.",
+          "value": "503 events and 366 vectors",
+          "explanation": "The event database contained 503 event records and the vector database contained 366 vector records, both counted on 24 November 2026. An event is a stored occurrence, while a vector is a numerical representation used for similarity search.",
           "proves": "This directly supports the recorded counts in the two databases at measurement time.",
           "does_not_prove": "It does not prove that every event has a vector, that the vectors are accurate, or that searches return the right results."
         },
@@ -367,13 +367,13 @@
       ],
       "metrics": [
         {
-          "value": "1,104 chunks across 144 files at 768 dimensions, IndexFlatIP",
-          "explanation": "The index contained 1,104 code chunks taken from 144 files. Each chunk was represented by a vector with 768 numbers, and the index type was IndexFlatIP.",
+          "value": "5,739 chunks across 632 files at 768 dimensions, IndexFlatIP",
+          "explanation": "The index held 5,739 code chunks taken from 632 files. Each chunk was represented by a vector with 768 numbers and the index type was IndexFlatIP. The largest project is the pipeline repository at 4,362 chunks from 471 files.",
           "proves": "This directly supports the size, file coverage, vector dimension, and index type recorded for the code index.",
           "does_not_prove": "It does not prove that the chunks are complete, that search results are relevant, or that the index is up to date."
         },
         {
-          "value": "3 indexed projects",
+          "value": "4 registered projects",
           "explanation": "The code-search service reported 3 projects as indexed. A project is a separate codebase or collection of files included in search.",
           "proves": "This directly supports that three projects were registered in the search service.",
           "does_not_prove": "It does not prove that every file in each project was indexed or that searches work equally well across them."
@@ -1034,8 +1034,8 @@
       ],
       "metrics": [
         {
-          "value": "462 observations recorded",
-          "explanation": "This counts 462 individual observation records in the JSONL evidence log.",
+          "value": "527 observations recorded",
+          "explanation": "This counts 527 individual observation records in the JSONL evidence log, counted on 24 November 2026. The unit is one dated observation tied to a source.",
           "proves": "It directly supports that the log contains 462 recorded observations.",
           "does_not_prove": "It does not prove that all important events were recorded, that every observation is correct, or that the observations are independent."
         },
@@ -1323,8 +1323,8 @@
       ],
       "metrics": [
         {
-          "value": "181 commits and 23 generated index pages",
-          "explanation": "This records 181 saved Git changes and 23 generated web pages named index pages. The unit is commits for the first number and generated HTML pages for the second.",
+          "value": "193 commits and 27 generated index pages",
+          "explanation": "This records 193 saved Git changes and 27 generated web pages named index pages, both counted on 24 November 2026. The unit is commits for the first number and generated HTML pages for the second.",
           "proves": "It directly supports the recorded repository history size and the number of generated index pages.",
           "does_not_prove": "It does not prove that all pages are correct, accessible, fast, or regularly updated."
         },

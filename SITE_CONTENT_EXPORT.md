@@ -49,8 +49,9 @@ One pipeline builds every episode on every channel, in eight stages and a fixed
           build. A model ranks the candidate stills and a person chooses. The cut follows
           the narration, so the frames change when the narration does. The channels are
           Forgotten Fronts, Proof Tested and Super Zenpai, and the same episodes also run
-          on TikTok, Instagram and Facebook.
-- LINK: [The three channels →](/channels/)
+          on TikTok, Instagram and Facebook. A fourth, Whybit, runs the same pipeline on
+          YouTube only and is not publishing at volume yet.
+- LINK: [The channels →](/channels/)
 - LINK: [The episodes →](/products/)
 - LINK: [The system record →](/work/)
 
@@ -70,7 +71,7 @@ A gate that lives in a document is a warning, a gate that lives in the driver is
 Every model call goes through a single gateway that applies a spend ceiling,
           caches repeated answers, routes the job to a model and a fallback, and writes
           one record per call. 27 scheduled jobs run under one registry and write to an
-          append-only ledger, 10,349 records so far, so a job that failed is different
+          append-only ledger, 10,378 records so far, so a job that failed is different
           from a job that never ran.
 - LINK: [The system records →](/work/)
 - LINK: [The raw logs →](/provenance/)
@@ -194,24 +195,21 @@ evaluations that prove they behave. The system I own is the multi-model
 gateway every model call on my machine passes through, with a response
 cache, a per-call budget guard, a daily spend ceiling and a detector
 that quarantines reasoning burns. Around it I wired eight MCP servers
-into one agent layer and added a watchdog that restores a dead server
-with no human intervention, plus a scheduling layer for 27 scheduled
-jobs that separates a job which fired and failed from one that never
-fired. The Smart Medical Records Engine is a clinical assistant on
-FastAPI and PostgreSQL with retrieval scoped per patient in the query,
-an audit log of every access and name redaction on the stored log. The
-Customer Care Process Automation system is an AI routing agent reaching
-95.2% routing accuracy on 42 held out tickets, behind a confidence gate
-that escalates uncertain tickets to a human instead of guessing. Read the case
-study . At Huawei, I automated CRM extraction in Python, validated
-100k+ rows of engagement data in SQL, tested a bank’s customer care line
-integration interface by interface, and helped design over 440 User
-Acceptance Test cases for a data migration covering 400 million daily
-call records. MSc Artificial Intelligence (part-time), National College
-of Ireland, completing January 2027. Based in Dublin, working remotely
-across Irish and UK timezones.
-- LINK: [Read the case
-study](https://iamtamilore.github.io/p/care-agent/)
+into one agent layer, a watchdog that restores a dead server with no
+human intervention, and a scheduling layer for 27 jobs that separates a
+job which fired and failed from one that never fired. I also own the
+short-form video production pipeline behind three YouTube channels,
+where the load-bearing work is not the video count but the gates that
+refuse an episode, because a missing frame looks exactly like a finished
+episode and nothing else catches it. The Customer Care Process
+Automation system is an AI routing agent reaching 95.2% routing accuracy
+on 42 held out tickets, behind a confidence gate that escalates
+uncertain tickets to a human instead of guessing. At Huawei, I automated
+CRM extraction in Python and helped design over 440 User Acceptance Test
+cases for a data migration covering 400 million daily call records. MSc
+Artificial Intelligence (part-time), National College of Ireland,
+completing January 2027. Based in Dublin, working remotely across Irish
+and UK timezones.
 
 ### Selected Systems
 Multi-model LLM
@@ -226,7 +224,7 @@ response cache keyed on model, messages and parameters, a per-call
 budget guard, a daily cumulative ceiling read from the ledger, and a
 detector that quarantines a response where completion tokens equal
 reasoning tokens and content is empty.
-Result: The ledger held 53,113 calls on 24 November 2026, with token
+Result: The ledger held 53,376 calls on 24 November 2026, with token
 counts, endpoint and cost. The registry separates vendor facts, which a
 fetch overwrites, from user facts, which are hand-kept, so a scheduled
 catalogue sync cannot silently drop a routing decision.
@@ -268,31 +266,32 @@ failure modes are distinguishable. It self-heals the one repairable
 drift, and notifications fire only on a state change, because a monitor
 that repeats a known-bad state every fifteen minutes trains the reader
 to ignore it.
-Result: 27 jobs under one registry and 10,349 ledger records, with
+Result: 27 jobs under one registry and 10,383 ledger records, with
 the exit code visible to anything watching it, 0 healthy and 1 not.
-Smart
-Medical Records Engine : FastAPI, PostgreSQL with pgvector,
-Docker Compose
-- LINK: [Smart
-Medical Records Engine](https://iamtamilore.github.io/p/clinical-rag/)
-Problem: A doctor has ten minutes and a patient history spread
-across years of notes, and the one critical line, a past reaction to a
-medicine, gets missed.
-Action: I built a clinical assistant that answers plain English
-questions from that patient’s own records, with the patient_id carried
-into the retrieval query so no other patient’s notes can surface, an
-audit log of every access, and the patient’s name redacted from the
-stored log. Thirty adversarial probes tried to pull another patient’s
-note and none got through.
-Result: I ran the whole stack, the API, PostgreSQL with 768
-dimensional vector search and a self hosted Llama 3.1, across four
-Docker Compose services, designed to run inside a hospital network so no
-patient record leaves it.
-Limit: The data is synthetic and the system has not been tested with
-clinicians. Scoping trusts the patient_id on the request, so it stops
-one query mixing two patients but not a doctor opening the wrong file.
-Redaction covers the name only. Answer quality against a labelled
-benchmark is unmeasured.
+Short-form
+video production pipeline : Python, ffmpeg, ffprobe, SQLite,
+YouTube Data API
+- LINK: [Short-form
+video production pipeline](https://iamtamilore.github.io/products/)
+Problem: A pipeline that renders an episode from a pile of images
+will happily render one missing most of its shots. A missing frame is a
+silent defect because it looks like a finished episode.
+Action: I built one driver running eight fixed stages, with two
+gates inside it. The frame gate runs after selection and again after
+crop, checking every shot need has a usable candidate and that no two
+frames share a source picture. A post-render gate runs five checks on
+the finished file, four by reading the media with ffprobe at zero model
+cost, and refuses the episode with a non-zero exit if any fails.
+Result: 68 videos public on three YouTube channels on 24 November
+2026, 12 more scheduled, every one through the same gates. The gate
+earns its place: on 22 October 2026 a GOJO episode built and looked
+finished, the selector had written verdicts for only 3 of 16 needs, and
+the builder repeated three stills across sixteen shots. Nothing in the
+pipeline noticed. A person looking at the frames did.
+Limit: The video count is not an audience measure. The gates have
+thresholds but no measured pass rate, the visual check is one model call
+on a clip and can come back incomplete, and the channel subject plans
+are hand-maintained. Nothing here has been independently audited.
 
 ### Evaluation and Quality
 Engineering
@@ -386,12 +385,12 @@ certificate](https://www.udemy.com/certificate/UC-ba3bf541-de9d-4505-9868-d80dfd
 
 ### Work Authorisation
 Irish Stamp 2 during my MSc: 20 hours per week in term, 40 hours per
-week over college holidays. My final examinations are in January 2027.
-NCI issues my final results in early 2027, and I am awarded the degree
-at the Spring Graduation ceremony in April 2027. From the final results
-I can apply for Irish Stamp 1G post-study graduate work permission,
-which permits full time employment at 40 hours per week. I am looking
-for a role that will sponsor an employment permit.
+week over college holidays. My final examinations are in January 2027
+and NCI awards the degree at the Spring Graduation ceremony in April
+2027. From the final results I can apply for Irish Stamp 1G post-study
+graduate work permission, which permits full time employment at 40 hours
+per week. I am looking for a role that will sponsor an employment
+permit.
 - LINK: [Email Taiwo](mailto:newalabitaiwo625@gmail.com?subject=Agent%20Foundations%20application)
 - LINK: [See the complete work index](/work/)
 
@@ -436,13 +435,13 @@ BUILD uses ffmpeg to create the final video. The fixed order is enforced by the 
 
 #### What the measurements mean
 
-##### 140 rendered EP_*.mp4 files on disk, 118 distinct episode ids, measured 24 November 2026
-What was measured: This counted the finished video files whose names match the EP_*.mp4 pattern in the episode folder. The count is 140 files, of which 22 are gate proxies written during the quality gate, leaving 118 distinct episode ids. Both numbers were taken on 24 November 2026.
+##### 68 published videos, 12 more scheduled, and 140 rendered EP_*.mp4 files on disk, measured 24 November 2026
+What was measured: The published figure is 68 distinct public video ids read from the three channels' own Shorts listings on 24 November 2026, with 12 further episodes scheduled and not yet public. The episode folder also holds 140 finished files whose names match the EP_*.mp4 pattern, of which some are gate proxies written during quality checks rather than published episodes.
 What it supports: It directly supports that 140 rendered episode files, covering 118 distinct episodes, existed in the checked location on that date.
 What it does not prove: It does not prove that every file was watched, published, error-free, unique, or produced without any human work before the render stage.
 
-##### 6 channel configurations, 3 of them publishing on YouTube
-What was measured: The posting layer holds six channel configuration folders. Three of them publish on YouTube today: Proof Tested, Forgotten Fronts and Zenpai. The count is the number of folders; the three names are the channels with published videos.
+##### 6 channel configurations, 4 of them publishing on YouTube
+What was measured: The pipeline holds 6 channel configurations. Four of them have a YouTube channel with public videos: Forgotten Fronts, Proof Tested, Zenpai and Whybit. Anime Hive is a format test-bed with no channel and capital_postmortem is empty.
 What it supports: It directly supports that the pipeline carries six channel configurations and that three of them are live on YouTube with published videos.
 What it does not prove: It does not prove that the three configurations which are not publishing yet are finished, scheduled or approved to launch.
 
@@ -467,7 +466,7 @@ Current status: Production. Episodes, workflow and channels are published.
 Some scheduled jobs were failing without making it clear whether they had run and failed or had never run at all. This system prevents that specific loss of evidence by recording a separate result for each expected job run.
 
 #### What the system does
-A cron job is a task that a computer starts at a planned time, and each of the 18 jobs first passes through a small script that gives the run a known name. An orchestrator is a program that checks whether the expected jobs are running, and a registry is a list of those expected jobs. A ledger is a record that only adds new entries, so this system writes one JSONL record, meaning one JSON object per line, for each observed job outcome. The system can repair a drifted copy of one document, sends a notification only when the overall condition changes, and returns exit code 0 when healthy or 1 when not healthy.
+A cron job is a task that a computer starts at a planned time, and each of the 27 registered jobs first passes through a small script that gives the run a known name. An orchestrator is a program that checks whether the expected jobs are running, and a registry is a list of those expected jobs. A ledger is a record that only adds new entries, so this system writes one JSONL record, meaning one JSON object per line, for each observed job outcome. The system can repair a drifted copy of one document, sends a notification only when the overall condition changes, and returns exit code 0 when healthy or 1 when not healthy.
 
 #### How it works
 First, every scheduled job is routed through the common runner script with the job name as its first argument. This gives later checks one consistent name for identifying the job.
@@ -485,7 +484,7 @@ What was measured: The crontab has 28 lines that are not comments or blank, and 
 What it supports: It directly supports that the machine runs 28 scheduled lines and that the orchestrator tracks 27 named jobs.
 What it does not prove: It does not prove that every registered job runs on time, that every line succeeds, or that the extra lines are intentionally outside the registry.
 
-##### 10,349 append-only ledger records, measured 24 November 2026
+##### 10,383 append-only ledger records, measured 24 November 2026
 What was measured: The ledger contains 10,349 recorded lines. Each line is an added record of an observed event or job outcome, and append-only means existing records are not replaced by newer ones. The count was taken on 24 November 2026.
 What it supports: It directly supports that 10,349 ledger records existed when counted.
 What it does not prove: It does not prove that every record corresponds to a successful run, or that a job that never fired is distinguishable without the registry.
@@ -559,13 +558,13 @@ Finally, the gateway stores the request outcome, token counts, cost, and endpoin
 
 #### What the measurements mean
 
-##### 53,113 logged calls, measured 24 November 2026
+##### 53,376 logged calls, measured 24 November 2026
 What was measured: The gateway ledger holds one row per model call: the model, the tokens, the endpoint and the cost. The count was taken on 24 November 2026 and it grows with every call, so the figure is a dated snapshot rather than a total.
 What it supports: It directly supports that the database contained 53,113 recorded model call events at that measurement point.
 What it does not prove: It does not prove that every call returned a useful answer, that the token counts are exact, or that the cost column matches any invoice.
 
-##### 572 media jobs and 40 uploads logged
-What was measured: This counts 572 recorded media-generation or media-related jobs and 40 recorded upload events. A media job is a tracked request involving media generation or processing, while an upload is a tracked transfer of data to a service.
+##### 988 media jobs and 58 uploads logged
+What was measured: The same ledger holds 988 media jobs, of which 942 succeeded and 46 failed, and 58 uploads. Each figure was counted on 24 November 2026 and grows with use, so they are a dated snapshot rather than a total.
 What it supports: The database contains those counts of media jobs and uploads.
 What it does not prove: It does not prove that the jobs or uploads completed successfully, produced acceptable media, or represent all media activity outside the system.
 
@@ -671,8 +670,8 @@ What was measured: The broker presents 4 tools to the AI and has an internal map
 What it supports: This directly supports that the public interface is smaller than the internal browser capability.
 What it does not prove: It does not prove that all 44 actions work correctly, that the AI chooses correctly, or that the system is fast in real workloads.
 
-##### 29 private browser sessions on disk
-What was measured: There are 29 browser profiles stored on the computer. A profile is a separate collection of browser data and settings.
+##### 35 private browser sessions on disk
+What was measured: The broker manages 35 signed-in browser profiles. Profile contents and private browser state are not published.
 What it supports: This directly supports that 29 profiles were present in the measured storage location.
 What it does not prove: It does not prove that every profile is usable, current, or tested.
 
@@ -681,7 +680,7 @@ What was measured: The visible-browser test used 1,528 megabytes of RSS across 1
 What it supports: This directly supports that headless mode used 342 MB less memory in that measured comparison.
 What it does not prove: It does not prove the same saving for different pages, workloads, browser sessions, or numbers of profiles.
 
-##### 5.4 GB of profiles on disk
+##### 4.6 GB of profiles on disk
 What was measured: The stored browser profiles occupied 5.4 gigabytes of disk space. Disk space is long-term storage, not the same thing as active memory use.
 What it supports: This directly supports the measured storage size of the profiles.
 What it does not prove: It does not prove how much of that data is needed, how quickly it can be read, or how much memory the profiles use while running.
@@ -710,8 +709,8 @@ Search results include their source scope, including when a search crosses scope
 
 #### What the measurements mean
 
-##### 209 events and 104 vectors
-What was measured: The event database contained 209 event records, and the vector database contained 104 vector records. An event is a stored occurrence, while a vector is a numerical representation used for similarity search.
+##### 503 events and 366 vectors
+What was measured: The event database contained 503 event records and the vector database contained 366 vector records, both counted on 24 November 2026. An event is a stored occurrence, while a vector is a numerical representation used for similarity search.
 What it supports: This directly supports the recorded counts in the two databases at measurement time.
 What it does not prove: It does not prove that every event has a vector, that the vectors are accurate, or that searches return the right results.
 
@@ -755,12 +754,12 @@ The index is stored outside the software environment. This means rebuilding the 
 
 #### What the measurements mean
 
-##### 1,104 chunks across 144 files at 768 dimensions, IndexFlatIP
-What was measured: The index contained 1,104 code chunks taken from 144 files. Each chunk was represented by a vector with 768 numbers, and the index type was IndexFlatIP.
+##### 5,739 chunks across 632 files at 768 dimensions, IndexFlatIP
+What was measured: The index held 5,739 code chunks taken from 632 files. Each chunk was represented by a vector with 768 numbers and the index type was IndexFlatIP. The largest project is the pipeline repository at 4,362 chunks from 471 files.
 What it supports: This directly supports the size, file coverage, vector dimension, and index type recorded for the code index.
 What it does not prove: It does not prove that the chunks are complete, that search results are relevant, or that the index is up to date.
 
-##### 3 indexed projects
+##### 4 registered projects
 What was measured: The code-search service reported 3 projects as indexed. A project is a separate codebase or collection of files included in search.
 What it supports: This directly supports that three projects were registered in the search service.
 What it does not prove: It does not prove that every file in each project was indexed or that searches work equally well across them.
@@ -1366,8 +1365,8 @@ Use the log as the main source for the thesis write-up. This order matters becau
 
 #### What the measurements mean
 
-##### 462 observations recorded
-What was measured: This counts 462 individual observation records in the JSONL evidence log.
+##### 527 observations recorded
+What was measured: This counts 527 individual observation records in the JSONL evidence log, counted on 24 November 2026. The unit is one dated observation tied to a source.
 What it supports: It directly supports that the log contains 462 recorded observations.
 What it does not prove: It does not prove that all important events were recorded, that every observation is correct, or that the observations are independent.
 
@@ -1638,8 +1637,8 @@ The site is measured against performance targets for loading, interaction delay,
 
 #### What the measurements mean
 
-##### 181 commits and 23 generated index pages
-What was measured: This records 181 saved Git changes and 23 generated web pages named index pages. The unit is commits for the first number and generated HTML pages for the second.
+##### 193 commits and 27 generated index pages
+What was measured: This records 193 saved Git changes and 27 generated web pages named index pages, both counted on 24 November 2026. The unit is commits for the first number and generated HTML pages for the second.
 What it supports: It directly supports the recorded repository history size and the number of generated index pages.
 What it does not prove: It does not prove that all pages are correct, accessible, fast, or regularly updated.
 
@@ -2046,10 +2045,26 @@ Current status: Production. Five checks refuse an episode when one check fails.
 cases
 
 ## Case studies
-Four deep cases. Each one starts with the failure it prevents, then explains the mechanism, the measured result and the limit.
+Five deep cases, newest first. The pipeline is the current work; the other four are earlier systems, dated so you can read the order. Each one starts with the failure it prevents, then explains the mechanism, the measured result and the limit.
 
 ### What a case study is
 A case study explains one engineering decision from the problem through the mechanism, the measured result and the limit. It does not treat a working file as proof by itself. The reader should be able to check what was built, what it was compared against and what remains unproven.
+Current work
+
+### Episode Pipeline
+
+#### The problem
+A short video published with the wrong frame or a missing caption track cannot be quietly re-shot. The people who already watched it are not watching the correction.
+
+#### The decision
+One driver runs eight stages in a fixed order, and two gates refuse the episode when they fail. The gates sit inside the driver, so a refusal stops the build instead of producing a file.
+
+#### The evidence
+68 videos public on YouTube across the three channels that publish at volume, read from each channel's Shorts listing on 24 November 2026
+12 more scheduled, each through the same eight stages
+Five checks on the rendered file: audio, caption track, on-screen captions, visual, frame loop
+- LINK: [Read the case study](/p/episode-pipeline/)
+Earlier work
 
 ### TermsGuard AI
 
@@ -2064,6 +2079,20 @@ Rule checks run around the similarity result, and every flagged clause carries t
 4,527 searchable reference chunks
 Matching-only fallback when the model service is unavailable
 - LINK: [Read the case study](/p/termsguard/)
+
+### Image QA Gate
+
+#### The problem
+An image can have the correct pose while showing the wrong identity. Accepting that image is the more serious error.
+
+#### The decision
+A Siamese network compares identity features, and the threshold was selected on validation data before the sealed test was opened.
+
+#### The evidence
+90 sealed test pairs
+Precision 1.00, recall 0.82 and F1 0.90
+Pixel difference F1 0.59 and kNN F1 0.26 as simpler comparisons
+- LINK: [Read the case study](/p/image-qa/)
 
 ### Smart Medical Records
 
@@ -2092,20 +2121,6 @@ The confidence gate sends uncertain tickets to a person instead of forcing every
 40 of 42 held-out tickets routed correctly
 Confidence threshold of 0.55 before human escalation
 - LINK: [Read the case study](/p/care-agent/)
-
-### Image QA Gate
-
-#### The problem
-An image can have the correct pose while showing the wrong identity. Accepting that image is the more serious error.
-
-#### The decision
-A Siamese network compares identity features, and the threshold was selected on validation data before the sealed test was opened.
-
-#### The evidence
-90 sealed test pairs
-Precision 1.00, recall 0.82 and F1 0.90
-Pixel difference F1 0.59 and kNN F1 0.26 as simpler comparisons
-- LINK: [Read the case study](/p/image-qa/)
 - LINK: [Browse all 37 systems](/work/)
 - LINK: [See the Agent Foundations CV](/cv/)
 
@@ -2184,22 +2199,7 @@ Diagrams, evaluation tables, episode stills, contact sheets and raw logs, groupe
 
 ### What a gallery is here
 This gallery groups evidence by what it proves. An architecture diagram shows how a system is separated. A confusion matrix shows which mistakes remained after a decision rule. A contact sheet shows which frames entered a video. A raw log shows that a scheduled job ran and recorded an outcome. Nothing is included only as decoration.
-
-### Clinical architecture
-Shows the API, database, model service, patient boundary and audit path used by the clinical retrieval system.
-- LINK: [Open the case study](/p/clinical-rag/)
-
-### Routing confusion matrix
-Shows which ticket categories the classifier confused during the held-out evaluation.
-- LINK: [Open the case study](/p/care-agent/)
-
-### Image QA curves
-Shows how the acceptance threshold changed the balance between correct acceptances and missed pairs.
-- LINK: [Open the case study](/p/image-qa/)
-
-### Contract analysis architecture
-Shows the first-stage classifier, reference retrieval, model verification and visible fallback path.
-- LINK: [Open the case study](/p/termsguard/)
+Current work
 
 ### Episode gallery
 Published episodes, production stills, narration timing and the quality-check records for the rendered files.
@@ -2216,6 +2216,23 @@ The creative channels built with the production pipeline, including the visual i
 ### Provenance logs
 Raw evidence that scheduled work ran, media calls were recorded and evaluation decisions were written down.
 - LINK: [Open the logs](/provenance/)
+Earlier work
+
+### Contract analysis architecture
+Shows the first-stage classifier, reference retrieval, model verification and visible fallback path.
+- LINK: [Open the case study](/p/termsguard/)
+
+### Image QA curves
+Shows how the acceptance threshold changed the balance between correct acceptances and missed pairs.
+- LINK: [Open the case study](/p/image-qa/)
+
+### Clinical architecture
+Shows the API, database, model service, patient boundary and audit path used by the clinical retrieval system.
+- LINK: [Open the case study](/p/clinical-rag/)
+
+### Routing confusion matrix
+Shows which ticket categories the classifier confused during the held-out evaluation.
+- LINK: [Open the case study](/p/care-agent/)
 - LINK: [Browse all 37 systems](/work/)
 - LINK: [See the Agent Foundations CV](/cv/)
 
@@ -2241,15 +2258,15 @@ skim  ·  60 seconds
 Five systems, the failure mode each one defends against, the one number a recruiter
   needs. The full write-up is one click deeper on every entry. Behind them sits the
   complete index of 37 verified systems.
-All 37 systems → The four case studies → How the pipelines run → The evidence gallery →
+All 37 systems → The five case studies → How the pipelines run → The evidence gallery →
 - LINK: [All 37 systems →](/work/)
-- LINK: [The four case studies →](/case-studies/)
+- LINK: [The five case studies →](/case-studies/)
 - LINK: [How the pipelines run →](/process/)
 - LINK: [The evidence gallery →](/gallery/)
 
 ### Multi-channel short-form video pipeline
-One pipeline builds every episode on three live channels, and a gate refuses any episode that fails it.
-- LINK: [The three channels →](/channels/)
+One pipeline builds every episode on three channels publishing at volume, and a gate refuses any episode that fails it.
+- LINK: [The channels →](/channels/)
 - LINK: [The episodes →](/products/)
 - LINK: [Full write-up →](/p/episode-pipeline/)
 
@@ -3319,7 +3336,7 @@ Care Agent below 0.55 a human decides. 95.2% on the 40 of 42 it routed
 - LINK: [Care Agent](/p/care-agent/)
 Image QA Gate against pixel difference at F1 0.59 and kNN at 0.26. Reached 0.90
 - LINK: [Image QA Gate](/p/image-qa/)
-Video Production Pipeline on YouTube across three channels, counted from the posting ledger on 24 November 2026
+Video Production Pipeline on YouTube across three channels, read from each channel's Shorts listing on 24 November 2026
 - LINK: [Video Production Pipeline](/p/episode-pipeline/)
 
 ---
@@ -3387,20 +3404,24 @@ New captures land in inbox/ from bank-pwa . This page is
 - LINK: [channels](/channels/)
 
 ## Channels
-Four channels. One pipeline. Every episode is auditable end to end, the brief, the frames, the gate, the post. Three channels are live and publishing. One is a test-bed where the format is the work.
+Five channels. One pipeline. Every episode is auditable end to end, the brief, the frames, the gate, the post. Three publish at volume. Whybit is a fourth with one public short, not publishing at volume. Anime Hive is a test-bed where the format is the work.
 
 ### Watch the channels
 Dark history. The events, regimes and people history skipped over.
 The first episode kept 65.3% of viewers past the midpoint on Musashi's duel with Kojirō. Retention is the format signal.
-LIVE · 18 published on YouTube · 10 scheduled
+LIVE · 24 published on YouTube · 10 scheduled
 - LINK: [View the 19-shot breakdown →](/products/forgotten-fronts/ep_musashi.html)
 Tested objects. Watches, engines, instruments. Everything claims it works. We put it through the test.
-16 episodes published on YouTube and 8 more scheduled. The same gate runs on every one of them: five checks on the rendered file, and any failure refuses the episode.
-LIVE · 16 published on YouTube · 8 scheduled
+18 episodes published on YouTube and 2 more scheduled. The same gate runs on every one of them: five checks on the rendered file, and any failure refuses the episode.
+LIVE · 18 published on YouTube · 2 scheduled
 - LINK: [View the breakdown →](/products/ep_speedmaster/)
 Demon Slayer lore, vertical narration-driven. Hard cuts on beat boundaries, not the blur-whip.
-17 episodes published on YouTube , so the pipeline ships a single franchise to format and the format holds. Subject ratios measured against the channel median: Tengen 3.77x, Sanemi 1.91x, Upper Moons 1.47x.
-LIVE · 17 published on YouTube · 1 scheduled
+26 episodes published on YouTube , so the pipeline ships a single franchise to format and the format holds. Subject ratios measured on the reference channel's 366-video census: Tengen 3.77x, Sanemi 1.91x, Upper Moons 1.47x.
+LIVE · 26 published on YouTube · 4 scheduled on Instagram
+How the technology works. One question per short: why a model is confidently wrong, why a GPU beats a CPU, how attention cost grows with context.
+One public short, 3 views. It runs the same eight stages and the same two gates as the three volume channels. It is not publishing at volume, and the numbers are stated here rather than left out.
+FOURTH CHANNEL · 1 published on YouTube · 4 scheduled and private · 6 removed by the uploader
+- LINK: [Watch the one public short →](https://www.youtube.com/shorts/cWfzugD3mUE)
 Format research. 3.00-second grid, blur-whip transitions, one red word at 140px. The opposite of Zenpai, on purpose.
 4 episode folders (Gojo, Madara, Sukuna, Ben 10), the format itself is the experiment. No subject catalogue yet ; building it is the next move.
 R&D · EP_GOJO · 48.0s · 4 experimental episodes
@@ -4663,7 +4684,7 @@ I built the machine that runs this, and I kept every log it produced. Search, sc
       pictures I had already picked, because looking at them properly showed they were wrong.
 That habit is the whole pitch. I am not showing you that I can make a video. I am showing you
       that I check my own work, throw away what does not pass, and leave the evidence where you
-      can audit it. Same rule on the four AI systems on my home page: every one names the failure
+      can audit it. Same rule on the five AI systems on my home page: every one names the failure
       it defends against before the feature it adds.
 See the CV See the raw logs
 - LINK: [See the CV](/cv/)
@@ -4675,7 +4696,7 @@ Short video is cheap to make and expensive to trust. Most suppliers send you the
       picture that was rejected, and every timing decision.
 You get the same log I keep for myself. That is the difference between a supplier
       telling you the work is good and being able to check that it is.
-Real channel numbers, for calibration: 347 subscribers, 4 videos, best one 1,200 views.
+Real channel numbers, for calibration: 379 subscribers, 26 videos, best one 1,940 views.
       Small, and stated rather than dressed up. The pipeline is what scales.
 Email me Full run log
 - LINK: [Email me](mailto:newalabitaiwo625@gmail.com)
@@ -4896,13 +4917,15 @@ Easier on the eyes for night practice
 ## Multi-Channel
 Short-Form Video Production Pipeline
 12 min read
-One pipeline builds every episode on three live channels, and a gate
-refuses any episode that fails it.
+One pipeline builds every episode on three channels publishing at
+volume, and a gate refuses any episode that fails it.
 Built by Taiwo Alabi. Production system, Dublin,
 Ireland · October to November 2026
-57 videos public on YouTube across three channels on 24
-November 2026, with 19 more scheduled, every one through eight build
-stages and two gates that can refuse the episode.
+68 videos public on YouTube across three channels on 24
+November 2026, with 12 more scheduled, every one through eight build
+stages and two gates that can refuse the episode. A fourth
+channel, Whybit, runs the same pipeline on YouTube only and has one
+public short.
 Three channels publish vertical short-form videos on a schedule, and
 every episode is assembled from source images, narration and captions by
 machine. The system exists because the work is repetitive at scale and
@@ -5099,9 +5122,11 @@ passed at 640 pixels and failed at full resolution.
 output
 Three channels publish on YouTube, and the same episodes also run on
 TikTok, Instagram and Facebook.
-Counts are distinct published videos counted from the posting ledger
-on 24 November 2026. A further 19 episodes were scheduled and not yet
-public.
+Counts are distinct public video ids read from each channel's own
+Shorts listing on 24 November 2026. A further 12 episodes were scheduled
+and not yet public. A fourth channel, Whybit, runs the same pipeline on
+YouTube only: one public short, four scheduled and private, and six ids
+the uploader removed.
 One episode is documented in full on this site as a worked example of
 the gate: Forgotten Fronts EP_MUSASHI, 40.1 seconds, 19 frames, 15
 claims verified against the source and 2 cut, shipped on 27 October
@@ -5112,12 +5137,12 @@ like this, and it is the number the pipeline is built to protect.
 ### 7. The publishing layer
 Publishing is scheduled work, and scheduled work fails quietly. Two
 mechanisms cover that.
-A registry and a ledger. 18 named scheduled jobs run
+A registry and a ledger. 27 named scheduled jobs run
 under one registry, so every expected run has a known name. Each run
-writes one append-only record to a JSONL ledger, 3,284 records so far. A
-job that fired and failed therefore leaves different evidence from a job
-that never ran, which is the only way to tell those two apart after the
-fact.
+writes one append-only record to a JSONL ledger, 10,378 records so far.
+A job that fired and failed therefore leaves different evidence from a
+job that never ran, which is the only way to tell those two apart after
+the fact.
 Claims. Before any actor builds or publishes an
 episode, it takes a claim, a lease with an expiry. The cron job, the
 supervisor and an interactive session all take claims through the same
@@ -5125,9 +5150,11 @@ control script, so the same episode is not built twice, and a crashed
 build releases its claim rather than blocking the channel forever.
 The posting ledger itself is the record of what went out: one line
 per post with the title, the video id, the upload time and the schedule.
-It is the source for the published counts in section 6, and it is what
-makes the difference between "the slot passed" and "the video is public"
-a question with an answer.
+It is not the source for the published counts in section 6, which are
+read from each channel's own Shorts listing, because a row in the ledger
+records what was scheduled while the listing records what is public. The
+two differ, and the difference is the point: the ledger is what the
+machine believes, the listing is what the platform shows.
 
 ### 8. The model gateway
 Every model call in this system goes through one gateway, and that is
@@ -5145,9 +5172,9 @@ many tokens, what it cost, and whether the answer was accepted or
 quarantined.
 
 ### 9. Honest limitations
-The published count is not an audience measure. 57
-is what the ledger says is public. It is not a view count, and apart
-from the first Forgotten Fronts episode this report does not carry
+The published count is not an audience measure. 68
+is what the channel listings show as public. It is not a view count, and
+apart from the first Forgotten Fronts episode this report does not carry
 per-episode audience numbers.
 The gates have thresholds, not a published pass
 rate. The shot bound, the duration tolerance and the coverage
@@ -5323,17 +5350,17 @@ The eight build stages (source, prefilter, rotation check, prefilter again, sele
 ### The channels behind the work
 Three channels ship on the same pipeline. Each has its own measured subject catalog. Click a thumbnail to see the channel breakdown; the handle links to the real platform channel.
 - LINK: [@forgottenfronts0](https://www.youtube.com/@forgottenfronts0)
-Status: LIVE. 18 episodes published on YouTube, 10 more scheduled. EP_MUSASHI shipped 2026-10-27 with 65.3% retention.
+Status: LIVE. 24 episodes published on YouTube, 10 more scheduled. EP_MUSASHI shipped 2026-10-27 with 65.3% retention.
 - LINK: [View breakdown →](/products/forgotten-fronts/)
 - LINK: [Watch EP_MUSASHI](/products/channels/forgotten_fronts/ep_musashi.mp4)
 - LINK: [All channels →](/channels/)
 - LINK: [@proof.tested](https://www.youtube.com/@proof.tested)
-Status: LIVE. 16 episodes published on YouTube and 8 more scheduled, plus TikTok, Instagram and Facebook. EP_SPEEDMASTER (24.8s, 3 scenes, 9 frames, every claim verified against Wikipedia) was the first one.
+Status: LIVE. 18 episodes published on YouTube and 2 more scheduled, plus TikTok, Instagram and Facebook. EP_SPEEDMASTER (24.8s, 3 scenes, 9 frames, every claim verified against Wikipedia) was the first one.
 - LINK: [View worked example →](/products/ep_speedmaster/)
 - LINK: [Watch EP_SPEEDMASTER](/products/channels/luxury_archive/ep_speedmaster.mp4)
 - LINK: [All channels →](/channels/)
 - LINK: [@zenpaianime](https://www.youtube.com/@zenpaianime)
-Status: LIVE. 17 episodes published on YouTube, 1 scheduled, plus TikTok and Instagram. Subject ratios measured against the channel median: Tengen 3.77x, Sanemi 1.91x, Upper Moons 1.47x.
+Status: LIVE. 26 episodes published on YouTube, 4 more scheduled on Instagram, plus TikTok and Instagram. Subject ratios measured on the reference channel's 366-video census: Tengen 3.77x, Sanemi 1.91x, Upper Moons 1.47x.
 - LINK: [Watch EP_OBANAI](/products/channels/zenpai/ep_obanai.mp4)
 - LINK: [All channels →](/channels/)
 Status: TEST-BED. anime_hive is the format R&D playground (4 experimental episodes). The opposite format to Zenpai on purpose: a 3.00-second grid against hard cuts on the narration.
@@ -5342,7 +5369,7 @@ Status: TEST-BED. anime_hive is the format R&D playground (4 experimental episod
 
 ### What the brand sees
 The brand signs off on "the character looks like the character", not on the mechanism. The blueprint is the proof that the work is auditable : every claim traces to a Wikipedia source, every frame is gated against a reference, every NEVER rule has a name and a beat it applies to, and every failure mode is documented with the cost it took to learn it.
-The pipeline is in ~/repos/zenpai-pipeline (mirrored from /mnt/2b ). The 6 hard-won rules in _LESSONS_HARD_WON.md are the operating manual. The worked example here (EP_SPEEDMASTER) is one of 3 shipped luxury_archive episodes, but it's the one that shows the QA gate's actual measurements end-to-end so a brand can verify the work without taking anyone's word for it.
+The pipeline is a private repository. The 6 hard-won rules in its operating manual are the record. The worked example here (EP_SPEEDMASTER) is one of 18 shipped Proof Tested episodes, but it's the one that shows the QA gate's actual measurements end-to-end so a brand can verify the work without taking anyone's word for it.
 
 ---
 
@@ -5401,15 +5428,20 @@ A brand evaluating this work signs off on "the video is what the brief asked for
 - LINK: [channels](/channels/)
 
 ## Every image shows its own receipt
-This is the raw record behind every published short on the channel: each generation call, the model
+This is the raw record behind every published short on the channels: each generation call, the model
     that made it, the prompt, the references, the credits, how long it took, and what was kept or thrown
     away. It is the part of the work most projects leave out.
 
 ### First, the honest numbers
 I wanted to publish this as a museum of my most viral episodes. I cannot, because the numbers do
-      not say that. Here is what the channel actually is, measured, not estimated.
+      not say that. Here is what the channels actually are, measured, not estimated.
+Every figure above was read on 24 November 2026 from each channel's own Shorts listing, and every
+      one of them counts only what is public. The posting ledger is a separate record: it says what was
+      scheduled, and it says what was scheduled is not the same as what is visible. Twelve more episodes
+      are scheduled and not yet public, and they are not counted here.
 A thousand views is a start, not a success, and calling it a hit would be the same mistake as
-      putting a role on a CV that was never held. So this page leads with the study and the record
+      putting a role on a CV that was never held. The median on the lead channel is 975 views. Two videos
+      on the smaller channels still sit under ten. So this page leads with the study and the record
       instead, which is the part that is genuinely unusual.
 
 ### What a receipt contains
@@ -5557,7 +5589,7 @@ Same GDPR-cosine engine as TermsGuard, pointed at a curated list. Each company's
 - LINK: [Code](https://github.com/iamtamilore/terms-guard-ai)
 
 ### Portfolio Static · github.io
-The main personal site. Project write-ups, the four-systems grid, the channel work, every repo linked out.
+The main personal site. Project write-ups, the five case studies, the channel work, every repo linked out.
 - LINK: [Open portfolio](/)
 - LINK: [Episodes & channels](/products/)
 - LINK: [Every call log](/provenance/)

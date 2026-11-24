@@ -91,12 +91,12 @@ PROJECTS = [
 
     dict(slug="episode-pipeline", src=SRC / "episode-pipeline/README.md",
          title="Video Production Pipeline",
-         desc="One pipeline builds every episode on three live channels, and a gate refuses "
-              "any episode that fails it. 57 videos public on YouTube.",
+         desc="One pipeline builds every episode on three channels publishing at volume, and a "
+              "gate refuses any episode that fails it. 68 videos public on YouTube.",
          card="episode_pipeline.jpg",
          published=True,
          blurb="a gate that refuses the episode",
-         cmetric="57 videos published", clabel="on YouTube across three channels, counted from the posting ledger on 24 November 2026",
+         cmetric="68 videos published", clabel="on YouTube across three channels, read from each channel's Shorts listing on 24 November 2026",
          cdesc="Eight stages in a fixed order, then two gates. The frame gate checks coverage\n"
                "        and provenance before the build, and the post-render gate refuses the episode\n"
                "        if any of its five checks on the finished file fails.",
@@ -176,7 +176,7 @@ METRICS = {
                    "scoped by patient before ranking"],
  "surge-pricing": ["+21.4% revenue vs fixed pricing", "637,976 real records",
                     "both methods converged on the same policy"],
- "episode-pipeline": ["57 videos public on YouTube across three channels",
+ "episode-pipeline": ["68 videos public on YouTube across three channels",
                       "five checks on the rendered file, one refusal path",
                       "eight stages in a fixed order"],
 }

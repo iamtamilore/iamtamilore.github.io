@@ -117,46 +117,6 @@ GLOSSARY = [
     ("Seed", "A fixed starting number for a random process. Reusing the seed lets another person reproduce the same run."),
 ]
 
-METRIC_EXPLANATIONS = {
-    "zenpai_multichannel_episode_pipeline": "61 finished episode files were present when this inventory snapshot was taken. The number counts rendered videos. It does not prove that every episode passed the newest quality checks.",
-    "cron_orchestrator_and_ledger": "18 scheduled jobs were registered and 18 crontab lines ran them. The ledger records whether each job fired, passed or failed, so a missing run is different from a failed run.",
-    "posting_quality_gates": "Five checks were defined for the posting path. Gates A to D run in the posting loop. Gate E exists in the test file but is not executed by that loop.",
-    "llm_gateway_ask_py": "23,459 model calls had been written to the ledger when this snapshot was taken. The count includes routed calls and their cost records. It is a historical snapshot, not a current total.",
-    "capability_search_index": "280 measured findings were split into searchable chunks of 384 dimensions. A dimension is one number in a vector used to compare the meaning of two pieces of text.",
-    "browser_mcp_automation_engine": "The broker exposed four tools to the chat client and kept a larger internal map behind them. The public version hides signed-in profiles and private browser state.",
-    "unified_log_mcp": "209 events and 104 searchable vectors had been indexed when this snapshot was taken. Events are timestamped records. Vectors let the system find records by meaning as well as by exact words.",
-    "code_search_mcp": "1,104 chunks from 144 files were indexed as 768-dimensional vectors. This lets a chat client search the meaning of code and text across the machine.",
-    "wikipedia_mcp": "Five tools were exposed: article search, summary, section outline, random articles and full extract. The server runs locally, but the articles come from the public Wikipedia service.",
-    "minimax_api_audit": "117 MiniMax documentation pages were fetched and read into a local corpus. The number counts documentation pages, not models tested and not media generated.",
-    "brand_consistency_experiment": "718 scored images came from 9 briefs and 4 conditions in a planned 720-cell design. The images test whether a reference image keeps a generated subject consistent.",
-    "robustness_analysis": "544 generation attempts produced 222 scored result cells across four image models. The harness records visible defects so the model can be judged on failures, not only on successful outputs.",
-    "termsguard_ai": "102 hand-labelled reference clauses were used to judge new clauses: 52 fair and 50 unfair. These are examples reviewed and labelled by a person, not model output.",
-    "clinical_rag_records_engine": "30 adversarial probes were designed to retrieve another patient's note. Scoped retrieval passed all 30 and leaked none. This is a limited synthetic test, not a clinical or privacy certification.",
-    "imageqa_siamese_gate": "On 90 sealed test pairs, the original gate reached precision 1.00, recall 0.82, F1 0.90 and ROC-AUC 1.00. Sealed means the test set was not used while choosing the model or threshold.",
-    "care_agent_bpmn_triage": "210 labelled tickets were split evenly into five categories, 42 per category. This is the training corpus used to build the ticket router.",
-    "surge_pricing_rl_vs_ga": "637,976 ride records remained after metered taxi rides were removed because those records did not contain a quoted price.",
-    "huawei_telecom_data_migration": "The CRM extraction was automated in Python and is documented as saving 15 hours of manual work each week. The number comes from the work record, not from a benchmark run on the site.",
-    "outreach_crm_engine": "The internal snapshot held 16 prospects, 10 audits, 60 findings, 55 claim checks and 40 outreach events. Prospect details are not published.",
-    "model_bakeoff_harness": "Three images were generated at six credits each. The balance moved from 816 to 798 credits, and each image took 66 to 71 seconds. Three images are a small sample, not a model failure rate.",
-    "audition_rater_system": "42 candidate images were generated and judged through the panel. The number counts candidates taken through the selection process.",
-    "journey_evidence_log": "462 observations were recorded in the longitudinal evidence log. An observation is a dated note tied to a source, not a conclusion pulled from memory.",
-    "mohit_ui_image_app": "The Flask application contains 853 lines of code. The line count shows the size of the implementation. It does not measure runtime performance.",
-    "episode_qa_gate_family": "The gate checks shot duration between 0.4 and 5.0 seconds, keeps the final shot at or below 4.0 seconds, keeps total shot duration within 0.6 seconds of the audio, and detects duplicate frames with a SHA-256 hash.",
-    "mcp_reconnect_watchdog": "A SIGTERM signal stopped the code-search server. The watchdog changed the restart marker, opencode started the server again, and the tools returned. This was verified on one server.",
-    "episode_analysis_autopilot": "The important lesson was learned after identical queries left half the shot needs with no usable candidate frames. Each shot need now receives its own character and action queries.",
-    "reels_pipeline": "All 577 extracted frames were analysed, all 23 JSON exports were present and 12 generation calls were logged when this snapshot was taken.",
-    "mullay_media_pipeline": "The written pipeline contains 475 lines, the image runner 184 lines and the video runner 131 lines. The line counts show documentation and implementation size, not output quality.",
-    "oap_training_app": "1,217 examples were seeded and 1,207 cards were due for review. The application was built end to end but has never been used in a live session.",
-    "site_build_generator": "182 commits and 26 index files existed on 10 November 2026. A commit is one saved change in the repository history. The index files are the generated pages.",
-    "ai_tools_site": "Three text-rendering cases were generated at six credits each. The balance moved from 816 to 798 credits, and each image took 66 to 71 seconds. All three looked correct by eye, but three cases are not a failure rate.",
-    "media_upscaler_pipeline": "The outcome ledger has four records. Two are marked FAILED, and the output directory has no files. The system is not a working upscaling pipeline.",
-    "mobile_media_idea_bank": "One entry is indexed. Its test identifier shows that the bank is scaffolded but not yet used as a real media library.",
-    "trading_agent_dashboard": "36 assets appear in the result set, with SAC, TD3 and PPO routed by asset class. The count describes dashboard contents. It does not establish that the strategies made profitable decisions.",
-    "personal_site_and_links_hub": "The links repository contains 38 commits. It publishes contact details, social identities and QR assets.",
-    "multi_agent_mcp_layer": "Eight MCP servers are configured across the project: unified log, kie.ai, code search, claude-mem, ask, ComfyUI, Wikipedia and browser. Recovery was verified end to end on code-search.",
-    "post_render_video_qa_gate": "The gate runs five checks. If any check fails, it refuses the episode and exits with a non-zero code so a caller cannot treat failure as success.",
-}
-
 EXPLANATIONS_SOURCE = ROOT / "data" / "work_explanations.json"
 
 PUBLIC_NAME_OVERRIDES = {

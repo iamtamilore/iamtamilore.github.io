@@ -136,8 +136,8 @@ table.stats td:last-child { color: var(--text-2); font-family: var(--font-mono);
   </p>
 
   <figure class="how-hero">
-    <img src="/how/assets/contact_sheet.jpg" alt="The 23 actual frames of the Tengen-vs-Rengoku episode, arranged in a 5-by-5 grid. Every frame is a sourced still from the build, not a thumbnail." loading="lazy" width="1224" height="2154">
-    <figcaption>The 23 frames that shipped, in order. The yellow-highlighted words are in the captions; the rest is what the captions land on. <a href="https://www.youtube.com/watch?v=9zhPG7aJQy8" target="_blank" rel="noopener">Watch the full short &rarr;</a> &middot; 1,200 views, 4.4 hours of watch time.</figcaption>
+    <img src="/how/assets/contact_sheet.jpg" alt="The 25 actual frames of the Tengen-vs-Rengoku episode, arranged in a 5-by-5 grid. Every frame is a sourced still from the build, not a thumbnail." loading="lazy" width="1224" height="2154">
+    <figcaption>The 25 frames that shipped, in order, across 23 shot needs: two needs were split across two frames each. The yellow-highlighted words are in the captions; the rest is what the captions land on. <a href="https://www.youtube.com/watch?v=9zhPG7aJQy8" target="_blank" rel="noopener">Watch the full short &rarr;</a> &middot; 1,320 views, counted on 24 November 2026.</figcaption>
   </figure>
 
   <section class="hiring">
@@ -154,7 +154,7 @@ table.stats td:last-child { color: var(--text-2); font-family: var(--font-mono);
     <p>
       That habit is the whole pitch. I am not showing you that I can make a video. I am showing you
       that I check my own work, throw away what does not pass, and leave the evidence where you
-      can audit it. Same rule on the four AI systems on my home page: every one names the failure
+      can audit it. Same rule on the five AI systems on my home page: every one names the failure
       it defends against before the feature it adds.
     </p>
     <p>
@@ -180,7 +180,7 @@ table.stats td:last-child { color: var(--text-2); font-family: var(--font-mono);
 
   <div class="foot">
     <p style="font-size:var(--text-sm);color:var(--text-2);max-width:66ch;line-height:1.65">
-      Real channel numbers, for calibration: 347 subscribers, 4 videos, best one 1,200 views.
+      Real channel numbers, for calibration: 379 subscribers, 26 videos, best one 1,940 views.
       Small, and stated rather than dressed up. The pipeline is what scales.
     </p>
     <p style="font-size:var(--text-sm);margin-top:var(--space-4)">
@@ -217,7 +217,13 @@ table.stats td:last-child { color: var(--text-2); font-family: var(--font-mono);
         '<tr><td>Size and speed</td><td>' + esc(fmt.frame || '-') + ', ' + esc(fmt.fps || '-') + ' frames a second</td></tr>' +
         '<tr><td>How cuts happen</td><td>Cuts follow the narration, not a fixed grid</td></tr>' +
         '<tr><td>How many shots</td><td>' + esc(fmt.shot_count || '-') + '</td></tr>' +
-      '</table>'
+        '<tr><td>Shot length</td><td>mean ' + esc(fmt.measured_mean_shot_secs || '-') + 's, median ' +
+             esc(fmt.measured_median_shot_secs || '-') + 's, shortest ' + esc(fmt.shot_seconds_min || '-') +
+             's, longest ' + esc(fmt.shot_seconds_max || '-') + 's</td></tr>' +
+        '<tr><td>How those were counted</td><td>Measured from the pixels of the published file, ' +
+             'not read off the build plan</td></tr>' +
+      '</table>' +
+      (fmt.shot_count_note ? '<p class="plain">' + esc(fmt.shot_count_note) + '</p>' : '')
     },
     {
       n: 'Step 2', h: 'Write the script in short lines',
@@ -329,7 +335,7 @@ table.stats td:last-child { color: var(--text-2); font-family: var(--font-mono);
   // clip slots: placeholders until Taiwo supplies the live links
   out += '<section class="step"><div class="step-n"><span class="n">The episodes</span>' +
     '<h2>Watch them, then judge the pipeline</h2></div>' +
-    '<p class="step-why">These are the four published videos. The view counts are the real ones, ' +
+    '<p class="step-why">Four of the channel\'s 26 published videos. The view counts are the real ones, ' +
     'including the one that barely worked. Watch them, then decide whether the process above is ' +
     'worth commissioning.</p>' +
     '<div class="clip-grid">' + (D.clip_slots || []).map(function (c) {

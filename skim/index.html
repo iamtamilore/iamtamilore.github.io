@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>60-second skim | Taiwo Alabi</title>
-<meta name="description" content="Four projects, what each one prevents going wrong, the one number a recruiter needs, and the complete index of 37 verified systems behind them.">
+<meta name="description" content="Five systems, what each one prevents going wrong, the one number a recruiter needs, and the complete index of 37 verified systems behind them.">
 <script>document.documentElement.setAttribute("data-theme",localStorage.getItem("tw-theme")||"")</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="/assets/css/mark-zero.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23100f0c'/><text y='73' x='50' font-size='64' text-anchor='middle' fill='%23ff6b32' font-family='monospace'>T</text></svg>">
 <meta property="og:title" content="60-second skim | Taiwo Alabi">
-<meta property="og:description" content="Four projects, what each one prevents going wrong, the one number a recruiter needs, and the index of 37 verified systems behind them.">
+<meta property="og:description" content="Five systems, what each one prevents going wrong, the one number a recruiter needs, and the index of 37 verified systems behind them.">
 <meta property="og:url" content="https://iamtamilore.github.io/skim/">
 <style>
 .skim-page { color: var(--text); font-family: 'Quicksand', var(--font); line-height: 1.55; max-width: 860px; margin: 0 auto; padding: var(--space-6) var(--space-4); }
@@ -81,23 +81,23 @@
 
 <p class="skim-links">
   <a href="/work/">All 37 systems &rarr;</a>
-  <a href="/case-studies/">The four case studies &rarr;</a>
+  <a href="/case-studies/">The five case studies &rarr;</a>
   <a href="/process/">How the pipelines run &rarr;</a>
   <a href="/gallery/">The evidence gallery &rarr;</a>
 </p>
 
 <article class="skim-entry">
   <h2>Multi-channel short-form video pipeline</h2>
-  <p class="skim-line">One pipeline builds every episode on three live channels, and a gate refuses any episode that fails it.</p>
+  <p class="skim-line">One pipeline builds every episode on three channels publishing at volume, and a gate refuses any episode that fails it.</p>
   <div class="skim-grid">
     <div class="row"><div class="label">Failure mode it prevents</div><div class="value">An episode that looks finished and is not. On 22 October a build had verdicts for 3 of 16 shot needs, the crop skipped every need with no candidate, and the build spread three stills across all sixteen shots. Frame 06 was the wrong character. Nothing in the pipeline noticed.</div></div>
     <div class="row"><div class="label">Cost of being wrong</div><div class="value">A wrong frame in a published episode. The video is public, it cannot be quietly re-shot, and the people who already watched it are not watching the correction.</div></div>
-    <div class="row"><div class="label">Headline number</div><div class="value"><strong>57 videos published on YouTube across three channels</strong>, counted from the posting ledger on 24 November 2026. The gate that protects them runs five checks on the rendered file and refuses the episode if any one of them fails.</div></div>
-    <div class="row"><div class="label">Honest limit</div><div class="value">The published count is what the schedule says went out, not a measure of audience response. The visual check in the gate is one model call, and it can come back incomplete.</div></div>
+    <div class="row"><div class="label">Headline number</div><div class="value"><strong>68 videos published on YouTube across three channels</strong>, read from each channel's Shorts listing on 24 November 2026. A fourth channel, Whybit, has one public short. The gate that protects them runs five checks on the rendered file and refuses the episode if any one of them fails.</div></div>
+    <div class="row"><div class="label">Honest limit</div><div class="value">The published count is what the channel listing shows, not a measure of audience response. The visual check in the gate is one model call, and it can come back incomplete.</div></div>
   </div>
   <div class="skim-stack"><code>Python</code><code>ffmpeg</code><code>ffprobe</code><code>vision model</code><code>cron</code></div>
   <div class="skim-links">
-    <a href="/channels/">The three channels &rarr;</a>
+    <a href="/channels/">The channels &rarr;</a>
     <a href="/products/">The episodes &rarr;</a>
     <a href="/p/episode-pipeline/">Full write-up &rarr;</a>
   </div>

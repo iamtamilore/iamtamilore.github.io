@@ -4,15 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Video Production Pipeline | Taiwo Alabi</title>
-<meta name="description" content="One pipeline builds every episode on three live channels, and a gate refuses any episode that fails it. 57 videos public on YouTube.">
+<meta name="description" content="One pipeline builds every episode on three channels publishing at volume, and a gate refuses any episode that fails it. 68 videos public on YouTube.">
 <script>document.documentElement.setAttribute("data-theme",localStorage.getItem("tw-theme")||"g5")</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="/assets/css/design-system.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%232E2C6E'/><text y='72' x='50' font-size='62' text-anchor='middle' fill='%23FF7A3D' font-family='sans-serif' font-weight='bold'>T</text></svg>">
 <meta property="og:title" content="Video Production Pipeline | Taiwo Alabi">
-<meta property="og:description" content="One pipeline builds every episode on three live channels, and a gate refuses any episode that fails it. 57 videos public on YouTube.">
-<meta property="og:image" content="https://iamtamilore.github.io/assets/img/channels/pipeline.jpg">
+<meta property="og:description" content="One pipeline builds every episode on three channels publishing at volume, and a gate refuses any episode that fails it. 68 videos public on YouTube.">
+<meta property="og:image" content="https://iamtamilore.github.io/assets/img/episode_pipeline.jpg">
 <meta property="og:url" content="https://iamtamilore.github.io/p/episode-pipeline/">
 <link rel="canonical" href="https://iamtamilore.github.io/p/episode-pipeline/">
 <meta property="og:type" content="article">
@@ -27,13 +27,15 @@
 id="multi-channel-short-form-video-production-pipeline">Multi-Channel
 Short-Form Video Production Pipeline</h1>
 <p class="readtime">12 min read</p>
-<p>One pipeline builds every episode on three live channels, and a gate
-refuses any episode that fails it.</p>
+<p>One pipeline builds every episode on three channels publishing at
+volume, and a gate refuses any episode that fails it.</p>
 <p><strong>Built by Taiwo Alabi.</strong> Production system, Dublin,
 Ireland · October to November 2026</p>
-<p><strong>57 videos public on YouTube across three channels on 24
-November 2026, with 19 more scheduled, every one through eight build
-stages and two gates that can refuse the episode.</strong></p><div class="stats-strip"><span class="stat">57 videos public on YouTube across three channels</span><span class="stat">five checks on the rendered file, one refusal path</span><span class="stat">eight stages in a fixed order</span></div>
+<p><strong>68 videos public on YouTube across three channels on 24
+November 2026, with 12 more scheduled, every one through eight build
+stages and two gates that can refuse the episode.</strong> A fourth
+channel, Whybit, runs the same pipeline on YouTube only and has one
+public short.</p>
 <p>Three channels publish vertical short-form videos on a schedule, and
 every episode is assembled from source images, narration and captions by
 machine. The system exists because the work is repetitive at scale and
@@ -290,13 +292,15 @@ TikTok, Instagram and Facebook.</p>
 <td>Super Zenpai</td>
 <td>Demon Slayer lore, vertical narration-driven</td>
 <td>@zenpaianime</td>
-<td>15</td>
+<td>26</td>
 </tr>
 </tbody>
 </table></div>
-<p>Counts are distinct published videos counted from the posting ledger
-on 24 November 2026. A further 19 episodes were scheduled and not yet
-public.</p>
+<p>Counts are distinct public video ids read from each channel's own
+Shorts listing on 24 November 2026. A further 12 episodes were scheduled
+and not yet public. A fourth channel, Whybit, runs the same pipeline on
+YouTube only: one public short, four scheduled and private, and six ids
+the uploader removed.</p>
 <p>One episode is documented in full on this site as a worked example of
 the gate: Forgotten Fronts EP_MUSASHI, 40.1 seconds, 19 frames, 15
 claims verified against the source and 2 cut, shipped on 27 October
@@ -307,12 +311,12 @@ like this, and it is the number the pipeline is built to protect.</p>
 <h2 id="7-the-publishing-layer">7. The publishing layer</h2>
 <p>Publishing is scheduled work, and scheduled work fails quietly. Two
 mechanisms cover that.</p>
-<p><strong>A registry and a ledger.</strong> 18 named scheduled jobs run
+<p><strong>A registry and a ledger.</strong> 27 named scheduled jobs run
 under one registry, so every expected run has a known name. Each run
-writes one append-only record to a JSONL ledger, 3,284 records so far. A
-job that fired and failed therefore leaves different evidence from a job
-that never ran, which is the only way to tell those two apart after the
-fact.</p>
+writes one append-only record to a JSONL ledger, 10,378 records so far.
+A job that fired and failed therefore leaves different evidence from a
+job that never ran, which is the only way to tell those two apart after
+the fact.</p>
 <p><strong>Claims.</strong> Before any actor builds or publishes an
 episode, it takes a claim, a lease with an expiry. The cron job, the
 supervisor and an interactive session all take claims through the same
@@ -320,9 +324,11 @@ control script, so the same episode is not built twice, and a crashed
 build releases its claim rather than blocking the channel forever.</p>
 <p>The posting ledger itself is the record of what went out: one line
 per post with the title, the video id, the upload time and the schedule.
-It is the source for the published counts in section 6, and it is what
-makes the difference between "the slot passed" and "the video is public"
-a question with an answer.</p>
+It is not the source for the published counts in section 6, which are
+read from each channel's own Shorts listing, because a row in the ledger
+records what was scheduled while the listing records what is public. The
+two differ, and the difference is the point: the ledger is what the
+machine believes, the listing is what the platform shows.</p>
 <hr />
 <h2 id="8-the-model-gateway">8. The model gateway</h2>
 <p>Every model call in this system goes through one gateway, and that is
@@ -344,7 +350,7 @@ token counts and the cost where the provider returned it.</p>
 <tbody>
 <tr class="odd">
 <td>Calls recorded since 9 October 2026</td>
-<td>53,054</td>
+<td>53,346</td>
 </tr>
 <tr class="even">
 <td>Media jobs recorded</td>
@@ -363,9 +369,9 @@ quarantined.</p>
 <hr />
 <h2 id="9-honest-limitations">9. Honest limitations</h2>
 <ul>
-<li><strong>The published count is not an audience measure.</strong> 57
-is what the ledger says is public. It is not a view count, and apart
-from the first Forgotten Fronts episode this report does not carry
+<li><strong>The published count is not an audience measure.</strong> 68
+is what the channel listings show as public. It is not a view count, and
+apart from the first Forgotten Fronts episode this report does not carry
 per-episode audience numbers.</li>
 <li><strong>The gates have thresholds, not a published pass
 rate.</strong> The shot bound, the duration tolerance and the coverage
