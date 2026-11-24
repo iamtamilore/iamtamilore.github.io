@@ -22,3 +22,9 @@ rater/assets/PRIVATE_unblinding_map.json
 # Holds the per-rater invite tokens. Committing it means anyone reading the repo
 # can submit ratings as any rater.
 rater/raters_log.csv
+# The v2 serpentine-zip rater is retired. Its served items.json unmasked every
+# P1 item, so the folder was removed from the public tree on 2026-11-24.
+# Keep the scratch copies and any private map out of the repo for good.
+rater_v2/
+rater_v2_deploy/
+rater_v2_live/assets/PRIVATE_unblinding_map.json
