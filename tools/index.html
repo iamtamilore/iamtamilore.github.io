@@ -63,7 +63,6 @@
   <a href="/tools/" aria-current="page">tools</a>
   <a href="/products/">episodes</a>
   <a href="/channels/">channels</a>
-  <a href="/jobs/">jobs</a>
 </nav>
 
 <div class="tools-wrap">
@@ -177,9 +176,9 @@
   <article class="tool-card">
     <img class="tool-thumb" src="/assets/img/tools/generator.jpg" alt="A small server box on a warm grey desk with status LEDs, beside a 4-by-3 printed grid of small garment images" loading="lazy">
     <div class="tool-body">
-      <h2>Image Generator (Mohit's UI) <span class="tool-status live">Live · Tailscale funnel</span></h2>
+      <h2>Image Generator <span class="tool-status live">Live · Tailscale funnel</span></h2>
       <p class="tool-summary">Flask app for the image-generation study. Four conditions, gallery of generated images, OCR accuracy feed.</p>
-      <p class="tool-desc">Used by the second author of the study to run the four conditions end to end and inspect outputs without leaving the experiment folder.</p>
+      <p class="tool-desc">Built from a supervision ask: how would a user run this pipeline. One Flask interface over the four conditions, with progress streamed while a job runs, so the outputs can be inspected on the same machine as the generation.</p>
       <div class="tool-actions">
         <a class="tool-cta" href="https://newtazer.tail1075c4.ts.net/" target="_blank" rel="noopener">Open generator</a>
       </div>

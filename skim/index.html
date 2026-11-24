@@ -66,13 +66,12 @@
   <a href="/tools/">tools</a>
   <a href="/products/">episodes</a>
   <a href="/channels/">channels</a>
-  <a href="/jobs/">jobs</a>
 </nav>
 
 <p class="stamp">skim &nbsp;·&nbsp; 60 seconds</p>
-<h1>Four projects, what each one prevents going wrong.</h1>
+<h1>Five systems, what each one prevents going wrong.</h1>
 <p class="lede">
-  Four projects, the failure mode each one defends against, the one number a recruiter
+  Five systems, the failure mode each one defends against, the one number a recruiter
   needs. The full write-up is one click deeper on every entry. Behind them sits the
   complete index of 37 verified systems.
 </p>
@@ -83,6 +82,23 @@
   <a href="/process/">How the pipelines run &rarr;</a>
   <a href="/gallery/">The evidence gallery &rarr;</a>
 </p>
+
+<article class="skim-entry">
+  <h2>Multi-channel short-form video pipeline</h2>
+  <p class="skim-line">One pipeline builds every episode on three live channels, and a gate refuses any episode that fails it.</p>
+  <div class="skim-grid">
+    <div class="row"><div class="label">Failure mode it prevents</div><div class="value">An episode that looks finished and is not. On 22 October a build had verdicts for 3 of 16 shot needs, the crop skipped every need with no candidate, and the build spread three stills across all sixteen shots. Frame 06 was the wrong character. Nothing in the pipeline noticed.</div></div>
+    <div class="row"><div class="label">Cost of being wrong</div><div class="value">A wrong frame in a published episode. The video is public, it cannot be quietly re-shot, and the people who already watched it are not watching the correction.</div></div>
+    <div class="row"><div class="label">Headline number</div><div class="value"><strong>57 videos published on YouTube across three channels</strong>, counted from the posting ledger on 24 November 2026. The gate that protects them runs five checks on the rendered file and refuses the episode if any one of them fails.</div></div>
+    <div class="row"><div class="label">Honest limit</div><div class="value">The published count is what the schedule says went out, not a measure of audience response. The visual check in the gate is one model call, and it can come back incomplete.</div></div>
+  </div>
+  <div class="skim-stack"><code>Python</code><code>ffmpeg</code><code>ffprobe</code><code>vision model</code><code>cron</code></div>
+  <div class="skim-links">
+    <a href="/channels/">The three channels &rarr;</a>
+    <a href="/products/">The episodes &rarr;</a>
+    <a href="/p/episode-pipeline/">Full write-up &rarr;</a>
+  </div>
+</article>
 
 <article class="skim-entry">
   <h2>TermsGuard AI</h2>
@@ -164,7 +180,7 @@
   <h2>What this page is and is not</h2>
   <p><strong>This is:</strong> the 60-second skim. Each entry leads with what the project prevents going wrong, what that mistake costs, the headline number, and the honest limit. The full write-up is one click away.</p>
   <p><strong>This is not:</strong> the full write-up. The full write-ups have the architecture, the diagrams, the per-section honest limits, and the reproduction instructions. They are linked from each entry.</p>
-  <p><strong>This is not:</strong> the complete index. <a href="/work/">The work index</a> holds all 37 verified systems with what each one prevents and what it does not prove. This page is the 60-second slice of the four that have full write-ups.</p>
+  <p><strong>This is not:</strong> the complete index. <a href="/work/">The work index</a> holds all 37 verified systems with what each one prevents and what it does not prove. This page is the 60-second slice of the five that have full write-ups.</p>
   <p><strong>This is not:</strong> an alternative to the homepage. The homepage is the project card grid for someone choosing what to read. This page is for the recruiter who wants to read more than a card but less than a write-up.</p>
 </section>
 

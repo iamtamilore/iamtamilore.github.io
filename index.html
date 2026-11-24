@@ -34,7 +34,6 @@
   <a href="/tools/">tools</a>
   <a href="/products/">episodes</a>
   <a href="/channels/">channels</a>
-  <a href="/jobs/">jobs</a>
   <a href="/corpus/">corpus</a>
 </nav>
 
@@ -61,7 +60,7 @@
 
     <p class="toolstack">
       <span class="toolstack-label">Stack</span>
-      Python &nbsp;·&nbsp; SQL &nbsp;·&nbsp; FastAPI &nbsp;·&nbsp; Flask &nbsp;·&nbsp; Docker &nbsp;·&nbsp; Kubernetes &nbsp;·&nbsp; PostgreSQL &nbsp;·&nbsp; pgvector &nbsp;·&nbsp; FAISS &nbsp;·&nbsp; RAG &nbsp;·&nbsp; LangGraph &nbsp;·&nbsp; sentence-transformers &nbsp;·&nbsp; scikit-learn &nbsp;·&nbsp; TensorFlow/Keras &nbsp;·&nbsp; LLM evaluation &nbsp;·&nbsp; confidence calibration &nbsp;·&nbsp; Power BI &nbsp;·&nbsp; BPMN 2.0 &nbsp;·&nbsp; GDPR data lineage
+      Python &nbsp;·&nbsp; SQL &nbsp;·&nbsp; FastAPI &nbsp;·&nbsp; Flask &nbsp;·&nbsp; Docker &nbsp;·&nbsp; ffmpeg &nbsp;·&nbsp; ffprobe &nbsp;·&nbsp; cron &nbsp;·&nbsp; Kubernetes &nbsp;·&nbsp; PostgreSQL &nbsp;·&nbsp; pgvector &nbsp;·&nbsp; FAISS &nbsp;·&nbsp; RAG &nbsp;·&nbsp; LangGraph &nbsp;·&nbsp; sentence-transformers &nbsp;·&nbsp; scikit-learn &nbsp;·&nbsp; TensorFlow/Keras &nbsp;·&nbsp; LLM evaluation &nbsp;·&nbsp; confidence calibration &nbsp;·&nbsp; Power BI &nbsp;·&nbsp; BPMN 2.0 &nbsp;·&nbsp; GDPR data lineage
     </p>
 
       <p class="cta-row">
@@ -69,6 +68,7 @@
         <a class="cta cta-ghost" href="/case-studies/">Case studies</a>
         <a class="cta cta-ghost" href="/cv/">See the CV</a>
         <a class="cta cta-ghost" href="/products/">Episodes</a>
+        <a class="cta cta-ghost" href="/channels/">Channels</a>
         <a class="cta cta-ghost" href="/products/blueprint.html">Workflow blueprint</a>
         <a class="cta cta-ghost" href="/how/">How I build things</a>
         <a class="cta cta-ghost" href="/provenance/">The raw logs</a>
@@ -79,8 +79,8 @@
   <!-- the numbers are the loudest thing on the page -->
   <div class="figure">
       <div class="fig">
-        <span class="n">1,447</span>
-        <span class="k">generation jobs logged with their prompts, and cost where the provider returned it, through 21 October 2026</span>
+        <span class="n">57</span>
+        <span class="k">videos published on YouTube across three channels, counted from the posting ledger on 24 November 2026</span>
       </div>
       <div class="fig">
         <span class="n">37</span>
@@ -98,6 +98,78 @@
 
   <div class="shead">
     <span class="idx">01</span>
+    <h2>The production machine</h2>
+    <span class="note">Three live channels, the gate that refuses a bad episode, and the ledger behind both.</span>
+  </div>
+
+  <div class="entries">
+
+    <article class="entry">
+      <div>
+        <div class="metric">57 videos published</div>
+        <span class="metric-note">on YouTube across three channels, counted from the posting ledger on 24 November 2026</span>
+      </div>
+      <div>
+        <h3 class="name">Multi-channel short-form video pipeline</h3>
+        <p class="desc">
+          One pipeline builds every episode on every channel, in eight stages and a fixed
+          order: source, prefilter, rotation check, prefilter again, select, crop, verify,
+          build. A model ranks the candidate stills and a person chooses. The cut follows
+          the narration, so the frames change when the narration does. The channels are
+          Forgotten Fronts, Proof Tested and Super Zenpai, and the same episodes also run
+          on TikTok, Instagram and Facebook.
+        </p>
+        <a class="go" href="/channels/">The three channels &rarr;</a>
+        <a class="go" href="/products/">The episodes &rarr;</a>
+        <a class="go" href="/work/">The system record &rarr;</a>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div>
+        <div class="metric">5 checks on the file</div>
+        <span class="metric-note">plus coverage and provenance on the frames, before the build</span>
+      </div>
+      <div>
+        <h3 class="name">The gate that refuses an episode</h3>
+        <p class="desc">
+          A gate that lives in a document is a warning, a gate that lives in the driver is
+          a gate. The frame gate checks that every shot need has its own usable candidate
+          and that no two frames share a source picture. The post-render gate reads the
+          finished file for audio, caption track, burned-in captions, visual match to the
+          brief and frame loops, and refuses the episode if any one of them fails. It
+          exists because a build once looked finished and was not: 3 of 16 shot needs had
+          verdicts, the crop skipped the rest, and the build spread three stills across
+          sixteen shots.
+        </p>
+        <a class="go" href="/products/workflow/">The workflow &rarr;</a>
+        <a class="go" href="/how/">How an episode is made &rarr;</a>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div>
+        <div class="metric">53,054 calls logged</div>
+        <span class="metric-note">each with its prompt, its model and its cost, through one gateway since 9 October 2026</span>
+      </div>
+      <div>
+        <h3 class="name">One gateway and one ledger</h3>
+        <p class="desc">
+          Every model call goes through a single gateway that applies a spend ceiling,
+          caches repeated answers, routes the job to a model and a fallback, and writes
+          one record per call. 18 scheduled jobs run under one registry and write to an
+          append-only ledger, 3,284 records so far, so a job that failed is different
+          from a job that never ran.
+        </p>
+        <a class="go" href="/work/">The system records &rarr;</a>
+        <a class="go" href="/provenance/">The raw logs &rarr;</a>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="shead">
+    <span class="idx">02</span>
     <h2>Four case studies, the failure each one defends against</h2>
     <span class="note">Each card starts with what the system catches, not what it does. The other 33 systems are in the work index.</span>
   </div>
@@ -203,7 +275,7 @@
   </p>
 
   <div class="shead">
-    <span class="idx">02</span>
+    <span class="idx">03</span>
     <h2>The thing nobody else publishes</h2>
     <span class="note">A blinded evaluation, run on my own output.</span>
   </div>
@@ -236,7 +308,7 @@
 
   </div>
 
-  <h2 class="shead" style="margin-top:var(--space-12)"><span class="idx">03</span>Get in touch</h2>
+  <h2 class="shead" style="margin-top:var(--space-12)"><span class="idx">04</span>Get in touch</h2>
 
   <p class="recency">
     I make AI output verifiable before it ships. Every system here names the failure it
@@ -263,9 +335,8 @@
       <a href="/how/">how</a>
       <a href="/provenance/">logs</a>
       <a href="/tools/">tools</a>
-      <a href="/jobs/">jobs</a>
     </div>
-    <div style="margin-top:var(--space-3)">Last updated 23 October 2026</div>
+    <div style="margin-top:var(--space-3)">Last updated 24 November 2026</div>
   </footer>
 
 </div>

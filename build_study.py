@@ -47,7 +47,6 @@ TEMPLATE = """<!doctype html>
 <body class="study-body">
 <nav class="util" aria-label="Personal">
   <a href="/">home</a>
-  <a href="/jobs/">tracker</a>
 </nav>
 <div class="study-wrap">
   <div class="study-header">
