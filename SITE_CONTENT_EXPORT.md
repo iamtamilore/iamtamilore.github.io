@@ -1,7 +1,7 @@
 # Full site content export, all live pages
 
 
-Generated on 2026-11-23 directly from the built HTML in this repo, which is the source of truth for what's actually live. This is a snapshot: regenerate it with `python3 extract_site_content.py` after any copy change.
+Generated on 2026-11-24 directly from the built HTML in this repo, which is the source of truth for what's actually live. This is a snapshot: regenerate it with `python3 extract_site_content.py` after any copy change.
 
 
 ---
@@ -152,24 +152,22 @@ cache, a per-call budget guard, a daily spend ceiling and a detector
 that quarantines reasoning burns. Around it I wired eight MCP servers
 into one agent layer and added a watchdog that restores a dead server
 with no human intervention, plus a scheduling layer for 18 scheduled
-jobs so a job that fires and fails is distinguishable from a job that
-never fires. The Smart Medical Records Engine is a clinical assistant on
+jobs that separates a job which fired and failed from one that never
+fired. The Smart Medical Records Engine is a clinical assistant on
 FastAPI and PostgreSQL with retrieval scoped per patient in the query,
 an audit log of every access and name redaction on the stored log. The
 Customer Care Process Automation system is an AI routing agent reaching
-95.2% routing accuracy on 42 held out tickets, 40 of 42, behind a
-confidence gate that escalates uncertain tickets to a human instead of
-guessing. Read the
-case study . At Huawei, across two summer placements, I automated CRM
-extraction in Python, validated 100k+ rows of engagement data in SQL,
-tested a bank’s customer care line integration interface by interface,
-and helped design over 440 User Acceptance Test cases for a data
-migration covering 400 million daily call records. MSc Artificial
-Intelligence (part-time), National College of Ireland, completing
-January 2027. Based in Dublin, working remotely across Irish and UK
-timezones.
-- LINK: [Read the
-case study](https://iamtamilore.github.io/p/care-agent/)
+95.2% routing accuracy on 42 held out tickets, behind a confidence gate
+that escalates uncertain tickets to a human instead of guessing. Read the case
+study . At Huawei, I automated CRM extraction in Python, validated
+100k+ rows of engagement data in SQL, tested a bank’s customer care line
+integration interface by interface, and helped design over 440 User
+Acceptance Test cases for a data migration covering 400 million daily
+call records. MSc Artificial Intelligence (part-time), National College
+of Ireland, completing January 2027. Based in Dublin, working remotely
+across Irish and UK timezones.
+- LINK: [Read the case
+study](https://iamtamilore.github.io/p/care-agent/)
 
 ### Selected Systems
 Multi-model LLM
@@ -282,7 +280,8 @@ write-up](https://iamtamilore.github.io/p/image-qa/)
 ### Professional Experience
 Huawei Technologies (via RGS), Globacom Telecommunications
 department, Lagos
-Data Analyst Intern : Summer 2024, 5 months
+Data Analyst Intern, then Data Specialist : Mar 2025
+to Dec 2025, internship extended by the team
 Worked with stakeholders to identify data and reporting
 requirements, turning raw data into relevant and meaningful
 insights.
@@ -290,8 +289,6 @@ Profiled and transformed the source data, then managed the Power BI
 assets built on it, including reports, dashboards, workspaces and
 underlying datasets, and designed scalable data models with advanced
 analytics enabled.
-Product Manager and Data Specialist Intern : Summer
-2025, 5 months, returned for a second placement
 Designed and tested the API layer for a cloud integration between
 the contact centre platform and a commercial bank’s customer care line,
 testing every interface by hand with a command-line tool before it went
@@ -344,11 +341,13 @@ certificate
 certificate](https://www.udemy.com/certificate/UC-ba3bf541-de9d-4505-9868-d80dfd766b2b/)
 
 ### Work Authorisation
-Irish Stamp 2 during my MSc: 20 hours per week in term and 40 hours
-per week over the college holidays, including December. I complete my
-MSc in Artificial Intelligence in January 2027 and am eligible for Irish
-Stamp 1G post-study graduate work permission from that date, which
-permits full time employment at 40 hours per week.
+Irish Stamp 2 during my MSc: 20 hours per week in term, 40 hours per
+week over college holidays. My final examinations are in January 2027.
+NCI issues my final results in early 2027, and I am awarded the degree
+at the Spring Graduation ceremony in April 2027. From the final results
+I can apply for Irish Stamp 1G post-study graduate work permission,
+which permits full time employment at 40 hours per week. I am looking
+for a role that will sponsor an employment permit.
 - LINK: [Email Taiwo](mailto:newalabitaiwo625@gmail.com?subject=Agent%20Foundations%20application)
 - LINK: [See the complete work index](/work/)
 
