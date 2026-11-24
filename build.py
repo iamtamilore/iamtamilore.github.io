@@ -93,7 +93,7 @@ PROJECTS = [
          title="Video Production Pipeline",
          desc="One pipeline builds every episode on three channels publishing at volume, and a "
               "gate refuses any episode that fails it. 68 videos public on YouTube.",
-         card="episode_pipeline.jpg",
+         card="episode_pipeline_og.jpg",
          published=True,
          blurb="a gate that refuses the episode",
          cmetric="68 videos published", clabel="on YouTube across three channels, read from each channel's Shorts listing on 24 November 2026",

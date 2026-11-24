@@ -2201,6 +2201,10 @@ Diagrams, evaluation tables, episode stills, contact sheets and raw logs, groupe
 This gallery groups evidence by what it proves. An architecture diagram shows how a system is separated. A confusion matrix shows which mistakes remained after a decision rule. A contact sheet shows which frames entered a video. A raw log shows that a scheduled job ran and recorded an outcome. Nothing is included only as decoration.
 Current work
 
+### Episode pipeline architecture
+Shows the eight stages in their fixed order and where the two gates sit, the frame gate before the build and the post-render gate after it.
+- LINK: [Open the case study](/p/episode-pipeline/)
+
 ### Episode gallery
 Published episodes, production stills, narration timing and the quality-check records for the rendered files.
 - LINK: [Open the episode gallery](/products/)

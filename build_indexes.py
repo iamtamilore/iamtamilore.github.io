@@ -53,7 +53,7 @@ def page(title: str, description: str, active: str, body: str, path: str = "") -
 <meta property="og:url" content="{canonical}">
 <meta property="og:title" content="{title} | Taiwo Alabi">
 <meta property="og:description" content="{description}">
-<meta property="og:image" content="https://iamtamilore.github.io/assets/img/banner.jpg">
+<meta property="og:image" content="https://iamtamilore.github.io/assets/img/og_site.jpg">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
