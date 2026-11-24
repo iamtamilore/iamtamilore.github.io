@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Workflow | The 5-stage channel pipeline | Taiwo Alabi</title>
+<title>Workflow | The 8-stage channel pipeline | Taiwo Alabi</title>
 <script>document.documentElement.setAttribute("data-theme",localStorage.getItem("tw-theme")||"")</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
 <link rel="stylesheet" href="/assets/css/design-system.css">
 <link rel="stylesheet" href="/assets/css/mark-zero.css">
-<meta name="description" content="The master blueprint behind every episode shipped on every channel. Plan, select, build, gate, post. Six hard-won rules from real failures.">
+<meta name="description" content="The eight-stage pipeline behind every episode shipped on every channel, the gates that can refuse an episode, and six hard-won rules from real failures.">
 <style>
 body { color: var(--text); font-family: 'Quicksand', var(--font); line-height: 1.5; }
 .wrap { max-width: 960px; margin: 0 auto; padding: var(--space-6) var(--space-4); }
@@ -27,7 +27,7 @@ p { font-size: var(--text-sm); color: var(--text-2); line-height: 1.6; margin-bo
 .wf-pipeline-img { width: 100%; height: auto; border: 1px solid var(--border); border-radius: 8px; margin: var(--space-4) 0; display: block; }
 
 /* Stage row */
-.wf-stages { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--space-2); margin: var(--space-3) 0 var(--space-6); }
+.wf-stages { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-2); margin: var(--space-3) 0 var(--space-6); }
 .wf-stage { padding: var(--space-3); background: var(--surface-1); border: 1px solid var(--border); border-radius: 4px; text-align: center; }
 .wf-stage .stage-name { font-family: var(--font-mono); font-size: var(--text-sm); font-weight: 700; color: var(--text); }
 .wf-stage .stage-rule { font-size: var(--text-xs); color: var(--text-3); margin-top: var(--space-1); }
@@ -74,35 +74,47 @@ em { color: var(--text); font-style: italic; }
 
  <header>
  <h1>Workflow blueprint</h1>
- <p class="lede">The five-stage pipeline that runs every channel. Plus six rules the pipeline enforces automatically - one per failure that cost real time or money to learn.</p>
+ <p class="lede">The eight-stage pipeline that runs every channel, and the gates that can refuse an episode. Plus six rules the pipeline enforces automatically - one per failure that cost real time or money to learn.</p>
  </header>
 
  <section>
  <h2>The pipeline</h2>
- <img class="wf-pipeline-img" src="/assets/img/channels/pipeline.jpg" alt="Five small objects on a workbench, notebook, magnifier, camera, ink-stamp, paper plane, connected by a thin horizontal line. GATE is highlighted in burnt orange as the only warm colour in the frame." loading="lazy">
+ <img class="wf-pipeline-img" src="/assets/img/channels/pipeline.jpg" alt="Eight small objects on a workbench, each one a stage of the build, connected by a thin horizontal line. The gate objects are highlighted in burnt orange as the only warm colour in the frame." loading="lazy">
 
- <p>Plan, select, build, gate, post. Every episode on every channel goes through these five stages. The gate is the load-bearing one - that's why it carries the only warm colour in the diagram.</p>
+ <p>Source, prefilter, rotcheck, select, crop, verify, build. Every episode on every channel goes through these stages in this order, and the order is not a preference: rotation correction after selection cannot converge, so it has to happen first. The gate is the load-bearing part - that's why it carries the only warm colour in the diagram.</p>
 
  <div class="wf-stages">
  <div class="wf-stage">
- <div class="stage-name">Plan</div>
- <div class="stage-rule">Brief against the audio, not before</div>
+ <div class="stage-name">Source</div>
+ <div class="stage-rule">Own queries per shot need</div>
+ </div>
+ <div class="wf-stage">
+ <div class="stage-name">Prefilter</div>
+ <div class="stage-rule">Drop unusable before spending</div>
+ </div>
+ <div class="wf-stage">
+ <div class="stage-name">Rotcheck</div>
+ <div class="stage-rule">Rotation fixed before selection</div>
+ </div>
+ <div class="wf-stage">
+ <div class="stage-name">Prefilter</div>
+ <div class="stage-rule">Runs again after rotation</div>
  </div>
  <div class="wf-stage">
  <div class="stage-name">Select</div>
- <div class="stage-rule">5 queries per need, vs-hero rank</div>
+ <div class="stage-rule">Model ranks, a person decides</div>
+ </div>
+ <div class="wf-stage">
+ <div class="stage-name">Crop</div>
+ <div class="stage-rule">1080 by 1920 vertical master</div>
+ </div>
+ <div class="wf-stage gate">
+ <div class="stage-name">Verify</div>
+ <div class="stage-rule">Every frame at full resolution</div>
  </div>
  <div class="wf-stage">
  <div class="stage-name">Build</div>
- <div class="stage-rule">NEVER rules name their beat</div>
- </div>
- <div class="wf-stage gate">
- <div class="stage-name">Gate</div>
- <div class="stage-rule">Cosine + ask.py vision</div>
- </div>
- <div class="wf-stage">
- <div class="stage-name">Post</div>
- <div class="stage-rule">Copy, thumb, pin, queue</div>
+ <div class="stage-rule">Cut to the narration, captions</div>
  </div>
  </div>
  </section>
@@ -161,25 +173,36 @@ em { color: var(--text); font-style: italic; }
  </section>
 
  <section>
- <h2>The QA gate that actually runs</h2>
- <p>The gate runs ResNet50 cosine similarity at three frame positions per scene, then asks a vision model for a modern/anachronism check. The pass/fail criterion is calibrated against the reverse-engineered luxury episode:</p>
+ <h2>The gates that can refuse an episode</h2>
+ <p>A gate is only worth its name if it can stop the work. These run inside the driver, and the driver stops.</p>
 
+ <h3>Before any paid work</h3>
+ <p>Three gates run before the first source call, so a stale or unsourced brief never spends money. The brief pile gate refuses a brief that has drifted from the batch. The beat alignment gate refuses a brief whose shot needs do not match the narration. The claims gate refuses a claim the source does not state.</p>
+
+ <h3>On the frames</h3>
+ <p>The frame gate runs twice, and it runs in the driver rather than as an optional script. The coverage pass runs after selection and refuses an episode where a shot need has no judged candidate. The provenance pass runs after cropping and refuses a frame that cannot be traced back to a source image.</p>
+ <p>The shot gate reads the finished shot list. A shot longer than 3.5 seconds fails, exactly 3.5 seconds passes, and explicit card shots are excluded because they are meant to sit still.</p>
+
+ <h3>On the rendered file</h3>
+ <p>The watch gate runs after the build and reads the finished video, not the project files. Five checks:</p>
  <table class="md-table">
- <tr><th>Scene</th><th>t = 0%</th><th>t = 50%</th><th>t = 98%</th></tr>
- <tr><td>s1_establish</td><td>0.325 / 0.317</td><td>0.324 / 0.316</td><td>0.329 / 0.320</td></tr>
- <tr><td>s2_deepen</td><td>0.335 / 0.327</td><td>0.353 / 0.346</td><td>0.369 / 0.362</td></tr>
- <tr><td>s3_exit</td><td>0.231 / 0.230</td><td>0.228 / 0.226</td><td>0.211 / 0.213</td></tr>
+ <tr><th>Check</th><th>What it refuses</th></tr>
+ <tr><td>Audio</td><td>Trailing silence over 3.5s before the card, duration out of step with the voice track, missing music bed</td></tr>
+ <tr><td>Caption track</td><td>Phonetic corruptions, subtitles that stop before the last line, a repeated frame in sequence</td></tr>
+ <tr><td>On-screen captions</td><td>A correct caption track on a video with no burned-in captions, caught by reading the caption band out of the rendered pixels</td></tr>
+ <tr><td>Visual</td><td>A shot whose subject, beat or framing contradicts the brief or the never-list</td></tr>
+ <tr><td>Frame loop</td><td>Duplicate frame sequences that make the episode loop</td></tr>
  </table>
-
- <p>The numbers are vs-seed / vs-hero. The third scene has the lowest scores and that is correct - a character walking away should diverge from the reference. The gate flags catastrophic divergence, not stylistic movement.</p>
+ <p>Four of the five checks are free: they read the file with ffprobe, ffmpeg and Python. The visual check makes one vision model call, because a still cannot show the cut rhythm or the framing of a shot.</p>
+ <p>When the gate fails, the driver does not publish and it does not give up. It parses the failure, rejects the source frame behind that shot, re-sources it, and rebuilds, for up to five iterations. The history of every iteration is written to a file next to the episode.</p>
  </section>
 
  <section>
  <h2>What the workflow proves to a brand</h2>
- <p>A brand evaluating this work signs off on "the character looks like the character" - not on the mechanism. The blueprint is the proof that the work is auditable end to end: every claim traces to a source, every frame is gated against a reference, every rule has a name and a measured cost, and every failure mode is documented.</p>
+ <p>A brand evaluating this work signs off on "the video is what the brief asked for" - not on the mechanism. The blueprint is the proof that the work is auditable end to end: every claim traces to a source, every frame traces to the source image it was cropped from, every rule has a name and a measured cost, and every failure mode is documented rather than quietly fixed.</p>
  </section>
 
- <a href="/products/workflow/contact-sheets.html" class="cta">See Stage 2 (contact sheets)</a>
+ <a href="/products/workflow/contact-sheets.html" class="cta">See the selector (contact sheets)</a>
  <a href="/products/forgotten-fronts/" class="cta ghost" style="margin-left: var(--space-3);">Forgotten Fronts channel</a>
  <a href="/products/forgotten-fronts/ep_musashi.html" class="cta ghost" style="margin-left: var(--space-3);">EP_MUSASHI breakdown</a>
 

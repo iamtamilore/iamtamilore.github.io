@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
 <link rel="stylesheet" href="/assets/css/design-system.css">
 <link rel="stylesheet" href="/assets/css/mark-zero.css">
-<meta name="description" content="The five-stage workflow behind every episode on the channels: plan, select, build, gate, post. Six hard-won rules from real failures. A brand can audit this end-to-end.">
+<meta name="description" content="The nine-stage workflow behind every episode on the channels, from the brief to the publish, and the gates that can refuse an episode. Six hard-won rules from real failures. A brand can audit this end-to-end.">
 <style>
 body { color: var(--text); font-family: 'Quicksand', var(--font); line-height: 1.5; max-width: 900px; margin: 0 auto; padding: var(--space-6) var(--space-4); }
 .bp-wrap { max-width: 900px; margin: 0 auto; padding: var(--space-6) var(--space-4); }
@@ -46,131 +46,206 @@ body { color: var(--text); font-family: 'Quicksand', var(--font); line-height: 1
 
  <header>
  <h1 class="bp-h1">Workflow Blueprint</h1>
- <p class="bp-tagline">The five-stage pipeline behind every episode that ships on the channels. Plus six hard-won rules, one per failure that cost real time or money, that the pipeline enforces automatically. The proof is in the QA gate's actual measurements, not in this write-up.</p>
+ <p class="bp-tagline">The eight-stage build behind every episode that ships on the channels, the gates that can refuse one, and six hard-won rules, one per failure that cost real time or money, that the pipeline enforces automatically. The proof is in the gates's actual behaviour, not in this write-up.</p>
  </header>
 
- <section class="bp-section">
- <h2 class="bp-h2">The five stages</h2>
- <div class="bp-body">
- <div class="bp-flow">
- <span class="node">1. Plan</span>
- <span class="arrow">&rarr;</span>
- <span class="node">2. Select</span>
- <span class="arrow">&rarr;</span>
- <span class="node">3. Build</span>
- <span class="arrow">&rarr;</span>
- <span class="node">4. Gate</span>
- <span class="arrow">&rarr;</span>
- <span class="node">5. Post</span>
- </div>
- <p>Every episode that ships on the channels runs through these five stages in order. Each stage has its own scripts, its own inputs, and its own failure modes. The rules at the bottom are the ones that were learned by getting a stage wrong, and they are enforced automatically, not by convention.</p>
- </div>
- </section>
+  <section class="bp-section">
+  <h2 class="bp-h2">The nine stages</h2>
+  <div class="bp-body">
+  <div class="bp-flow">
+  <span class="node">1. Plan</span>
+  <span class="arrow">&rarr;</span>
+  <span class="node">2. Source</span>
+  <span class="arrow">&rarr;</span>
+  <span class="node">3. Prefilter</span>
+  <span class="arrow">&rarr;</span>
+  <span class="node">4. Rotcheck</span>
+  <span class="arrow">&rarr;</span>
+  <span class="node">5. Select</span>
+  <span class="arrow">&rarr;</span>
+  <span class="node">6. Crop</span>
+  <span class="arrow">&rarr;</span>
+  <span class="node">7. Verify</span>
+  <span class="arrow">&rarr;</span>
+  <span class="node">8. Build</span>
+  <span class="arrow">&rarr;</span>
+  <span class="node">9. Post</span>
+  </div>
+  <p>Plan and Post sit around the eight-stage build that the driver runs. Every episode that ships on the channels goes through these nine steps in this order. The order is not a preference: rotation correction after selection cannot converge, so it has to happen first. Each step has its own scripts, its own inputs and its own failure modes. The rules at the bottom are the ones that were learned by getting a step wrong, and they are enforced automatically, not by convention.</p>
+  </div>
+  </section>
 
- <section class="bp-section">
- <h2 class="bp-h2">Stage 1, Plan</h2>
- <div class="bp-stage">
- <h3>Inputs</h3>
- <p style="font-size: var(--text-sm); color: var(--text-2);">Wikipedia article URL (the source of every claim), beats.json (the audio timing), subject pick from the channel's `subject_catalog.json` (measured lift ratio).</p>
- <h3>Script</h3>
- <p style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-3);">plan_choreography.py</p>
- <h3>What it does</h3>
- <p style="font-size: var(--text-sm); color: var(--text-2);">Reads the beats.json (audio timing from the narrator TTS), writes brief.json (which shots must cover which beats, with timestamps). The brief is the contract the rest of the pipeline executes against.</p>
- <h3>Failure mode</h3>
- <p style="font-size: var(--text-sm); color: var(--text-2);">Hand-writing N beats when the TTS produces N±2. The builder then rescales every shot to fit, and the pictures drift ahead of the captions until they are seconds out of place.</p>
- <h3>Hard rule</h3>
- <p style="font-size: var(--text-sm); color: var(--text-2);"><strong>Narrate first, then write the brief.</strong> The brief must be written AGAINST the audio, not before it. Estimate N beats, hand-write N <code>t</code> values, the TTS pauses somewhere you did not predict. The builder reads the audio, not the brief. <em>(Tengen 2: brief 19, audio 21. Tengen 3: brief 19, audio 17, both broken until brief was rewritten from the actual audio.)</em></p>
- <div class="files">Inputs: <code>niche_config.json</code>, <code>beats.json</code>, <code>subject_catalog.json</code> &nbsp; Output: <code>brief.json</code></div>
- </div>
- </section>
+  <section class="bp-section">
+  <h2 class="bp-h2">Stage 1, Plan</h2>
+  <div class="bp-stage">
+  <h3>Inputs</h3>
+  <p style="font-size: var(--text-sm); color: var(--text-2);">The source article (the source of every claim), the narration audio (<code>voice.wav</code>, <code>words.json</code>, <code>beats.json</code>), and the subject pick from the channel's <code>subject_catalog.json</code>.</p>
+  <h3>Scripts</h3>
+  <p style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-3);">gate_brief_pile.py, gate_beat_alignment.py, gate_claims.py</p>
+  <h3>What it does</h3>
+  <p style="font-size: var(--text-sm); color: var(--text-2);">Writes <code>brief.json</code>: which shots must cover which beats, and the source queries each shot need will use. Three gates run before the first paid call. The brief pile gate refuses a brief that has drifted from the batch, the beat alignment gate refuses a brief whose shot needs do not match the narration, and the claims gate refuses a claim the source does not state.</p>
+  <h3>Failure mode</h3>
+  <p style="font-size: var(--text-sm); color: var(--text-2);">Hand-writing N beats when the TTS produces N&plusmn;2. The builder then rescales every shot to fit, and the pictures drift ahead of the captions until they are seconds out of place.</p>
+  <h3>Hard rule</h3>
+  <p style="font-size: var(--text-sm); color: var(--text-2);"><strong>Narrate first, then write the brief.</strong> The brief must be written AGAINST the audio, not before it. Estimate N beats, hand-write N <code>t</code> values, the TTS pauses somewhere you did not predict. The builder reads the audio, not the brief. <em>(Tengen 2: brief 19, audio 21. Tengen 3: brief 19, audio 17, both broken until brief was rewritten from the actual audio.)</em></p>
+  <div class="files">Inputs: <code>subject_catalog.json</code>, <code>beats.json</code>, source article &nbsp; Output: <code>brief.json</code></div>
+  </div>
+  </section>
 
- <section class="bp-section">
- <h2 class="bp-h2">Stage 2, Select</h2>
- <div class="bp-stage">
- <h3>Inputs</h3>
- <p style="font-size: var(--text-sm); color: var(--text-2);">brief.json, Wikipedia article URL (the visual source).</p>
- <h3>Script</h3>
- <p style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-3);">select_frames.py</p>
- <h3>What it does</h3>
- <p style="font-size: var(--text-sm); color: var(--text-2);">Fetches source frames from the Wikipedia article for each beat, ranks them by <code>vs_hero</code> similarity (ResNet50 cosine), and writes shots.json, the actual frame inventory the build step draws from.</p>
- <h3>Failure mode</h3>
- <p style="font-size: var(--text-sm); color: var(--text-2);">Generic queries that produce the same 50 jpgs for every need. The selector dedups globally, so needs 7-16 silently get nothing and the build cycles a few stills across all 16 shots.</p>
- <h3>Hard rule</h3>
- <p style="font-size: var(--text-sm); color: var(--text-2);"><strong>Five queries per need, character name first, plus a per-need verb.</strong> Identical queries across needs put the same 50 jpgs in every folder. The selector dedups globally, so needs 7-16 silently get nothing and the build cycles a few stills across all 16 shots. <em>(EP_GOJO rebuild, 2026-10-22, ~$1.50 wasted before this rule.)</em></p>
- <div class="files">Inputs: <code>brief.json</code>, Wikipedia article &nbsp; Output: <code>shots.json</code></div>
- </div>
- </section>
+  <section class="bp-section">
+  <h2 class="bp-h2">Stage 2, Source</h2>
+  <div class="bp-stage">
+  <h3>Inputs</h3>
+  <p style="font-size: var(--text-sm); color: var(--text-2);"><code>brief.json</code>, and the source queries each shot need carries.</p>
+  <h3>Script</h3>
+  <p style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-3);">ask.py source</p>
+  <h3>What it does</h3>
+  <p style="font-size: var(--text-sm); color: var(--text-2);">Fetches candidate images for each shot need, one folder per need, using that need's own queries. This is the only paid stage in the front half of the build, which is why the gates run before it and not after.</p>
+  <h3>Failure mode</h3>
+  <p style="font-size: var(--text-sm); color: var(--text-2);">Generic queries that produce the same 50 jpgs for every need. The selector dedups globally, so needs 7 to 16 silently get nothing and the build cycles a few stills across all 16 shots.</p>
+  <h3>Hard rule</h3>
+  <p style="font-size: var(--text-sm); color: var(--text-2);"><strong>Five queries per need, character name first, plus a per-need verb.</strong> Identical queries across needs put the same 50 jpgs in every folder. The selector dedups globally, so needs 7 to 16 silently get nothing and the build cycles a few stills across all 16 shots. <em>(EP_GOJO rebuild, 2026-10-22, ~$1.50 wasted before this rule.)</em></p>
+  <div class="files">Inputs: <code>brief.json</code> &nbsp; Output: sourced candidates, one folder per shot need</div>
+  </div>
+  </section>
 
- <section class="bp-section">
- <h2 class="bp-h2">Stage 3, Build</h2>
- <div class="bp-stage">
- <h3>Inputs</h3>
- <p style="font-size: var(--text-sm); color: var(--text-2);">brief.json, shots.json, audio (the narrator's WAV).</p>
- <h3>Script</h3>
- <p style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-3);">build_&lt;channel&gt;.py (per-channel variant)</p>
- <h3>What it does</h3>
- <p style="font-size: var(--text-sm); color: var(--text-2);">Calls kie.ai (Seedance for video, Flux-2 / GPT-Image-2 for stills), assembles the audio + the chosen stills into the final MP4 with hard cuts on beat boundaries. Outputs <code>EP_&lt;NAME&gt;.mp4</code> + the QA gate report.</p>
- <h3>Failure mode</h3>
- <p style="font-size: var(--text-sm); color: var(--text-2);">A reject rule that says "no modern product photography" lets a modern Speedmaster through anyway because the rule was not specific enough to bite. Blanket NEVER rules applied where the forbidden thing IS the subject.</p>
- <h3>Hard rule</h3>
- <p style="font-size: var(--text-sm); color: var(--text-2);"><strong>Every NEVER names its beat.</strong> Blanket "no Kanao" rejected all 12 candidates for the need whose line is "Then he met Kanao." "no romance" rejected all 12 for the need whose line is "He fell in love with her." Both blanket rules applied where the forbidden thing WAS the subject. Every NEVER names its beat. Hard character constraints stay absolute. <em>(EP_OBANAI rebuild, 2x re-SELECT.)</em></p>
- <div class="files">Inputs: <code>brief.json</code>, <code>shots.json</code>, audio file &nbsp; Output: <code>EP_&lt;NAME&gt;.mp4</code></div>
- </div>
- </section>
+  <section class="bp-section">
+  <h2 class="bp-h2">Stage 3, Prefilter</h2>
+  <div class="bp-stage">
+  <h3>Inputs</h3>
+  <p style="font-size: var(--text-sm); color: var(--text-2);">The sourced candidates.</p>
+  <h3>Script</h3>
+  <p style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-3);">prefilter.py</p>
+  <h3>What it does</h3>
+  <p style="font-size: var(--text-sm); color: var(--text-2);">A geometry gate over the candidates. Arithmetic only, no model. A candidate is rejected when no acceptable 1080x1920 frame can come out of it. It runs twice: once on the raw candidates, and again after the rotation check has corrected the shortlist.</p>
+  <h3>Failure mode</h3>
+  <p style="font-size: var(--text-sm); color: var(--text-2);">The first rule was a height floor, which assumed every usable candidate was portrait. A landscape frame of the right character came back from a raw fetch and was rejected as too small before the selector ever saw it. The crop was never the problem: the crop already takes the largest 9:16 rectangle that fits, and a landscape image has more width to work with than a portrait one.</p>
+  <h3>Hard rule</h3>
+  <p style="font-size: var(--text-sm); color: var(--text-2);"><strong>Pixel maths never goes to a model.</strong> The threshold on the short side is a number in the script, not a sentence in a prompt. <em>(EP_GIYU need 6, five source rounds and about 200 candidates, one good frame lost to a height floor.)</em></p>
+  <div class="files">Inputs: sourced candidates &nbsp; Output: the candidate set the selector is allowed to judge</div>
+  </div>
+  </section>
 
- <section class="bp-section">
- <h2 class="bp-h2">Stage 4, Gate</h2>
- <div class="bp-stage">
- <h3>Inputs</h3>
- <p style="font-size: var(--text-sm); color: var(--text-2);">EP_&lt;NAME&gt;.mp4, hero reference frame, source frame pool from Wikipedia.</p>
- <h3>Scripts</h3>
- <p style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-3);">qa_selector.py + apply_gates.py</p>
- <h3>What it does</h3>
- <p style="font-size: var(--text-sm); color: var(--text-2);">Extracts frames at t=0%, t=50%, t=98% of each scene. Runs ResNet50 cosine similarity vs-seed and vs-hero at each position. Then calls <code>ask.py</code> for vision-based verification (modern/anachronism detection). Writes <code>qa.json</code> + <code>GATE_NOTES.md</code>.</p>
- <h3>Failure mode 1</h3>
- <p style="font-size: var(--text-sm); color: var(--text-2);">Transport timeout misread as model failure. Raw response was 361 bytes: gateway diagnostics plus <code>[image] cN: embedded</code> lines, then nothing. <code>urlopen</code> died before the response. <code>select_frames.py</code> discards stderr, so a timeout reads as a model fault. A 12-image vision call measured 101s against a 120s ceiling.</p>
- <h3>Failure mode 2</h3>
- <p style="font-size: var(--text-sm); color: var(--text-2);">Pixel review at thumbnail resolution. Six frames passed the selector at 640px and failed human review at full resolution: watermark plate, second character, English speech bubbles, two pre-injury combat poses, and one frame with Tengen not in it at all.</p>
- <h3>Hard rules</h3>
- <p style="font-size: var(--text-sm); color: var(--text-2); margin-bottom: var(--space-2);"><strong>(a)</strong> UNPARSEABLE response means TRANSPORT, not model failure. <code>ask.py:1356</code> now 420s with 3-attempt backoff; <code>MAX_CANDS</code> reduced from 12 to 8.</p>
- <p style="font-size: var(--text-sm); color: var(--text-2);"><strong>(b)</strong> Pixel review must be at full 1080x1920. Confirm any "wrong character" call by opening the source PNG. Record rejections in <code>sourced/&lt;EP&gt;/overrides.json</code>, never in <code>verdicts.json</code>.</p>
- <p style="font-size: var(--text-sm); color: var(--text-2);"><em>Bonus rule from Speedmaster (luxury_archive):</em> "This looks modern" is the least reliable finding the gate produces. Across three passes Gemini gave 11 findings and 8 were false, mostly period photographs and green CRT displays read as modern. Open the frame before acting on any of them.</p>
- <div class="files">Inputs: <code>EP_&lt;NAME&gt;.mp4</code>, hero frame, source pool &nbsp; Output: <code>qa.json</code>, <code>GATE_NOTES.md</code></div>
- </div>
- </section>
+  <section class="bp-section">
+  <h2 class="bp-h2">Stage 4, Rotcheck</h2>
+  <div class="bp-stage">
+  <h3>Inputs</h3>
+  <p style="font-size: var(--text-sm); color: var(--text-2);">The prefiltered candidates, then the cropped frames at the end of the build.</p>
+  <h3>Script</h3>
+  <p style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-3);">rotcheck.py</p>
+  <h3>What it does</h3>
+  <p style="font-size: var(--text-sm); color: var(--text-2);">A forced-choice rotation check. The image is rendered at 0, 90, 180 and 270 degrees into a labelled 2x2 sheet and the model picks the upright panel. It runs on the shortlist before selection, and again on the final cropped frames.</p>
+  <h3>Failure mode</h3>
+  <p style="font-size: var(--text-sm); color: var(--text-2);">Two rotated frames shipped in a finished episode. The selector scored both as upright while describing their content correctly, and the EXIF orientation was 1 on both, so neither defence fired. Vision encoders are trained with rotation augmentation, so a rotated landscape still looks like a landscape to the embedding.</p>
+  <h3>Hard rule</h3>
+  <p style="font-size: var(--text-sm); color: var(--text-2);"><strong>Ask which of these four is upright, never is this upright.</strong> The comparison has to look at the same content four ways, so the answer cannot come from the caption. Panel A is always the original pixels, so "A" means upright and anything else names the rotation.</p>
+  <div class="files">Inputs: candidate images &nbsp; Output: <code>rotation.json</code>, with the correction applied in place</div>
+  </div>
+  </section>
 
- <section class="bp-section">
- <h2 class="bp-h2">Stage 5, Post</h2>
- <div class="bp-stage">
- <h3>Inputs</h3>
- <p style="font-size: var(--text-sm); color: var(--text-2);">EP_&lt;NAME&gt;.mp4, qa.json (the gate report), channel copy/paste files, channel MCP session.</p>
- <h3>Script</h3>
- <p style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-3);">POSTING/post.py</p>
- <h3>What it does</h3>
- <p style="font-size: var(--text-sm); color: var(--text-2);">Queues the video, copy, thumbnail, and pinned comment to YouTube + TikTok + Instagram + Facebook via the channel's social MCPs. Writes <code>EP_&lt;NAME&gt;_POSTED.txt</code> and updates the channel's <code>niche_config.json</code> with the per-episode QA + view-history line.</p>
- <h3>Failure mode</h3>
- <p style="font-size: var(--text-sm); color: var(--text-2);">Caption claims that are unsourced. A caption that asserts "Musashi arrived late and that upset his opponent" passes review because it sounds plausible, but the source says "Musashi deliberately arrived late to unbalance Kojirō's composure", different mechanism, different cause, same conclusion. Every factual claim must match the source text.</p>
- <h3>Hard rule</h3>
- <p style="font-size: var(--text-sm); color: var(--text-2);"><strong>Every claim matches the source verbatim.</strong> Two claims were cut from the Musashi caption for being unsourced, and one claim was added to the Speedmaster caption because it WAS sourced (three brands officially considered: Rolex, Longines-Wittnauer and Omega). The verification record is in the channel's <code>POSTING_VERIFICATION.md</code>.</p>
- <div class="files">Inputs: <code>EP_&lt;NAME&gt;.mp4</code>, <code>qa.json</code>, channel copy &nbsp; Output: <code>EP_&lt;NAME&gt;_POSTED.txt</code>, <code>niche_config.json</code> updated</div>
- </div>
- </section>
+  <section class="bp-section">
+  <h2 class="bp-h2">Stage 5, Select</h2>
+  <div class="bp-stage">
+  <h3>Inputs</h3>
+  <p style="font-size: var(--text-sm); color: var(--text-2);"><code>brief.json</code> and the prefiltered candidates.</p>
+  <h3>Script</h3>
+  <p style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-3);">select_frames.py</p>
+  <h3>What it does</h3>
+  <p style="font-size: var(--text-sm); color: var(--text-2);">The model reads the brief and picks one candidate per shot need. The division of labour is fixed: the model says where the meaning lives and whether the beat and the subject are right, and the code does every piece of arithmetic. Three verdicts, not two, so a good image that is wrongly shaped or partly occluded is surfaced for review instead of silently dropped.</p>
+  <h3>Failure mode</h3>
+  <p style="font-size: var(--text-sm); color: var(--text-2);">A reject rule that says "no modern product photography" lets a modern Speedmaster through anyway because the rule was not specific enough to bite. Blanket NEVER rules applied where the forbidden thing IS the subject.</p>
+  <h3>Hard rule</h3>
+  <p style="font-size: var(--text-sm); color: var(--text-2);"><strong>Every NEVER names its beat.</strong> Blanket "no Kanao" rejected all 12 candidates for the need whose line is "Then he met Kanao." "no romance" rejected all 12 for the need whose line is "He fell in love with her." Both blanket rules applied where the forbidden thing WAS the subject. Every NEVER names its beat. Hard character constraints stay absolute. <em>(EP_OBANAI rebuild, 2x re-SELECT.)</em></p>
+  <p style="font-size: var(--text-sm); color: var(--text-2);"><strong>A human decision outlives the machine.</strong> A rejection made by eye is recorded in <code>overrides.json</code> and is read on the next run, so re-judging the batch does not quietly undo it.</p>
+  <div class="files">Inputs: <code>brief.json</code>, candidates &nbsp; Output: one verdict per shot need</div>
+  </div>
+  </section>
 
- <section class="bp-section">
- <h2 class="bp-h2">The QA gate that actually runs</h2>
- <div class="bp-body">
- <p>The gate that runs on every frame in every batch, <code>qa_selector.py</code> (ResNet50 cosine similarity, threshold M16.8, 16.9 calibrated on a reference bank held out from the active training run). Calibrated against <code>ep_speedmaster/qa.json</code> from the reverse-engineered luxury episode:</p>
- <table style="width:100%;border-collapse:collapse;margin-bottom:var(--space-4);font-size:var(--text-sm);">
- <thead><tr><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border);color:var(--text-3);">Scene</th><th style="padding:8px;border-bottom:1px solid var(--border);">f00 (t=0%)</th><th style="padding:8px;border-bottom:1px solid var(--border);">f50 (t=50%)</th><th style="padding:8px;border-bottom:1px solid var(--border);">f98 (t=98%)</th></tr></thead>
- <tbody>
- <tr><td style="padding:8px;border-bottom:1px solid var(--border);"><strong>s1_establish</strong></td><td style="padding:8px;text-align:center;">vs-seed 0.325<br>vs-hero 0.317</td><td style="padding:8px;text-align:center;">0.324 / 0.316</td><td style="padding:8px;text-align:center;">0.329 / 0.320</td></tr>
- <tr><td style="padding:8px;border-bottom:1px solid var(--border);"><strong>s2_deepen</strong></td><td style="padding:8px;text-align:center;">0.335 / 0.327</td><td style="padding:8px;text-align:center;">0.353 / 0.346</td><td style="padding:8px;text-align:center;">0.369 / 0.362</td></tr>
- <tr><td style="padding:8px;border-bottom:1px solid var(--border);"><strong>s3_exit</strong></td><td style="padding:8px;text-align:center;">0.231 / 0.230</td><td style="padding:8px;text-align:center;">0.228 / 0.226</td><td style="padding:8px;text-align:center;">0.211 / 0.213</td></tr>
- </tbody>
- </table>
- <p>The gate's pass/fail criterion: both vs-seed and vs-hero stay within the calibrated band for the scene type. Catastrophic divergence triggers an automatic regenerate. Stylistic drift within tolerance does not. The third scene has the lowest scores, that's correct: a character walking away SHOULD diverge from the reference. The gate is calibrated to flag catastrophic divergence, not stylistic movement.</p>
- </div>
- </section>
+  <section class="bp-section">
+  <h2 class="bp-h2">Stage 6, Crop</h2>
+  <div class="bp-stage">
+  <h3>Inputs</h3>
+  <p style="font-size: var(--text-sm); color: var(--text-2);">The accepted candidate per shot need, with the model's normalised <code>safe_crop_box</code>.</p>
+  <h3>Script</h3>
+  <p style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-3);">crop_frames.py</p>
+  <h3>What it does</h3>
+  <p style="font-size: var(--text-sm); color: var(--text-2);">Turns each accepted candidate into a 1080x1920 frame. The crop is the largest 9:16 rectangle that fits inside the source and contains the safe box, centred on the safe box and clamped to the image. Frames are deduplicated by content hash across needs, not by filename, because the same picture arrives under different names in different need folders.</p>
+  <h3>Failure mode</h3>
+  <p style="font-size: var(--text-sm); color: var(--text-2);">A need with no usable verdict is skipped, and the build fills the gap by repeating a frame it already has. The episode still renders, so the loss is invisible unless something checks it.</p>
+  <h3>Hard rule</h3>
+  <p style="font-size: var(--text-sm); color: var(--text-2);"><strong>A lost crop is flagged, not silent.</strong> When the safe box is wider than 9:16 the rectangle cannot contain it, so the crop keeps the safe box's centre and accepts the loss, and the frame is marked so the loss is visible rather than silent.</p>
+  <div class="files">Inputs: verdicts &nbsp; Output: <code>frames/</code>, the 1080x1920 masters the build draws from</div>
+  </div>
+  </section>
+
+  <section class="bp-section">
+  <h2 class="bp-h2">Stage 7, Verify</h2>
+  <div class="bp-stage">
+  <h3>Inputs</h3>
+  <p style="font-size: var(--text-sm); color: var(--text-2);">The verdicts, the brief, the cropped frames and the shot list.</p>
+  <h3>Scripts</h3>
+  <p style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-3);">gate_frames.py, episode_shot_gate.py, rotcheck.py</p>
+  <h3>What it does</h3>
+  <p style="font-size: var(--text-sm); color: var(--text-2);">Three checks, and each one can stop the build. The coverage pass runs after selection and refuses an episode where a shot need has no usable candidate in its own verdicts. The provenance pass runs after cropping and refuses a frame that does not come from its need's accepted candidate, a frame that shares a source picture with another frame, or a frame count that does not cover the needs. The shot gate reads the shot list and refuses a shot longer than 3.5 seconds, exactly 3.5 passes, and explicit card shots are excluded because they are meant to sit still.</p>
+  <h3>Failure mode</h3>
+  <p style="font-size: var(--text-sm); color: var(--text-2);">The GOJO episode built and looked finished. It was not. The selector wrote verdicts for only 3 of 16 needs, the cropper skipped every need it had no usable candidate for and carried on, and the build cycled those 3 stills across 16 shots. Frame 06 was the wrong character. Nothing in the pipeline noticed. A human looking at the frames noticed.</p>
+  <h3>Hard rule</h3>
+  <p style="font-size: var(--text-sm); color: var(--text-2);"><strong>A gate that lives in a document is a warning. A gate that lives in the driver is a gate.</strong> These checks run inside the build, they return a failure code, and the driver stops on it. A false positive is fixed by a human decision in <code>gate_accepted.json</code>, a file no tool rewrites.</p>
+  <div class="files">Inputs: verdicts, <code>brief.json</code>, <code>frames/</code> &nbsp; Output: pass or a refusal</div>
+  </div>
+  </section>
+
+  <section class="bp-section">
+  <h2 class="bp-h2">Stage 8, Build</h2>
+  <div class="bp-stage">
+  <h3>Inputs</h3>
+  <p style="font-size: var(--text-sm); color: var(--text-2);"><code>frames/</code>, <code>shots.json</code>, the narration (<code>voice.wav</code>), the brief.</p>
+  <h3>Scripts</h3>
+  <p style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-3);">build_episode.py, align_words_to_script.py, caption_sync_gate.py</p>
+  <h3>What it does</h3>
+  <p style="font-size: var(--text-sm); color: var(--text-2);">Cuts the episode to the narration, burns the captions in, lays the music bed, and writes the mp4. The caption alignment gate refuses a caption track that does not match the spoken words, so a silent caption change cannot ship.</p>
+  <h3>Failure mode</h3>
+  <p style="font-size: var(--text-sm); color: var(--text-2);">The picture ran ahead of the caption. The beat file carries only the spoken span of each line, so 7.72s of pauses sat between the beats of a 40.02s narration. The shot list was built from the beats alone, spanned 32.30s, and the builder rescaled every shot by 1.2391 to fit the audio. At 25.6s the caption read "130 DECIBELS" over a hot-fire test that belongs to the next line, and the pictures were 7.7s out of place by the end.</p>
+  <h3>Hard rule</h3>
+  <p style="font-size: var(--text-sm); color: var(--text-2);"><strong>Anchor every shot boundary to the words.</strong> A shot may get shorter only down to where the next line starts, and longer only up to where its own line ends. The opening ramp is floored at the next line for the same reason. <em>(Measured on the Speedmaster episode, fixed in the planner and the builder, then verified on all 23 shots.)</em></p>
+  <div class="files">Inputs: <code>frames/</code>, <code>shots.json</code>, audio &nbsp; Output: the finished mp4</div>
+  </div>
+  </section>
+
+  <section class="bp-section">
+  <h2 class="bp-h2">Stage 9, Post</h2>
+  <div class="bp-stage">
+  <h3>Inputs</h3>
+  <p style="font-size: var(--text-sm); color: var(--text-2);">The finished mp4, the channel copy, the thumbnail and the pinned comment.</p>
+  <h3>Script</h3>
+  <p style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-3);">scripts/posting/post.py</p>
+  <h3>What it does</h3>
+  <p style="font-size: var(--text-sm); color: var(--text-2);">Queues the video and its copy for the channel, writes the posted record, and keeps the channel's own tracking file up to date so a title cannot be posted twice. The posting layer takes a lease before it publishes, so a scheduled run and a manual run cannot both claim the same episode.</p>
+  <h3>Failure mode</h3>
+  <p style="font-size: var(--text-sm); color: var(--text-2);">Caption claims that are unsourced. A caption that asserts "Musashi arrived late and that upset his opponent" passes review because it sounds plausible, but the source says he arrived late to unbalance his opponent's composure: different mechanism, different cause, same conclusion.</p>
+  <h3>Hard rule</h3>
+  <p style="font-size: var(--text-sm); color: var(--text-2);"><strong>Every claim matches the source verbatim.</strong> Two claims were cut from the Musashi caption for being unsourced, and one claim was added to the Speedmaster caption because it WAS sourced (three brands officially considered: Rolex, Longines-Wittnauer and Omega). The verification record is in the channel's <code>POSTING_VERIFICATION.md</code>.</p>
+  <div class="files">Inputs: the finished mp4, channel copy &nbsp; Output: a queued post and its record</div>
+  </div>
+  </section>
+
+  <section class="bp-section">
+  <h2 class="bp-h2">The gate on the finished file</h2>
+  <div class="bp-body">
+  <p>The gates above judge the project files. The last gate judges the rendered video, because a still cannot show the cut rhythm, the framing or the pacing of a shot. It makes one vision model call, and the other four checks are free.</p>
+  <table style="width:100%;border-collapse:collapse;margin-bottom:var(--space-4);font-size:var(--text-sm);">
+  <thead><tr><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border);color:var(--text-3);">Check</th><th style="padding:8px;border-bottom:1px solid var(--border);">What it refuses</th></tr></thead>
+  <tbody>
+  <tr><td style="padding:8px;border-bottom:1px solid var(--border);"><strong>Audio</strong></td><td style="padding:8px;">Trailing silence over 3.5s before the card, a total duration out of step with the voice track, a missing music bed</td></tr>
+  <tr><td style="padding:8px;border-bottom:1px solid var(--border);"><strong>Caption track</strong></td><td style="padding:8px;">Phonetic corruptions, subtitles that stop before the last line, a frame repeated in sequence</td></tr>
+  <tr><td style="padding:8px;border-bottom:1px solid var(--border);"><strong>On-screen captions</strong></td><td style="padding:8px;">A correct caption track on a video with no burned-in captions, caught by reading the caption band out of the rendered pixels</td></tr>
+  <tr><td style="padding:8px;border-bottom:1px solid var(--border);"><strong>Visual</strong></td><td style="padding:8px;">A shot whose subject, beat or framing contradicts the brief or the never-list</td></tr>
+  <tr><td style="padding:8px;border-bottom:1px solid var(--border);"><strong>Frame loop</strong></td><td style="padding:8px;">Duplicate frame sequences that make the episode loop</td></tr>
+  </tbody>
+  </table>
+  <p>When the gate fails, the driver does not publish and it does not give up. It parses the failure, rejects the source frame behind that shot, re-sources it, and rebuilds, for up to five iterations, and every iteration is written to a file next to the episode.</p>
+  </div>
+  </section>
 
  <section class="bp-section">
  <h2 class="bp-h2">The six hard-won rules, summarised</h2>
@@ -217,8 +292,8 @@ body { color: var(--text); font-family: 'Quicksand', var(--font); line-height: 1
  <section class="bp-section">
  <h2 class="bp-h2">What this blueprint proves to a brand</h2>
  <div class="bp-body">
- <p>A brand evaluating this work signs off on "the character looks like the character", not on the mechanism. The blueprint is the proof that the work is <em>auditable</em>: every claim traces to a Wikipedia source, every frame is gated against a reference, every NEAR rule has a name and a beat it applies to, and every failure mode is documented with the cost it took to learn it.</p>
- <p>The <a href="/products/ep_speedmaster/">worked example</a> shows the gate's actual measurements on a real shipped episode, the s2_deepen scene drifts 10% over its 7.6 seconds (intentional: the scene's job is to deepen, not stay static), the s3_exit scene drops to the lowest scores (also intentional: the character walks away from the reference), and the gate passes both because they are within tolerance for the scene type. That's what the calibration buys you.</p>
+ <p>A brand evaluating this work signs off on "the video is what the brief asked for", not on the mechanism. The blueprint is the proof that the work is <em>auditable</em>: every claim traces to a source, every frame traces to the source image it was cropped from, every NEVER rule has a name and a beat it applies to, and every failure mode is documented with the cost it took to learn it.</p>
+ <p>The gate on a real episode is documented with its mistakes as well as its findings. The <a href="/products/ep_speedmaster/">worked example</a> is a shipping episode with its own measured defects: a picture running 7.7 seconds ahead of its captions, an apostrophe dropped by the renderer, and four wrong-era frames caught by eye.</p>
  </div>
  </section>
 

@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Video Production Pipeline | Taiwo Alabi</title>
+<meta name="description" content="One pipeline builds every episode on three live channels, and a gate refuses any episode that fails it. 57 videos public on YouTube.">
+<script>document.documentElement.setAttribute("data-theme",localStorage.getItem("tw-theme")||"g5")</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="/assets/css/design-system.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%232E2C6E'/><text y='72' x='50' font-size='62' text-anchor='middle' fill='%23FF7A3D' font-family='sans-serif' font-weight='bold'>T</text></svg>">
+<meta property="og:title" content="Video Production Pipeline | Taiwo Alabi">
+<meta property="og:description" content="One pipeline builds every episode on three live channels, and a gate refuses any episode that fails it. 57 videos public on YouTube.">
+<meta property="og:image" content="https://iamtamilore.github.io/assets/img/episode_pipeline.jpg">
+<meta property="og:url" content="https://iamtamilore.github.io/p/episode-pipeline/">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<div class="topbar">
+  <a href="/#episode-pipeline">&larr; All work</a>
+</div>
+<div class="wrap">
+<hr class="rule"><h1
+id="multi-channel-short-form-video-production-pipeline">Multi-Channel
+Short-Form Video Production Pipeline</h1>
+<p class="readtime">12 min read</p>
+<p>One pipeline builds every episode on three live channels, and a gate
+refuses any episode that fails it.</p>
+<p><strong>Built by Taiwo Alabi.</strong> Production system, Dublin,
+Ireland · October to November 2026</p>
+<p><strong>57 videos public on YouTube across three channels on 24
+November 2026, with 19 more scheduled, every one through eight build
+stages and two gates that can refuse the episode.</strong></p><div class="stats-strip"><span class="stat">57 videos public on YouTube across three channels</span><span class="stat">five checks on the rendered file, one refusal path</span><span class="stat">eight stages in a fixed order</span></div>
+<p>Three channels publish vertical short-form videos on a schedule, and
+every episode is assembled from source images, narration and captions by
+machine. The system exists because the work is repetitive at scale and
+because a failure in it is public: a wrong frame in a published video
+cannot be quietly re-shot, and the people who already watched it are not
+watching the correction.</p>
+<p>The gates are the load-bearing part. They run inside the driver, they
+refuse the work, and the refusal is written to a record.</p>
+<p><strong>What this evidences:</strong> production engineering with a
+hard quality gate. The number that matters is not the video count, it is
+that a build that looked finished once was not, and the pipeline now
+refuses to build that shape of episode again.</p>
+<hr />
+<div class="toc"><h3 style="margin-top:0">Contents</h3><ol>
+<li><a href="#1-the-problem">The problem</a></li>
+<li><a href="#2-what-the-system-does">What the system does</a></li>
+<li><a href="#3-the-eight-stages">The eight stages</a></li>
+<li><a href="#4-the-gates">The gates</a></li>
+<li><a href="#5-why-the-gates-exist">Why the gates exist</a></li>
+<li><a href="#6-the-channels-and-the-output">The channels and the
+output</a></li>
+<li><a href="#7-the-publishing-layer">The publishing layer</a></li>
+<li><a href="#8-the-model-gateway">The model gateway</a></li>
+<li><a href="#9-honest-limitations">Honest limitations</a></li>
+<li><a href="#10-reproduce-it">Reproduce it</a></li>
+<li><a href="#11-terms-used-in-this-report">Terms used in this
+report</a></li>
+</ol></div><div class="resources"><a href="/channels/">Watch the channels</a><a href="/products/workflow/">Read the workflow</a><a href="/products/">See the publishing state</a></div>
+<h2 id="1-the-problem">1. The problem</h2>
+<p>Short vertical video is cheap to make badly. A pipeline that renders
+an episode from a pile of images will happily render an episode that is
+missing most of its shots, because the renderer takes what it is given
+and pads the gaps.</p>
+<p>The specific failures this system was built to stop:</p>
+<ul>
+<li><strong>Manual work at the render stage.</strong> Choosing frames
+and assembling videos by hand does not scale to three channels on a
+schedule.</li>
+<li><strong>The same shot reused across channels.</strong> A repeated
+shot reads as a repeated episode, and the channels are watched by the
+same people.</li>
+<li><strong>The same closing promise spent twice.</strong> A channel
+that promises the same next episode twice trains its audience not to
+believe it.</li>
+<li><strong>An image that is sideways.</strong> Cameras and downloads
+are not always upright, and a rotated frame reaches the finished video
+unless something checks it.</li>
+<li><strong>A missing frame, silently.</strong> The most expensive
+failure of all, and the reason the gates exist. Section 5 is about that
+one.</li>
+</ul>
+<p>None of these are visible in a finished episode unless somebody
+looks. That is the problem with a defect that only a careful viewer
+would catch: the pipeline has to be the thing that looks.</p>
+<hr />
+<h2 id="2-what-the-system-does">2. What the system does</h2>
+<p>The input is a brief: the channel, the subject, the narration script
+and the list of shots the episode needs. The output is a vertical video
+with burned-in captions, a narration track, a music bed and a
+call-to-action card, plus the records that show how it was made.</p>
+<p>Inside that, four things happen:</p>
+<ul>
+<li><strong>Source.</strong> For each shot the pipeline fetches
+candidate stills. A shot is one planned visual moment, and a shot need
+is that shot with the instruction that describes it. Each need gets its
+own search queries, about 50 candidates per need.</li>
+<li><strong>Select.</strong> A vision model reads the instruction and
+the candidates and writes a verdict for each one. The model ranks, a
+person decides. The verdicts are written to disk per need.</li>
+<li><strong>Assemble.</strong> Every accepted still is cropped to the
+vertical master, 1080 by 1920, and the clip is cut to the narration
+rather than to a fixed grid. The result is burned-in captions that
+follow the spoken words, and the captions use the script's
+spelling.</li>
+<li><strong>Publish.</strong> The episode is scheduled, uploaded, and
+written to the posting ledger with its title, its video id and its
+date.</li>
+</ul>
+<p>Each channel carries its own instructions: its own subject list, its
+own measured subject ratios, its own voice preset, and its own format
+rules. Forgotten Fronts is a hard cut on the narration. Super Zenpai is
+the same. The Anime Hive format is deliberately the opposite, a
+3.00-second grid with a blur-whip transition and one red word, and it
+exists to be a counter-example rather than a channel.</p>
+<hr />
+<h2 id="3-the-eight-stages">3. The eight stages</h2>
+<p>The driver runs the stages in this order:</p>
+<pre><code>SOURCE -&gt; PREFILTER -&gt; ROTCHECK -&gt; PREFILTER -&gt; SELECT -&gt; CROP -&gt; VERIFY -&gt; BUILD</code></pre>
+<p><strong>Source.</strong> Pull candidate images for each shot that is
+still needed. The single most expensive mistake in the pipeline is
+giving every shot the same search words: the selector dedups globally,
+so needs with identical candidates see an empty pool and the episode
+gets whatever few stills exist, repeated.</p>
+<p><strong>Prefilter.</strong> Drop anything unusable before spending
+time on it. Resolution, aspect, duplicates and obvious mismatches go
+here, before the expensive stages run.</p>
+<p><strong>Rotcheck.</strong> Detect and fix images that are sideways.
+Correction has to happen before selection, never after, because a frame
+chosen on the wrong orientation is chosen for the wrong reason.</p>
+<p><strong>Prefilter, again.</strong> The step people delete because it
+looks redundant. It runs a second time on purpose, after rotation has
+been fixed, so a corrected-but-otherwise-bad frame does not reach
+selection unchecked.</p>
+<p><strong>Select.</strong> Rank the candidates and pick the best ones.
+The model scores them, the person chooses. A transport failure is
+recorded as a transport failure, not as a model fault, so a timeout does
+not empty a run silently.</p>
+<p><strong>Crop.</strong> Cut every chosen frame to the vertical master.
+The crop is what makes a sourced image usable, and a crop that trims a
+character out of frame produces a technically valid frame that is
+useless.</p>
+<p><strong>Verify.</strong> Look at every cropped frame at full size
+before building. Full resolution only, not contact-sheet thumbnails: a
+frame under 400 pixels wide cannot reliably identify a character, and
+that mistake has already happened once.</p>
+<p><strong>Build.</strong> Assemble the clips, cut to the narration, add
+the captions, and refuse to write a file that the gates would refuse
+anyway.</p>
+<p>The order is a correctness property, not a preference. Prefilter
+running twice is the clearest example of it.</p>
+<hr />
+<h2 id="4-the-gates">4. The gates</h2>
+<h3 id="the-frame-gate">The frame gate</h3>
+<p>Runs twice inside the driver, not in a checklist.</p>
+<ul>
+<li><strong>Coverage</strong>, after selection. Every shot need in the
+brief must have a usable candidate in its own verdicts. A usable
+candidate means a complete, provenance-backed accept with every required
+field true.</li>
+<li><strong>Provenance</strong>, after the crop. Every cropped frame
+must come from its own need's accepted candidate, no two frames may
+share a source picture, and the frame count must cover the needs.</li>
+</ul>
+<h3 id="the-shot-gate">The shot gate</h3>
+<p>Deterministic, and it reads the rendered segments with ffprobe when
+the frame directory has already been cleaned. A shot duration greater
+than 3.5 seconds fails and exactly 3.5 seconds passes. Explicit
+call-to-action card shots are excluded. The gate does not call a model,
+does not publish, does not queue and does not upload anything.</p>
+<h3 id="the-post-render-gate">The post-render gate</h3>
+<p>Five checks on the finished file. Four of them cost nothing at all:
+they read the media with ffprobe, ffmpeg and Python.</p>
+<div class="tablewrap"><table>
+<thead>
+<tr class="header">
+<th>Check</th>
+<th>What it reads</th>
+<th>Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Audio</td>
+<td>No trailing silence over 3.5s before the call to action, total
+duration within 3.0s of the voice track plus the card, music bed
+present</td>
+<td>zero</td>
+</tr>
+<tr class="even">
+<td>Caption track</td>
+<td>Zero phonetic corruptions, subtitles reach the final sentence, no
+frame repeated in sequence</td>
+<td>zero</td>
+</tr>
+<tr class="odd">
+<td>On-screen captions</td>
+<td>The caption band and the caption colours read from the pixels of the
+rendered file</td>
+<td>zero</td>
+</tr>
+<tr class="even">
+<td>Visual</td>
+<td>One vision model judges every shot for subject, beat and framing
+against the brief and the never list</td>
+<td>one model call</td>
+</tr>
+<tr class="odd">
+<td>Frame loop</td>
+<td>No duplicate frame sequence loops the episode</td>
+<td>zero</td>
+</tr>
+</tbody>
+</table></div>
+<p>If any one of the five fails, the episode is refused and the process
+exits non-zero, so a caller cannot read a failure as a pass. The driver
+runs the gate with a healing loop, so a repairable defect is repaired
+and re-gated instead of shipped.</p>
+<p>The visual check is the only expensive one, and it is the only one
+that can be incomplete. A still cannot show motion, cut rhythm or
+framing, so the gate passes the clip itself to the model rather than a
+frame.</p>
+<hr />
+<h2 id="5-why-the-gates-exist">5. Why the gates exist</h2>
+<p>On 22 October 2026 the GOJO episode built and looked finished. It was
+not.</p>
+<p>The selector wrote verdicts for only 3 of 16 needs. The crop step
+does not fail on a missing need, it prints <code>NO VERDICTS</code> or
+<code>nothing usable, every candidate rejected</code> and carries on.
+The build then had fewer frames than the episode had beats, and the
+builder rescaled or repeated to fill the gap. Three stills were spread
+across sixteen shots. Frame 06 was a wrong character.</p>
+<p>Nothing in the pipeline noticed. A human looking at the frames
+noticed.</p>
+<p>A missing frame is a silent defect, because it looks like a finished
+episode. That is why the gates live where they do:</p>
+<ul>
+<li>The coverage check runs after selection, before the crop, while the
+work can still be stopped.</li>
+<li>The provenance check runs after the crop, before the build, and it
+is the one that catches the reused-still signature directly.</li>
+<li>The gate is in the driver. A gate that lives in a document is a
+warning, a gate that lives in the driver is a gate.</li>
+</ul>
+<p>Three more rules came out of the same period and are enforced rather
+than advised:</p>
+<ol type="1">
+<li><strong>Five queries per need.</strong> Identical query lists put
+the same candidates in every folder, and the global dedup then leaves
+half the needs with nothing.</li>
+<li><strong>Every never-list names its beat.</strong> A global "no
+Kanao" rule once rejected the very need whose line was about meeting
+Kanao. Constraints are per beat.</li>
+<li><strong>Pixel review at full 1080 by 1920.</strong> Six frames
+passed at 640 pixels and failed at full resolution.</li>
+</ol>
+<hr />
+<h2 id="6-the-channels-and-the-output">6. The channels and the
+output</h2>
+<p>Three channels publish on YouTube, and the same episodes also run on
+TikTok, Instagram and Facebook.</p>
+<div class="tablewrap"><table>
+<thead>
+<tr class="header">
+<th>Channel</th>
+<th>Subject</th>
+<th>Handle on YouTube</th>
+<th>Videos public on YouTube</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Forgotten Fronts</td>
+<td>The events, regimes and people history skipped over</td>
+<td>@forgottenfronts0</td>
+<td>24</td>
+</tr>
+<tr class="even">
+<td>Proof Tested</td>
+<td>Watches, engines and instruments, put through the test</td>
+<td>@proof.tested</td>
+<td>18</td>
+</tr>
+<tr class="odd">
+<td>Super Zenpai</td>
+<td>Demon Slayer lore, vertical narration-driven</td>
+<td>@zenpaianime</td>
+<td>15</td>
+</tr>
+</tbody>
+</table></div>
+<p>Counts are distinct published videos counted from the posting ledger
+on 24 November 2026. A further 19 episodes were scheduled and not yet
+public.</p>
+<p>One episode is documented in full on this site as a worked example of
+the gate: Forgotten Fronts EP_MUSASHI, 40.1 seconds, 19 frames, 15
+claims verified against the source and 2 cut, shipped on 27 October
+2026. It kept 65.3% of its viewers past the midpoint on its first day,
+with 876 first-day views. Retention is the format signal for a channel
+like this, and it is the number the pipeline is built to protect.</p>
+<hr />
+<h2 id="7-the-publishing-layer">7. The publishing layer</h2>
+<p>Publishing is scheduled work, and scheduled work fails quietly. Two
+mechanisms cover that.</p>
+<p><strong>A registry and a ledger.</strong> 18 named scheduled jobs run
+under one registry, so every expected run has a known name. Each run
+writes one append-only record to a JSONL ledger, 3,284 records so far. A
+job that fired and failed therefore leaves different evidence from a job
+that never ran, which is the only way to tell those two apart after the
+fact.</p>
+<p><strong>Claims.</strong> Before any actor builds or publishes an
+episode, it takes a claim, a lease with an expiry. The cron job, the
+supervisor and an interactive session all take claims through the same
+control script, so the same episode is not built twice, and a crashed
+build releases its claim rather than blocking the channel forever.</p>
+<p>The posting ledger itself is the record of what went out: one line
+per post with the title, the video id, the upload time and the schedule.
+It is the source for the published counts in section 6, and it is what
+makes the difference between "the slot passed" and "the video is public"
+a question with an answer.</p>
+<hr />
+<h2 id="8-the-model-gateway">8. The model gateway</h2>
+<p>Every model call in this system goes through one gateway, and that is
+a deliberate constraint rather than a convenience.</p>
+<p>The gateway chooses the model and the service for a job, applies a
+spend ceiling before the call goes out, serves a cached answer when the
+same request has already been made, retries one known transport failure,
+quarantines a response that burned reasoning tokens and returned no
+content, and writes one record per call with the job, the model, the
+token counts and the cost where the provider returned it.</p>
+<p>Measured on the ledger on 24 November 2026:</p>
+<div class="tablewrap"><table>
+<thead>
+<tr class="header">
+<th>Measure</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Calls recorded since 9 October 2026</td>
+<td>53,054</td>
+</tr>
+<tr class="even">
+<td>Media jobs recorded</td>
+<td>988, of which 942 succeeded and 46 failed</td>
+</tr>
+<tr class="odd">
+<td>Uploads recorded</td>
+<td>58</td>
+</tr>
+</tbody>
+</table></div>
+<p>That is what makes the rest of the system auditable. A stage that ran
+a model can be read back after the fact: which model, which prompt, how
+many tokens, what it cost, and whether the answer was accepted or
+quarantined.</p>
+<hr />
+<h2 id="9-honest-limitations">9. Honest limitations</h2>
+<ul>
+<li><strong>The published count is not an audience measure.</strong> 57
+is what the ledger says is public. It is not a view count, and apart
+from the first Forgotten Fronts episode this report does not carry
+per-episode audience numbers.</li>
+<li><strong>The gates have thresholds, not a published pass
+rate.</strong> The shot bound, the duration tolerance and the coverage
+rule are explicit and fileable, but the evidence does not carry a
+measured pass rate for the gates as a whole.</li>
+<li><strong>The visual check can come back incomplete.</strong> It is
+one model call on a clip. The OCR pass is advisory, because its measured
+hit rates are weak, and the caption styling check is deterministic but
+narrow.</li>
+<li><strong>The ledger counts attempts, not completions.</strong> 46 of
+988 media jobs failed, and the failed ones are recorded as failures
+rather than silently dropped, which is the point, but the completion
+rate is not a claim about quality.</li>
+<li><strong>The channel plans are hand-maintained.</strong> The subject
+lists, the subject ratios and the voice presets per channel are curated.
+The pipeline does not discover a new subject, and for the Anime Hive
+format there is no subject catalogue at all, which the format plan says
+out loud.</li>
+<li><strong>This is verified by inspection and by its own
+records.</strong> The claims here come from the pipeline's code, the
+posting ledger, the model ledger and the publishing state. No
+independent party has audited them.</li>
+</ul>
+<hr />
+<h2 id="10-reproduce-it">10. Reproduce it</h2>
+<p>The driver runs one episode, one stage at a time, and refuses to run
+a stage by hand:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/anime_hive/run_episode.py <span class="dt">\</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--brief</span> <span class="op">&lt;</span>episode<span class="op">&gt;</span>/brief.json <span class="dt">\</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--channel</span> <span class="op">&lt;</span>channel<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--root</span> <span class="op">&lt;</span>sourced-root<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--ep</span> <span class="op">&lt;</span>episode-dir<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--out</span> <span class="op">&lt;</span>episode-dir<span class="op">&gt;</span>/episode.mp4 <span class="dt">\</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--from</span> source</span></code></pre></div>
+<p>The gates can be run on their own, against an episode that already
+exists:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/anime_hive/gate_frames.py <span class="at">--root</span> <span class="op">&lt;</span>sourced-root<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--brief</span> <span class="op">&lt;</span>episode<span class="op">&gt;</span>/brief.json <span class="at">--stage</span> coverage</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/anime_hive/gate_frames.py <span class="at">--root</span> <span class="op">&lt;</span>sourced-root<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--brief</span> <span class="op">&lt;</span>episode<span class="op">&gt;</span>/brief.json <span class="at">--stage</span> provenance <span class="at">--ep</span> <span class="op">&lt;</span>episode-dir<span class="op">&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/zenpai/watch_gate.py <span class="op">&lt;</span>episode-dir<span class="op">&gt;</span> --brief <span class="op">&lt;</span>episode<span class="op">&gt;</span>/brief.json</span></code></pre></div>
+<p>The publishing state, the claims and the per-channel counts come from
+one read-only command:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/pipeline/state.py</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> scripts/pipeline/control.py claims</span></code></pre></div>
+<p>What cannot be reproduced from the repository alone is the media
+generation itself, which needs provider keys and credits, and the
+upload, which needs the signed-in channel accounts.</p>
+<hr />
+<h2 id="11-terms-used-in-this-report">11. Terms used in this report</h2>
+<ul>
+<li><strong>Beat.</strong> One line of the narration, with its planned
+visual moment.</li>
+<li><strong>Shot need.</strong> A beat that still needs an image, with
+the instruction that describes it.</li>
+<li><strong>Frame.</strong> One still image from a video, in this report
+a still chosen for a shot.</li>
+<li><strong>Verdict.</strong> The record a model writes about a
+candidate image: accept or reject, with the fields that justify it.</li>
+<li><strong>Brief.</strong> The file that carries the channel, the
+script and the shot needs for one episode.</li>
+<li><strong>Episode.</strong> One finished video and its supporting
+files.</li>
+<li><strong>Gate.</strong> A check that can approve or refuse an
+episode.</li>
+<li><strong>Ledger.</strong> An append-only record, one line per
+event.</li>
+<li><strong>Claim.</strong> A lease an actor takes before it builds or
+publishes, so the same work is not done twice.</li>
+</ul>
+
+<div class="lateral"><a class="latnav prev" href="/p/image-qa/">&larr; Image QA Gate<span>which error to make</span></a><a class="latnav next" href="/cv/">CV &rarr;<span>the short version</span></a></div>
+<div class="endnav">
+  <a class="cta cta-ghost" href="/#episode-pipeline">&larr; All work</a>
+  <a class="cta cta-ghost" href="/cv/">CV</a>
+  <a class="cta cta-ghost" href="https://github.com/iamtamilore">GitHub</a>
+</div>
+<footer>
+  <div>Taiwo Alabi &middot; <a href="mailto:newalabitaiwo625@gmail.com">newalabitaiwo625@gmail.com</a>
+   &middot; <a href="https://www.linkedin.com/in/tami-alabi/">LinkedIn</a>
+   &middot; <a href="https://github.com/iamtamilore">GitHub</a></div>
+  <div class="util-footer"><a href="/work/">work</a>
+   &middot; <a href="/bank-pwa/">bank</a></div>
+</footer>
+</div>
+
+<div class="theme-picker" role="group" aria-label="colour theme">
+  <button type="button" class="theme-dot" data-set-theme="g5" style="--sw:#ff7a3d" title="G5 Tri-X" aria-pressed="true"></button>
+  <button type="button" class="theme-dot" data-set-theme="teal" style="--sw:#3fc2b4" title="Teal &amp; Orange" aria-pressed="false"></button>
+  <button type="button" class="theme-dot" data-set-theme="contact" style="--sw:#b8541f" title="Contact Sheet" aria-pressed="false"></button>
+  <button type="button" class="theme-dot" data-set-theme="cyano" style="--sw:#175a9c" title="Cyanotype" aria-pressed="false"></button>
+</div>
+<script>
+(function () {
+  var K = "tw-theme", R = document.documentElement;
+  function M() {
+    var c = R.getAttribute("data-theme") || "g5";
+    var d = document.querySelectorAll("[data-set-theme]");
+    for (var i = 0; i < d.length; i++) {
+      d[i].setAttribute("aria-pressed", d[i].getAttribute("data-set-theme") === c ? "true" : "false");
+    }
+  }
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest ? e.target.closest("[data-set-theme]") : null;
+    if (!b) return;
+    var t = b.getAttribute("data-set-theme");
+    R.setAttribute("data-theme", t);
+    localStorage.setItem(K, t);
+    M();
+  });
+  M();
+})();
+</script>
+</body>
+</html>

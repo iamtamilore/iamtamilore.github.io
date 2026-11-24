@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
 <link rel="stylesheet" href="/assets/css/design-system.css">
 <link rel="stylesheet" href="/assets/css/mark-zero.css">
-<meta name="description" content="Stage 2 of the five-stage pipeline: from beat to contact sheet to chosen still. Five queries, vs-hero ranking, scoped NEVER rules, drift fix.">
+<meta name="description" content="Stage 5 of the eight-stage build: from beat to contact sheet to chosen still. Five queries, scoped NEVER rules, a review verdict, and the drift fix.">
 <style>
 body { color: var(--text); font-family: 'Quicksand', var(--font); line-height: 1.5; }
 .wrap { max-width: 960px; margin: 0 auto; padding: var(--space-6) var(--space-4); }
@@ -64,12 +64,12 @@ em { color: var(--text); font-style: italic; }
 
   <header>
     <h1>Contact Sheets - how a beat becomes a still</h1>
-    <p class="lede">Stage 2 of the five-stage pipeline. The selector takes a beat, writes five queries, fetches candidate stills from the source article, ranks them against the hero reference, and picks the highest-scoring candidate within the reject rules. Every step has a measured cost and a rule that closes one class of failures.</p>
+    <p class="lede">Stage 5 of the eight-stage build. The selector takes a shot need, writes five queries, fetches candidate stills from the source, and picks one per need within the reject rules. Every step has a measured cost and a rule that closes one class of failures.</p>
   </header>
 
   <section>
-    <h2>Stage 2: Select - from beat to chosen still</h2>
-    <p>For each beat in the audio, the selector pulls candidate stills from the source article and ranks them against the locked hero reference. Highest score wins, subject to the reject rules. The hero reference is held out of the active run, so the calibration is not contaminated.</p>
+    <h2>Stage 5: Select - from shot need to chosen still</h2>
+    <p>For each shot need in the brief, the selector pulls candidate stills from the source and judges them against the brief itself: is this the right subject, does it carry this beat, does it break a reject rule. The model reads, the code counts. Three verdicts, not two, so a good image that is wrongly shaped or partly occluded is put up for review instead of being dropped quietly.</p>
 
     <h3>The five-query rule</h3>
     <p>Identical queries across needs put the same 50 jpgs in every folder. The selector dedups globally, so half the needs see nothing. Five queries per need, character name first, plus a per-need verb:</p>
@@ -81,8 +81,8 @@ em { color: var(--text); font-style: italic; }
   "{location} {scene}",
 ]</div>
 
-    <h3>The ranking - vs the hero reference</h3>
-    <p>Every candidate gets scored against the locked hero reference frame using cosine similarity. Highest score wins, subject to the reject rules.</p>
+    <h3>What the model decides and what the code decides</h3>
+    <p>The model says where the meaning lives and whether the beat and the subject are right. Every piece of arithmetic stays in code: aspect ratio, the largest 9:16 rectangle that fits inside the model's safe box, pixel conversion. Models are unreliable at pixel maths and reliable at semantics, so the split is not a preference.</p>
 
     <h3>The reject rules - never generic, always named to the beat</h3>
     <p>A blanket rule like "no Kanao" or "no romance" rejected the wrong needs - the very need where the forbidden character IS the subject, or where romance IS the subject. Every NEVER names its beat. Hard character constraints stay absolute but the constraint is per-beat, not global:</p>
@@ -129,7 +129,7 @@ NEVER:
 
   <section>
     <h2>The three rules this stage enforces</h2>
-    <p>These are the rules that belong specifically to Stage 2. The other three live on the main workflow page.</p>
+    <p>These are the rules that belong specifically to the select stage. The other three live on the main workflow page.</p>
 
     <div class="cs-rules">
       <div class="cs-rule">

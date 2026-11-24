@@ -121,8 +121,8 @@ body { color: var(--text); font-family: 'Quicksand', var(--font); line-height: 1
 
  <section class="scene-card">
  <h2>The QA gate that ran</h2>
- <p>Every scene was measured against two reference images using the same gate that runs on every frame in every batch, <code>qa_selector.py</code> (ResNet50 cosine similarity, threshold M16.8, 16.9 calibrated on a reference bank held out from the active training run).</p>
- <p>The pass/fail criterion is: both <em>vs-seed</em> and <em>vs-hero</em> stay within the calibrated band for the scene type. Catastrophic divergence triggers an automatic regenerate; stylistic drift within tolerance does not. See the <a href="/products/blueprint.html">blueprint page</a> for the full gate logic, the regeneration budget, and the calibrated thresholds.</p>
+ <p>Every scene was measured against two reference images by the gate that ran on this episode on 4 July 2026, <code>qa_selector.py</code> (ResNet50 cosine similarity, threshold M16.8, 16.9 calibrated on a reference bank held out from the active training run). This page is kept as the record of that run. The channels do not use this gate now: the live pipeline checks coverage, provenance, shot length and five properties of the rendered file instead.</p>
+ <p>The pass/fail criterion is: both <em>vs-seed</em> and <em>vs-hero</em> stay within the calibrated band for the scene type. Catastrophic divergence triggers an automatic regenerate; stylistic drift within tolerance does not. The <a href="/products/blueprint.html">blueprint page</a> describes the pipeline that runs now, and the <a href="/p/episode-pipeline/">episode pipeline case study</a> covers the gates that run on every published episode.</p>
  <h3>Raw QA JSON</h3>
  <pre style="font-family: var(--font-mono); font-size: var(--text-xs); background: var(--surface-1); padding: var(--space-4); border-radius: 8px; overflow-x: auto;">{
  "s1_establish": [
@@ -145,8 +145,8 @@ body { color: var(--text); font-family: 'Quicksand', var(--font); line-height: 1
 
  <section class="scene-card">
  <h2>What the brand sees vs what the agent does</h2>
- <p>The brand receives three video files and a single QA report. They do not see the prompts, the regeneration logic, or the threshold tuning. That's the whole point of the gate, the brand signs off on "the character looks like the character", not on the mechanism that ensures it.</p>
- <p>For brands that want to see the mechanism, to verify the work is auditable, not just trusted, this page is the entry. The full production system is documented in the <a href="/products/blueprint.html">blueprint</a>; the higher-end version (the luxury tier that adds a four-ward expert routing panel, an AIDM Thompson-sampling credit allocator, and an EEAI leakage audit) is on the same blueprint at the <code>luxury</code> tier.</p>
+ <p>The brand receives three video files and a single QA report. They do not see the prompts, the regeneration logic, or the threshold tuning. That's the whole point of the gate: the brand signs off on "the video is what the brief asked for", not on the mechanism that ensures it.</p>
+ <p>For brands that want to see the mechanism, to verify the work is auditable, not just trusted, this page is the entry. The production system that runs today is documented in the <a href="/products/blueprint.html">blueprint</a>, and the gate behaviour on a real episode, including the findings that were false, is written up in the <a href="/p/episode-pipeline/">episode pipeline case study</a>.</p>
  </section>
 
  <div style="text-align:center;margin: var(--space-8) 0;">
