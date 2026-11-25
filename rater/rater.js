@@ -168,8 +168,15 @@
     // full-size file would make every phone download all 1.9MB, which is the
     // exact cost this change exists to remove. Assigning srcset directly makes
     // the browser fetch exactly one candidate.
-    var small = 'assets/img-sm/' + item.id + '.jpg';
-    var full = 'assets/img/' + item.id + '.png';
+    // The image path is built from the item's own image field, never from the
+    // item identifier. The identifier is a slot label, and for part of the
+    // roster the file named after the slot is not the file that item is
+    // declared to show, so a path built from the identifier served the wrong
+    // stimulus on 39 of the 80 slots that resolved, and 404 on the 5 slots
+    // beyond the end of the file range. The small candidate is the matching
+    // img-sm counterpart of that same path.
+    var full = item.image;
+    var small = full.replace(/^assets\/img\//, 'assets/img-sm/').replace(/\.png$/, '.jpg');
     elImg.srcset = small + ' 768w, ' + full + ' 1254w';
     elImg.sizes = '(max-width: 700px) 100vw, 1000px';
     elImg.src = full;            // fallback for a browser that ignores srcset
